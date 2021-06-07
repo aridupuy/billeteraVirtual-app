@@ -1,0 +1,61 @@
+//Texto
+.light {
+    font-weight: 300;
+}
+.regular {
+    font-weight: 400;
+}
+.medium {
+    font-weight: 500;
+}
+.semi-bold {
+    font-weight: 600;
+}
+.bold {
+    font-weight: 700;
+}
+.link {
+    color: $link-color;
+    font-size: 12px;
+    width: 100%;
+    font-weight: 600;
+    text-decoration: underline;
+    padding-bottom: 5px;
+}
+h1 {
+    font-family: 'Rubik', sans-serif;
+    color: $dark-gray;
+    font-size: 21px;
+    font-weight: 600;
+    white-space: pre-line;
+}
+h2 {
+    font-family: 'Rubik', sans-serif;
+    color: $dark-gray;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: pre-line;
+}
+p {
+    font-size: 12px;
+}
+.align-left {
+    text-align: left;
+}
+.align-center {
+    text-align: center;
+}
+.align-right {
+    text-align: right;
+}
+
+ion-title {
+    text-transform: uppercase;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    color: $dark-gray;
+    text-align: center;
+}
+.white-text {
+    color: white;
+}

@@ -1,0 +1,82 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+// Fonts
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&display=swap');
+
+//Colores
+$principal: #007c68;
+$background-splash: #0f0043;
+$btn-inactivo-bg: #eaeaea;
+$btn-inactivo-txt: #9a9a9a;
+$btn-activo-bg: #007c68;
+$btn-activo-text: #fff;
+$link-color: #09B59A;
+$dark-gray: #414141;
+
+$btn-seleccion-bg: #09b59a;
+$btn-seleccion-text: #fff;
+
+$border: #707070;
+$border-rgba: rgba(112, 112, 112,0.2);
+$error: #eb445a;
+$warning: rgba(255, 196, 9,0.3);
+$success: #2fdf75;
+$white: #fff;
+
+$home-button-bg: #F7F7F7;
+// 1. Botones
+@import 'theme/botones.scss';
+// 2. Textos
+@import 'theme/textos.scss';
+// 3. Contenedores
+@import 'theme/contenedores.scss';
+// 4. Imagenes Pages Full-Width (debe ir fuera de /theme porque sino no toma el background url)
+@import 'imagenes.scss';
+// 5. Clases CSS Generales
+@import 'theme/estilos.scss';
+// 6. Animaciones KeyFrames
+@import 'theme/animaciones.scss';
+// 7. Componentes de Formularios e Inputs
+@import 'theme/formularios.scss';
+// 8. Alertas
+@import 'theme/alertas.scss';
+// 9. Componentes
+@import 'theme/componentes.scss';
+// 10. Seccion Home
+@import 'theme/sections/home.scss';
+// 11. Seccion Menu
+@import 'theme/sections/menu.scss';
+// 12. Secciones de Cuenta
+@import 'theme/sections/cuenta.scss';
+// 13. Secciones de Amigos
+@import 'theme/sections/amigos.scss';
+// 14. Media Querys para diferentes tamaños
+@import 'theme/responsive.scss';
+
+

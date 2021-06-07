@@ -1,0 +1,93 @@
+// TABLET FUENTES
+@media screen and (min-height: 1000px) and (orientation: portrait) {
+    h1 {
+        font-size: 210%;
+    }
+    h2 {
+        font-size: 18px;
+    }
+    p {
+        font-size: 120%;
+    }
+    ion-input, ion-textarea, ion-label {
+        font-size: 18px !important;
+    }
+    .validationMsg .msg {
+        font-size: 16px;
+    }
+    .tyc {
+        font-size: 16px !important;
+    }
+    .link {
+        font-size: 16px;
+    }
+    .btn-round {
+        font-size: 22px;
+    }
+    .home-main {
+        .contenedor-90 {
+            .user-header {
+                .avatar {
+                    width: 70px;
+                    height: 70px;
+                    font-size: 190%;
+                }
+                .user-info {
+                    .cvu {
+                        font-size: 100%;
+                    }
+                    .bienvenida {
+                        font-size: 180%;
+                    }
+                }
+            }
+            .button-container {
+                .saldo {
+                    h2 {
+                        font-size: 110%;
+                    }
+                    .saldoUsuario {
+                        font-size: 280% ;
+                    }
+                }
+                .botonera {
+                    img {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}
+// TABLET
+@media screen and (max-height:800px) and (orientation: landscape) {
+    .centrado {
+        --padding-top: 10%;
+    }
+}
+// CELULAR CHICO BTN ONBOARDING
+@media screen and (max-height: 750px) {
+    .onboarding-btn-group {
+        position: relative;
+        bottom: 0;
+        margin-top: 5%;
+    }
+}
+//CELULAR CHICO
+@media screen and (max-height:650px) and (orientation: portrait) {
+    .centrado {
+        --padding-top: 10%;
+    }
+    ion-progress-bar {
+        position: relative;
+    }
+}
+//CELULAR CHICO HORIZONTAL
+@media screen and (max-height:400px) and (orientation: landscape) {
+    .centrado {
+        --padding-top: 0%;
+    }
+    ion-progress-bar {
+        position: relative;
+    }
+}

@@ -1,0 +1,114 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="home" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Amigos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content center class="amigos">
+  <div class="contenedor-90">
+    <div class="botonera">
+      <div class="boton pedir-dinero">
+        <img src="assets/img/amigos/pedir-dinero.svg" alt="Pedir dinero a un amigo">
+        <p>Pedir  <br> dinero</p>
+      </div>
+      <div class="boton enviar-dinero">
+        <img src="assets/img/amigos/enviar-dinero.svg" alt="Enviar dinero a un amigo">
+        <p>Enviar <br> dinero</p>
+      </div>
+    </div>
+    <h1>Lista de amigos</h1>
+    <h2>Tus amigos</h2>
+    <ion-searchbar mode="ios" placeholder="Buscar"></ion-searchbar>
+    <ion-list class="lista-amigos">
+      <ion-item class="amigo-wrapper">
+        <div class="amigo">
+          <div class="avatar-wrapper">
+            <div class="avatar">
+              RF
+            </div>
+          </div>
+          <div class="info-amigo">
+            <h2 class="nombre">Martín Lopez</h2>
+            <span class="alias">Trabajo</span>
+          </div>
+          <div class="icon">
+            <ion-icon name="checkmark-circle" color="secondary"></ion-icon>
+          </div>
+        </div>
+      </ion-item>
+      <ion-item class="amigo-wrapper">
+        <div class="amigo">
+          <div class="avatar-wrapper">
+            <div class="avatar">
+              RF
+            </div>
+          </div>
+          <div class="info-amigo">
+            <h2 class="nombre">Martín Lopez</h2>
+            <span class="alias">Trabajo</span>
+          </div>
+          <div class="icon">
+            <ion-icon name="add-circle-outline" color="secondary"></ion-icon>
+          </div>
+        </div>
+      </ion-item>
+      <ion-item class="amigo-wrapper">
+        <div class="amigo">
+          <div class="avatar-wrapper">
+            <div class="avatar">
+              RF
+            </div>
+          </div>
+          <div class="info-amigo">
+            <h2 class="nombre">Martín Lopez</h2>
+            <span class="alias">Trabajo</span>
+          </div>
+          <div class="icon">
+            <ion-icon name="checkmark-circle" color="secondary"></ion-icon>
+          </div>
+        </div>
+      </ion-item>
+      <ion-item class="amigo-wrapper">
+        <div class="amigo">
+          <div class="avatar-wrapper">
+            <div class="avatar">
+              RF
+            </div>
+          </div>
+          <div class="info-amigo">
+            <h2 class="nombre">Martín Lopez</h2>
+            <span class="alias">Trabajo</span>
+          </div>
+          <div class="icon">
+            <ion-icon name="add-circle-outline" color="secondary"></ion-icon>
+          </div>
+        </div>
+      </ion-item>
+      <ion-item class="amigo-wrapper">
+        <div class="amigo">
+          <div class="avatar-wrapper">
+            <div class="avatar">
+              RF
+            </div>
+          </div>
+          <div class="info-amigo">
+            <h2 class="nombre">Martín Lopez</h2>
+            <span class="alias">Trabajo</span>
+          </div>
+          <div class="icon">
+            <ion-icon name="add-circle-outline" color="secondary"></ion-icon>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
+  <div class="onboarding-btn-group">
+    <a (click)="agregarAmigo()" class="link">Agregar nuevo</a>
+    <div class="btn-round activo" (click)="Confirmar()">
+      Continuar
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,29 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+   
+  </ion-toolbar>
+</ion-header>
+<ion-content class="centrado">
+  <div class="imagen">
+    <img src="assets/img/registrofinalizado.svg" alt="">
+  </div>
+  <div class="contenedor-90">
+    <h1 class="align-center">{{mensaje_titulo}}
+    <br>{{mensaje2}}</h1>
+    <p class="align-center">{{mensaje}}</p>
+  
+  
+</div>
+<div class="onboarding-btn-group">
+  <div class="btn-round activo" *ngIf="!mensaje" (click)="Ingresar()">
+    Ingresar
+  </div>
+  <div class="btn-round activo" *ngIf="mensaje" (click)="reintentar()">
+    Reintentar
+  </div>
+</div>
+
+</ion-content>
+<ion-footer>
+  <ion-progress-bar color="primary" value="1"></ion-progress-bar>
+</ion-footer>

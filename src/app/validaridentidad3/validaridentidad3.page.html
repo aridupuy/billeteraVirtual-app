@@ -1,0 +1,17 @@
+<ion-content *ngIf="mostrar">
+  <div class="overlay" #fot3>
+    <div class="contenedor-90 pt-10">
+      <h1 class="align-center white-text">Y ahora, una selfi</h1>
+      <p class="align-center white-text">¡Hora de conocerte! Colocá tu cara dentro del círculo. Si usás anteojos, o algo que tape tu rostro, vas a tener que sacártelos por un ratito. </p>
+      <div class="camframe">
+      </div>
+    </div>
+    <div class="onboarding-btn-group">
+      <a  class="link">No puedo en este momento</a>
+      <div class="btn-round activo" (click)="takePicture()">
+        <ion-icon name="camera-outline"></ion-icon>Sacar foto
+      </div>
+    </div>
+  </div>
+  <div id="cameraPreview"></div>
+</ion-content>

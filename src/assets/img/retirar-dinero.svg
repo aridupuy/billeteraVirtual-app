@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60">
+  <g id="Grupo_1771" data-name="Grupo 1771" transform="translate(-202 -258)">
+    <g id="Grupo_1767" data-name="Grupo 1767" transform="translate(174 10)">
+      <rect id="Rectángulo_354" data-name="Rectángulo 354" width="60" height="60" rx="7" transform="translate(28 248)" fill="#f7f7f7"/>
+      <text id="Retirar_dinero" data-name="Retirar
+dinero" transform="translate(58 291)" fill="#414141" font-size="10" font-family="Rubik-Regular, Rubik"><tspan x="-15.715" y="0">Retirar</tspan><tspan x="-14.735" y="10">dinero</tspan></text>
+    </g>
+    <g id="Grupo_1758" data-name="Grupo 1758" transform="translate(164.591 268)">
+      <path id="Trazado_4590" data-name="Trazado 4590" d="M73.281,106.769H69.5v1.1h3.776a1.649,1.649,0,0,1,1.648,1.648v2.38H70.9a2.746,2.746,0,1,0,0,5.492h4.027v2.38a1.649,1.649,0,0,1-1.648,1.648H59.734a1.649,1.649,0,0,1-1.648-1.648V109.515a1.649,1.649,0,0,1,1.648-1.648h4.327v-1.1H59.734a2.749,2.749,0,0,0-2.746,2.746v10.252a2.749,2.749,0,0,0,2.746,2.746H73.281a2.749,2.749,0,0,0,2.746-2.746V109.515A2.749,2.749,0,0,0,73.281,106.769Zm1.648,9.519H70.9a1.648,1.648,0,1,1,0-3.3h4.027Z" transform="translate(1.421 -101.323)" fill="#414141"/>
+      <g id="Grupo_1757" data-name="Grupo 1757" transform="translate(71.773 12.768)">
+        <g id="Grupo_1756" data-name="Grupo 1756" transform="translate(0 0)">
+          <path id="Trazado_4591" data-name="Trazado 4591" d="M335.61,258.736h-.732a.549.549,0,1,0,0,1.1h.732a.549.549,0,1,0,0-1.1Z" transform="translate(-334.329 -258.736)" fill="#414141"/>
+        </g>
+      </g>
+      <path id="Trazado_4592" data-name="Trazado 4592" d="M178.576.584V6.858a.754.754,0,0,0,.755.755h0a.754.754,0,0,0,.755-.755V.584c0-.005.005-.005.005,0l2.482,2.482A.755.755,0,0,0,183.641,2l-3.776-3.776a.751.751,0,0,0-1.067,0L175.022,2a.756.756,0,0,0,.035,1.1.77.77,0,0,0,1.047-.05L178.576.584Z" transform="translate(-111.403)" fill="#6c00ff"/>
+    </g>
+  </g>
+</svg>

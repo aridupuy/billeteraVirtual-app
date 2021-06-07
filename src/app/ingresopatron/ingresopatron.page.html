@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Iniciar Sesión</ion-title>  
+  </ion-toolbar>
+</ion-header>
+<ion-content class="centrado">
+  <div class="imagen pt-10">
+    <img src="assets/img/ingresopatron.svg" alt="">
+  </div>
+  <div class="contenedor-90">
+    <h1 class="align-center">¡Hola! <br>
+      NombreUsuario</h1>
+    <p class="align-center">Para ingresar, usá el patrón, huella o pin
+      que utilizás para desbloquear tu celular.</p>
+    <button (click)="showFingerprintAuthDlg()">MOSTRAR DIALOGO DE HUELLA</button>
+  </div>
+
+<div class="onboarding-btn-group">
+  <a (click)="LostPassword()" class="link">Olvidé la contraseña</a>
+  <div class="btn-round inactivo" (click)="Ingresar()">
+    Ingresar
+  </div>
+</div>
+</ion-content>
+

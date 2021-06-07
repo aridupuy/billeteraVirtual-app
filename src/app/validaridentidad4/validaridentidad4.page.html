@@ -1,0 +1,19 @@
+<ion-content>
+  <div class="overlay" *ngIf="visible">
+    <div class="contenedor-90 pt-10">
+      <h1 class="align-center white-text">
+        Por último, una selfie con tu DNI
+        </h1>
+      <p class="align-center white-text">Colocá tu rostro y tu documento dentro del círculo. Ambos deben verse por completo y de frente. Tip: ubicate en un lugar con buena luz para que todo sea más legible</p>
+      <div class="camframe">
+      </div>
+    </div>
+    <div class="onboarding-btn-group">
+      <a  class="link">No puedo en este momento</a>
+      <div class="btn-round activo" (click)="takePicture()">
+        <ion-icon name="camera-outline"></ion-icon>Sacar foto
+      </div>
+    </div>
+  </div>
+  <div id="cameraPreview"></div>
+</ion-content>

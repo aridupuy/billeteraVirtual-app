@@ -1,0 +1,7 @@
+{
+  "name": "efectivodigitalapp",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

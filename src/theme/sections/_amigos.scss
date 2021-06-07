@@ -1,0 +1,17 @@
+.amigos{
+    .contenedor-90 {
+        padding: 5% 0;
+        .botonera {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            padding: 10% 0;
+            .boton {
+                text-align: center;
+                margin: 0 20px;
+            }
+        }
+    }
+}

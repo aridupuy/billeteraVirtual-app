@@ -1,0 +1,34 @@
+//Contenedor
+.contenedor-80 {
+    max-width: 80%;
+    position: relative;
+    margin: auto;
+}
+.contenedor-90 {
+    max-width: 90%;
+    position: relative;
+    margin: auto;
+}
+
+ion-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    position: relative;
+}
+ion-item {
+ --padding-start: 0;
+}
+ion-footer {
+    position: relative;
+    margin: auto;
+    background: #fff;
+    color: $dark-gray;
+}
+.option-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}

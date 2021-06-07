@@ -1,0 +1,123 @@
+//Forms
+.form {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+}
+.datospersonales {
+    padding-top: 10%;
+    h2 {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+    }
+    p {
+        width: 100%;
+        color: $btn-inactivo-txt
+    }
+    .dato {
+        padding: 10px 0;
+    }
+    .checkbox {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-content: center;
+        align-items: center;
+        p {
+            width: auto;
+            padding-left: 10px
+        }
+    }
+}
+.input-container {
+    margin: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    width: 100%;
+}
+.input-container.with-label ion-icon {
+    margin: 0 5px;
+    position: relative;
+    right: 5px;
+    bottom: -10px;
+}
+.confirma-sms {
+    justify-content: space-evenly;
+}
+.align-items-flex-end {
+    align-items: flex-end;
+    -webkit-align-items: flex-end;
+}
+ion-input, ion-textarea {
+    font-size: 13px !important;
+    width: 100%;
+}
+.sc-ion-textarea-ios-h {
+    --background: #f2f2f2;
+}
+ion-label {
+    font-weight: 600;
+    color: $dark-gray;
+    font-size: 13px !important;
+    width: 100%;
+}
+ion-radio {
+    width: 12px;
+    height: 12px;
+}
+ion-checkbox, ion-radio {
+    margin: 15px 0;
+    border-radius: 5px;
+    color: #707070;
+}
+.checkbox-group-horizontal {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+    justify-content: flex-start;
+    padding: 0;
+}
+.checkbox-group-horizontal ion-label {
+    width: 30%;
+}
+
+
+.validationMsg {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    animation-name: opacityup;
+    animation-duration: 2s;
+}
+.validationMsg .msg {
+    font-size: 12px;
+    color: $dark-gray;
+    width: 50%;
+}
+.validationMsg .msg.full.danger {
+    color: $error;
+    width: 100%;
+}
+.validationMsg ion-icon {
+    font-size: 14px;
+}
+.number-code {
+    width: 50px;
+    text-align: center;
+}
+.number-code input {
+    --padding-end: 0;
+}
+.timer {
+    width: 100%;
+    text-align: center;
+}

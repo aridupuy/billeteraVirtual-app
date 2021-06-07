@@ -1,0 +1,37 @@
+.camframe {
+    background: transparent;
+    height: 300px;
+    width: 300px;
+    margin: 10% auto;
+    border: 2px solid #007c68;
+    border-radius: 50%;
+}
+#camera_loader {
+    border-radius: 30px;
+}
+.overlay {
+    position: absolute;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    background: transparent;
+    width: 100vw;
+    height: 100vh;
+}
+#cameraPreview {
+    z-index: -1;
+}
+html, body, .ion-app, .ion-content, ion-content{
+    background-color: transparent;
+    background: transparent;
+    --background: transparent;
+  }
+ion-content { --background: transparent;}
+
+.onboarding-btn-group {
+    position: relative !important;
+    bottom: 0 !important;
+}
+h1,p {
+    text-shadow: 0px 0px 3px #000000;
+}

@@ -1,0 +1,26 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="centrado">
+  <div class="imagen">
+    <img src="assets/img/validaridentidad.svg" alt="">
+  </div>
+  <div class="contenedor-90">
+    <h1 class="align-center">¡Genial! Ahora vamos a sacar unas fotos</h1>
+    <p class="align-center">Necesitamos validar tu identidad. Prepará la cámara del celu, buscá un lugar con buena luz y tené a mano tu DNI. Si usás gorra, anteojos o algo que tape tu rostro vas a tener que sacártelos por un rato.
+    </p>
+  
+  
+</div>
+<div class="onboarding-btn-group">
+  <a (click)="NoPuedo()" class="link">No puedo en este momento</a>
+  <div class="btn-round activo" (click)="Continuar()">
+    Continuar
+  </div>
+</div>
+
+</ion-content>
+<ion-footer>
+  <ion-progress-bar color="primary" value="0.3"></ion-progress-bar>
+</ion-footer>

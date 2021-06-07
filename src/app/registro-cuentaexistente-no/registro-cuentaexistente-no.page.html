@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="/registro-cuentaexistente" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content center>
+<div class="contenedor-90" style="height:60vh;">
+  <h1 class="align-left">Yo no creé la cuenta
+  </h1>
+  <p class="align-left">Si no fuiste vos quien creó esta cuenta te pedimos que te contactes con nosotros así podemos ver qué es lo que pasa.</p>
+  <p class="align-left">Si de todas formas querés continuar con el registro, deberás elegir otros datos, ya que los que ingresaste están en nuestra base, como te contamos antes.</p>
+</div>
+<div class="onboarding-btn-group">
+  <a (click)="Contactarme()" class="link">No creé esta cuenta. Quiero contactarme</a>
+  <div class="btn-round activo" (click)="Registro()">
+    Reintentar Registro
+  </div>
+</div>
+</ion-content>
+<ion-footer>
+  <ion-progress-bar color="primary" value="0.5"></ion-progress-bar>
+</ion-footer>

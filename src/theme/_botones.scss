@@ -1,0 +1,79 @@
+//Botones
+.btn-round {
+    padding: 15px 45px;
+    border-radius: 30px;
+    margin: 10px 0;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    ion-icon {
+        padding-right: 5px;
+        font-size: 15px;
+        --ionicon-stroke-width: 50px;
+    }
+}
+
+.option-round {
+    padding: 15px 25px;
+    border-radius: 30px;
+    margin: 10px 5px;
+    font-weight: 400;
+    font-size: 12px;
+    width: 30%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    background: $btn-inactivo-bg;
+    color: $btn-inactivo-txt;
+    position: relative;
+    transition: padding-right 0.2s ease-in-out;
+    &.activo {
+        padding-right: 30px;
+    }
+    &.align-center{
+        ion-icon {
+            --ionicon-stroke-width: 30px;
+            font-size: 20px;  
+        }
+    }
+}
+
+.activo {
+    background: $btn-activo-bg;
+    color: $btn-activo-text;
+}
+.inactivo {
+    background: $btn-inactivo-bg;
+    color: $btn-inactivo-txt;
+}
+.warning-outline {
+    border: 1px solid $error;
+    color: $error;
+    ion-icon {
+        stroke: $error;
+    }
+}
+.success-outline {
+    border: 1px solid $success;
+    color: $success;
+    ion-icon {
+        stroke: $success;
+    }
+}
+
+.onboarding-btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    padding: 0 5%;
+    text-align: center;
+    bottom: 40px;
+    left: 0;
+}

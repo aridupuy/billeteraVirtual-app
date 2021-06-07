@@ -1,0 +1,25 @@
+import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
+
+@Component({
+  selector: 'app-validaridentidad-mastarde',
+  templateUrl: './validaridentidad-mastarde.page.html',
+  styleUrls: ['./validaridentidad-mastarde.page.scss'],
+})
+export class ValidaridentidadMastardePage implements OnInit {
+
+  constructor(private navCtrl : NavController) { }
+
+
+  ngOnInit() {
+  }
+  FotosExistentes(){
+    this.navCtrl.navigateForward(["validaridentidad-fotosexistentes",{}]);
+  }
+  MasTarde(){
+    this.navCtrl.navigateForward(["validaridentidad-mastarde1",{}]);
+  }
+  Problema(){
+    this.navCtrl.navigateForward(["validaridentidad-problema",{}]);
+  }
+}

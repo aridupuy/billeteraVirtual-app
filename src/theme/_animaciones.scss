@@ -1,0 +1,87 @@
+// ANIMACION
+
+// Spinner procesando fotos
+@keyframes girando {
+    0% { transform:rotate(0); }
+    100% { transform:rotate(360deg); }
+    
+  }
+@keyframes slideup {
+    0% { transform:translate(100%,300%);opacity: 0; }
+    30% { opacity: 0;}
+    100% { transform:translate(100%,200%);opacity: 1; }
+    
+  }
+  // Sube icono de confirmación (pagina procesandofotos)
+  @keyframes slideupIcon {
+    0% { top:70%;opacity: 0; }
+    30% { opacity: 0;}
+    100% { top:50%;opacity: 1; }
+    
+  }
+// Aparece con opacidad y se agranda
+@keyframes showup {
+    0% { opacity: 0; transform: scale(0.5);}
+    100% { opacity: 1; transform: scale(1);}
+}
+// Aparece con opacidad
+@keyframes opacityup {
+    0% { opacity: 0;}
+    100% {opacity: 1;}
+}
+
+// Animacion Confirmacion Boton
+@keyframes BotonSuccessRelleno {
+  0% {background-position:0 bottom;transition:all 2s ease;}
+  100% {background-position:-100% bottom;transition:all 2s ease;}
+}
+@keyframes BotonSuccessText {
+  0% {opacity: 1; content: 'Validando';}
+  50% {content: 'Validando';}
+  100% {content: 'Confirmado';}
+}
+.confirmation {
+  background: linear-gradient(to right, $btn-inactivo-bg 50%, $btn-activo-bg 50%);
+  background-size: 200% 100%;
+  background-position:right bottom;
+  transition:all 8s ease;
+  animation-name: BotonSuccessRelleno;
+  animation-duration: 6s;
+  color: $btn-activo-text;
+  &:before {
+    content: '';
+    animation-name: BotonSuccessText;
+    animation-duration: 10s;
+    animation-fill-mode: forwards;
+    color: $btn-activo-text;
+    transition: none;
+    }
+}
+
+// Animacion Fallo Boton
+@keyframes BotonErrorRelleno {
+  0% {background-position:0 bottom}
+  100% {background-position:-100% bottom;}
+}
+@keyframes BotonErrorText {
+  0% {opacity: 1; content: 'Validando';}
+  50% {content: 'Validando';}
+  100% {content: 'Error';}
+}
+.notconfirmation {
+  background: linear-gradient(to right, $btn-inactivo-bg 50%, $btn-activo-bg 50%);
+  background-size: 200% 100%;
+  background-position:right bottom;
+  transition:all 1s ease;
+  animation-name: BotonErrorRelleno;
+  animation-duration: 6s;
+  color: $btn-activo-text;
+  &:before {
+    content: '';
+    animation-name: BotonErrorText;
+    animation-duration: 10s;
+    animation-fill-mode:forwards;
+    color: $btn-activo-text;
+    transition: none;
+  }
+}

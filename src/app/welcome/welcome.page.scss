@@ -1,0 +1,23 @@
+.slider {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: flex-start;
+    position: relative;
+}
+.imagen {
+    width: 100%;
+}
+.imagen img {
+    max-width: 100%;
+}
+ion-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    position: relative;
+    height: 100vh;
+}

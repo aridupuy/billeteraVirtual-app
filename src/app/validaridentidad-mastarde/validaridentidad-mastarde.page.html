@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="/validaridentidad" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="centrado">
+  <div class="imagen">
+    <img src="assets/img/validaridentidad-mastarde.svg" alt="">
+  </div>
+  <div class="contenedor-90">
+    <h1 class="align-center">¿No podés sacar las fotos
+en este momento?</h1>
+    <p class="align-center">No te preocupes, podés continuar más tarde con el 
+proceso.
+    </p>
+  
+  
+</div>
+<div class="onboarding-btn-group">
+  <a (click)="Problema()" class="link">Tengo un problema</a>
+  <div class="btn-round activo" (click)="MasTarde()">
+    Quiero sacar las fotos más tarde
+  </div>
+</div>
+
+</ion-content>
+<ion-footer>
+  <ion-progress-bar color="primary" value="0.3"></ion-progress-bar>
+</ion-footer>

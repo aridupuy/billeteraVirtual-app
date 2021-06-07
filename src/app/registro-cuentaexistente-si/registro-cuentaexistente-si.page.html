@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="/registro-cuentaexistente" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content center>
+<div class="contenedor-90" style="height:60vh;">
+  <h1 class="align-left">La cuenta es mía pero 
+no puedo ingresar
+  </h1>
+  <p class="align-left"> Si creaste esta cuenta, vas a poder iniciar sesión con tu usuario y contraseña como lo hacés habitualmente. Y si olvidaste la clave, te ayudamos a recuperarla.</p>
+</div>
+<div class="onboarding-btn-group">
+  <a (click)="LostPassword()" class="link">Olvidé la contraseña</a>
+  <div class="btn-round activo" (click)="Ingreso()">
+    Ingresar de nuevo
+  </div>
+</div>
+</ion-content>
+<ion-footer>
+  <ion-progress-bar color="primary" value="0.5"></ion-progress-bar>
+</ion-footer>

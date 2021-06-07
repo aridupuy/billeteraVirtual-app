@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="/registro" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content center>
+<div class="contenedor-90">
+  <h1 class="align-left">
+    Continuemos
+  </h1>
+  <p class="align-left"> Con estos dos datos que falta ya terminamos la primera parte ¡Vas bien!.</p>
+ 
+  <div class="form"> 
+    
+    <div class="input-container">
+      <h2 class="align-left full">¿Cuál es tu número de celular?</h2>
+      <ion-item class="un-tercio">
+        <ion-input [(ngModel)]="codArea" (ngModelChange)="validar_celular()" type="number" placeholder="Cod.área"></ion-input>
+      </ion-item>
+      <ion-item class="tres-tercios">
+        <ion-input [(ngModel)]="celular" (ngModelChange)="validar_celular()" type="number" placeholder="Número" ></ion-input>
+        <ion-icon name="close-circle-sharp" *ngIf="celular &&  errorCel" slot="end" color="danger"></ion-icon>
+        <ion-icon name="checkmark-circle-sharp" *ngIf="celular && !errorCel" slot="end" color="success"></ion-icon>
+      </ion-item>
+    </div>
+    <div class="validationMsg" *ngIf="celular &&  errorCel">
+      <div class="msg full danger">
+        El número de celular que ingresaste no es válido. Intentá otra vez.
+      </div>
+    </div>
+  </div>
+  <div class="input-container">
+    <h2 class="align-left full">¿Cuál es tu número de DNI?</h2>
+    <ion-item class="full">
+      <ion-input type="tel" maxlength="8"></ion-input>
+    </ion-item>
+  </div>
+  <div class="validationMsg">
+    <div class="msg full danger">
+      El número de dni que ingresaste no es válido. Intentá otra vez.
+    </div>
+  </div>
+</div>
+<div class="onboarding-btn-group">
+  <div class="btn-round inactivo" *ngIf="!celular || !codArea || errorCel" >
+    Continuar
+  </div>
+  <div class="btn-round activo" *ngIf="celular && codArea && !errorCel" (click)="ConfirmaSms()">
+    Continuar
+  </div>
+</div>
+
+</ion-content>
+<ion-footer>
+  <ion-progress-bar color="primary" value="0.1"></ion-progress-bar>
+</ion-footer>

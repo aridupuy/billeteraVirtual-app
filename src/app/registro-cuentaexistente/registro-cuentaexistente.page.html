@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="/registro1" class="small"></ion-back-button>
+    </ion-buttons>
+   <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="centrado">
+  <div class="imagen">
+    <img src="assets/img/registro-cuentaexistente.svg" alt="">
+  </div>
+  <div class="contenedor-90">
+    <h1 class="align-center">Ya existe una cuenta con
+los mismos datos</h1>
+    <p class="align-center">El mail o número de celular que estás ingresando ya está 
+en nuestra base de datos.
+Queremos ayudarte a resolverlo, así que te pedimos que 
+nos respondas esto.</p>
+      <h2 class="align-center">
+        ¿Vos creaste esta cuenta?
+      </h2>
+      <div class="align-center space-between">
+        <div class="btn-round mitad warning-outline" (click)="No()">
+          <ion-icon name="close"></ion-icon> No
+        </div>
+        <div class="btn-round mitad success-outline" (click)="Si()">
+          <ion-icon name="checkmark"></ion-icon> Si
+        </div>
+      </div>
+</div>
+</ion-content>
+<ion-footer>
+  <ion-progress-bar color="primary" value="0.3"></ion-progress-bar>
+</ion-footer>

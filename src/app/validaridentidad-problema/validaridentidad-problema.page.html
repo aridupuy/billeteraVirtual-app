@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="/validaridentidad-mastarde" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content center>
+  <div class="contenedor-90">
+    <h1 class="align-left">Queremos ayudarte a que
+finalices el proceso</h1>
+    <p class="align-left"> Y comenzar a disfrutar todos nuestros beneficios ¿Por qué razón no podés sacar las fotos? 
+      Elegí una de las opciones.</p>
+    <div class="form">
+      <ion-item class="full">
+         <h2 class="full" style="padding-left:5px;">Tengo impedimentos de visión temporal o crónica</h2> 
+         <ion-checkbox slot="start"  value="No"></ion-checkbox>
+            
+      </ion-item>
+      <ion-item class="full">
+        <ion-checkbox slot="start"  value="No"></ion-checkbox>
+        <h2 class="full" style="padding-left:5px;">No puedo sostener de manera correcta el celular</h2> 
+     </ion-item>
+     <ion-item class="full">
+      <ion-checkbox slot="start"  value="No"></ion-checkbox>
+         <ion-label>Otra razón. 
+          </ion-label>   
+      </ion-item>
+      <h2>Escribí acá el motivo que te impide sacar las fotos: </h2>
+    <ion-item class="full ">
+      <ion-textarea rows="4" cols="15" style="padding-left: 5px;"></ion-textarea>
+    </ion-item>
+           
+    </div>
+   
+  </div>
+  <div class="onboarding-btn-group">
+    <div class="btn-round inactivo" (click)="Continuar()">
+      Enviar Respuesta
+    </div>
+  </div> 
+  
+</ion-content>
+<ion-footer>
+  <ion-progress-bar color="primary" value="0.1"></ion-progress-bar>
+</ion-footer>

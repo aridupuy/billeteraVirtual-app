@@ -1,0 +1,18 @@
+<ion-content >
+  <div class="overlay" #fot1>
+    <div class="contenedor-90 pt-10">
+      <h1 class="align-center white-text">Vamos con la foto del frente de tu DNI</h1>
+      <p class="align-center white-text">Colocá tu documento dentro del recuadro. Asegurate que haya buena luz y que los
+        datos sean legibles.</p>
+      <div class="camframe">
+      </div>
+    </div>
+    <div class="onboarding-btn-group">
+      <a (click)="noPuedo()" class="link">No puedo en este momento</a>
+      <div class="btn-round activo" (click)="takePicture()">
+        <ion-icon name="camera-outline"></ion-icon>Sacar foto
+      </div>
+    </div>
+  </div>
+  <div id="cameraPreview"></div>
+</ion-content>

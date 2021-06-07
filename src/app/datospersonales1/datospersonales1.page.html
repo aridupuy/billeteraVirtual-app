@@ -1,0 +1,60 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="/datospersonales" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content center>
+  <div class="contenedor-90">
+    <h1 class="align-left">
+      Nos quedan solo 2 pasos
+    </h1>
+    <p class="align-left">Por favor, completá estos datos.</p>
+    <div class="form">
+      <div class="input-container">
+        <h2 class="full">CUIL/CUIT</h2>
+        <ion-item class="cuil-1">     
+          <ion-input type="tel" pattern="[0-9]*" maxlength="2" readonly="false" class="align-center" placeholder="" #cuil1 [(ngModel)]="cuit1" (keyup)="onKeyUp($event,1)"></ion-input>
+        </ion-item>
+  
+        <ion-item class="cuil-2" >
+          <ion-input maxlength="8" readonly="true" type="text" class="align-center" placeholder="12345678" [(ngModel)]="dni"></ion-input>
+        </ion-item>
+        <ion-item class="cuil-3" >
+          <ion-input maxlength="1" readonly="false" type="tel" pattern="[0-9]*" class="align-center" placeholder="" #cuil2 (keyup)="onKeyUp($event,2)" [(ngModel)]="cuit2"></ion-input>
+        </ion-item>      
+      </div>
+    </div>
+    <h2>Estado Civil</h2>
+    <div class="option-container">
+      <div class="option-round" ds-data = 1  (click)="OpcionSeleccionada($event,1)">Soltera/o</div>
+      <div class="option-round" ds-data = 1  (click)="OpcionSeleccionada($event,1)">Casada/o</div>
+      <div class="option-round" ds-data = 1 (click)="OpcionSeleccionada($event,1)">Viuda/o</div>
+      <div class="option-round" ds-data = 1 (click)="OpcionSeleccionada($event,1)">Concubina/o</div>
+      <div class="option-round" ds-data = 1 (click)="OpcionSeleccionada($event,1)">Divorciada/o</div>
+    </div>
+    <h2>Ocupación</h2>
+    <div class="option-container">
+      <div class="option-round" ds-data = 2 (click)="OpcionSeleccionada($event,2)">Empleada/o</div>
+      <div class="option-round" ds-data = 2 (click)="OpcionSeleccionada($event,2)">Estudiante</div>
+      <div class="option-round" ds-data = 2 (click)="OpcionSeleccionada($event,2)">Aútonoma/o</div>
+      <div class="option-round" ds-data = 2 (click)="OpcionSeleccionada($event,2)">Desocupada/o</div>
+      <div class="option-round" ds-data = 2 (click)="OpcionSeleccionada($event,2)">Jubilada/o</div>
+      <div class="option-round" ds-data = 2 (click)="OpcionSeleccionada($event,2)">Otro</div>
+    </div>
+  </div>
+  <div class="onboarding-btn-group">
+    <div class="btn-round inactivo" *ngIf="!cuit1 || !cuit2 || !estadoCivil || !ocupacion">
+      Continuar
+    </div>
+    <div class="btn-round activo" *ngIf="cuit1 && cuit2 && estadoCivil && ocupacion" (click)="Continuar()">
+      Continuar
+    </div>
+  </div>
+  
+</ion-content>
+<ion-footer>
+  <ion-progress-bar color="primary" value="0.6"></ion-progress-bar> 
+</ion-footer>

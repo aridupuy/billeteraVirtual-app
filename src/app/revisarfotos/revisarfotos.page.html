@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="/validaridentidad3" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  
+  <div class="contenedor-90">
+    
+      <h1 class="align-left">¿Te gusta cómo salieron las fotos?</h1>
+        <p class="align-left">Si las ves bien, por favor, confirmalas. Si necesitás modificar alguna, podés hacerlo en este paso. </p>
+        <ion-list>
+          <ion-item (click)="volver(1)">
+            <div class="column"  >
+              <h2>Foto del frente de tu DNI</h2>
+              <div class="foto">
+                <img id="fotfrente" src={{dniF}}>
+              </div>
+            </div>
+          </ion-item>
+          <ion-item (click)="volver(2)">
+            <div class="column" >
+              <h2>Foto del dorso de tu DNI</h2>
+              <div class="foto">
+                <img id="fotdorso" src={{dniD}}>
+              </div>
+            </div>
+          </ion-item>
+          <ion-item (click)="volver(3)">
+            <div class="column" >
+              <h2>Selfie</h2>
+              <div class="foto">
+                <img id="fotcara" src={{cara}}>
+              </div>
+            </div>
+          </ion-item>
+          <ion-item (click)="volver(4)">
+            <div class="column">
+              <h2>Selfi con DNI</h2>
+              <div class="foto">
+                <img id="fotcara" src={{caraDni}}>
+              </div>
+            </div>
+          </ion-item>
+        </ion-list>
+  </div>
+  <div class="onboarding-btn-group">
+    <a (click)="editar()"class="link">Modificar</a>
+    <div class="btn-round activo" (click)="Continuar()">
+      Se ven bien
+    </div>
+  </div> 
+</ion-content>
+
+<ion-footer>
+  <ion-progress-bar color="primary" value="0.4"></ion-progress-bar>
+</ion-footer>

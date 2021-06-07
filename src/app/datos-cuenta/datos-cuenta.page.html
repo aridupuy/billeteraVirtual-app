@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="home" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Datos de mi Cuenta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="cuenta">
+<div class="contenedor-90">
+  <div class="user-header">
+    <div class="avatar">
+      RF
+    </div>
+    <h1 class="nombreUsuario">Ricardo Anibal Fort</h1>
+  </div>
+  <div class="datos-cuenta">
+    <h2>Datos de la cuenta</h2>
+    <div class="input-container with-label">
+      <ion-item id="celularItem">
+      <ion-label position="stacked">Celular</ion-label>
+      <ion-input type="text" readonly="true" #celular placeholder="+54 11 51312789"></ion-input>
+      </ion-item>
+      <div class="icon"><ion-icon slot="end" name="create-outline" (click)="EditarCel()"></ion-icon></div>
+      <ion-item #emailItem>
+        <ion-label position="stacked">E-mail</ion-label>
+        <ion-input type="email" readonly="true" #email placeholder="riki.fort@gmail.com"></ion-input>
+        </ion-item>
+        <div class="icon"><ion-icon slot="end" name="create-outline"></ion-icon></div>
+        <ion-item #passwordItem>
+          <ion-label position="stacked">Contraseña</ion-label>
+          <ion-input type="password" readonly="true" #password placeholder="********"></ion-input>
+        </ion-item>
+        <div class="icon"><ion-icon slot="end" name="create-outline"></ion-icon></div>
+    </div>
+  </div>
+  <div class="datos-personales">
+    <h2>Datos personales</h2>
+    <div class="input-container with-label">
+      <ion-item>
+      <ion-label position="stacked">Nombre</ion-label>
+      <ion-input type="text" readonly="true" #nombre placeholder="Ricardo"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Apellido</ion-label>
+        <ion-input type="text" readonly="true" #apellido placeholder="Fort"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">DNI</ion-label>
+        <ion-input type="text" readonly="true" #dni placeholder="12345678"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Sexo</ion-label>
+        <ion-input type="text" readonly="true" #sexo placeholder="Masculino"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Nacionalidad</ion-label>
+        <ion-input type="text" readonly="true" #nacionalidad placeholder="Argentina"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Fecha de Nacimiento</ion-label>
+        <ion-input type="text" readonly="true" #fechanacimiento placeholder="01/01/1990"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">CUIL/CUIT</ion-label>
+        <ion-input type="text" readonly="true" #cuilcuit placeholder="20123456789"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Domicilio</ion-label>
+        <ion-input type="text" readonly="true" #domicilio placeholder="Av. Siempre viva 123"></ion-input>
+      </ion-item>
+      <div class="icon"><ion-icon slot="end" name="create-outline"></ion-icon></div>
+    </div>
+  </div>
+  <div class="eliminar-cuenta">
+    <a href="/eliminar-cuenta"> Eliminar cuenta</a>
+  </div>
+</div>
+</ion-content>

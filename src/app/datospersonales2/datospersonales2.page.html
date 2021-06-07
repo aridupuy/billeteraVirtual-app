@@ -1,0 +1,73 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="/datospersonales1" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content center>
+  <div class="contenedor-90">
+    <h1 class="align-left">
+      Y por último, ¿este es tu
+domicilio actual?
+
+
+    </h1>
+    <p class="align-left">Si te mudaste, poné tu nueva dirección. Por las dudas, te recordamos que jamás compartiremos tus datos personales. Es solo para chequear que toda la info que tenemos sea la correcta.
+    </p>
+    <div class="form datospersonales">
+      <div class="dato mitad">
+        <h2>Calle</h2>
+        <p >{{calle}}</p>
+      </div>
+      <div class="dato mitad">
+        <h2>Altura</h2>
+        <p >{{altura}}</p>
+      </div>
+      <div class="dato mitad">
+        <h2>Piso</h2>
+        <p >{{piso}}</p>
+      </div>
+      <div class="dato mitad">
+        <h2>Dpto</h2>
+        <p >{{depto}}</p>
+      </div>
+      <div class="checkbox full">
+        <ion-checkbox [(ngModel)]="modificar"></ion-checkbox> <p>No es correcto mi domicilio</p>
+      </div>
+    </div>
+    <!-- Si el checkbox es tiltado aparece el form para cambiar domicilio -->
+    <div class="form" #cambiodomicilio *ngIf="modificar">
+      <div class="input-container">
+        <ion-item class="mitad">
+          <ion-label position="stacked">Calle</ion-label>
+          <ion-input [(ngModel)]="calle_mod" type="text"  clear-on-edit="true" placeholder="Av. Siempre Viva"></ion-input>
+        </ion-item>
+        <ion-item class="mitad">
+          <ion-label position="stacked">Altura</ion-label>
+          <ion-input [(ngModel)]="altura_mod" type="number"  clear-on-edit="true" placeholder="1234"></ion-input>
+        </ion-item>
+      </div>
+      <div class="input-container">
+        <ion-item class="mitad">
+          <ion-label position="stacked">Piso</ion-label>
+          <ion-input [(ngModel)]="piso_mod" type="text"  clear-on-edit="true" placeholder="2"></ion-input>
+        </ion-item>
+        <ion-item class="mitad">
+          <ion-label position="stacked">Dpto</ion-label>
+          <ion-input [(ngModel)]="depto_mod" type="text"  clear-on-edit="true" placeholder="B"></ion-input>
+        </ion-item>
+      </div>
+    </div>
+  </div>
+  <div class="onboarding-btn-group">
+    <div class="btn-round activo" (click)="Continuar()">
+      Confirmar
+    </div>
+  </div> 
+  
+</ion-content>
+<ion-footer>
+  <ion-progress-bar color="primary" value="0.9"></ion-progress-bar>
+</ion-footer>
