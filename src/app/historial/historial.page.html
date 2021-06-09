@@ -1,0 +1,85 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="/home" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Historial</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <div class="ultimos-movimientos" *ngIf="items">
+    <ion-card class="full">
+
+      <ion-card-header>
+        <!-- <ion-card-title>Tus movimientos <a class="link">Ver todos</a></ion-card-title> -->
+        <ion-card-title>Tus movimientos</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+
+        <ion-list class="lista-movimientos">
+          <ion-refresher [class]="class_refresher" slot="fixed" (ionStart)="mostrar($event)"
+            (ionRefresh)="refresh($event)">
+            <ion-refresher-content refreshingText="Recargando..." refreshingSpinner="bubbles">
+              <ion-item>
+                <ion-row expand="full">
+                  <ion-col class="start"></ion-col>
+                  <ion-col class="center"></ion-col>
+                  <ion-col class="end"></ion-col>
+                </ion-row>
+              </ion-item>
+            </ion-refresher-content>
+          </ion-refresher>
+          <ion-item class="movimiento-wrapper" *ngFor="let item of items">
+            <div class="movimiento">
+              <img src="assets/img/mov-recibiste.svg" alt="Recibiste" *ngIf="item.id_tipo_trans=='2'">
+              <img src="assets/img/mov-retiro.svg" alt="Recibiste" *ngIf="item.id_tipo_trans=='1'">
+              <img src="assets/img/mov-pago.svg" alt="Pagaste" *ngIf="item.tipo=='3'">
+              <div class="resumen">
+                <h4>{{item.titulo}}</h4>
+                <span>{{ item.fecha | date:'dd'}} de {{ fecha_espaniol(item.fecha | date:'M')}} - {{ item.fecha |
+                  date:'hh:mma'}}</span>
+              </div>
+            </div>
+            <div class="monto"> ${{item.precio}} </div>
+          </ion-item>
+          <ion-infinite-scroll threshold="100px" (ionInfinite)="cargarmas($event)">
+            <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Cargando mas...">
+            </ion-infinite-scroll-content>
+          </ion-infinite-scroll>
+          <!-- <ion-item class="movimiento-wrapper">
+            <div class="movimiento">
+              <img src="assets/img/mov-recibiste.svg" alt="Recibiste">
+              <div class="resumen">
+                <h4>Recibiste de Florencia Pisandelli</h4>
+                <span>20 de mayo - 15:45pm</span>
+              </div>
+            </div>
+            <div class="monto"> +$456 </div>
+          </ion-item>
+          <ion-item class="movimiento-wrapper">
+            <div class="movimiento">
+              <img src="assets/img/mov-retiro.svg" alt="Recibiste">
+              <div class="resumen">
+                <h4>Retiraste</h4>
+                <span>20 de mayo - 15:45pm</span>
+              </div>
+            </div>
+            <div class="monto"> -$456 </div>
+          </ion-item>
+          <ion-item class="movimiento-wrapper">
+            <div class="movimiento">
+              <img src="assets/img/mov-pago.svg" alt="Pagaste">
+              <div class="resumen">
+                <h4>Pagaste a Florencia Pisandelli</h4>
+                <span>20 de mayo - 15:45pm</span>
+              </div>
+            </div>
+            <div class="monto"> -$456 </div>
+          </ion-item> -->
+        </ion-list>
+      </ion-card-content>
+
+    </ion-card>
+  </div>
+</ion-content>

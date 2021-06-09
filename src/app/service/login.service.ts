@@ -70,7 +70,7 @@ export class LoginService extends ServiceService{
       }
       this.post<IcheckToken>(url, json, httpOption)
         .subscribe((data) => {
-          console.log(data);
+          // console.log(data);
           if (data != undefined  && (data.check == 1 || data.check =='true')){
             resolve(true);
           }

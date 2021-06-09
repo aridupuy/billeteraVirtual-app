@@ -7,6 +7,8 @@ import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { LoginService } from '../service/login.service';
 import { ServiceService } from '../service/service.service';
+import { UsuarioService } from '../service/usuario.service';
+import { TransaccionesService } from '../service/transacciones.service';
 
 
 @NgModule({
@@ -16,7 +18,7 @@ import { ServiceService } from '../service/service.service';
     IonicModule,
     HomePageRoutingModule
   ],
-  providers:[LoginService],
+  providers:[LoginService,UsuarioService,TransaccionesService],
   declarations: [HomePage]
 })
 export class HomePageModule {}

@@ -2,7 +2,7 @@
 <ion-content [fullscreen]="true">
   <section class="home-main">
     <div class="home-header">
-      <ion-menu-button color="primary" menu="menuPrincipal" type="reset"></ion-menu-button>
+      <ion-menu-button *ngIf="validado" color="primary" menu="menuPrincipal" type="reset"></ion-menu-button>
     </div>
     <div class="contenedor-90">
       <div class="user-header">
@@ -10,19 +10,26 @@
           RF
         </div>
         <div class="user-info">
-          <span class="bienvenida">Hola,<span class="username"> Ricardo</span></span>
-          <a class="cvu">Mi CVU</a>
+          <span class="bienvenida">Hola,<span class="username"> {{username}}</span></span>
+          <a class="cvu" *ngIf="validado" >Mi CVU</a>
         </div>
       </div>
-      <div class="button-container">
+      <div class="button-container" *ngIf="validado">
         <div class="saldo">
           <h2>Saldo Disponible</h2>
-          <h1 class="regular saldoUsuario">
+          <h1 class="regular saldoUsuario" *ngIf="!cargandoSaldo && mostrarSaldo">
             {{ saldoUsuario }}
           </h1>
-          <ion-icon slot="end" [name]="ToggleIcon" (click)="toggleIcon()" color="white"></ion-icon>
+          <h1 class="regular saldoUsuario" *ngIf="!cargandoSaldo && !mostrarSaldo">
+            *******
+          </h1>
+          <ion-skeleton-text class="regular saldoUsuario skeletonSaldo" *ngIf="cargandoSaldo">
+            <!-- {{ saldoUsuario }} -->
+          </ion-skeleton-text>
+          <ion-icon slot="end" *ngIf="mostrarSaldo"  name="eye-off-outline" (click)="toggleIcon()" color="white"></ion-icon>
+          <ion-icon slot="end" *ngIf="!mostrarSaldo"  name="eye-outline" (click)="toggleIcon()" color="white"></ion-icon>
         </div>
-        <div class="botonera">
+        <div class="botonera" *ngIf="validado">
             <a href="/ingreso-dinero"><img src="assets/img/ingresar-dinero.svg" alt="Ingresar Dinero"></a>
             <a href="/ingreso-dinero"><img src="assets/img/transferir-dinero.svg" alt="Transferir Dinero"></a>
             <a href="/ingreso-dinero"><img src="assets/img/retirar-dinero.svg" alt="Retirar Dinero"></a>
@@ -32,25 +39,27 @@
       </div>
       <!-- Modulo ultimos movimientos -->
 
-      <!-- <div class="ultimos-movimientos">
+      <div class="ultimos-movimientos" *ngIf="items">
         <ion-card class="full">
           <ion-card-header>
-            <ion-card-title>Últimos movimientos <a class="link">Ver todos</a></ion-card-title>
+            <ion-card-title>Últimos movimientos <a class="link" (click)="irAHistorial()">Ver todos</a></ion-card-title>
           </ion-card-header>
 
           <ion-card-content>
             <ion-list class="lista-movimientos">
-              <ion-item class="movimiento-wrapper">
+              <ion-item class="movimiento-wrapper" *ngFor="let item of items">
                 <div class="movimiento">
-                  <img src="assets/img/mov-pago.svg" alt="Pagaste">
+                  <img src="assets/img/mov-recibiste.svg" alt="Recibiste" *ngIf="item.id_tipo_trans=='2'">
+                  <img src="assets/img/mov-retiro.svg" alt="Recibiste" *ngIf="item.id_tipo_trans=='1'">
+                  <img src="assets/img/mov-pago.svg" alt="Pagaste" *ngIf="item.tipo=='3'">
                   <div class="resumen">
-                    <h4>Pagaste a Florencia Pisandelli</h4>
-                    <span>20 de mayo - 15:45pm</span>
+                    <h4>{{item.titulo}}</h4>
+                    <span>{{ item.fecha | date:'dd'}} de {{ fecha_espaniol(item.fecha | date:'M')}} - {{ item.fecha | date:'hh:mma'}}</span>
                   </div>
                 </div>
-                <div class="monto"> -$456 </div>
+                <div class="monto"> ${{item.precio}} </div>
               </ion-item>
-              <ion-item class="movimiento-wrapper">
+              <!-- <ion-item class="movimiento-wrapper">
                 <div class="movimiento">
                   <img src="assets/img/mov-recibiste.svg" alt="Recibiste">
                   <div class="resumen">
@@ -79,12 +88,12 @@
                   </div>
                 </div>
                 <div class="monto"> -$456 </div>
-              </ion-item>
+              </ion-item> -->
             </ion-list>
           </ion-card-content>
           
         </ion-card>
-      </div> -->
+      </div>
       <!-- Mensaje de email no validado -->
       <!-- <div class="mensaje-bienvenida">
         <ion-icon name="warning-outline"></ion-icon>
@@ -93,10 +102,12 @@
         <a class="bold">Reenviar correo</a>
       </div> -->
       <!-- Mensaje si este validado pero todavía no tenga movimientos -->
-      <div class="mensaje-bienvenida">
+      <div class="mensaje-bienvenida" *ngIf="!items || items.lenght == 0">
         <ion-icon name="wallet-outline"></ion-icon>
-        <h1>Todavía no hay nada por acá</h1>
-        <h2>¡Es hora de comenzar a hacer efectivo tu efectivo! Cuando lo hagas, acá vas a poder ver todos los movimientos que realizaste.</h2>
+        <h1 *ngIf="validado">Todavía no hay nada por acá</h1>
+        <h2 *ngIf="validado">¡Es hora de comenzar a hacer efectivo tu efectivo! Cuando lo hagas, acá vas a poder ver todos los movimientos que realizaste.</h2>
+        <h1 *ngIf="!validado">{{mensaje}}</h1>
+        <h2 *ngIf="!validado">¡Es hora de comenzar a hacer efectivo tu efectivo! Cuando lo hagas, acá vas a poder ver todos los movimientos que realizaste.</h2>
       </div>
   </div>
   

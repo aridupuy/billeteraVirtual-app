@@ -1,11 +1,13 @@
 import { AuthGuardGuard } from './auth-guard.guard';
+import { ProcesoAltaGuard } from './proceso-alta.guard';
+import { LoginGuardGuard } from './login-guard.guard';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),canActivate: [AuthGuardGuard]
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
   },
   {
     path: '',
@@ -19,7 +21,7 @@ const routes: Routes = [
   },
   {
     path: 'welcome',
-    loadChildren: () => import('./welcome/welcome.module').then( m => m.WelcomePageModule)
+    loadChildren: () => import('./welcome/welcome.module').then( m => m.WelcomePageModule),canActivate: [LoginGuardGuard]
   },
   {
     path: 'registro',
@@ -180,6 +182,10 @@ const routes: Routes = [
   {
     path: 'preloader',
     loadChildren: () => import('./preloader/preloader.module').then( m => m.PreloaderPageModule)
+  },
+  {
+    path: 'historial',
+    loadChildren: () => import('./historial/historial.module').then( m => m.HistorialPageModule)
   },
 ];
 
