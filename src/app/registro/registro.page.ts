@@ -62,19 +62,14 @@ export class RegistroPage implements OnInit {
       await this.loginBo.login().then(async token=>{
         console.log("logueado");
         this.cargando=true;
-        // await this.iniciaProceso.iniciar(token).then(async (id_proceso_alta:string)=>{
+        await this.iniciaProceso.iniciar(token).then(async (id_proceso_alta:string)=>{
           // console.log(id_proceso_alta);
-            // localStorage.setItem("proceso_alta",id_proceso_alta);
+            localStorage.setItem("proceso_alta",id_proceso_alta);
             // antes que esto va un endṕoint para validar la preexistencia del mail
-            // await  this.validMail.validar(this.email,token)
-            // .then(async  url=>{
-                // console.log("mail enviado");
-                // this.navCtrl.navigateForward(["registro1",{}]);
-
-
-              // await this.validCel.obtener_codigo(this.codArea+this.celular,token).then( data=>{
-              //   // console.log("codigo enviado");
-                
+            await  this.validMail.validar(this.email,token)
+            .then(async  url=>{
+                console.log("mail enviado");
+                this.navCtrl.navigateForward(["registro1",{}]);
                 const navigationExtras: NavigationExtras = {
                   queryParams: {
                     param: JSON.stringify({email:this.email,password:this.password,acepta:this.checkterms})
@@ -86,8 +81,8 @@ export class RegistroPage implements OnInit {
               // })
               // .catch(err=>{console.log(err); return;});
             }).catch(err=>{console.log(err); return;})
-        // });
-      // });
+        });
+      });
       
     }
   }

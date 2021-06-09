@@ -9,8 +9,8 @@ const routes: Routes = [
   },
   {
     path: '',
-    // redirectTo: 'welcome',
-    redirectTo: 'validaridentidad',
+    redirectTo: 'welcome',
+    // redirectTo: 'validaridentidad',
     pathMatch: 'full'
   },
   {

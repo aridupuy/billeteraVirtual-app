@@ -17,13 +17,19 @@ export class RegistrofinalizadoPage implements OnInit {
   public mensaje_titulo = "¡Todo un éxito!";
   public mensaje = "Ahora podés iniciar sesión y comenzar a disfrutar de todos los beneficios de llevar tu billetera en el celular."
   public mensaje2 = "Ya completaste tu registro";
+  public valido = false;
   ngOnInit() {
-    let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
-    this.mensaje  = p.mensaje;
-    this.mensaje_titulo =p.mensaje_titulo
-    if(this.mensaje!=null){
-      this.mensaje2="";
-    }
+      let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
+      console.log(p);
+      this.valido=p.valido;
+      console.log(this.valido);
+      if(!p.valido){
+        this.mensaje  = p.mensaje;
+        this.mensaje_titulo =p.mensaje_titulo
+        if(this.mensaje!=null){
+          this.mensaje2="";
+        }
+      }
   }
   Ingresar(){
     this.navCtrl.navigateForward("ingreso");

@@ -26,6 +26,7 @@ export class Datospersonales2Page implements OnInit {
   public modificar = false;
   ngOnInit() {
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
+    console.log(p);
     this.calle = p.direccion;
     this.altura = p.numero;
     this.piso = p.piso;
@@ -33,12 +34,21 @@ export class Datospersonales2Page implements OnInit {
   }
   Continuar() {
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
-    this.registroService.registrar(p.email,p.nombre_completo,p.password,p.valido_sms,p.terminos_acepta,p.cod_area,p.celular,p.foto_frente,p.foto_frente_con_dni,p.foto_dorso_dni,p.foto_frente_dni,p.cuit,p.fec_nac,p.nacionalidad,p.sexo,p.estado_civil,p.ocupacion,p.provincia,p.ciudad,p.cod_postal,p.direccion,p.numero,p.piso,p.depto).then(data=>{
-      this.navCtrl.navigateForward("registrofinalizado");
+    // console.log(p);
+    this.registroService.registrar(p.email,p.nombre_completo,p.password,p.valido_sms,p.acepta,p.cod_area,p.celular,p.foto_frente,p.foto_frente_con_dni,p.foto_dorso_dni,p.foto_frente_dni,p.cuit,p.fecha_nac,p.nacionalidad,p.sexo,p.estado_civil,p.ocupacion,p.provincia,p.ciudad,p.cod_postal,p.direccion,p.numero,p.piso,p.depto,p.fatca,p.politico_expuesto,p.sujeto_obligado).then(data=>{
+    let mensaje_titulo = "¡Todo un éxito!";
+    let mensaje = "Ahora podés iniciar sesión y comenzar a disfrutar de todos los beneficios de llevar tu billetera en el celular."
+    let mensaje2 = "Ya completaste tu registro";  
+    const navigationExtras: NavigationExtras = {
+        queryParams: {
+          param: JSON.stringify({mensaje:mensaje, mensaje_titulo:mensaje_titulo,valido:true})
+        }
+      }
+      this.navCtrl.navigateForward("registrofinalizado",navigationExtras);
     }).catch(error=>{
       const navigationExtras: NavigationExtras = {
       queryParams: {
-        param: JSON.stringify({mensaje:"Ocurrio un error al crear tu cuenta por favor Intenta mas tarde.", mensaje_titulo:"Tu cuenta NO Fue creada"})
+        param: JSON.stringify({mensaje:"Ocurrio un error al crear tu cuenta por favor Intenta mas tarde.", mensaje_titulo:"Tu cuenta NO Fue creada",valido:false})
       },
     };
       this.navCtrl.navigateForward("registrofinalizado",navigationExtras);

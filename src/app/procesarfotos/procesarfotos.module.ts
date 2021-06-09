@@ -9,6 +9,7 @@ import { ProcesarfotosPageRoutingModule } from './procesarfotos-routing.module';
 import { ProcesarfotosPage } from './procesarfotos.page';
 import { RenaperService } from '../service/renaper.service';
 import { File } from '@ionic-native/file/ngx';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 @NgModule({
   imports: [
@@ -17,7 +18,7 @@ import { File } from '@ionic-native/file/ngx';
     IonicModule,
     ProcesarfotosPageRoutingModule
   ],
-  providers:[File,RenaperService],
+  providers:[File,RenaperService,ScreenOrientation],
   declarations: [ProcesarfotosPage]
 })
 export class ProcesarfotosPageModule {}

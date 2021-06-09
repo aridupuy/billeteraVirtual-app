@@ -18,6 +18,7 @@ export class Registro1Page implements OnInit {
   public errorCel=false;
   public codArea;
   public celular;
+  public dni;
   constructor(public route: ActivatedRoute, public router: Router,private navCtrl : NavController,public validCel:ValidacionCelService,public loginBo:LoginBoService) {}
 
   ngOnInit() {
@@ -33,7 +34,7 @@ export class Registro1Page implements OnInit {
             console.log("codigo enviado");
             const navigationExtras: NavigationExtras = {
               queryParams: {
-                param: JSON.stringify({email:p.email,password:p.password,acepta:p.acepta,cod_area:this.codArea,celular:this.celular})
+                param: JSON.stringify({email:p.email,password:p.password,acepta:p.acepta,cod_area:this.codArea,celular:this.celular,dni:this.dni})
               }
             };
             console.log(navigationExtras);
@@ -46,7 +47,7 @@ export class Registro1Page implements OnInit {
   }
   validar_celular(){
     
-    let result = (""+this.codArea+this.celular).match(/^[+]?([0-9]{2}[0-9]{10})$/);
+    let result = (""+this.codArea+this.celular).match(/^([0-9]{2}[0-9]{8})$/);
     if(result!==null){
         this.errorCel=false;
     }

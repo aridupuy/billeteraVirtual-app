@@ -19,10 +19,10 @@
     <div class="input-container">
       <h2 class="align-left full">¿Cuál es tu número de celular?</h2>
       <ion-item class="un-tercio">
-        <ion-input [(ngModel)]="codArea" (ngModelChange)="validar_celular()" type="number" placeholder="Cod.área"></ion-input>
+        <ion-input [(ngModel)]="codArea" (ngModelChange)="validar_celular()" type="number" maxlength="2" placeholder="Cod.área"></ion-input>
       </ion-item>
       <ion-item class="tres-tercios">
-        <ion-input [(ngModel)]="celular" (ngModelChange)="validar_celular()" type="number" placeholder="Número" ></ion-input>
+        <ion-input [(ngModel)]="celular" maxlength=8 (ngModelChange)="validar_celular()" type="number" placeholder="Número" ></ion-input>
         <ion-icon name="close-circle-sharp" *ngIf="celular &&  errorCel" slot="end" color="danger"></ion-icon>
         <ion-icon name="checkmark-circle-sharp" *ngIf="celular && !errorCel" slot="end" color="success"></ion-icon>
       </ion-item>
@@ -36,20 +36,20 @@
   <div class="input-container">
     <h2 class="align-left full">¿Cuál es tu número de DNI?</h2>
     <ion-item class="full">
-      <ion-input type="tel" maxlength="8"></ion-input>
+      <ion-input type="tel" maxlength="8" [(ngModel)]="dni"></ion-input>
     </ion-item>
   </div>
-  <div class="validationMsg">
+  <div class="validationMsg" *ngIf="!dni">
     <div class="msg full danger">
       El número de dni que ingresaste no es válido. Intentá otra vez.
     </div>
   </div>
 </div>
 <div class="onboarding-btn-group">
-  <div class="btn-round inactivo" *ngIf="!celular || !codArea || errorCel" >
+  <div class="btn-round inactivo" *ngIf="!celular || !codArea || errorCel || !dni" >
     Continuar
   </div>
-  <div class="btn-round activo" *ngIf="celular && codArea && !errorCel" (click)="ConfirmaSms()">
+  <div class="btn-round activo" *ngIf="celular && codArea && !errorCel && dni" (click)="ConfirmaSms()">
     Continuar
   </div>
 </div>

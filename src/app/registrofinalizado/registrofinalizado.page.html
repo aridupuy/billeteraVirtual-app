@@ -15,10 +15,10 @@
   
 </div>
 <div class="onboarding-btn-group">
-  <div class="btn-round activo" *ngIf="!mensaje" (click)="Ingresar()">
+  <div class="btn-round activo" *ngIf="valido" (click)="Ingresar()">
     Ingresar
   </div>
-  <div class="btn-round activo" *ngIf="mensaje" (click)="reintentar()">
+  <div class="btn-round activo" *ngIf="!valido" (click)="reintentar()">
     Reintentar
   </div>
 </div>

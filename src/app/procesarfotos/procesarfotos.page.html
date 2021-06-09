@@ -24,8 +24,11 @@
   <div class="btn-round activo" *ngIf="!reintento && validado" (click)="Continuar()">
     Continuar
   </div>
-  <div class="btn-round activo" *ngIf="reintento" (click)="reintentar()">
+  <div class="btn-round activo" *ngIf="reintento && !omitir" (click)="reintentar()">
     {{mensaje_reintento}}
+  </div>
+  <div class="btn-round activo" *ngIf="omitir" (click)="omitir_validacion()">
+    Omitir
   </div>
   
 </div>
