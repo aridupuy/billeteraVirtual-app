@@ -16,7 +16,7 @@ import { int } from '@zxing/library/esm/customTypings';
   styleUrls: ['./procesarfotos.page.scss'],
 })
 export class ProcesarfotosPage implements OnInit {
-
+  public claseProcesando = 'procesandofotos-progress';
   constructor(private screenOrientation: ScreenOrientation, public route: ActivatedRoute, public Router: Router, private navCtrl: NavController, private file: File, public toastController: ToastController, public renaper: RenaperService) { }
   public mensaje = "Estamos procesando tus fotos ...";
   // // imagen cuando esta procesando (default) (mantiene clase default procesandofotos-progress)
@@ -75,6 +75,7 @@ export class ProcesarfotosPage implements OnInit {
       this.sexo = "m";
       this.nombre = p.email;
       this.valida_dni = true;
+      this.claseProcesando = 'procesandofotos-success';
     }
     else {
       // this.recortarImagen(data);
@@ -108,11 +109,13 @@ export class ProcesarfotosPage implements OnInit {
               this.validado = true;
               this.mensaje = "Listo tus Fotos se cargaron correctamente.";
               this.imagen = 'assets/img/procesando-success.svg';
+              this.claseProcesando = 'procesandofotos-success';
             }).catch(async err => {
               this.mensaje = "Vuelve a sacar la foto de tu rostro ";
               this.imagen = 'assets/img/procesando-error.svg';
               this.reintento = "validaridentidad3";
               this.validado = false
+              this.claseProcesando = 'procesandofotos-error';
             });
 
           }).catch(async err => {
@@ -125,6 +128,7 @@ export class ProcesarfotosPage implements OnInit {
             this.file.removeFile(this.file.externalRootDirectory, nombre);
             this.mensaje = "Vuelve a sacar la foto del frente de tu dni ";
             this.imagen = 'assets/img/procesando-error.svg';
+            this.claseProcesando = 'procesandofotos-error';
             this.reintento = "validaridentidad1";
             this.validado = false;
             this.valida_dni = false;
@@ -174,8 +178,9 @@ export class ProcesarfotosPage implements OnInit {
       }
       else {
         this.omitir = true;
-        this.mensaje = "No pudismos validar tu identidad, Reintenta mas tarde ";
+        this.mensaje = "No pudimos validar tu identidad, Reintenta mas tarde ";
         this.imagen = 'assets/img/procesando-error.svg';
+        this.claseProcesando = 'procesandofotos-error';
       }
     }
     if (!this.omitir) {
