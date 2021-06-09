@@ -52,7 +52,7 @@ export class RevisarfotosPage implements OnInit, AfterViewInit {
 
   }
   editar() {
-    const editarFoto = document.querySelectorAll(".foto img");
+    const editarFoto = document.querySelectorAll(".foto");
     for (var i = 0; i < editarFoto.length; ++i) {
       editarFoto[i].classList.add('editar');
     }

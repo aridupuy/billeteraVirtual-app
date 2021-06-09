@@ -3,6 +3,7 @@
     width: 150px;
     height: 75px;
     border: 1px solid #ccc;
+    background-size: contain;
 }
 img{
     width: 148px;
@@ -28,7 +29,8 @@ img{
     align-content: center;
     align-items: center;
     color: #007c68;
-    background: rgba($color: #000000, $alpha: 0.2)
+    background: rgba($color: #000000, $alpha: 0.2);
+    z-index: 999999;
 }
 .column {
     display: flex;
