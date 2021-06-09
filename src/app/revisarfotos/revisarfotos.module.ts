@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { RevisarfotosPageRoutingModule } from './revisarfotos-routing.module';
 
 import { RevisarfotosPage } from './revisarfotos.page';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { RevisarfotosPage } from './revisarfotos.page';
     IonicModule,
     RevisarfotosPageRoutingModule
   ],
-  declarations: [RevisarfotosPage]
+  declarations: [RevisarfotosPage],
+  providers:[ScreenOrientation]
 })
 export class RevisarfotosPageModule {}

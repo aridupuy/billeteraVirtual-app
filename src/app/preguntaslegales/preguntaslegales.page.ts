@@ -43,9 +43,9 @@ export class PreguntaslegalesPage implements OnInit {
 
   Continuar() {
     let  p  = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
-    // p["politico_expuesto"]= (this.form.pe_no)? !this.form.pe_no : this.form.pe_si;
-    // p["sujeto_obligado"]=(this.form.so_no)? !this.form.so_no : this.form.so_si
-    // p["fatca"]=(this.form.fat_no)? !this.form.fat_no : this.form.fat_si
+    p["politico_expuesto"]= (this.form.pe_no)? !this.form.pe_no : this.form.pe_si;
+    p["sujeto_obligado"]=(this.form.so_no)? !this.form.so_no : this.form.so_si
+    p["fatca"]=(this.form.fat_no)? !this.form.fat_no : this.form.fat_si
     const navigationExtras: NavigationExtras = {
       queryParams: {
         

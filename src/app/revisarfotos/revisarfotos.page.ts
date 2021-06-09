@@ -5,6 +5,7 @@ import { NavigationExtras, Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 
 @Component({
@@ -15,14 +16,14 @@ import { NavController } from '@ionic/angular';
 export class RevisarfotosPage implements OnInit, AfterViewInit {
 
   public editable;
-  constructor(private plt: Platform, private navCtrl: NavController, public route: ActivatedRoute, public router: Router) { }
+  constructor(private screenOrientation: ScreenOrientation,private plt: Platform, private navCtrl: NavController, public route: ActivatedRoute, public router: Router) { }
 
   public dniD;
   public dniF;
   public cara;
   public caraDni;
   ngOnInit() {
-
+    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
   }
   ngAfterViewInit(): void {
 

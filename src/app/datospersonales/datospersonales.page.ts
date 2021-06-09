@@ -29,12 +29,14 @@ export class DatospersonalesPage implements OnInit {
   public cuit;
   public nombre_completo;
   public dni;
+  public cargando = true;
   ngOnInit() {
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
     if (p != null) {
       this.dni = p.dni;
       this.sexo = p.sexo;
       this.renaper.validar_dni(p.dni, p.sexo).then(data => {
+        console.log(data);
         this.apellido = data.apellido;
         this.nombre = data.nombres;
         this.nombre_completo = data.nombres + " " + data.apellido;
@@ -49,37 +51,19 @@ export class DatospersonalesPage implements OnInit {
         this.piso = data.piso;
         this.depto = data.departamento;
         this.cuit = data.cuil;
-
+        this.cargando=false;
       });
-    }else{
-      this.dni = "35362389"
-      this.sexo = "m";
-      
-        this.apellido = "Dupuy";
-        this.nombre = "Ariel Edudardo";
-        this.nombre_completo = "Ariel Eduardo" + " " + "Dupuy";
-        this.fec_nac = "18/10/1990";
-        this.sexo = "Hombre";
-        this.nacionalidad = "Argentina";
-        this.provincia = "Buenos Aires";
-        this.ciudad = "Caba";
-        this.cod_postal = "1431";
-        this.direccion = "Holmberg";
-        this.numero = "2350";
-        this.piso = "2";
-        this.depto = "G";
-        this.cuit ="20353623894";
+    }
   }
-}
   Continuar() {
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
-    if(p==null)
-      p={};
+    if (p == null)
+      p = {};
     p["apellido"] = this.apellido;
     p["sexo"] = this.sexo;
     p["nombre"] = this.nombre;
     p["nombre_completo"] = this.nombre_completo
-    p["fech_nac"] = this.fec_nac
+    p["fecha_nac"] = this.fec_nac
     p["nacionalidad"] = this.nacionalidad;
     p["provincia"] = this.provincia;
     p["ciudad"] = this.ciudad;

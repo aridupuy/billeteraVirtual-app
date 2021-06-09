@@ -43,14 +43,12 @@ export class Datospersonales1Page implements OnInit {
         this.cuit1 = data.cuit.substr(0,2);
         // this.dni = 
         this.cuit2 = data.cuit.substr(data.cuit.length-1,1);
-        console.log(this.dni);
-        console.log(this.cuit1);
-        console.log(this.cuit2);
+        // console.log(this.dni);
+        // console.log(this.cuit1);
+        // console.log(this.cuit2);
       }).catch(()=>{
           this.dni = "35362389";
-          
           this.cuit1 = "20353623894".substr(0,2);
-          // this.dni = 
           this.cuit2 = "20353623894".substr("20353623894".length-1,1);
           console.log(this.dni);
           console.log(this.cuit1);
@@ -109,8 +107,9 @@ export class Datospersonales1Page implements OnInit {
   Continuar(){
 
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
+    console.log(p);
     p["ocupacion"] = this.ocupacion;
-    p["estadoCivil"] = this.estadoCivil;
+    p["estado_civil"] = this.estadoCivil;
     p["cuil_modificado"] = this.cuit2 + p.dni + this.cuit2
     const navigationExtras: NavigationExtras = {
       queryParams: {
