@@ -1,0 +1,26 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="amigos" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Pedir a un amigo</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="centrado">
+  <div class="imagen">
+    <img src="assets/img/amigos/pedir-amigo.svg" alt="Pedir dinero a un amigo">
+  </div>
+  <div class="contenedor-90">
+    <h1 class="align-center">¿Necesitás que un 
+      <br/>amigo te envíe dinero?
+    </h1>
+    <p class="align-center">Perfecto, lo gestionamos desde acá. <br/>
+      Pero primero, lo primero. 
+      </p>
+      <h2 class="align-center pt-5">¿Qué preferís hacer?</h2>
+  </div>
+  <div class="onboarding-btn-group">
+    <div class="btn-round activo" (click)="CrearLink();"> Crear link de pago</div>
+    <div class="btn-round outline" (click)="ListaAmigos();"> Elegir amigos de mi lista</div>
+  </div>
+</ion-content>

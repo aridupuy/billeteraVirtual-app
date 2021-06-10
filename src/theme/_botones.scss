@@ -50,6 +50,10 @@
     background: $btn-inactivo-bg;
     color: $btn-inactivo-txt;
 }
+.outline {
+    border: 2px solid $btn-activo-bg;
+    color: $btn-activo-bg;
+}
 .warning-outline {
     border: 1px solid $error;
     color: $error;

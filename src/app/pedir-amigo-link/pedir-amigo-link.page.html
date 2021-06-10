@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="pedir-amigo" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Pedir a un amigo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content center class="amigos">
+  <div class="contenedor-90">
+    <h1>Crear link de pago</h1>
+    <p>Una vez que lo generemos, vas a poder enviarlo a quien quieras. Podés pedir un máximo de $1.000.000.</p>
+    <!-- Modulo de creación link -->
+    <h2 class="align-center pt-5">Escribí el monto</h2>
+    <ion-item class="input-monto">
+      <ion-label position="fixed">$</ion-label>
+      <ion-input type="tel" pattern="[0-9]*" maxlength="7"></ion-input>
+    </ion-item>
+    <div class="validationMsg">
+      <div class="msg full danger align-center pt-2">Superaste el monto máximo</div>
+    </div>
+    <ion-item class="full">
+      <ion-label position="stacked align-center pt-5">Referencia</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+  </div>
+  <div class="onboarding-btn-group">
+    
+    <div class="btn-round activo" (click)="FinalizarLink()">Crear link</div>
+    <a (click)="ListaAmigos()" class="link">Ver lista de amigos</a>
+  </div>
+</ion-content>

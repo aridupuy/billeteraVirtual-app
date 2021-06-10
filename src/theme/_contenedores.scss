@@ -17,6 +17,13 @@ ion-content {
     align-items: center;
     align-content: center;
     position: relative;
+    --background: #fdfdfd;
+}
+ion-header {
+    --background: #fdfdfd;
+}
+ion-toolbar {
+    --background: #fdfdfd;
 }
 ion-item {
  --padding-start: 0;

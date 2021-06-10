@@ -28,7 +28,8 @@ ion-progress-bar {
 ion-card {
     margin: 0;
     border-radius: 10px;
-    box-shadow: 0px 1px 5px 1px rgb(0 0 0 / 10%);
+    border: 1px solid $border-rgba;
+    box-shadow: none;
     ion-card-header {
         padding: 0;
         ion-card-title {

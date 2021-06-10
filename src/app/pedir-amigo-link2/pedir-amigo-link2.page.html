@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="pedir-amigo-link" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Pedir a un amigo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content center class="linkpago">
+  <div class="contenedor-90">
+    <h1>Tu link de pago ya está listo</h1>
+    <p>Compartilo con quien quieras. Y si necesitás modificar algún dato antes de enviarlo, podés hacerlo. </p>
+    <!-- Modulo de creación link -->
+    <div class="renglon">
+      <h2>Monto</h2>
+      <span class="valor">$ 10</span>
+    </div>
+    <div class="renglon">
+      <h2>Referencia</h2>
+      <span class="valor">Valor de referencia</span>
+    </div>
+    
+  </div>
+  <div class="onboarding-btn-group pt-10">
+    <a (click)="ModificarDatos();" class="link align-center">Modificar datos</a>
+    <div class="btn-round activo share" (click)="Compartir()"><ion-icon name="share-social-outline"></ion-icon>Compartir</div>
+    <a (click)="MisLinks();" class="link align-center">Ver mis links de pago</a>
+    <div class="btn-round outline finalizar" (click)="Finalizar()">Finalizar</div>
+  </div>
+</ion-content>

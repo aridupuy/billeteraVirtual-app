@@ -180,7 +180,23 @@ const routes: Routes = [
   {
     path: 'preloader',
     loadChildren: () => import('./preloader/preloader.module').then( m => m.PreloaderPageModule)
+  },  {
+    path: 'pedir-amigo',
+    loadChildren: () => import('./pedir-amigo/pedir-amigo.module').then( m => m.PedirAmigoPageModule)
   },
+  {
+    path: 'pedir-amigo-link',
+    loadChildren: () => import('./pedir-amigo-link/pedir-amigo-link.module').then( m => m.PedirAmigoLinkPageModule)
+  },
+  {
+    path: 'lista-amigos',
+    loadChildren: () => import('./lista-amigos/lista-amigos.module').then( m => m.ListaAmigosPageModule)
+  },
+  {
+    path: 'pedir-amigo-link2',
+    loadChildren: () => import('./pedir-amigo-link2/pedir-amigo-link2.module').then( m => m.PedirAmigoLink2PageModule)
+  },
+
 ];
 
 @NgModule({

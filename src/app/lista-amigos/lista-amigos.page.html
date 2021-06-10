@@ -1,82 +1,19 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start" class="absolute">
-      <ion-back-button defaultHref="home" class="small"></ion-back-button>
+      <ion-back-button defaultHref="pedir-amigo" class="small"></ion-back-button>
     </ion-buttons>
-    <ion-title>Amigos</ion-title>
+    <ion-title>Pedir a un amigo</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content center class="amigos">
   <div class="contenedor-90">
-    <h1>Elegí si querés enviar <br /> 
-      o pedir dinero a un amigo</h1>
-    <div class="botonera">
-      <div class="boton pedir-dinero" (click)="enviardinero();">
-        <img src="assets/img/amigos/enviar-dinero.svg" alt="Enviar dinero a un amigo">
-        <h2>Enviar dinero</h2>
-      </div>
-      <div class="boton enviar-dinero" (click)="pedirdinero();">
-        <img src="assets/img/amigos/pedir-dinero.svg" alt="Pedir dinero a un amigo">
-        <h2>Pedir dinero</h2>
-      </div>
-    </div>
-    <div class="ultimos-movimientos">
-      <ion-card class="full">
-        <ion-card-header>
-          <ion-card-title>Últimos movimientos <a class="link">Ver todos</a></ion-card-title>
-        </ion-card-header>
-
-        <ion-card-content>
-          <ion-list class="lista-movimientos">
-            <ion-item class="movimiento-wrapper">
-              <div class="movimiento">
-                <img src="assets/img/mov-pago.svg" alt="Pagaste">
-                <div class="resumen">
-                  <h4>Pagaste a Florencia Pisandelli</h4>
-                  <span>20 de mayo - 15:45pm</span>
-                </div>
-              </div>
-              <div class="monto"> -$456 </div>
-            </ion-item>
-            <ion-item class="movimiento-wrapper">
-              <div class="movimiento">
-                <img src="assets/img/mov-recibiste.svg" alt="Recibiste">
-                <div class="resumen">
-                  <h4>Recibiste de Florencia Pisandelli</h4>
-                  <span>20 de mayo - 15:45pm</span>
-                </div>
-              </div>
-              <div class="monto"> +$456 </div>
-            </ion-item>
-            <ion-item class="movimiento-wrapper">
-              <div class="movimiento">
-                <img src="assets/img/mov-retiro.svg" alt="Recibiste">
-                <div class="resumen">
-                  <h4>Retiraste</h4>
-                  <span>20 de mayo - 15:45pm</span>
-                </div>
-              </div>
-              <div class="monto"> -$456 </div>
-            </ion-item>
-            <ion-item class="movimiento-wrapper">
-              <div class="movimiento">
-                <img src="assets/img/mov-pago.svg" alt="Pagaste">
-                <div class="resumen">
-                  <h4>Pagaste a Florencia Pisandelli</h4>
-                  <span>20 de mayo - 15:45pm</span>
-                </div>
-              </div>
-              <div class="monto"> -$456 </div>
-            </ion-item>
-          </ion-list>
-        </ion-card-content>
-        
-      </ion-card>
-    </div>
+    <h1>¿A quién querés <br/>pedirle dinero?</h1>
+    <p>Seleccioná a las personas desde esta lista o agregalas si no las ves. 
+    </p>
     <!-- Modulo de lista de amigos -->
-    <!-- <h1>Lista de amigos</h1>
-    <h2>Tus amigos</h2>
+
     <ion-searchbar mode="ios" placeholder="Buscar"></ion-searchbar>
     <ion-list class="lista-amigos">
       <ion-item class="amigo-wrapper">
@@ -159,9 +96,10 @@
           </div>
         </div>
       </ion-item>
-    </ion-list> -->
+    </ion-list>
   </div>
   <div class="onboarding-btn-group">
     <a (click)="agregarAmigo()" class="link">Agregar nuevo amigo</a>
+    <div class="btn-round activo">Continuar</div>
   </div>
 </ion-content>

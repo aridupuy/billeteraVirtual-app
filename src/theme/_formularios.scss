@@ -121,3 +121,14 @@ ion-checkbox, ion-radio {
     width: 100%;
     text-align: center;
 }
+.input-monto {
+    ion-label {
+        text-align: right;
+        position: absolute;
+        left: -10px;
+    }
+    ion-input {
+        font-size: 30px !important;
+        text-align: center;
+    }
+}
