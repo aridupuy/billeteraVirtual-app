@@ -11,6 +11,7 @@ import { ServiceService } from './service/service.service';
 import { FormBuilder } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
+import { UsuarioService } from './service/usuario.service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HammerModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
@@ -39,6 +40,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     Cookie,
     ServiceService,
     Geolocation,
+    UsuarioService,
     
     // Pago,
     {

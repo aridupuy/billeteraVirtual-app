@@ -12,6 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ModalController, NavController } from '@ionic/angular';
 import {Cookie} from 'ng2-cookies/ng2-cookies';
 import { Transacciones } from '../interfaces/transacciones';
+import { UsuarioService } from '../service/usuario.service';
 // import { SaldoService } from '../service/saldo.service';
 @Component({
   selector: 'app-home',
@@ -21,22 +22,50 @@ import { Transacciones } from '../interfaces/transacciones';
 export class HomePage implements OnInit {
 
   // Icon Cambia Saldo
-  mostrarSaldo = true;
+  mostrarSaldo  =  localStorage.getItem("saldoVisible") =="false" ?  false : true;
   ToggleIcon = 'eye-outline';
   public saldoUsuario ;
-  constructor(private menu: MenuController,public saldoService:SaldoService,public transaccionesService:TransaccionesService) {}
+  public validado=false;
+  public mensaje = "";
+  public cargandoSaldo = true;
+  // public cargando:boolean=false;
+  static select = '1';
+  static desde = null;
+  static hasta = null;
+  static itemsstatics: any;
+  public offset =0;
+  public limit=5
+  saldo= 0;
+  decimal = 0;
+  items;
+  itemback;
+  public username;
+  public iniciales;
+  constructor(public navCtl:NavController,private menu: MenuController,public saldoService:SaldoService,public transaccionesService:TransaccionesService,public route: ActivatedRoute, public router: Router,public usuarioService:UsuarioService) {}
 
   ngOnInit(): void {
-    this.obtener_saldo();
     
-   
+    let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
+    
+    if(this.route.snapshot.queryParamMap.has("param")){
+        this.mensaje = p.Mensaje;
+        this.validado = false;
+    }
+    else{
+      this.validado = true; 
+      this.obtener_datos_usuario();
+      this.obtener_saldo();
+      this.cargar_transacciones();
+    }
+  }
+  irAHistorial(){
+    this.navCtl.navigateForward("historial");
   }
   async obtener_saldo(){
     await this.saldoService.obtener().then((data: number) => {
             this.saldoUsuario = formatCurrency(data, 'en-US', '$', 'ARS', '4.2-2');
+            this.cargandoSaldo=false;
         });
-    // this.decimal = Math.trunc((this.saldo-Math.trunc(this.saldo))*100);
-    // this.saldo = Math.trunc(this.saldo);
 }
   toggleIcon():void {
     this.mostrarSaldo =! this.mostrarSaldo;
@@ -44,19 +73,148 @@ export class HomePage implements OnInit {
     if (this.mostrarSaldo == true) {
       this.ToggleIcon = 'eye-off-outline';
       saldoUsuarioSelector.innerHTML= this.saldoUsuario;
+      localStorage.setItem("saldoVisible","true");
     }
     else {
       this.ToggleIcon = 'eye-outline';
       saldoUsuarioSelector.innerHTML="******";
+      localStorage.setItem("saldoVisible","false");
     }
   }
 
   // Formateador de Float a Currency
   // public saldoUsuario = 
 
+  cargar_transacciones(){
+    const desde = '';
+    const hasta = '';
+    const mp = '';
+    this.transaccionesService.obtener_transacciones(this.offset,this.limit).then( (data: Transacciones[] ) => {
+        let i = 0;
+        for (const dato of data){
+            const fila = {titulo: dato.mp, precio: dato.monto, fecha: dato.fecha_pago, tipo: dato.concepto,id_tipo_trans:dato.id_tipo_trans,id_cuenta:dato.id_cuenta,fijo:dato.pri_fijo,variable:dato.pri_variable,monto_final:dato.monto_final,id_entidad:dato.id_entidad,id_referencia:dato.id_referencia,resumen:dato.resumen_op, click () {}};
+            if (this.items == undefined){
+                this.items = [fila];
+            }
+            this.items[i] = fila;
+            i++;
+        }
+        // let fila = {titulo:data[0].mp,precio:data[0].monto,fecha:data[0].fecha_pago,tipo:data[0].concepto,click: function () {}};
+        // this.items[i]=fila;
+        this.itemback = this.items;
+        console.log(this.items);
+    });
+
+
+}
+fecha_espaniol(fecha){
   
+  switch(fecha){
+    case "1":
+      return "Enero";
+      break;
+    case "2":
+      return "Febrero";
+      break;
+    case "3":
+      return "Marzo";
+      break;
+    case "4":
+      return "Abril";
+      break;
+    case "5":
+      return "Mayo";
+      break;
+    case "6":
+      return "Junio";
+      break;
+    case "7":
+      return "Julio";
+      break;
+    case "8":
+      return "Agosto";
+      break;
+    case "9":
+      return "Septiembre";
+      break;
+    case "10":
+      return "Octubre";
+      break;
+    case "11":
+      return "Noviembre";
+      break;
+    case "12":
+      return "Diciembre";
+      break;
+  }
+}
+cargar_transacciones_filtrado(event?){
+    const desde = '';
+    const hasta = '';
+    const mp = '';
+    // tslint:disable-next-line: max-line-length
+    this.transaccionesService.obtener_transacciones_filtrado(HomePage.desde, HomePage.hasta, mp,this.limit,this.offset, localStorage.getItem('token')).then((data: Transacciones[]) => {
+         //console.log(data);
+        let i = 0;
+        for ( const dato of data){
+            console.log(data);
+            const fila = {titulo: dato.mp, precio: dato.monto, fecha: dato.fecha_pago, tipo: dato.concepto,id_tipo_trans:dato.id_tipo_trans,id_cuenta:dato.id_cuenta,fijo:dato.pri_fijo,variable:dato.pri_variable,monto_final:dato.monto_final,id_entidad:dato.id_entidad,id_referencia:dato.id_referencia,resumen:dato.resumen_op, click () {}};
+            // tslint:disable-next-line: triple-equals
+            if (this.items == undefined){
+                this.items = [fila];
+            }
+            console.log(fila);
+            this.items.push(fila);
+            i++;
+        }
+        // let fila = {titulo:data[0].mp,precio:data[0].monto,fecha:data[0].fecha_pago,tipo:data[0].concepto,click: function () {}};
+        // this.items[i]=fila;
+        this.itemback = this.items;
+        if(event){
+            event.target.complete();
+            // this.class_refresher="";
+        }
+    }).catch(err => { console.log(err); } );
+}
   abreMenu() {
     this.menu.enable(true, 'menuPrincipal');
     this.menu.open('menuPrincipal');
+  }
+
+  obtener_datos_usuario(){
+    // let nombre =  localStorage.getItem("nombre");
+    // if(nombre){
+    //   this.username = nombre;
+    //   return false;
+    // }
+    // this.usuarioService.obtener_mis_datos().then((data:any)=>{
+        
+    //     this.username = data.nombre;
+    //     localStorage.setItem("nombre",this.username);
+    // });
+    let nombre =  localStorage.getItem("nombre");
+    if(nombre && this.iniciales){
+      this.username = nombre;
+      
+      return false;
+    }
+    this.usuarioService.obtener_mis_datos().then((data:any)=>{
+        this.username = data.nombre;
+        this.iniciales = data.nombre_completo
+        .split(' ')
+        .map( it => it.charAt(0) )
+        .slice(0,1)
+        .join('')
+        +data.nombre_completo
+        .split(' ')
+        .map( it => it.charAt(0) )
+        .slice(2,3)
+        .join('');
+        // console.log("aca");
+        localStorage.setItem("nombre",this.username);
+        localStorage.setItem("iniciales",this.iniciales);
+        // console.log(this.username);
+    });
+
   }
 }

@@ -29,6 +29,7 @@ export class ProcesoEstadoService extends ServiceService {
       httpOptions.headers.token = localStorage.getItem("token");
       return new Promise((resolve, reject) => {
         this.get<proceso>( 'api/procesoaltavalidation/consulta_estado', httpOptions).subscribe((data) => {
+          console.log(data);
           if (data.resultado != null && data.resultado == false) {
             reject(data.log);
           }
