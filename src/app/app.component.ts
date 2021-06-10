@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { UsuarioService } from './service/usuario.service';
+import { Component, OnInit } from '@angular/core';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 @Component({
@@ -6,8 +7,36 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
-export class AppComponent {
-  constructor() {}
+export class AppComponent implements OnInit {
+  public usuario;
+  public iniciales;
+  constructor(public usuarioService:UsuarioService) {}
+  ngOnInit(){
+    let nombre =  localStorage.getItem("nombre");
+    if(nombre && this.iniciales){
+      this.usuario = nombre;
+      
+      return false;
+    }
+    this.usuarioService.obtener_mis_datos().then((data:any)=>{
+        this.usuario = data.nombre;
+        this.iniciales = data.nombre_completo
+        .split(' ')
+        .map( it => it.charAt(0) )
+        .slice(0,1)
+        .join('')
+        +data.nombre_completo
+        .split(' ')
+        .map( it => it.charAt(0) )
+        .slice(2,3)
+        .join('');
+        console.log("aca");
+        localStorage.setItem("nombre",this.usuario);
+        localStorage.setItem("iniciales",this.iniciales);
+        console.log(this.usuario);
+    });
+
+  }
 }
 @Component({
   selector: 'welcome',

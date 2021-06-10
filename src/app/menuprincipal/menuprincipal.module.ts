@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { MenuprincipalPageRoutingModule } from './menuprincipal-routing.module';
 
 import { MenuprincipalPage } from './menuprincipal.page';
+import { UsuarioService } from '../service/usuario.service';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { MenuprincipalPage } from './menuprincipal.page';
     IonicModule,
     MenuprincipalPageRoutingModule
   ],
+  providers:[UsuarioService],
   declarations: [MenuprincipalPage]
 })
 export class MenuprincipalPageModule {}

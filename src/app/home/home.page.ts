@@ -39,7 +39,8 @@ export class HomePage implements OnInit {
   decimal = 0;
   items;
   itemback;
-  public username
+  public username;
+  public iniciales;
   constructor(public navCtl:NavController,private menu: MenuController,public saldoService:SaldoService,public transaccionesService:TransaccionesService,public route: ActivatedRoute, public router: Router,public usuarioService:UsuarioService) {}
 
   ngOnInit(): void {
@@ -181,15 +182,38 @@ cargar_transacciones_filtrado(event?){
   }
 
   obtener_datos_usuario(){
+    // let nombre =  localStorage.getItem("nombre");
+    // if(nombre){
+    //   this.username = nombre;
+    //   return false;
+    // }
+    // this.usuarioService.obtener_mis_datos().then((data:any)=>{
+        
+    //     this.username = data.nombre;
+    //     localStorage.setItem("nombre",this.username);
+    // });
     let nombre =  localStorage.getItem("nombre");
-    if(nombre){
+    if(nombre && this.iniciales){
       this.username = nombre;
+      
       return false;
     }
     this.usuarioService.obtener_mis_datos().then((data:any)=>{
-        
         this.username = data.nombre;
+        this.iniciales = data.nombre_completo
+        .split(' ')
+        .map( it => it.charAt(0) )
+        .slice(0,1)
+        .join('')
+        +data.nombre_completo
+        .split(' ')
+        .map( it => it.charAt(0) )
+        .slice(2,3)
+        .join('');
+        // console.log("aca");
         localStorage.setItem("nombre",this.username);
+        localStorage.setItem("iniciales",this.iniciales);
+        // console.log(this.username);
     });
 
   }
