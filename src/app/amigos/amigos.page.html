@@ -21,145 +21,74 @@
         <h2>Pedir dinero</h2>
       </div>
     </div>
-    <div class="ultimos-movimientos">
-      <ion-card class="full">
-        <ion-card-header>
-          <ion-card-title>Últimos movimientos <a class="link">Ver todos</a></ion-card-title>
-        </ion-card-header>
-
-        <ion-card-content>
-          <ion-list class="lista-movimientos">
-            <ion-item class="movimiento-wrapper">
-              <div class="movimiento">
-                <img src="assets/img/mov-pago.svg" alt="Pagaste">
-                <div class="resumen">
-                  <h4>Pagaste a Florencia Pisandelli</h4>
-                  <span>20 de mayo - 15:45pm</span>
-                </div>
-              </div>
-              <div class="monto"> -$456 </div>
-            </ion-item>
-            <ion-item class="movimiento-wrapper">
-              <div class="movimiento">
-                <img src="assets/img/mov-recibiste.svg" alt="Recibiste">
-                <div class="resumen">
-                  <h4>Recibiste de Florencia Pisandelli</h4>
-                  <span>20 de mayo - 15:45pm</span>
-                </div>
-              </div>
-              <div class="monto"> +$456 </div>
-            </ion-item>
-            <ion-item class="movimiento-wrapper">
-              <div class="movimiento">
-                <img src="assets/img/mov-retiro.svg" alt="Recibiste">
-                <div class="resumen">
-                  <h4>Retiraste</h4>
-                  <span>20 de mayo - 15:45pm</span>
-                </div>
-              </div>
-              <div class="monto"> -$456 </div>
-            </ion-item>
-            <ion-item class="movimiento-wrapper">
-              <div class="movimiento">
-                <img src="assets/img/mov-pago.svg" alt="Pagaste">
-                <div class="resumen">
-                  <h4>Pagaste a Florencia Pisandelli</h4>
-                  <span>20 de mayo - 15:45pm</span>
-                </div>
-              </div>
-              <div class="monto"> -$456 </div>
-            </ion-item>
-          </ion-list>
-        </ion-card-content>
+    <!-- Pedidos en espera -->
+    <div class="lista-pedidos-espera">
+      <div class="titulo">
+        <h2>Pedidos en espera</h2>
+      </div>
+      <div class="pedidos-wrapper">
+        <div class="pedido">
+            <div class="imagen">
+              <img src="assets/img/mov-pago.svg" alt="Pagaste">
+            </div>
+            <div class="texto">
+              <h4>Pagaste a Florencia Pisandelli</h4>
+              <span>20 de mayo - 15:45pm</span>
+            </div>
+            <div class="monto"> -$456 </div>
+            <div class="botones">
+              <div class="boton aceptar">Aceptar</div>
+              <div class="boton rechazar">Rechazar</div>
+            </div>
+        </div>
+        <div class="pedido">
+            <div class="imagen">
+              <img src="assets/img/mov-pago.svg" alt="Pagaste">
+            </div>
+            <div class="texto">
+              <h4>Pagaste a Florencia Pisandelli</h4>
+              <span>20 de mayo - 15:45pm</span>
+            </div>
+            <div class="monto"> -$456 </div>
+            <div class="botones">
+              <div class="boton aceptar">Aceptar</div>
+              <div class="boton rechazar">Rechazar</div>
+            </div>
+        </div>
         
-      </ion-card>
+      </div>
     </div>
-    <!-- Modulo de lista de amigos -->
-    <!-- <h1>Lista de amigos</h1>
-    <h2>Tus amigos</h2>
-    <ion-searchbar mode="ios" placeholder="Buscar"></ion-searchbar>
-    <ion-list class="lista-amigos">
-      <ion-item class="amigo-wrapper">
-        <div class="amigo">
-          <div class="avatar-wrapper">
-            <div class="avatar">
-              RF
+    <!-- Lista Ultimos Movimientos -->
+    <div class="lista-ultimos-movimientos">
+      <div class="titulo">
+        <h2>Últimos movimientos</h2>
+      </div>
+      <div class="movimientos-wrapper">
+        <div class="movimiento">
+            <div class="imagen">
+              <img src="assets/img/mov-pago.svg" alt="Pagaste">
             </div>
-          </div>
-          <div class="info-amigo">
-            <h2 class="nombre">Martín Lopez</h2>
-            <span class="alias">Trabajo</span>
-          </div>
-          <div class="icon">
-            <ion-icon name="checkmark-circle" color="secondary"></ion-icon>
-          </div>
-        </div>
-      </ion-item>
-      <ion-item class="amigo-wrapper">
-        <div class="amigo">
-          <div class="avatar-wrapper">
-            <div class="avatar">
-              RF
+            <div class="texto">
+              <h4>Pagaste a Florencia Pisandelli</h4>
+              <span>20 de mayo - 15:45pm</span>
             </div>
-          </div>
-          <div class="info-amigo">
-            <h2 class="nombre">Martín Lopez</h2>
-            <span class="alias">Trabajo</span>
-          </div>
-          <div class="icon">
-            <ion-icon name="add-circle-outline" color="secondary"></ion-icon>
-          </div>
+            <div class="monto"> -$456 </div>
         </div>
-      </ion-item>
-      <ion-item class="amigo-wrapper">
-        <div class="amigo">
-          <div class="avatar-wrapper">
-            <div class="avatar">
-              RF
+        <div class="movimiento">
+            <div class="imagen">
+              <img src="assets/img/mov-pago.svg" alt="Pagaste">
             </div>
-          </div>
-          <div class="info-amigo">
-            <h2 class="nombre">Martín Lopez</h2>
-            <span class="alias">Trabajo</span>
-          </div>
-          <div class="icon">
-            <ion-icon name="checkmark-circle" color="secondary"></ion-icon>
-          </div>
-        </div>
-      </ion-item>
-      <ion-item class="amigo-wrapper">
-        <div class="amigo">
-          <div class="avatar-wrapper">
-            <div class="avatar">
-              RF
+            <div class="texto">
+              <h4>Pagaste a Florencia Pisandelli</h4>
+              <span>20 de mayo - 15:45pm</span>
             </div>
-          </div>
-          <div class="info-amigo">
-            <h2 class="nombre">Martín Lopez</h2>
-            <span class="alias">Trabajo</span>
-          </div>
-          <div class="icon">
-            <ion-icon name="add-circle-outline" color="secondary"></ion-icon>
-          </div>
+            <div class="monto"> -$456 </div>
         </div>
-      </ion-item>
-      <ion-item class="amigo-wrapper">
-        <div class="amigo">
-          <div class="avatar-wrapper">
-            <div class="avatar">
-              RF
-            </div>
-          </div>
-          <div class="info-amigo">
-            <h2 class="nombre">Martín Lopez</h2>
-            <span class="alias">Trabajo</span>
-          </div>
-          <div class="icon">
-            <ion-icon name="add-circle-outline" color="secondary"></ion-icon>
-          </div>
-        </div>
-      </ion-item>
-    </ion-list> -->
+        
+      </div>
+    </div>    
+    
+   
   </div>
   <div class="onboarding-btn-group">
     <a (click)="agregarAmigo()" class="link">Agregar nuevo amigo</a>

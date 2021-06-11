@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="home" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Mis links de pago</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content center class="amigos">
+  <div class="contenedor-90">
+    <h1>Agenda de links de pagos</h1>
+    <p>Esta es la lista de enlaces que fueron generados por vos a lo largo del tiempo. Podés volver a compartirlos, modificarlos, duplicarlos o eliminarlos. 
+    </p>
+    
+    <!-- Agenda de links -->
+    <div class="lista-agenda-links">
+      <div class="titulo">
+        <h2>Referencia</h2>
+        <h2>Monto</h2>
+      </div>
+      <div class="links-wrapper">
+        <div class="milink">
+            <div class="texto">
+              <h4>Pagaste a Florencia Pisandelli</h4>
+              <span>20 de mayo - 15:45pm</span>
+            </div>
+            <div class="monto"> -$456 </div>    
+        </div>
+        <div class="milink">
+            <div class="texto">
+              <h4>Pagaste a Florencia Pisandelli</h4>
+              <span>20 de mayo - 15:45pm</span>
+            </div>
+            <div class="monto"> -$456 </div>    
+        </div>
+        <div class="milink">
+            <div class="texto">
+              <h4>Pagaste a Florencia Pisandelli</h4>
+              <span>20 de mayo - 15:45pm</span>
+            </div>
+            <div class="monto"> -$456 </div>    
+        </div>
+      </div>
+    </div>
+   
+    
+    
+   
+  </div>
+  <div class="onboarding-btn-group">
+    <div class="btn-round activo" (click)="CrearNuevo()">Crear nuevo link de pago</div>
+    <a (click)="Finalizar()" class="link">Finalizar</a>
+  </div>
+</ion-content>
