@@ -8,15 +8,12 @@
 </ion-header>
 <ion-content [fullscreen]="true">
   <div class="contenedor-90">
-    <div class="lista-ultimos-movimientos" *ngIf="items">
-      <div class="titulo">
-        <h2>Últimos movimientos</h2>
-      </div>
-
+    <h1>Historial de movimientos</h1>
+    <p>Texto que iría acá</p>
+    <div class="lista-ultimos-movimientos mt-10" *ngIf="items">
         <ion-refresher [class]="class_refresher" slot="fixed" (ionStart)="mostrar($event)"
           (ionRefresh)="refresh($event)">
           <ion-refresher-content refreshingText="Recargando..." refreshingSpinner="bubbles">
-            
           </ion-refresher-content>
         </ion-refresher>
         <div class="movimientos-wrapper" *ngFor="let item of items">
