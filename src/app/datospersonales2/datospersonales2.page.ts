@@ -35,7 +35,7 @@ export class Datospersonales2Page implements OnInit {
   Continuar() {
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
     // console.log(p);
-    this.registroService.registrar(p.email,p.nombre_completo,p.password,p.valido_sms,p.acepta,p.cod_area,p.celular,p.foto_frente,p.foto_frente_con_dni,p.foto_dorso_dni,p.foto_frente_dni,p.cuit,p.fecha_nac,p.nacionalidad,p.sexo,p.estado_civil,p.ocupacion,p.provincia,p.ciudad,p.cod_postal,p.direccion,p.numero,p.piso,p.depto,p.fatca,p.politico_expuesto,p.sujeto_obligado).then(data=>{
+    this.registroService.registrar(p.email,p.nombre_completo,p.password,p.valido_sms,p.acepta,p.cod_area,p.celular,p.foto_frente,p.foto_frente_con_dni,p.foto_dorso_dni,p.foto_frente_dni,p.cuit,p.fecha_nac,p.nacionalidad,p.sexo,p.estado_civil,p.ocupacion,p.provincia,p.ciudad,p.cod_postal,p.direccion,p.numero,p.piso,p.depto,p.fatca,p.politico_expuesto,p.sujeto_obligado,p.cuit,p.cuit_modificado).then(data=>{
     let mensaje_titulo = "¡Todo un éxito!";
     let mensaje = "Ahora podés iniciar sesión y comenzar a disfrutar de todos los beneficios de llevar tu billetera en el celular."
     let mensaje2 = "Ya completaste tu registro";  

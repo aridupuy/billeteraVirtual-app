@@ -32,7 +32,7 @@ export class Validaridentidad3Page implements OnInit {
       if (p.editar == true) {
         this.cameraPreview.startCamera({ x: 0, y: 0, width: window.screen.width, height: window.screen.height, previewDrag: true, camera: "front", toBack: true });
       }
-      // this.cameraPreview.stopCamera();
+      this.cameraPreview.stopCamera();
       this.cameraPreview.startCamera({ x: 0, y: 0, width: window.screen.height, height: window.screen.width, previewDrag: true, camera: "front", toBack: true });
       // this.cameraPreview.startCamera({x: 0, y: 0, width: window.screen.width, height: window.screen.height, previewDrag: true, camera: "front",toBack: true});
       this.cameraPreview.switchCamera();
@@ -40,7 +40,7 @@ export class Validaridentidad3Page implements OnInit {
     });
 
   }
-  public ACTIVAR_TEST = true;
+  public ACTIVAR_TEST = false;
   public mostrar = true;
   takePicture() {
     console.log("aca3");

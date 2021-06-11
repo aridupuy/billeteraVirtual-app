@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { DatosCuentaPageRoutingModule } from './datos-cuenta-routing.module';
 
 import { DatosCuentaPage } from './datos-cuenta.page';
+import { UsuarioService } from '../service/usuario.service';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { DatosCuentaPage } from './datos-cuenta.page';
     IonicModule,
     DatosCuentaPageRoutingModule
   ],
+  providers:[UsuarioService],
   declarations: [DatosCuentaPage]
 })
 export class DatosCuentaPageModule {}

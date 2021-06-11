@@ -29,11 +29,11 @@ export class ContactoService extends ServiceService {
           reject(data.log);
         }
         if (data.extras.length > 0) {
-          console.log("con datos");
+          // console.log("con datos");
           return resolve(data.extras[0]);
         }
         else {
-          console.log("sin datos");
+          // console.log("sin datos");
           return resolve([]);
         }
       });
@@ -49,11 +49,11 @@ export class ContactoService extends ServiceService {
           reject(data.log);
         }
         if (data.extras.length > 0) {
-          console.log("con datos");
+          // console.log("con datos");
           return resolve(data.extras[0]);
         }
         else {
-          console.log("sin datos");
+          // console.log("sin datos");
           return resolve([]);
         }
 

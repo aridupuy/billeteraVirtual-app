@@ -30,12 +30,12 @@ export class Validaridentidad4Page implements OnInit {
     console.log("enter view 4");
     this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT).then(() => {
       this.cameraPreview.startCamera({ x: 0, y: 0, width: window.screen.width, height: window.screen.height, previewDrag: true, camera: "front", toBack: true });
-      this.cameraPreview.switchCamera();
+      // this.cameraPreview.switchCamera();
       this.cameraPreview.show();
     });
 
   }
-  public ACTIVAR_TEST = true;
+  public ACTIVAR_TEST = false;
   takePicture() {
     console.log("aca4");
     this.cameraPreview.takePicture({

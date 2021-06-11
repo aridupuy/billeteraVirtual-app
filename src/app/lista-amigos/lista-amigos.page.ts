@@ -11,5 +11,8 @@ export class ListaAmigosPage implements OnInit {
 
   ngOnInit() {
   }
+  agregarAmigo(){
+    
+  }
 
 }

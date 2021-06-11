@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { AmigosPageRoutingModule } from './amigos-routing.module';
 
 import { AmigosPage } from './amigos.page';
+import { ContactoService } from '../service/contacto.service';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { AmigosPage } from './amigos.page';
     IonicModule,
     AmigosPageRoutingModule
   ],
+  providers:[ContactoService],
   declarations: [AmigosPage]
 })
 export class AmigosPageModule {}

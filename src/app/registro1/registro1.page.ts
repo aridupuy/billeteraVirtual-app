@@ -27,27 +27,29 @@ export class Registro1Page implements OnInit {
     let  p  = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
     console.log(p);
     let proceso_alta = localStorage.getItem("proceso_alta");
-      // await this.loginBo.login().then(async token=>{
+      await this.loginBo.login().then(async token=>{
         console.log("logueado");
+        console.log(this.codArea+this.celular);
+        console.log(this.codArea);
         this.cargando=true;
-          // await this.validCel.obtener_codigo(this.codArea+this.celular,token).then( data=>{
-            console.log("codigo enviado");
+          await this.validCel.obtener_codigo(this.codArea.toString()+this.celular.toString(),token).then( data=>{
+          //   console.log("codigo enviado");
             const navigationExtras: NavigationExtras = {
               queryParams: {
                 param: JSON.stringify({email:p.email,password:p.password,acepta:p.acepta,cod_area:this.codArea,celular:this.celular,dni:this.dni})
               }
             };
-            console.log(navigationExtras);
+            // console.log(navigationExtras);
             this.cargando=false;
             this.navCtrl.navigateForward("confirmasms", navigationExtras);
-          // })
-          // .catch(err=>{console.log(err); return;});
-        // });
+          })
+          .catch(err=>{console.log(err); return;});
+        });
     // this.navCtrl.navigateForward(["confirmasms",{}]);
   }
   validar_celular(){
     
-    let result = (""+this.codArea+this.celular).match(/^([0-9]{2}[0-9]{8})$/);
+    let result = (""+this.codArea+this.celular).match(/^[+]?[0-9]{2}([0-9]{2}[0-9]{8})$/);
     if(result!==null){
         this.errorCel=false;
     }

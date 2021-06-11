@@ -11,21 +11,21 @@
 <div class="contenedor-90">
   <div class="user-header">
     <div class="avatar">
-      RF
+      {{iniciales}}
     </div>
-    <h1 class="nombreUsuario">Ricardo Anibal Fort</h1>
+    <h1 class="nombreUsuario">{{username}}</h1>
   </div>
   <div class="datos-cuenta">
     <h2>Datos de la cuenta</h2>
     <div class="input-container with-label">
       <ion-item id="celularItem">
       <ion-label position="stacked">Celular</ion-label>
-      <ion-input type="text" readonly="true" #celular placeholder="+54 11 51312789"></ion-input>
+      <ion-input type="text" readonly="true"  placeholder="+54 11 51312789" [(ngModel)]="celular"></ion-input>
       </ion-item>
       <div class="icon"><ion-icon slot="end" name="create-outline" (click)="EditarCel()"></ion-icon></div>
       <ion-item #emailItem>
         <ion-label position="stacked">E-mail</ion-label>
-        <ion-input type="email" readonly="true" #email placeholder="riki.fort@gmail.com"></ion-input>
+        <ion-input type="email" readonly="true"  placeholder="riki.fort@gmail.com" [ngModel]="email"></ion-input>
         </ion-item>
         <div class="icon"><ion-icon slot="end" name="create-outline"></ion-icon></div>
         <ion-item #passwordItem>
@@ -40,35 +40,35 @@
     <div class="input-container with-label">
       <ion-item>
       <ion-label position="stacked">Nombre</ion-label>
-      <ion-input type="text" readonly="true" #nombre placeholder="Ricardo"></ion-input>
+      <ion-input type="text" readonly="true"  placeholder="Ricardo" [(ngModel)]="nombre"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Apellido</ion-label>
-        <ion-input type="text" readonly="true" #apellido placeholder="Fort"></ion-input>
+        <ion-input type="text" readonly="true"  placeholder="Fort" [(ngModel)]="apellido"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">DNI</ion-label>
-        <ion-input type="text" readonly="true" #dni placeholder="12345678"></ion-input>
+        <ion-input type="text" readonly="true"  placeholder="12345678" [(ngModel)]="dni"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Sexo</ion-label>
-        <ion-input type="text" readonly="true" #sexo placeholder="Masculino"></ion-input>
+        <ion-input type="text" readonly="true"  placeholder="Masculino" [(ngModel)]="sexo"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Nacionalidad</ion-label>
-        <ion-input type="text" readonly="true" #nacionalidad placeholder="Argentina"></ion-input>
+        <ion-input type="text" readonly="true"  placeholder="Argentina" [(ngModel)]="nacionalidad"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Fecha de Nacimiento</ion-label>
-        <ion-input type="text" readonly="true" #fechanacimiento placeholder="01/01/1990"></ion-input>
+        <ion-input type="text" readonly="true"  placeholder="01/01/1990" [(ngModel)]="fecha_nac"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">CUIL/CUIT</ion-label>
-        <ion-input type="text" readonly="true" #cuilcuit placeholder="20123456789"></ion-input>
+        <ion-input type="text" readonly="true"  placeholder="20123456789" [(ngModel)]="cuil"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Domicilio</ion-label>
-        <ion-input type="text" readonly="true" #domicilio placeholder="Av. Siempre viva 123"></ion-input>
+        <ion-input type="text" readonly="true"  placeholder="Av. Siempre viva 123" [(ngModel)]="domicilio"></ion-input>
       </ion-item>
       <div class="icon"><ion-icon slot="end" name="create-outline"></ion-icon></div>
     </div>
