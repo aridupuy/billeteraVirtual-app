@@ -37,63 +37,28 @@
         </div>
 
       </div>
-      <!-- Modulo ultimos movimientos -->
-
-      <div class="ultimos-movimientos" *ngIf="items">
-        <ion-card class="full">
-          <ion-card-header>
-            <ion-card-title>Últimos movimientos <a class="link" (click)="irAHistorial()">Ver todos</a></ion-card-title>
-          </ion-card-header>
-
-          <ion-card-content>
-            <ion-list class="lista-movimientos">
-              <ion-item class="movimiento-wrapper" *ngFor="let item of items">
-                <div class="movimiento">
-                  <img src="assets/img/mov-recibiste.svg" alt="Recibiste" *ngIf="item.id_tipo_trans=='2'">
-                  <img src="assets/img/mov-retiro.svg" alt="Recibiste" *ngIf="item.id_tipo_trans=='1'">
-                  <img src="assets/img/mov-pago.svg" alt="Pagaste" *ngIf="item.tipo=='3'">
-                  <div class="resumen">
-                    <h4>{{item.titulo}}</h4>
-                    <span>{{ item.fecha | date:'dd'}} de {{ fecha_espaniol(item.fecha | date:'M')}} - {{ item.fecha | date:'hh:mma'}}</span>
-                  </div>
-                </div>
-                <div class="monto"> ${{item.precio}} </div>
-              </ion-item>
-              <!-- <ion-item class="movimiento-wrapper">
-                <div class="movimiento">
-                  <img src="assets/img/mov-recibiste.svg" alt="Recibiste">
-                  <div class="resumen">
-                    <h4>Recibiste de Florencia Pisandelli</h4>
-                    <span>20 de mayo - 15:45pm</span>
-                  </div>
-                </div>
-                <div class="monto"> +$456 </div>
-              </ion-item>
-              <ion-item class="movimiento-wrapper">
-                <div class="movimiento">
-                  <img src="assets/img/mov-retiro.svg" alt="Recibiste">
-                  <div class="resumen">
-                    <h4>Retiraste</h4>
-                    <span>20 de mayo - 15:45pm</span>
-                  </div>
-                </div>
-                <div class="monto"> -$456 </div>
-              </ion-item>
-              <ion-item class="movimiento-wrapper">
-                <div class="movimiento">
-                  <img src="assets/img/mov-pago.svg" alt="Pagaste">
-                  <div class="resumen">
-                    <h4>Pagaste a Florencia Pisandelli</h4>
-                    <span>20 de mayo - 15:45pm</span>
-                  </div>
-                </div>
-                <div class="monto"> -$456 </div>
-              </ion-item> -->
-            </ion-list>
-          </ion-card-content>
-          
-        </ion-card>
-      </div>
+        <!-- Lista Ultimos Movimientos -->
+      <div class="lista-ultimos-movimientos mt-10" *ngIf="items">
+        <div class="titulo">
+          <h2>Últimos movimientos</h2>
+          <h2 (click)="irAHistorial();">Ver todos</h2>
+        </div>
+        <div class="movimientos-wrapper">
+          <div class="movimiento" *ngFor="let item of items">
+              <div class="imagen">
+                <img src="assets/img/mov-recibiste.svg" alt="Recibiste" *ngIf="item.id_tipo_trans=='2'">
+                <img src="assets/img/mov-retiro.svg" alt="Recibiste" *ngIf="item.id_tipo_trans=='1'">
+                <img src="assets/img/mov-pago.svg" alt="Pagaste" *ngIf="item.tipo=='3'">
+              </div>
+              <div class="texto">
+                <h4>{{item.titulo}}</h4>
+                <span>{{ item.fecha | date:'dd'}} de {{ fecha_espaniol(item.fecha | date:'M')}} - {{ item.fecha | date:'hh:mma'}}</span>
+              </div>
+              <div class="monto"> ${{item.precio}} </div>
+          </div>        
+        </div>
+      </div>    
+    
       <!-- Mensaje de email no validado -->
       <!-- <div class="mensaje-bienvenida">
         <ion-icon name="warning-outline"></ion-icon>
