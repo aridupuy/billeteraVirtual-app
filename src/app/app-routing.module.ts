@@ -18,6 +18,10 @@ const routes: Routes = [
     loadChildren: () => import('./splash/splash.module').then( m => m.SplashPageModule)
   },
   {
+    path: 'historial',
+    loadChildren: () => import('./historial/historial.module').then( m => m.HistorialPageModule)
+  },
+  {
     path: 'welcome',
     loadChildren: () => import('./welcome/welcome.module').then( m => m.WelcomePageModule)
   },
@@ -200,6 +204,10 @@ const routes: Routes = [
   {
     path: 'agenda-links',
     loadChildren: () => import('./agenda-links/agenda-links.module').then( m => m.AgendaLinksPageModule)
+  },
+  {
+    path: 'ingreo-transferencia',
+    loadChildren: () => import('./ingreo-transferencia/ingreo-transferencia.module').then( m => m.IngreoTransferenciaPageModule)
   },
 ];
 

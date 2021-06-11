@@ -41,6 +41,7 @@
       <div class="lista-ultimos-movimientos" *ngIf="items">
         <div class="titulo">
           <h2>Últimos movimientos</h2>
+          <h2 (click)="irAHistorial();">Ver todos</h2>
         </div>
         <div class="movimientos-wrapper">
           <div class="movimiento" *ngFor="let item of items">
@@ -57,7 +58,7 @@
           </div>        
         </div>
       </div>    
-    </div>
+    
       <!-- Mensaje de email no validado -->
       <!-- <div class="mensaje-bienvenida">
         <ion-icon name="warning-outline"></ion-icon>
