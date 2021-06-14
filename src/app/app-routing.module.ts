@@ -3,15 +3,16 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),canActivate: [AuthGuardGuard]
-  },
+  
   {
     path: '',
     redirectTo: 'welcome',
     // redirectTo: 'validaridentidad',
     pathMatch: 'full'
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),canActivate: [AuthGuardGuard]
   },
   {
     path: 'splash',
@@ -91,31 +92,31 @@ const routes: Routes = [
   },
   {
     path: 'ingresopatron',
-    loadChildren: () => import('./ingresopatron/ingresopatron.module').then( m => m.IngresopatronPageModule),canActivate: [AuthGuardGuard]
+    loadChildren: () => import('./ingresopatron/ingresopatron.module').then( m => m.IngresopatronPageModule)
   },
   {
     path: 'lostpassword',
-    loadChildren: () => import('./lostpassword/lostpassword.module').then( m => m.LostpasswordPageModule),canActivate: [AuthGuardGuard]
+    loadChildren: () => import('./lostpassword/lostpassword.module').then( m => m.LostpasswordPageModule)
   },
   {
     path: 'lostpassword1',
-    loadChildren: () => import('./lostpassword1/lostpassword1.module').then( m => m.Lostpassword1PageModule),canActivate: [AuthGuardGuard]
+    loadChildren: () => import('./lostpassword1/lostpassword1.module').then( m => m.Lostpassword1PageModule)
   },
   {
     path: 'lostpassword-confirma',
-    loadChildren: () => import('./lostpassword-confirma/lostpassword-confirma.module').then( m => m.LostpasswordConfirmaPageModule),canActivate: [AuthGuardGuard]
+    loadChildren: () => import('./lostpassword-confirma/lostpassword-confirma.module').then( m => m.LostpasswordConfirmaPageModule)
   },
   {
     path: 'lostpassword-exito',
-    loadChildren: () => import('./lostpassword-exito/lostpassword-exito.module').then( m => m.LostpasswordExitoPageModule),canActivate: [AuthGuardGuard]
+    loadChildren: () => import('./lostpassword-exito/lostpassword-exito.module').then( m => m.LostpasswordExitoPageModule)
   },
   {
     path: 'lostpassword-ayuda',
-    loadChildren: () => import('./lostpassword-ayuda/lostpassword-ayuda.module').then( m => m.LostpasswordAyudaPageModule),canActivate: [AuthGuardGuard]
+    loadChildren: () => import('./lostpassword-ayuda/lostpassword-ayuda.module').then( m => m.LostpasswordAyudaPageModule)
   },
   {
     path: 'lostpassword-ayuda-confirm',
-    loadChildren: () => import('./lostpassword-ayuda-confirm/lostpassword-ayuda-confirm.module').then( m => m.LostpasswordAyudaConfirmPageModule),canActivate: [AuthGuardGuard]
+    loadChildren: () => import('./lostpassword-ayuda-confirm/lostpassword-ayuda-confirm.module').then( m => m.LostpasswordAyudaConfirmPageModule)
   },
   {
     path: 'registro-cuentaexistente',
@@ -167,7 +168,7 @@ const routes: Routes = [
   },
   {
     path: 'menuprincipal',
-    loadChildren: () => import('./menuprincipal/menuprincipal.module').then( m => m.MenuprincipalPageModule),canActivate: [AuthGuardGuard]
+    loadChildren: () => import('./menuprincipal/menuprincipal.module').then( m => m.MenuprincipalPageModule)
   },
   {
     path: 'datos-cuenta',

@@ -1,4 +1,5 @@
 import { UsuarioService } from './service/usuario.service';
+import { NavController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
@@ -10,7 +11,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 export class AppComponent implements OnInit {
   public usuario;
   public iniciales;
-  constructor(public usuarioService:UsuarioService) {}
+  constructor(public usuarioService:UsuarioService,public navctl:NavController) {}
   ngOnInit(){
     let nombre =  localStorage.getItem("nombre");
     if(nombre && this.iniciales){
@@ -35,8 +36,21 @@ export class AppComponent implements OnInit {
         localStorage.setItem("iniciales",this.iniciales);
         console.log(this.usuario);
     });
+    document.addEventListener("resume", this.onDeviceresume, false);
+    document.addEventListener("pause", this.onPause, false);
+    document.addEventListener("stop", this.onPause, false);
 
   }
+  onPause = ()=>{
+    console.log("pause");
+    localStorage.setItem("inBackground","1");
+  }
+  onDeviceresume = ()=>{
+    console.log("onDeviceresume");
+    localStorage.setItem("inBackground","1");
+    this.navctl.navigateForward(["home",{}]);
+  }
+  
 }
 @Component({
   selector: 'welcome',

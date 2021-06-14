@@ -18,6 +18,9 @@ export class AmigosPage implements OnInit {
 
   // }
   ngOnInit(){
+    this.cargarData();
+  }
+  cargarData(){
     this.contacto.obtener_pedidos_dinero().then((data:any[])=>{
       console.log("aca2");
       console.log(data);
@@ -79,7 +82,6 @@ export class AmigosPage implements OnInit {
     });
 
   }
-
   fecha_espaniol(fecha){
   
     switch(fecha){
@@ -128,4 +130,25 @@ export class AmigosPage implements OnInit {
   this.navCtrl.navigateForward("enviar-amigo");
   }
   agregarAmigo(){}
+
+  aceptar(item){
+    this.contacto.aceptar_pedido_saldo(item.id).then(()=>{
+      this.envios=[];
+      this.pedidos=[];
+      this.historial_envios=[];
+      this.historial_pedidos=[];
+      return this.cargarData();
+    });
+    console.log(item);
+  }
+  rechazar(item){
+    this.contacto.rechazar_pedido(item.id).then(()=>{
+        this.envios=[];
+        this.pedidos=[];
+        this.historial_envios=[];
+        this.historial_pedidos=[];
+        return this.cargarData();
+    });
+    console.log(item);
+  }
 }

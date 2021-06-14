@@ -68,7 +68,8 @@ export class IngresoPage implements OnInit {
             this.cargando = false;
             this.error_user=false;
            this.error_pass=false;
-            this.navCtrl.navigateForward(["home",{}]);
+           console.log("logeado voy aca");
+          this.navCtrl.navigateForward(["home",{}]);
         }).catch(err=>{
           this.cargando = false;
           this.error=true;

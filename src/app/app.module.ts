@@ -17,6 +17,8 @@ import { HammerModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angul
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
+import { BackgroundMode } from '@ionic-native/background-mode/ngx';
+
 
 declare var Hammer: any;
 export class MyHammerConfig extends HammerGestureConfig {
@@ -37,6 +39,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     CameraPreview, FingerprintAIO , LoginService,
     ModalController,
     FormBuilder,
+    BackgroundMode,
     Cookie,
     ServiceService,
     Geolocation,

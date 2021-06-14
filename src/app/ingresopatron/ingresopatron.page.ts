@@ -14,38 +14,42 @@ export class IngresopatronPage implements OnInit {
   constructor(private navCtrl : NavController,private platform: Platform,private faio: FingerprintAIO) {
 
   }
-
+  public nombre;
 
   ionViewDidEnter() {
-
+    this.nombre = localStorage.getItem("nombre").toString();
     this.faio.isAvailable().then((result: any) => {
-      console.log(result)
-
+      // console.log(result)
+      
       this.faio.show({
+        
         cancelButtonTitle: 'Cancelar',
         description: "Usá tu huella para iniciar sesión e ingresar a la app.",
         disableBackup: false,
-        title: 'Hola NombreUsuario',
+        title: 'Hola ' + this.nombre,
         fallbackButtonTitle: 'Atras',
       })
         .then((result: any) => {
           console.log(result)
-          this.navCtrl.navigateForward(["home",{}]);
+          this.navCtrl.navigateForward("home");
         })
         
     })
       .catch((error: any) => {
-        this.navCtrl.navigateForward(["ingreso",{}]);
+        // this.navCtrl.navigateForward(["ingreso",{}]);
       });
   }
   ngOnInit() {
    
   }
   Ingresar(){
+    localStorage.setItem("inBackground","0");
     this.navCtrl.navigateForward(["home",{}]);
   }
   LostPassword(){
     this.navCtrl.navigateForward(["lostpassword",{}]);
   }
-  
+  showFingerprintAuthDlg(){
+
+  }
 }

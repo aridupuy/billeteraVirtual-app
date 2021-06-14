@@ -9,7 +9,7 @@
 
 <ion-content center class="amigos">
   <div class="contenedor-90">
-    <h1>Elegí si querés enviar <br /> 
+    <h1>Elegí si querés enviar <br />
       o pedir dinero a un amigo</h1>
     <div class="botonera">
       <div class="boton pedir-dinero" (click)="enviardinero();">
@@ -26,35 +26,51 @@
       <div class="titulo">
         <h2>Pedidos en espera</h2>
       </div>
-      <div class="pedidos-wrapper">
+      <div class="pedidos-wrapper" *ngIf="pedidos.length>0 and envios.lengh>0">
         <div class="pedido" *ngFor="let item of pedidos">
           <div class="imagen">
             <img src="assets/img/mov-pago.svg" alt="Pagaste">
           </div>
           <div class="texto">
             <h4>{{item.nombre}} te pide a vos</h4>
-            <span>{{ item.fecha | date:'dd'}} de {{ fecha_espaniol(item.fecha | date:'M')}} - {{ item.fecha | date:'hh:mma'}}</span>
+            <span>{{ item.fecha | date:'dd'}} de {{ fecha_espaniol(item.fecha | date:'M')}} - {{ item.fecha |
+              date:'hh:mma'}}</span>
           </div>
           <div class="monto">${{item.monto}} </div>
           <div class="botones">
-            <div class="boton aceptar">Aceptar</div>
-            <div class="boton rechazar">Rechazar</div>
+            <div class="boton aceptar" (click)="aceptar(item)">Aceptar</div>
+            <div class="boton rechazar" (click)="rechazar(item)">Rechazar</div>
           </div>
-      </div>
+        </div>
         <div class="pedido" *ngFor="let item of envios">
+          <div class="imagen">
+            <img src="assets/img/mov-pago.svg" alt="Pagaste">
+          </div>
+          <div class="texto">
+            <h4>Le pediste a {{item.nombre}}</h4>
+            <span>{{ item.fecha | date:'dd'}} de {{ fecha_espaniol(item.fecha | date:'M')}} - {{ item.fecha |
+              date:'hh:mma'}}</span>
+          </div>
+          <div class="monto"> ${{item.monto}} </div>
+          <div class="botones">
+          </div>
+        </div>
+        <div class="pedidos-wrapper" *ngIf="pedidos.length < 1 || envios.length < 1">
+          <div class="pedido">
             <div class="imagen">
-              <img src="assets/img/mov-pago.svg" alt="Pagaste">
+              <ion-skeleton-text animated></ion-skeleton-text>
             </div>
             <div class="texto">
-              <h4>Le pediste a {{item.nombre}}</h4>
-              <span>{{ item.fecha | date:'dd'}} de {{ fecha_espaniol(item.fecha | date:'M')}} - {{ item.fecha | date:'hh:mma'}}</span>
+              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
             </div>
-            <div class="monto"> ${{item.monto}} </div>
+            <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
             <div class="botones">
+              <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
             </div>
+          </div>
         </div>
-        
-        
       </div>
     </div>
     <!-- Lista Ultimos Movimientos -->
@@ -64,14 +80,15 @@
       </div>
       <div class="movimientos-wrapper">
         <div class="movimiento" *ngFor="let item of historial_pedidos">
-            <div class="imagen">
-              <img src="assets/img/mov-recibiste.svg" alt="Recibiste">
-            </div>
-            <div class="texto">
-              <h4>Recibiste de {{item.nombre}}</h4>
-              <span>{{ item.fecha | date:'dd'}} de {{ fecha_espaniol(item.fecha | date:'M')}} - {{ item.fecha | date:'hh:mma'}}</span>
-            </div>
-            <div class="monto"> ${{item.monto}} </div>
+          <div class="imagen">
+            <img src="assets/img/mov-recibiste.svg" alt="Recibiste">
+          </div>
+          <div class="texto">
+            <h4>Recibiste de {{item.nombre}}</h4>
+            <span>{{ item.fecha | date:'dd'}} de {{ fecha_espaniol(item.fecha | date:'M')}} - {{ item.fecha |
+              date:'hh:mma'}}</span>
+          </div>
+          <div class="monto"> ${{item.monto}} </div>
         </div>
         <div class="movimiento" *ngFor="let item of historial_envios">
           <div class="imagen">
@@ -79,10 +96,11 @@
           </div>
           <div class="texto">
             <h4>Enviaste a {{item.nombre}}</h4>
-              <span>{{ item.fecha | date:'dd'}} de {{ fecha_espaniol(item.fecha | date:'M')}} - {{ item.fecha | date:'hh:mma'}}</span>
+            <span>{{ item.fecha | date:'dd'}} de {{ fecha_espaniol(item.fecha | date:'M')}} - {{ item.fecha |
+              date:'hh:mma'}}</span>
           </div>
           <div class="monto"> -${{item.monto}} </div>
-      </div>
+        </div>
         <!-- <div class="movimiento">
             <div class="imagen">
               <img src="assets/img/mov-pago.svg" alt="Pagaste">
@@ -93,11 +111,11 @@
             </div>
             <div class="monto"> -$456 </div>
         </div> -->
-        
+
       </div>
-    </div>    
-    
-   
+    </div>
+
+
   </div>
   <div class="onboarding-btn-group">
     <a (click)="agregarAmigo()" class="link">Agregar nuevo amigo</a>

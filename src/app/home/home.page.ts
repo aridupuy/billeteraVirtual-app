@@ -14,6 +14,7 @@ import {Cookie} from 'ng2-cookies/ng2-cookies';
 import { Transacciones } from '../interfaces/transacciones';
 import { UsuarioService } from '../service/usuario.service';
 // import { SaldoService } from '../service/saldo.service';
+import { PreloaderPage } from '../preloader/preloader.page';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',

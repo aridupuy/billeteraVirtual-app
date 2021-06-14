@@ -69,17 +69,53 @@ export class LoginService extends ServiceService{
         rejects(false);
       }
       this.post<IcheckToken>(url, json, httpOption)
-        .subscribe((data) => {
+        .subscribe(async (data) => {
           // console.log(data);
           if (data != undefined  && (data.check == 1 || data.check =='true')){
             resolve(true);
           }
           else{
+            let resp;
+            await this.loginWithToken("api/loginwithtoken",json).then((data)=>{
+              resolve(data);
+              resp = true;
+            }).catch((data)=>{
+              rejects(data);
+              resp = false;
+            });
+            if(await resp){
+              resolve(resp);
+            }
             rejects(false);
           }
         }) ;
     });
   }
+
+  loginWithToken(url, json) {
+    
+    return new Promise((resolve,rejects)=>{
+      if(!localStorage.getItem("token")){
+        rejects(false);
+      }
+      this.post<Ilogin>(url, json, httpOption)
+        .subscribe(async (data) => {
+          // console.log(data);
+          if (data.resultado == false && data.log != false) {
+            rejects(data.log);
+          }
+          console.log(localStorage.getItem("token"));
+          if(localStorage.getItem("token")){
+            localStorage.removeItem("token");
+          }
+          await localStorage.setItem("token", data.token);
+          console.log(localStorage.getItem("token"));
+          this.token = data.token;
+          return resolve(this.token);
+        }) ;
+    });
+  }
+
 
   public handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

@@ -9,16 +9,16 @@
   </div>
   <div class="contenedor-90">
     <h1 class="align-center">¡Hola! <br>
-      NombreUsuario</h1>
+      {{nombre}}</h1>
     <p class="align-center">Para ingresar, usá el patrón, huella o pin
-      que utilizás para desbloquear tu celular.</p>
-    <button (click)="showFingerprintAuthDlg()">MOSTRAR DIALOGO DE HUELLA</button>
+      configurado</p>
+    <button (click)="showFingerprintAuthDlg()"></button>
   </div>
 
 <div class="onboarding-btn-group">
   <a (click)="LostPassword()" class="link">Olvidé la contraseña</a>
   <div class="btn-round inactivo" (click)="Ingresar()">
-    Ingresar
+    Ingresar Pin
   </div>
 </div>
 </ion-content>
