@@ -227,7 +227,11 @@ const routes: Routes = [
   {
     path: 'ingreso-debito2',
     loadChildren: () => import('./ingreso-debito2/ingreso-debito2.module').then( m => m.IngresoDebito2PageModule)
+  },  {
+    path: 'ingresa-pin',
+    loadChildren: () => import('./ingresa-pin/ingresa-pin.module').then( m => m.IngresaPinPageModule)
   },
+
 
 
 ];

@@ -1,0 +1,25 @@
+@import '../../global.scss';
+.user-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding-top: 40px;
+    .avatar {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: $principal;
+        color: $white;
+        border: 4px solid $border-rgba;
+        font-size: 150%;
+    
+    }
+}
