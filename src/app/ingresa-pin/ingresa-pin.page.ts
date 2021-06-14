@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-ingresa-pin',
@@ -14,7 +15,7 @@ export class IngresaPinPage implements OnInit {
   public clave1
   public clave2
   public clave3
-  constructor() { }
+  constructor(private navCtrl: NavController) { }
 
   ngOnInit() {
   }
@@ -46,5 +47,8 @@ setFocus(index) {
     default:
       this.passcode1.setFocus();
   }
+}
+LostPassword() {
+  this.navCtrl.navigateForward(["lostpassword",{}]);
 }
 }
