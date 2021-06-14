@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="lista-amigos" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Pedir a un amigo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content center class="amigos">
+  <div class="contenedor-90 align-center">
+    <h1>Vas a pedirle dinero a </h1>
+    <div class="amigos-seleccionados">
+      <div class="amigo">
+        <div class="avatar">
+          AF
+        </div>
+        <div class="nombre">
+          Martin...
+        </div>
+      </div>
+      <div class="amigo">
+        <div class="avatar">
+          AF
+        </div>
+        <div class="nombre">
+          Martin...
+        </div>
+      </div>
+      <div class="amigo">
+        <div class="avatar">
+          AF
+        </div>
+        <div class="nombre">
+          Martin...
+        </div>
+      </div>
+      <div class="amigo">
+        <div class="avatar">
+          AF
+        </div>
+        <div class="nombre">
+          Martin...
+        </div>
+      </div>
+      <div class="amigo">
+        <div class="avatar">
+          AF
+        </div>
+        <div class="nombre">
+          Martin...
+        </div>
+      </div>
+      <div class="amigo">
+        <div class="avatar">
+          AF
+        </div>
+        <div class="nombre">
+          Martin...
+        </div>
+      </div>
+      <a (click)="Modificar()" class="link pt-5">Modificar</a>
+    </div>
+    <!-- Modulo de creación link -->
+    <h2 class="align-center pt-5 full">Escribí el monto</h2>
+    <ion-item class="input-monto full">
+      <ion-label position="fixed">$</ion-label>
+      <ion-input type="tel" pattern="[0-9]*" maxlength="7"></ion-input>
+    </ion-item>
+    <div class="validationMsg full">
+      <div class="msg full danger align-center pt-2">Superaste el monto máximo</div>
+    </div>
+    <h2 class="align-center full">Referencia</h2>
+    <ion-item class="full">
+      
+      <ion-input type="text"></ion-input>
+    </ion-item>
+  </div>
+  <div class="onboarding-btn-group">
+    
+    <div class="btn-round activo" (click)="Continuar()">Continuar</div>
+
+  </div>
+</ion-content>

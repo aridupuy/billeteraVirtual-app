@@ -231,6 +231,14 @@ const routes: Routes = [
     path: 'ingresa-pin',
     loadChildren: () => import('./ingresa-pin/ingresa-pin.module').then( m => m.IngresaPinPageModule)
   },
+  {
+    path: 'pedir-amigo-desdelista',
+    loadChildren: () => import('./pedir-amigo-desdelista/pedir-amigo-desdelista.module').then( m => m.PedirAmigoDesdelistaPageModule)
+  },
+  {
+    path: 'pedir-amigo-desdelista2',
+    loadChildren: () => import('./pedir-amigo-desdelista2/pedir-amigo-desdelista2.module').then( m => m.PedirAmigoDesdelista2PageModule)
+  },
 
 
 
