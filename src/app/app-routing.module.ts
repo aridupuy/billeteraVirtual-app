@@ -200,6 +200,9 @@ const routes: Routes = [
   {
     path: 'pedir-amigo-link2',
     loadChildren: () => import('./pedir-amigo-link2/pedir-amigo-link2.module').then( m => m.PedirAmigoLink2PageModule)
+  },{
+    path: 'historial',
+    loadChildren: () => import('./historial/historial.module').then( m => m.HistorialPageModule)
   },
   {
     path: 'agenda-links',
@@ -225,6 +228,8 @@ const routes: Routes = [
     path: 'ingreso-debito2',
     loadChildren: () => import('./ingreso-debito2/ingreso-debito2.module').then( m => m.IngresoDebito2PageModule)
   },
+
+
 ];
 
 @NgModule({

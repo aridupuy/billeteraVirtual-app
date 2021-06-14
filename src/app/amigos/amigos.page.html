@@ -27,34 +27,33 @@
         <h2>Pedidos en espera</h2>
       </div>
       <div class="pedidos-wrapper">
-        <div class="pedido">
+        <div class="pedido" *ngFor="let item of pedidos">
+          <div class="imagen">
+            <img src="assets/img/mov-pago.svg" alt="Pagaste">
+          </div>
+          <div class="texto">
+            <h4>{{item.nombre}} te pide a vos</h4>
+            <span>{{ item.fecha | date:'dd'}} de {{ fecha_espaniol(item.fecha | date:'M')}} - {{ item.fecha | date:'hh:mma'}}</span>
+          </div>
+          <div class="monto">${{item.monto}} </div>
+          <div class="botones">
+            <div class="boton aceptar">Aceptar</div>
+            <div class="boton rechazar">Rechazar</div>
+          </div>
+      </div>
+        <div class="pedido" *ngFor="let item of envios">
             <div class="imagen">
               <img src="assets/img/mov-pago.svg" alt="Pagaste">
             </div>
             <div class="texto">
-              <h4>Pagaste a Florencia Pisandelli</h4>
-              <span>20 de mayo - 15:45pm</span>
+              <h4>Le pediste a {{item.nombre}}</h4>
+              <span>{{ item.fecha | date:'dd'}} de {{ fecha_espaniol(item.fecha | date:'M')}} - {{ item.fecha | date:'hh:mma'}}</span>
             </div>
-            <div class="monto"> -$456 </div>
+            <div class="monto"> ${{item.monto}} </div>
             <div class="botones">
-              <div class="boton aceptar">Aceptar</div>
-              <div class="boton rechazar">Rechazar</div>
             </div>
         </div>
-        <div class="pedido">
-            <div class="imagen">
-              <img src="assets/img/mov-pago.svg" alt="Pagaste">
-            </div>
-            <div class="texto">
-              <h4>Pagaste a Florencia Pisandelli</h4>
-              <span>20 de mayo - 15:45pm</span>
-            </div>
-            <div class="monto"> -$456 </div>
-            <div class="botones">
-              <div class="boton aceptar">Aceptar</div>
-              <div class="boton rechazar">Rechazar</div>
-            </div>
-        </div>
+        
         
       </div>
     </div>
@@ -64,7 +63,27 @@
         <h2>Últimos movimientos</h2>
       </div>
       <div class="movimientos-wrapper">
-        <div class="movimiento">
+        <div class="movimiento" *ngFor="let item of historial_pedidos">
+            <div class="imagen">
+              <img src="assets/img/mov-recibiste.svg" alt="Recibiste">
+            </div>
+            <div class="texto">
+              <h4>Recibiste de {{item.nombre}}</h4>
+              <span>{{ item.fecha | date:'dd'}} de {{ fecha_espaniol(item.fecha | date:'M')}} - {{ item.fecha | date:'hh:mma'}}</span>
+            </div>
+            <div class="monto"> ${{item.monto}} </div>
+        </div>
+        <div class="movimiento" *ngFor="let item of historial_envios">
+          <div class="imagen">
+            <img src="assets/img/mov-pago.svg" alt="Pagaste">
+          </div>
+          <div class="texto">
+            <h4>Enviaste a {{item.nombre}}</h4>
+              <span>{{ item.fecha | date:'dd'}} de {{ fecha_espaniol(item.fecha | date:'M')}} - {{ item.fecha | date:'hh:mma'}}</span>
+          </div>
+          <div class="monto"> -${{item.monto}} </div>
+      </div>
+        <!-- <div class="movimiento">
             <div class="imagen">
               <img src="assets/img/mov-pago.svg" alt="Pagaste">
             </div>
@@ -73,17 +92,7 @@
               <span>20 de mayo - 15:45pm</span>
             </div>
             <div class="monto"> -$456 </div>
-        </div>
-        <div class="movimiento">
-            <div class="imagen">
-              <img src="assets/img/mov-pago.svg" alt="Pagaste">
-            </div>
-            <div class="texto">
-              <h4>Pagaste a Florencia Pisandelli</h4>
-              <span>20 de mayo - 15:45pm</span>
-            </div>
-            <div class="monto"> -$456 </div>
-        </div>
+        </div> -->
         
       </div>
     </div>    

@@ -35,7 +35,7 @@ export class Validaridentidad1Page implements OnInit {
 
     this.cameraPreview.show();
   }
-  public ACTIVAR_TEST = true;
+  public ACTIVAR_TEST = false;
   takePicture() {
     console.log("aca1");
     if (!this.ACTIVAR_TEST)

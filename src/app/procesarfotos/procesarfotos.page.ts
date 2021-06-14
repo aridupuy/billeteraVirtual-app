@@ -59,7 +59,7 @@ export class ProcesarfotosPage implements OnInit {
     return new Blob(byteArrays, { type: contentType });
   }
   public valida_dni = false;
-  public ACTIVAR_TEST = true;
+  public ACTIVAR_TEST = false;
   ngOnInit() {
     this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));

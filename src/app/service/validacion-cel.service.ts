@@ -35,6 +35,7 @@ export class ValidacionCelService extends ServiceService{
 
   obtener_codigo(cel,token){
     httpOptions.headers.token=token;
+    console.log("aca service: "+cel);
     var postParams = ({ cel: cel, id_proceso_alta: localStorage.getItem("proceso_alta") });
     return new Promise((resolve, reject) => {
       this.post<result>('api/validasms/validar',postParams, httpOptions).subscribe((data) => {

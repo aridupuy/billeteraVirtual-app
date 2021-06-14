@@ -45,15 +45,15 @@ export class ConfirmasmsPage implements OnInit {
     console.log("Envia Codigo");
     console.log(p);
     let proceso_alta = localStorage.getItem("proceso_alta");
-    await this.loginBo.login().then(async token => {
-      console.log("logueado");
-      await this.validCel.obtener_codigo(p.codArea + p.celular, token).then(data => {
-        console.log("codigo enviado");
-        this.clave1 = this.clave2 = this.clave3 = this.clave4 = this.clave5 = this.clave6 = null;
-        this.countdown.restart();
-      })
-        .catch(err => { console.log(err); return; });
-    });
+    // await this.loginBo.login().then(async token => {
+    //   console.log("logueado");
+    //   await this.validCel.obtener_codigo(p.codArea + p.celular, token).then(data => {
+    //     console.log("codigo enviado");
+    //     this.clave1 = this.clave2 = this.clave3 = this.clave4 = this.clave5 = this.clave6 = null;
+    //     this.countdown.restart();
+    //   })
+    //     .catch(err => { console.log(err); return; });
+    // });
   }
   onKeyUp(event, index) {
       console.log(event);
@@ -111,7 +111,7 @@ export class ConfirmasmsPage implements OnInit {
     const alert = await this.AlertController.create({
       header: mensaje,
       subHeader: 'Vamos a enviarte otro',
-      message: 'El número que ingresaste es ' + this.telefono + '. Si necesitás modificarlo, podés hacerlo en este paso.',
+      message: 'El número que ingresaste es +' + this.telefono + '. Si necesitás modificarlo, podés hacerlo en este paso.',
       buttons: [
         {
           text: 'Modificar celular',
@@ -128,7 +128,8 @@ export class ConfirmasmsPage implements OnInit {
             let proceso_alta = localStorage.getItem("proceso_alta");
             await this.loginBo.login().then(async token => {
               console.log("logueado");
-              await this.validCel.obtener_codigo(p.codArea + p.celular, token).then(data => {
+              // console.log(p);
+              await this.validCel.obtener_codigo(p.cod_area.toString() + p.celular.toString(), token).then(data => {
                 console.log("codigo enviado");
                 this.clave1 = this.clave2 = this.clave3 = this.clave4 = this.clave5 = this.clave6 = null;
                 this.countdown.restart();
@@ -149,7 +150,7 @@ export class ConfirmasmsPage implements OnInit {
     console.log(p);
     let proceso_alta = localStorage.getItem("proceso_alta");
     if (p.login) {
-      await this.validCel.validar_codigo_reenviado(p.cel, codigo).then(data => {
+      await this.validCel.validar_codigo_reenviado(p.cod_area.toString()+p.celular.toString(), codigo).then(data => {
 
         this.retornar_exito_reenviado();
       }).catch(err => {
@@ -158,7 +159,7 @@ export class ConfirmasmsPage implements OnInit {
       })
     }
     else {
-      await this.validCel.validar_codigo(p.cod_area + p.celular, codigo, proceso_alta).then(data => {
+      await this.validCel.validar_codigo(p.cod_area+""+p.celular, codigo, proceso_alta).then(data => {
         this.retornar_exito();
       }).catch(err => {
         this.retornar_error();
