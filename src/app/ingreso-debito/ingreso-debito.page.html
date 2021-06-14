@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="home" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Carga con débito</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content center class="ingreso">
+  <div class="contenedor-90">
+    <h1>¿Cuánto dinero <br>querés ingresar?</h1>
+    <p>Escribí el monto exacto o elegí alguna de las opciones. Podés cargar hasta $1.000.000.
+    </p>
+    <!-- Modulo de monto -->
+    <h2 class="align-center pt-5">Escribí el monto</h2>
+    <ion-item class="input-monto">
+      <ion-label position="fixed">$</ion-label>
+      <ion-input type="tel" pattern="[0-9]*" maxlength="7"></ion-input>
+    </ion-item>
+    <div class="validationMsg">
+      <div class="msg full danger align-center pt-2">Superaste el monto máximo</div>
+    </div>
+    <div class="montos-fijos">
+      <div class="monto">$500</div>
+      <div class="monto">$1000</div>
+      <div class="monto">$2000</div>
+      <div class="monto">$5000</div>
+    </div>
+  </div>
+  <div class="onboarding-btn-group">
+  
+    <div class="btn-round inactivo" (click)="SeleccionaTarjeta()">Continuar</div>
+    
+  </div>
+</ion-content>

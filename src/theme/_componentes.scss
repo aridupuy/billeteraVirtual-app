@@ -459,3 +459,62 @@ ion-list {
         width: 80px;
     }
 }
+
+// modulos
+.cvu-modulo {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center !important;
+    margin-top: 10%;
+    border-bottom: 1px solid $border-rgba;
+    padding-bottom: 30px;
+    h2 {
+        color: #9a9a9a;
+        width: 100%;
+        margin: 0px 0;
+        text-transform: uppercase;
+    }
+    .cvu-numero {
+        color: $dark-gray;
+        margin: 10px 0;
+    }
+}
+.alias-modulo {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center !important;
+    margin-top: 10%;
+    padding-bottom: 30px;
+    h2 {
+        color: #9a9a9a;
+        width: 100%;
+        margin: 0px 0;
+        text-transform: uppercase;
+    }
+    .alias-referencia {
+        color: $dark-gray;
+        margin: 10px 0;
+    }
+}
+.montos-fijos {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    margin-top: 10%;
+    .monto {
+        padding: 5px 10px;
+        font-weight: 600;
+        border: 1px solid $border-rgba;
+        width: auto;
+        margin: 0 5px;
+        background: white;
+        border-radius: 5px;
+    }
+}

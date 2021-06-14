@@ -206,8 +206,24 @@ const routes: Routes = [
     loadChildren: () => import('./agenda-links/agenda-links.module').then( m => m.AgendaLinksPageModule)
   },
   {
-    path: 'ingreo-transferencia',
-    loadChildren: () => import('./ingreo-transferencia/ingreo-transferencia.module').then( m => m.IngreoTransferenciaPageModule)
+    path: 'ingreso-transferencia',
+    loadChildren: () => import('./ingreso-transferencia/ingreso-transferencia.module').then( m => m.IngresoTransferenciaPageModule)
+  },
+  {
+    path: 'ingreso-efectivo',
+    loadChildren: () => import('./ingreso-efectivo/ingreso-efectivo.module').then( m => m.IngresoEfectivoPageModule)
+  },
+  {
+    path: 'mi-cvu',
+    loadChildren: () => import('./mi-cvu/mi-cvu.module').then( m => m.MiCvuPageModule)
+  },
+  {
+    path: 'ingreso-debito',
+    loadChildren: () => import('./ingreso-debito/ingreso-debito.module').then( m => m.IngresoDebitoPageModule)
+  },
+  {
+    path: 'ingreso-debito2',
+    loadChildren: () => import('./ingreso-debito2/ingreso-debito2.module').then( m => m.IngresoDebito2PageModule)
   },
 ];
 

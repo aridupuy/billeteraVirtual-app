@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="home" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Solicitar Transferencia</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content center class="amigos">
+  <div class="contenedor-90">
+    <h1>Pasá dinero de tu home <br>
+      banking a tu cuenta de <br>
+      Efectivo Digital
+      </h1>
+    <p>Generamos automáticamente tu CVU y tu alias para que puedas realizar un traspaso de plata directo desde tu cuenta bancaria. Estos son tus datos de transferencia.
+    </p>
+    
+    <!-- CVU Modulo -->
+    <div class="cvu-modulo">
+      <h2>CVU:</h2>
+      <h2 class="cvu-numero">435345345345345345345</h2>
+      <a class="link">Copiar</a>
+    </div>
+    <div class="alias-modulo">
+      <h2>Alias:</h2>
+      <h2 class="alias-referencia">mi.alias.elegido</h2>
+      <a class="link">Copiar</a>
+    </div>
+   
+    
+    
+   
+  </div>
+  <div class="onboarding-btn-group">
+    <a (click)="comoTransferir()" class="link">¿Cómo transferir?</a>
+    <div class="btn-round outline" (click)="Home();">Volver al inicio</div>
+  </div>
+</ion-content>

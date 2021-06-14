@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { formatCurrency } from '@angular/common';
+import { MiCvuPage } from '../mi-cvu/mi-cvu.page';
 
 // import { MovesDescripcionPage } from './../moves-descripcion/moves-descripcion.page';
 import { SaldoService } from './../service/saldo.service';
@@ -41,7 +42,8 @@ export class HomePage implements OnInit {
   itemback;
   public username;
   public iniciales;
-  constructor(public navCtl:NavController,private menu: MenuController,public saldoService:SaldoService,public transaccionesService:TransaccionesService,public route: ActivatedRoute, public router: Router,public usuarioService:UsuarioService) {}
+  modalDataResponse: any;
+  constructor(public modalCtrl : ModalController,public navCtl:NavController,private menu: MenuController,public saldoService:SaldoService,public transaccionesService:TransaccionesService,public route: ActivatedRoute, public router: Router,public usuarioService:UsuarioService) {}
 
   ngOnInit(): void {
     
@@ -215,6 +217,20 @@ cargar_transacciones_filtrado(event?){
         localStorage.setItem("iniciales",this.iniciales);
         // console.log(this.username);
     });
-
+    
   }
+  async VerCvu() {
+    const modal = await this.modalCtrl.create({
+      component: MiCvuPage
+    });
+
+    modal.onDidDismiss().then((modalDataResponse) => {
+      if (modalDataResponse !== null) {
+        this.modalDataResponse = modalDataResponse.data;
+        console.log('Modal Sent Data : '+ modalDataResponse.data);
+      }
+    });
+
+    return await modal.present();
+}
 }
