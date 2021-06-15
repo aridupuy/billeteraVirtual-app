@@ -234,6 +234,11 @@ const routes: Routes = [
     loadChildren: () => import('./ingresa-pin/ingresa-pin.module').then( m => m.IngresaPinPageModule)
   },
   {
+    path: 'ingresa-pin-confirma',
+    loadChildren: () => import('./ingresa-pin-confirma/ingresa-pin-confirma.module').then( m => m.IngresaPinConfirmaPageModule)
+  },
+
+  {
     path: 'pedir-amigo-desdelista',
     loadChildren: () => import('./pedir-amigo-desdelista/pedir-amigo-desdelista.module').then( m => m.PedirAmigoDesdelistaPageModule)
   },
@@ -242,10 +247,9 @@ const routes: Routes = [
     loadChildren: () => import('./pedir-amigo-desdelista2/pedir-amigo-desdelista2.module').then( m => m.PedirAmigoDesdelista2PageModule)
   },
   {
-    path: 'ingresa-pin-confirma',
-    loadChildren: () => import('./ingresa-pin-confirma/ingresa-pin-confirma.module').then( m => m.IngresaPinConfirmaPageModule)
+    path: 'pedir-amigo-link3',
+    loadChildren: () => import('./pedir-amigo-link3/pedir-amigo-link3.module').then( m => m.PedirAmigoLink3PageModule)
   },
-
 
 
 

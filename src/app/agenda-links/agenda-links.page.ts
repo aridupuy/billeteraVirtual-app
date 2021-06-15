@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-agenda-links',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AgendaLinksPage implements OnInit {
 
-  constructor() { }
+  constructor(private navCtrl : NavController) { }
 
   ngOnInit() {
   }
-
+  Finalizar(){
+    this.navCtrl.navigateBack(["pedir-amigo-link3",{}]);
+  }
+  CrearNuevo() {
+    this.navCtrl.navigateForward(["pedir-amigo-link",{}]);
+  }
+  
 }

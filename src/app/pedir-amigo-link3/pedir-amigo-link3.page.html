@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="IrAtras()" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Pedir a un amigo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content center class="linkpago">
+  <div class="contenedor-90">
+    <h1>Querés guardar este link?</h1>
+    <p>Podés guardar el link para luego enviárselo a otra persona. </p>
+    <!-- Modulo de Guardar link -->
+
+      <ion-item class="input-container with-label">
+        <ion-label position="stacked">Nombre del link</ion-label>
+        <ion-input type="text"></ion-input>
+        <ion-icon slot="end" name="checkmark-sharp" color="success"></ion-icon>
+      </ion-item>
+      <div class="validationMsg full">
+        <div class="msg danger full">
+          Ya existe un link con este nombre
+        </div>
+      </div>
+
+      <ion-item class="pt-5">
+        <ion-label position="stacked">Categoría</ion-label>
+        <ion-input type="text"></ion-input>
+      </ion-item>
+
+    
+  </div>
+  <div class="onboarding-btn-group pt-5">
+    <a (click)="SaltarPaso();" class="link align-center">Saltear este paso</a>
+    <div class="btn-round activo" (click)="GuardarLink()">Guardar link</div>
+  </div>
+</ion-content>
