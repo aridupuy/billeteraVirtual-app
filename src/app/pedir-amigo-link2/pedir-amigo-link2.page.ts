@@ -19,6 +19,8 @@ export class PedirAmigoLink2Page implements OnInit {
     this.navCtrl.navigateForward(["agenda-links",{}]);
   }
   Compartir(){}
-  Finalizar(){}
+  Finalizar(){
+    this.navCtrl.navigateForward(["pedir-amigo-link3",{}]);
+  }
 
 }

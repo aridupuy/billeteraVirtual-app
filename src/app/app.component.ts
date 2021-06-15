@@ -1,6 +1,7 @@
 import { UsuarioService } from './service/usuario.service';
 import { Component, OnInit } from '@angular/core';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 export class AppComponent implements OnInit {
   public usuario;
   public iniciales;
-  constructor(public usuarioService:UsuarioService) {}
+  constructor(public usuarioService:UsuarioService,private navCtrl : NavController) {}
   ngOnInit(){
     let nombre =  localStorage.getItem("nombre");
     if(nombre && this.iniciales){
@@ -35,7 +36,10 @@ export class AppComponent implements OnInit {
         localStorage.setItem("iniciales",this.iniciales);
         console.log(this.usuario);
     });
-
+    
+  }
+  IrAtras() {
+    this.navCtrl.back();
   }
 }
 @Component({

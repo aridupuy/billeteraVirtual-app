@@ -239,6 +239,10 @@ const routes: Routes = [
     path: 'pedir-amigo-desdelista2',
     loadChildren: () => import('./pedir-amigo-desdelista2/pedir-amigo-desdelista2.module').then( m => m.PedirAmigoDesdelista2PageModule)
   },
+  {
+    path: 'pedir-amigo-link3',
+    loadChildren: () => import('./pedir-amigo-link3/pedir-amigo-link3.module').then( m => m.PedirAmigoLink3PageModule)
+  },
 
 
 
