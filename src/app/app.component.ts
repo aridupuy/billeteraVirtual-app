@@ -1,4 +1,11 @@
 import { UsuarioService } from './service/usuario.service';
+import { IngresopatronPage } from './ingresopatron/ingresopatron.page';
+import { async } from 'rxjs';
+import { IngresaPinPage } from './ingresa-pin/ingresa-pin.page';
+import { IngresaPinConfirmaPage } from './ingresa-pin-confirma/ingresa-pin-confirma.page';
+import { ServiceService } from './service/service.service';
+import { pass } from './patron.guard';
+import { ModalController } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
@@ -11,47 +18,90 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 export class AppComponent implements OnInit {
   public usuario;
   public iniciales;
-  constructor(public usuarioService:UsuarioService,public navctl:NavController) {}
-  ngOnInit(){
-    let nombre =  localStorage.getItem("nombre");
-    if(nombre && this.iniciales){
+  public modalDataResponse: any;
+  constructor(public service: ServiceService, public modalCtrl: ModalController, public usuarioService: UsuarioService, public navctl: NavController) { }
+  ngOnInit() {
+    let nombre = localStorage.getItem("nombre");
+    if (nombre && this.iniciales) {
       this.usuario = nombre;
-      
+
       return false;
     }
-    this.usuarioService.obtener_mis_datos().then((data:any)=>{
-        this.usuario = data.nombre;
-        this.iniciales = data.nombre_completo
+    this.usuarioService.obtener_mis_datos().then((data: any) => {
+      this.usuario = data.nombre;
+      this.iniciales = data.nombre_completo
         .split(' ')
-        .map( it => it.charAt(0) )
-        .slice(0,1)
+        .map(it => it.charAt(0))
+        .slice(0, 1)
         .join('')
-        +data.nombre_completo
-        .split(' ')
-        .map( it => it.charAt(0) )
-        .slice(2,3)
-        .join('');
-        console.log("aca");
-        localStorage.setItem("nombre",this.usuario);
-        localStorage.setItem("iniciales",this.iniciales);
-        console.log(this.usuario);
+        + data.nombre_completo
+          .split(' ')
+          .map(it => it.charAt(0))
+          .slice(2, 3)
+          .join('');
+      console.log("aca");
+      localStorage.setItem("nombre", this.usuario);
+      localStorage.setItem("iniciales", this.iniciales);
+      console.log(this.usuario);
     });
     document.addEventListener("resume", this.onDeviceresume, false);
     document.addEventListener("pause", this.onPause, false);
     document.addEventListener("stop", this.onPause, false);
 
   }
-  onPause = ()=>{
+  onPause = () => {
     console.log("pause");
-    localStorage.setItem("inBackground","1");
+    localStorage.setItem("inBackground", "1");
+    // this.mostrarModal("validar");
   }
-  onDeviceresume = ()=>{
+  onDeviceresume = async () => {
     console.log("onDeviceresume");
-    localStorage.setItem("inBackground","1");
-    this.navctl.navigateForward(["home",{}]);
+    // localStorage.setItem("inBackground", "1");
+    if(localStorage.getItem("inBackground")== "1"){
+      console.log("aca Modal patron");
+      this.mostrarModal("validar");
+    }
+  }
+
+  validarClave(clave1, clave2): Boolean {
+    console.log(clave1, clave2);
+    if (clave1 === clave2)
+      return true;
+    return false;
   }
   
+  async mostrarModal(tipo) {
+    console.log(localStorage.getItem("modal-abierto"));
+    if(this.modal_abierto ==1 ){
+      console.log("no abre");
+      return false;
+    }
+    else {
+      console.log("abre");
+    }
+    const modal2 = await this.modalCtrl.create({
+      component: IngresaPinPage,
+      componentProps: { tipo: "validar" }
+    });
+
+    modal2.onDidDismiss().then(async (modalDataResponse) => {
+      let clave1;
+      // console.log(modalDataResponse);
+      clave1 = modalDataResponse.data;
+      localStorage.setItem("inBackground", "0");
+      this.modal_abierto = 0; 
+      console.log("MODAL CERRADO setitem 0");
+      return true;
+    });
+    this.modal_abierto = 1;
+    console.log("MODAL ABIERTO setitem 1");
+    await modal2.present();
+
+
+  }
+  public modal_abierto = 0;
 }
+
 @Component({
   selector: 'welcome',
   template: `
@@ -78,7 +128,7 @@ export class SlideExample {
     speed: 400
   };
   constructor(private screenOrientation: ScreenOrientation) {
-     this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
   }
-  
+
 }

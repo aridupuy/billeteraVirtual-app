@@ -1,18 +1,18 @@
 import { AuthGuardGuard } from './auth-guard.guard';
+import { PatronGuard } from './patron.guard';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  
-  {
-    path: '',
-    redirectTo: 'welcome',
-    // redirectTo: 'validaridentidad',
-    pathMatch: 'full'
-  },
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),canActivate: [AuthGuardGuard]
+  },
+  {
+    path: '',
+    // redirectTo: 'welcome',
+    redirectTo: 'home',
+    pathMatch: 'full'
   },
   {
     path: 'splash',
@@ -92,31 +92,31 @@ const routes: Routes = [
   },
   {
     path: 'ingresopatron',
-    loadChildren: () => import('./ingresopatron/ingresopatron.module').then( m => m.IngresopatronPageModule)
+    loadChildren: () => import('./ingresopatron/ingresopatron.module').then( m => m.IngresopatronPageModule),canActivate: [AuthGuardGuard]
   },
   {
     path: 'lostpassword',
-    loadChildren: () => import('./lostpassword/lostpassword.module').then( m => m.LostpasswordPageModule)
+    loadChildren: () => import('./lostpassword/lostpassword.module').then( m => m.LostpasswordPageModule),canActivate: [AuthGuardGuard]
   },
   {
     path: 'lostpassword1',
-    loadChildren: () => import('./lostpassword1/lostpassword1.module').then( m => m.Lostpassword1PageModule)
+    loadChildren: () => import('./lostpassword1/lostpassword1.module').then( m => m.Lostpassword1PageModule),canActivate: [AuthGuardGuard]
   },
   {
     path: 'lostpassword-confirma',
-    loadChildren: () => import('./lostpassword-confirma/lostpassword-confirma.module').then( m => m.LostpasswordConfirmaPageModule)
+    loadChildren: () => import('./lostpassword-confirma/lostpassword-confirma.module').then( m => m.LostpasswordConfirmaPageModule),canActivate: [AuthGuardGuard]
   },
   {
     path: 'lostpassword-exito',
-    loadChildren: () => import('./lostpassword-exito/lostpassword-exito.module').then( m => m.LostpasswordExitoPageModule)
+    loadChildren: () => import('./lostpassword-exito/lostpassword-exito.module').then( m => m.LostpasswordExitoPageModule),canActivate: [AuthGuardGuard]
   },
   {
     path: 'lostpassword-ayuda',
-    loadChildren: () => import('./lostpassword-ayuda/lostpassword-ayuda.module').then( m => m.LostpasswordAyudaPageModule)
+    loadChildren: () => import('./lostpassword-ayuda/lostpassword-ayuda.module').then( m => m.LostpasswordAyudaPageModule),canActivate: [AuthGuardGuard]
   },
   {
     path: 'lostpassword-ayuda-confirm',
-    loadChildren: () => import('./lostpassword-ayuda-confirm/lostpassword-ayuda-confirm.module').then( m => m.LostpasswordAyudaConfirmPageModule)
+    loadChildren: () => import('./lostpassword-ayuda-confirm/lostpassword-ayuda-confirm.module').then( m => m.LostpasswordAyudaConfirmPageModule),canActivate: [AuthGuardGuard]
   },
   {
     path: 'registro-cuentaexistente',
@@ -168,7 +168,7 @@ const routes: Routes = [
   },
   {
     path: 'menuprincipal',
-    loadChildren: () => import('./menuprincipal/menuprincipal.module').then( m => m.MenuprincipalPageModule)
+    loadChildren: () => import('./menuprincipal/menuprincipal.module').then( m => m.MenuprincipalPageModule),canActivate: [AuthGuardGuard]
   },
   {
     path: 'datos-cuenta',
@@ -210,9 +210,43 @@ const routes: Routes = [
     loadChildren: () => import('./agenda-links/agenda-links.module').then( m => m.AgendaLinksPageModule)
   },
   {
-    path: 'ingreo-transferencia',
-    loadChildren: () => import('./ingreo-transferencia/ingreo-transferencia.module').then( m => m.IngreoTransferenciaPageModule)
+    path: 'ingreso-transferencia',
+    loadChildren: () => import('./ingreso-transferencia/ingreso-transferencia.module').then( m => m.IngresoTransferenciaPageModule)
   },
+  {
+    path: 'ingreso-efectivo',
+    loadChildren: () => import('./ingreso-efectivo/ingreso-efectivo.module').then( m => m.IngresoEfectivoPageModule)
+  },
+  {
+    path: 'mi-cvu',
+    loadChildren: () => import('./mi-cvu/mi-cvu.module').then( m => m.MiCvuPageModule)
+  },
+  {
+    path: 'ingreso-debito',
+    loadChildren: () => import('./ingreso-debito/ingreso-debito.module').then( m => m.IngresoDebitoPageModule)
+  },
+  {
+    path: 'ingreso-debito2',
+    loadChildren: () => import('./ingreso-debito2/ingreso-debito2.module').then( m => m.IngresoDebito2PageModule)
+  },
+  {
+    path: 'ingresa-pin',
+    loadChildren: () => import('./ingresa-pin/ingresa-pin.module').then( m => m.IngresaPinPageModule)
+  },
+  {
+    path: 'pedir-amigo-desdelista',
+    loadChildren: () => import('./pedir-amigo-desdelista/pedir-amigo-desdelista.module').then( m => m.PedirAmigoDesdelistaPageModule)
+  },
+  {
+    path: 'pedir-amigo-desdelista2',
+    loadChildren: () => import('./pedir-amigo-desdelista2/pedir-amigo-desdelista2.module').then( m => m.PedirAmigoDesdelista2PageModule)
+  },
+  {
+    path: 'ingresa-pin-confirma',
+    loadChildren: () => import('./ingresa-pin-confirma/ingresa-pin-confirma.module').then( m => m.IngresaPinConfirmaPageModule)
+  },
+
+
 
 
 ];

@@ -61,3 +61,75 @@
         margin-top: 20%
     }
 }
+.amigos-seleccionados {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    .amigo {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 50px;
+        .avatar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: $principal;
+            color: $white;
+            border: 4px solid $border-rgba;
+            font-size: 70%;
+        }
+        .nombre {
+            padding-top: 5px;
+            width: 100%;
+            font-size: 70%;
+        }
+    }
+}
+.amigos-seleccionados-grid {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    .amigo {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 120px;
+        margin: 15px 0;
+        .avatar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: $principal;
+            color: $white;
+            border: 4px solid $border-rgba;
+            font-size: 70%;
+        }
+        .nombre {
+           
+            width: 50%;
+            font-size: 70%;
+        }
+    }
+}
+.monto {
+    font-size: 280%;
+    width: 100%;
+    font-weight: 400;
+}

@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="pedir-amigo-desdelista" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Pedir a un amigo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content center class="amigos">
+  <div class="contenedor-90 align-center">
+    <h1>Vas a solicitar </h1>
+    <h2 class="monto full">$ 200</h2>
+    <p>A estos amigos:</p>
+    <div class="amigos-seleccionados-grid">
+      <div class="amigo">
+        <div class="avatar">
+          AF
+        </div>
+        <div class="nombre">
+          Martin Lopez
+        </div>
+      </div>
+      <div class="amigo">
+        <div class="avatar">
+          AF
+        </div>
+        <div class="nombre">
+          Nombre Apellido
+        </div>
+      </div>
+      <div class="amigo">
+        <div class="avatar">
+          AF
+        </div>
+        <div class="nombre">
+          Nombre Apellido
+        </div>
+      </div>
+      <div class="amigo">
+        <div class="avatar">
+          AF
+        </div>
+        <div class="nombre">
+          Nombre Apellido
+        </div>
+      </div>
+      <div class="amigo">
+        <div class="avatar">
+          AF
+        </div>
+        <div class="nombre">
+          Nombre Apellido
+        </div>
+      </div>
+      <div class="amigo">
+        <div class="avatar">
+          AF
+        </div>
+        <div class="nombre">
+          Nombre Apellido
+        </div>
+      </div>
+    <h2 class="full align-center mt-10">Aca iría el mensaje si es que el usuario incluyo alguno en el paso anterior</h2>
+    </div>
+   
+  </div>
+  <div class="onboarding-btn-group">
+    <a (click)="Modificar()" class="link">Modificar</a>
+    <div class="btn-round activo" (click)="FinalizarLink()">Continuar</div>
+    
+  </div>
+</ion-content>

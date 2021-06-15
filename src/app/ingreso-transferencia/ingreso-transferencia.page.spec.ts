@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { IngreoTransferenciaPage } from './ingreo-transferencia.page';
+import { IngresoTransferenciaPage } from './ingreso-transferencia.page';
 
-describe('IngreoTransferenciaPage', () => {
-  let component: IngreoTransferenciaPage;
-  let fixture: ComponentFixture<IngreoTransferenciaPage>;
+describe('IngresoTransferenciaPage', () => {
+  let component: IngresoTransferenciaPage;
+  let fixture: ComponentFixture<IngresoTransferenciaPage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ IngreoTransferenciaPage ],
+      declarations: [ IngresoTransferenciaPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(IngreoTransferenciaPage);
+    fixture = TestBed.createComponent(IngresoTransferenciaPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

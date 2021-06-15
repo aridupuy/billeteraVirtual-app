@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-lista-amigos',
@@ -7,12 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListaAmigosPage implements OnInit {
 
-  constructor() { }
+  constructor(private navCtrl: NavController) { }
 
   ngOnInit() {
   }
   agregarAmigo(){
     
   }
-
+  Continuar() {
+    this.navCtrl.navigateForward(["pedir-amigo-desdelista",{}]);
+  }
 }

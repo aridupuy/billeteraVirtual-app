@@ -11,7 +11,7 @@
         </div>
         <div class="user-info">
           <span class="bienvenida">Hola,<span class="username"> {{username}}</span></span>
-          <a class="cvu" *ngIf="validado" >Mi CVU</a>
+          <a class="cvu" *ngIf="validado" (click)="VerCvu()" >Mi CVU</a>
         </div>
       </div>
       <div class="button-container" *ngIf="validado">
