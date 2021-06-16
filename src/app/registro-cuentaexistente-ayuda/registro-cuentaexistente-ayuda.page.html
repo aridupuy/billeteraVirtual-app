@@ -18,35 +18,43 @@ solucionar el problema
   <div class="form">
     <ion-item class="input-container">
       <ion-label position="floating">Escribí tu nombre y apellido</ion-label>
-      <ion-input type="text"></ion-input>
-      <ion-icon slot="end" name="close-sharp" color="danger"></ion-icon>
+      <ion-input [(ngModel)]="nombre" type="text"></ion-input>
+      <ion-icon slot="end" name="close-sharp" color="danger" *ngIf="nombre && nombre==''"></ion-icon>
+      <ion-icon slot="end" name="checkmark-sharp" color="success" *ngIf="nombre && nombre!=''"></ion-icon >
     </ion-item>
-    <div class="validationMsg">
+    <div class="validationMsg" *ngIf="nombre!=null && (!nombre || nombre.toString().length==0) ">
       <div class="msg full danger" color="danger">
         Necesitamos que completes este campo.
       </div>
     </div>
     <ion-item class="input-container">
       <ion-label position="floating">Ingresá tu mail</ion-label>
-      <ion-input type="email"></ion-input>
-      <ion-icon slot="end" name="close-sharp" color="danger"></ion-icon>
+      <ion-input [(ngModel)]="email" (change)="valida_mail()"  type="email"></ion-input>
+      <ion-icon slot="end" name="close-sharp" color="danger" *ngIf="email && error_mail!=null && error_mail"></ion-icon>
+      <ion-icon slot="end" name="checkmark-sharp" color="success" *ngIf="email && error_mail!=null && !error_mail"></ion-icon >
     </ion-item>
     <div class="validationMsg">
-      <div class="msg full danger" color="danger">
+      <div class="msg full danger" color="danger" *ngIf="email!=null && (!email || email.toString().length==0) && error_mail" >
         Ingresá un e-mail válido.
       </div>
     </div>
     <ion-item class="input-container">
       <ion-label position="floating">Dejanos tu mensaje</ion-label>
-      <ion-textarea rows="4" cols="15"></ion-textarea>
+      <ion-textarea [(ngModel)]="mensaje" rows="4" cols="15"></ion-textarea>
       
     </ion-item>
   </div>  
 </div>
 <div class="onboarding-btn-group">
-  <div class="btn-round activo" (click)="Confirmar()">
+  <div class="btn-round activo" (click)="Confirmar()" *ngIf="!error_mail && nombre && mensaje">
     Enviar mensaje
   </div>
+  <div class="btn-round inactivo" *ngIf="error_mail || !nombre || !mensaje">
+    Enviar mensaje
+  </div>
+</div>
+<div class="preloader" *ngIf="cargando">
+  <img src="assets/img/preloader.gif" alt="Cargando...">
 </div>
 </ion-content>
 <ion-footer>

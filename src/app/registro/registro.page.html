@@ -16,34 +16,43 @@
   <div class="form">
     <ion-item class="input-container with-label">
       <ion-label position="floating">Ingresá tu email</ion-label>
-      <ion-input [(ngModel)]="email" type="mail"></ion-input>
-      <ion-icon slot="end" name="checkmark-sharp" color="success" *ngIf="email && !errorMail"></ion-icon >
-        <ion-icon slot="end" name="close-sharp" color="danger" *ngIf="email && errorMail"></ion-icon >
+      <ion-input [(ngModel)]="email" type="mail" (change)="validar_mail()"></ion-input>
+      <ion-icon slot="end" name="checkmark-sharp" color="success" *ngIf="email && errorMail!=null && !errorMail"></ion-icon >
+        <ion-icon slot="end" name="close-sharp" color="danger" *ngIf="email && errorMail!=null && errorMail"></ion-icon >
     </ion-item>
     <div class="validationMsg" *ngIf="email && errorMail">
       <div class="msg full danger" color="danger">
-        Te ganaron de mano, ese email ya existe.
+        <!-- Te ganaron de mano, ese email ya existe. -->
+        Ingresá un mail válido.
       </div>
     </div>
     <ion-item class="input-container with-label">
       <ion-label position="floating">Ingresá una contraseña</ion-label>
-      <ion-input [(ngModel)]="password" [type]="showPassword ? 'text' : 'password'"></ion-input>
-      <ion-icon slot="end" [name]="passwordToggleIcon" (click)="togglePassword()"></ion-icon>
-      <ion-icon slot="end" name="checkmark-sharp" color="success" *ngIf="password && !error_password" ></ion-icon>
-      <ion-icon slot="end" name="close-sharp" color="danger" *ngIf="password && error_password" ></ion-icon>
+      <ion-input [(ngModel)]="password" [type]="showPassword ? 'text' : 'password'" (keyup)="validar_regex()"></ion-input>
+      <ion-icon slot="end" [name]="passwordToggleIcon"    (click)="togglePassword()"></ion-icon>
+      <ion-icon slot="end" name="checkmark-sharp" color="success" *ngIf="password && !error_password && error_password!=null" ></ion-icon>
+      <ion-icon slot="end" name="close-sharp" color="danger" *ngIf="password && error_password!=null && error_password " ></ion-icon>
     </ion-item>
     <div class="validationMsg">
       <div class="msg">
-        <ion-icon name="checkmark-circle-sharp" slot="start" color="success"></ion-icon> Minimo de 6 caracteres
+        <ion-icon name="checkmark-circle-sharp" slot="start" color="success" *ngIf="pass_minim"></ion-icon>
+        <ion-icon name="close-circle-sharp" slot="start" color="danger" *ngIf="!pass_minim"></ion-icon>
+         Minimo de 6 caracteres
       </div>
       <div class="msg">
-        <ion-icon name="close-circle-sharp" slot="start" color="danger"></ion-icon> 1 mayúscula
+        <ion-icon name="checkmark-circle-sharp" slot="start" color="success" *ngIf="pass_has_upper"></ion-icon> 
+        <ion-icon name="close-circle-sharp" slot="start" color="danger" *ngIf="!pass_has_upper"></ion-icon>
+         1 mayúscula
       </div>
       <div class="msg">
-        <ion-icon name="close-circle-sharp" slot="start" color="danger"></ion-icon> 1 número
+        <ion-icon name="checkmark-circle-sharp" slot="start" color="success" *ngIf="pass_has_number"></ion-icon>
+        <ion-icon name="close-circle-sharp" slot="start" color="danger" *ngIf="!pass_has_number"></ion-icon>
+         1 número
       </div>
       <div class="msg">
-        <ion-icon name="close-circle-sharp" slot="start" color="danger"></ion-icon> 1 carácter especial
+        <ion-icon name="checkmark-circle-sharp" slot="start" color="success" *ngIf="pass_has_simbol"></ion-icon>
+        <ion-icon name="close-circle-sharp" slot="start" color="danger" *ngIf="!pass_has_simbol"></ion-icon>
+         1 carácter especial
       </div>
     </div>
     <ion-item class="input-container">

@@ -43,5 +43,18 @@ export class ValidacionMailService extends ServiceService{
       });
     });
   }
+  existe(mail,token){
+    httpOptions.headers.token=token;
+    return new Promise((resolve, reject) => {
+      var postParams = ({ email: mail});
+      this.post<respuesta>('api/validamail/existe',postParams,httpOptions).subscribe((data) => {
+        console.log(data);
+        if(data.resultado==false && data.extras[0].data.match){
+          reject("El email ya existe");
+        }
+        return resolve(data.extras[0].data.match);
+      });
+    });
+  }
   
 }

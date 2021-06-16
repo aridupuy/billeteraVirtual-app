@@ -36,8 +36,19 @@ export class IngresaPinPage implements OnInit {
   public iniciales = "";
   public titulo;
   public titulo2 = "¡Creá tu nuevo  PIN de acceso!";
+  
   constructor(private platform: Platform,private faio: FingerprintAIO,public service: ServiceService, public navCtl: NavController, public viewCtrl: ModalController, public route: ActivatedRoute, params: NavParams) {
     this.proposito = params.get("tipo");
+    this.platform.backButton.observers.pop();
+    this.platform.backButton.subscribeWithPriority(9999, () => { 
+      // to disable hardware back button on whole app
+      document.addEventListener('backbutton', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        console.log("No se puede cerrar este modal");
+      }, false);
+      
+    });
   }
   public nombre;
   ngOnInit() {
@@ -125,6 +136,7 @@ export class IngresaPinPage implements OnInit {
 
         // this.navCtrl.navigateForward("ingresa-pin-confirma", navigationExtras);
         this.viewCtrl.dismiss(clave);
+        this.platform.backButton.observers.pop();
         break;
       case "validar":
         let clave2 = "";
@@ -133,6 +145,7 @@ export class IngresaPinPage implements OnInit {
         });
         if (this.validarPin(clave2)) {
           this.viewCtrl.dismiss(clave2);
+          this.platform.backButton.observers.pop();
         }
         // this.error_code.classList.remove("activo");
         // this.error_code.classList.add("activo");
