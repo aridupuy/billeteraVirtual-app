@@ -111,6 +111,9 @@ export class Datospersonales1Page implements OnInit {
     p["ocupacion"] = this.ocupacion;
     p["estado_civil"] = this.estadoCivil;
     p["cuil_modificado"] = this.cuit2 + p.dni + this.cuit2
+    if(p.cuil_modificado ==null){
+      p.cuit_modificado = p.cuit;
+    }
     const navigationExtras: NavigationExtras = {
       queryParams: {
         param: JSON.stringify(p)

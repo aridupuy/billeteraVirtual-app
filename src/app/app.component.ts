@@ -52,16 +52,21 @@ export class AppComponent implements OnInit {
   }
   onPause = () => {
     console.log("pause");
-    localStorage.setItem("inBackground", "1");
+    console.log(localStorage.getItem("onboarding"));
+    if(localStorage.getItem("token") != null && localStorage.getItem("token")!="" && localStorage.getItem("onboarding")==null && localStorage.getItem("onboarding")!="1"){
+      localStorage.setItem("inBackground", "1");
     // this.mostrarModal("validar");
+    }
   }
   onDeviceresume = async () => {
     console.log("onDeviceresume");
+    console.log(localStorage.getItem("onboarding"));
     // localStorage.setItem("inBackground", "1");
-    if(localStorage.getItem("inBackground")== "1"){
-      console.log("aca Modal patron");
-      this.mostrarModal("validar");
-    }
+    // if(localStorage.getItem("token") != null && localStorage.getItem("token")!="" && localStorage.getItem("onboarding")==null && localStorage.getItem("onboarding")!="1")
+      if(localStorage.getItem("inBackground")== "1"){
+        console.log("aca Modal patron");
+          this.mostrarModal("validar");
+      }
   }
 
   validarClave(clave1, clave2): Boolean {
@@ -82,7 +87,7 @@ export class AppComponent implements OnInit {
     }
     const modal2 = await this.modalCtrl.create({
       component: IngresaPinPage,
-      componentProps: { tipo: "validar" }
+      componentProps: { tipo: tipo }
     });
 
     modal2.onDidDismiss().then(async (modalDataResponse) => {

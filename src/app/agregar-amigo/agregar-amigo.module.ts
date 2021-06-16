@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { AgregarAmigoPageRoutingModule } from './agregar-amigo-routing.module';
 
 import { AgregarAmigoPage } from './agregar-amigo.page';
+import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts/ngx';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { AgregarAmigoPage } from './agregar-amigo.page';
     IonicModule,
     AgregarAmigoPageRoutingModule
   ],
+  providers:[Contacts],
   declarations: [AgregarAmigoPage]
 })
 export class AgregarAmigoPageModule {}

@@ -32,10 +32,11 @@ export class RegistrofinalizadoPage implements OnInit {
       }
   }
   Ingresar(){
+    localStorage.setItem("onboarding","0");
     this.navCtrl.navigateForward("ingreso");
   }
   reintentar(){
-    this.navCtrl.back();
+    this.navCtrl.navigateBack("datospersonales2");
   }
   
 }

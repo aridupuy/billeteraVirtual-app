@@ -14,6 +14,10 @@ export class IngresaPinConfirmaPage implements OnInit {
   @ViewChild('passcode2') passcode2;
   @ViewChild('passcode3') passcode3;
   @ViewChild('passcode4') passcode4;
+  @ViewChild('passcode1') passcode11;
+  @ViewChild('passcode2') passcode22 ;
+  @ViewChild('passcode3') passcode33 ;
+  @ViewChild('passcode4') passcode44;
   values: any = [];
   public clave1
   public clave2
@@ -47,25 +51,28 @@ export class IngresaPinConfirmaPage implements OnInit {
     event.stopPropagation();
   }
   setFocus(index) {
-    index --;
+    index--;
+    console.log(index);
     switch (index) {
       case 0:
+        this.passcode22.setFocus();
         this.passcode2.nativeElement.setFocus();
-        
         break;
       case 1:
+        this.passcode33.setFocus();
         this.passcode3.nativeElement.setFocus();
         break;
       case 2:
+        this.passcode44.setFocus();
         this.passcode4.nativeElement.setFocus();
         break;
-        case 3:
-        this.validarCodigo();
+      case 3:
+        // this.validarCodigo();
         break;
       default:
         this.passcode1.nativeElement.setFocus();
+        this.passcode11.setFocus();
     }
-    // console.log(this.clave1+""+this.clave2+""+this.clave3+""+this.clave4+"");
   }
   LostPassword() {
     this.navCtl.navigateForward(["lostpassword", {}]);

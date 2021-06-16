@@ -32,13 +32,14 @@ export class ListaAmigosPage implements OnInit {
       this.ultimos_back = this.ultimos;
     }).catch(err => {
       console.log(err);
+      this.sinResutados=true;
     });
     this.amigos=[];
 
   }
   agregarAmigo() {
-    this.navCtrl.navigateForward("agregar-amigo");
-
+    console.log("agregar-amigo");
+    this.navCtrl.navigateRoot("agregar-amigo");
   }
   buscar(event) {
     console.log(this.busqueda);

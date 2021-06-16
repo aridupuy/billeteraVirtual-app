@@ -44,6 +44,11 @@ export class RegistroPage implements OnInit {
   constructor(private navCtrl: NavController, public modalCtrl: ModalController, public route: ActivatedRoute, public router: Router,
     public validMail: ValidacionMailService,
     public iniciaProceso: InicioProcesoService, public loginBo: LoginBoService) {
+      if(localStorage.getItem("onboarding")!="1"){
+        localStorage.setItem("onboarding","1");
+      }
+      
+
 
   }
 

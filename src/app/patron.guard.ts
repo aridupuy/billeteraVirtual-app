@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { ServiceService } from './service/service.service';
 import * as CryptoJS from 'crypto-js';
+import { Platform } from '@ionic/angular';
 
 export const pass = "TeganamosCon9";
 @Injectable({
@@ -19,65 +20,52 @@ export class PatronGuard implements CanActivate {
 
   public modalDataResponse: any;
 
-  constructor(public service: ServiceService, public modalCtrl: ModalController, public router: Router, public navController: NavController) { }
+  constructor(public platfrom:Platform,public service: ServiceService, public modalCtrl: ModalController, public router: Router, public navController: NavController) { }
   public async canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Promise<boolean>  {
-      
-     return await new Promise(async (resolve, reject)  => {
-      // this.backgroundMode.enable();
-      // if(this.backgroundMode.isActive()){
-      //   // this.backgroundMode.on('activate', ()=>{
+    state: RouterStateSnapshot): Promise<boolean> {
 
-      //   // });
-      console.log("patron guard");
-      // this.backgroundMode.isScreenOff(() => {
-      //   console.log("MINIMIZE DETECTED");
-      //   localStorage.setItem("inBackground", "1");
-      // });
-      // }
-      if (localStorage.getItem("inBackground") == null || localStorage.getItem("inBackground") == "1") {
+    return await new Promise(async (resolve, reject) => {
+      if (!this.platfrom.is('mobile') && localStorage.getItem("token") != null && localStorage.getItem("token")!=""){
+        if (localStorage.getItem("inBackground") == null || localStorage.getItem("inBackground") == "1") {
+          if (localStorage.getItem("pin") == undefined || localStorage.getItem("pin") == null) {
+            await this.mostrarModal("crear").then(data => {
+              resolve(true);
+            }).catch(data => {
+              reject(false);
+            });
+          }
+          
+          // else {
+          //   console.log("va a validar");
+          //   await this.mostrarModal("validar").then(data => {
+          //     console.log("valida true");
+          //     resolve(true);
 
-        console.log("Debe ingresar el patron " + next.url);
-        // let params = navigationExtras 
-        // this.router.navigateByUrl("ingresopatron");
-        if (localStorage.getItem("pin") == undefined || localStorage.getItem("pin") == null) {
-          await this.mostrarModal("crear").then(data => {
-            console.log("crear");
-            // localStorage.setItem("inBackground", "0");
-            resolve(true);
-          }).catch(data => {
-            reject (false);
-          });
+          //   }).catch(data => {
+          //     console.log("valida false");
+          //     reject(false);
+
+          //   });
+          // }
+          if (next.url.toString() == "ingresopatron") {
+            console.log("ingresopatron");
+            localStorage.setItem("inBackground", "0");
+            console.log("false");
+
+          }
+        
         }
+        
         else {
-          console.log("va a validar");
-          await this.mostrarModal("validar").then(data => {
-            console.log("valida true");
-            resolve(true);
-
-          }).catch(data => {
-            console.log("valida false");
-            reject(false);
-
-          });
+          console.log("no requiere auth");
         }
-        if (next.url.toString() == "ingresopatron") {
-          console.log("ingresopatron");
-          localStorage.setItem("inBackground", "0");
-          console.log("false");
-
-        }
-
-        // return true;
-      }
-      else{
-        console.log("no requiere auth");
+      }else{
+        console.log("En NAVEGADOR");
       }
       console.log("true aca");
       resolve(true);
     })
-
   }
 
   async mostrarModal(tipo) {
@@ -108,20 +96,20 @@ export class PatronGuard implements CanActivate {
         console.log("aca Modal patron");
         return await modal.present();
       case "validar":
-        const modal2 = await this.modalCtrl.create({
-          component: IngresaPinPage,
-          componentProps: { tipo: "validar" }
-        });
+      // const modal2 = await this.modalCtrl.create({
+      //   component: IngresaPinPage,
+      //   componentProps: { tipo: "validar" }
+      // });
 
-        modal2.onDidDismiss().then(async (modalDataResponse) => {
-          let clave1;
-          console.log(modalDataResponse);
-          clave1 = modalDataResponse.data;
-          localStorage.setItem("inBackground", "0");
-          return true;
-        });
-        await modal2.present();
-        break;
+      // modal2.onDidDismiss().then(async (modalDataResponse) => {
+      //   let clave1;
+      //   console.log(modalDataResponse);
+      //   clave1 = modalDataResponse.data;
+      //   localStorage.setItem("inBackground", "0");
+      //   return true;
+      // });
+      // await modal2.present();
+      // break;
       default:
 
         break;

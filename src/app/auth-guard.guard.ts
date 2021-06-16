@@ -36,10 +36,12 @@ export class AuthGuardGuard implements CanActivate {
     await this.login.checkToken("api/checkToken", { token: localStorage.getItem("token") }).then(data => {
       resp = true;
       console.log("llego hasta aca" + this.router.url + " " + resp);
+      localStorage.removeItem("onboarding");
       return true;
     }).catch(data => {
       localStorage.removeItem("token");
       this.router.navigateByUrl("welcome");
+      localStorage.clear();
       resp = false;
       return false
     });

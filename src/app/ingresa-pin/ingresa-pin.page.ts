@@ -126,7 +126,7 @@ export class IngresaPinPage implements OnInit {
     this.navCtl.navigateForward(["lostpassword", {}]);
   }
   validarCodigo() {
-    console.log("aca");
+    console.log("aca "+this.proposito);
     switch (this.proposito) {
       case "crear":
         let clave = "";
