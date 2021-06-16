@@ -7,10 +7,12 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./pedir-amigo.page.scss'],
 })
 export class PedirAmigoPage implements OnInit {
+  
 
   constructor(private navCtrl: NavController) { }
 
   ngOnInit() {
+    
   }
   CrearLink() {
     this.navCtrl.navigateForward("pedir-amigo-link");

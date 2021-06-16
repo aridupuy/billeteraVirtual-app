@@ -249,7 +249,11 @@ const routes: Routes = [
   {
     path: 'pedir-amigo-link3',
     loadChildren: () => import('./pedir-amigo-link3/pedir-amigo-link3.module').then( m => m.PedirAmigoLink3PageModule)
+  },  {
+    path: 'agregar-amigo',
+    loadChildren: () => import('./agregar-amigo/agregar-amigo.module').then( m => m.AgregarAmigoPageModule)
   },
+
 
 
 

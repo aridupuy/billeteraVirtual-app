@@ -29,9 +29,9 @@
             Sin resultados
           </ion-item>
         </ion-list>
-        <ion-list class="lista-amigos" >
+        <ion-list class="lista-amigos" *ngIf="!buscando">
           <!-- <ion-item *ngFor="let resultado of resultados"  (click)="pedir(resultado)"> -->
-          <ion-item class="amigo-wrapper" *ngFor="let resultado of ultimos" (click)="marcar(resultado)">
+          <ion-item class="amigo-wrapper" *ngFor="let resultado of resultados" (click)="marcar(resultado)">
             <div class="amigo">
               <div class="avatar-wrapper">
                 <div class="avatar">
@@ -51,7 +51,71 @@
         </ion-list>
       </ion-col>
     </ion-list>
-    <ion-list class="lista-amigos" *ngIf="!ultimos || ultimos.length==0 && this.sinResutados==false ">
+    <ion-list class="lista-amigos">
+      <ion-item class="amigo-wrapper" *ngFor="let item of allContacts" (click)="marcar(item)">
+        <div class="amigo">
+          <div class="avatar-wrapper">
+            <div class="avatar">
+              {{iniciales(item.nombre)}}
+            </div>
+          </div>
+          <div class="info-amigo">
+            <h2 class="nombre">{{item.nombre}}</h2>
+            <!-- <span class="alias">Trabajo</span> -->
+          </div>
+          <div class="icon">
+            <ion-icon name="checkmark-circle" color="secondary" *ngIf="item.marcado" (click)="marcar(item)"></ion-icon>
+            <ion-icon name="add-circle-outline" color="secondary" *ngIf="!item.marcado"></ion-icon>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+    <ion-list class="lista-amigos" *ngIf="allContacts.length==0">
+      <ion-item class="amigo-wrapper" *ngFor="let i of [1,2,3,4,5]">
+        <div class="amigo">
+          <div class="avatar-wrapper">
+            <div class="avatar">
+              <ion-skeleton-text animated="true" ></ion-skeleton-text>
+            </div>
+          </div>
+          <div class="info-amigo">
+            <h2 class="nombre">
+              <ion-skeleton-text animated="true" ></ion-skeleton-text>
+            </h2>
+            <span class="alias">
+              <ion-skeleton-text animated="true"></ion-skeleton-text>
+            </span>
+          </div>
+          <div class="icon">
+            <ion-icon>
+              <ion-skeleton-text animated="true" name="add-circle-outline" color="secondary"></ion-skeleton-text>
+            </ion-icon>
+          </div>
+        </div>
+
+      </ion-item>
+    </ion-list>
+    <!-- <ion-list class="lista-amigos">
+      <ion-item class="amigo-wrapper" *ngFor="let item of amigos" (click)="desmarcar(item)">
+        <div class="amigo">
+          <div class="avatar-wrapper">
+            <div class="avatar">
+              {{item.iniciales}}
+            </div>
+          </div>
+          <div class="info-amigo">
+            <h2 class="nombre">{{item.nombre}}</h2>
+
+          </div>
+          <div class="icon">
+            <ion-icon name="checkmark-circle" color="secondary" (click)="desmarcar(item)"></ion-icon>
+
+          </div>
+        </div>
+      </ion-item>
+
+    </ion-list> -->
+    <ion-list class="lista-amigos" *ngIf="ultimos.length==0">
       <ion-item class="amigo-wrapper" *ngFor="let i of [1,2,3,4,5]">
         <div class="amigo">
           <div class="avatar-wrapper">
@@ -79,7 +143,6 @@
   </div>
   <div class="onboarding-btn-group">
     <a (click)="agregarAmigo()" class="link">Agregar nuevo amigo</a>
-    <div (click)="pedir()" *ngIf="amigos==null || amigos.length>0"  class="btn-round activo">Continuar</div>
-    <div *ngIf="amigos==null || amigos.length==0"  class="btn-round">Continuar</div>
+    <div (click)="pedir()" class="btn-round activo">Continuar</div>
   </div>
 </ion-content>

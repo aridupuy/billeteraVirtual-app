@@ -1,5 +1,6 @@
 import { ServiceService } from '../service/service.service';
 import { pass } from '../patron.guard';
+import { Platform } from '@ionic/angular';
 import { ElementRef } from '@angular/core';
 import { IonInput } from '@ionic/angular';
 import { asNativeElements } from '@angular/core';
@@ -10,6 +11,7 @@ import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { variable } from '@angular/compiler/src/output/output_ast';
+import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 
 @Component({
   selector: 'app-ingresa-pin',
@@ -21,6 +23,11 @@ export class IngresaPinPage implements OnInit {
   @ViewChild('passcode2') passcode2 :ElementRef;
   @ViewChild('passcode3') passcode3 :ElementRef;
   @ViewChild('passcode4') passcode4 :ElementRef;
+
+  @ViewChild('passcode1')  passcode11;
+  @ViewChild('passcode2') passcode22 ;
+  @ViewChild('passcode3') passcode33 ;
+  @ViewChild('passcode4') passcode44;
   // @ViewChild('error_code') error_code :HTMLElement;
   public values: any = [];
 
@@ -29,14 +36,35 @@ export class IngresaPinPage implements OnInit {
   public iniciales = "";
   public titulo;
   public titulo2 = "¡Creá tu nuevo  PIN de acceso!";
-  constructor(public service: ServiceService, public navCtl: NavController, public viewCtrl: ModalController, public route: ActivatedRoute, params: NavParams) {
+  constructor(private platform: Platform,private faio: FingerprintAIO,public service: ServiceService, public navCtl: NavController, public viewCtrl: ModalController, public route: ActivatedRoute, params: NavParams) {
     this.proposito = params.get("tipo");
   }
-
+  public nombre;
   ngOnInit() {
     this.iniciales = localStorage.getItem("iniciales");
+    this.nombre = localStorage.getItem("nombre");
     console.log("adentro");
-
+    this.faio.isAvailable().then((result: any) => {
+      // console.log(result)
+      
+      this.faio.show({
+        
+        cancelButtonTitle: 'Cancelar',
+        description: "Usá tus datos biometricos para iniciar sesión e ingresar a la app.",
+        disableBackup: false,
+        title: 'Hola ' + this.nombre,
+        fallbackButtonTitle: 'Atras',
+      })
+        .then((result: any) => {
+          console.log(result);
+          this.viewCtrl.dismiss(true);
+          // this.navCtl.navigateForward("home");
+        })
+        
+    })
+      .catch((error: any) => {
+        // this.navCtrl.navigateForward(["ingreso",{}]);
+      });
     switch (this.proposito) {
       case "crear":
         this.titulo = "Crea tu Pin";
@@ -53,6 +81,7 @@ export class IngresaPinPage implements OnInit {
       this.setFocus(index - 2);
     } else {
       this.values.push(event.target.value);
+      // event.target.type = "password";
       this.setFocus(index);
     }
     event.stopPropagation();
@@ -62,15 +91,15 @@ export class IngresaPinPage implements OnInit {
     console.log(index);
     switch (index) {
       case 0:
-        // this.passcode2.setFocus();
+        this.passcode22.setFocus();
         this.passcode2.nativeElement.setFocus();
         break;
       case 1:
-        // this.passcode3.setFocus();
+        this.passcode33.setFocus();
         this.passcode3.nativeElement.setFocus();
         break;
       case 2:
-        // this.passcode4.setFocus();
+        this.passcode44.setFocus();
         this.passcode4.nativeElement.setFocus();
         break;
       case 3:
@@ -78,7 +107,7 @@ export class IngresaPinPage implements OnInit {
         break;
       default:
         this.passcode1.nativeElement.setFocus();
-        // this.passcode1.setFocus();
+        this.passcode11.setFocus();
     }
     // console.log(this.clave1+""+this.clave2+""+this.clave3+""+this.clave4+"");
   }

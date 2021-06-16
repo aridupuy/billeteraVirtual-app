@@ -6,7 +6,7 @@ import { IngresaPinConfirmaPage } from './ingresa-pin-confirma/ingresa-pin-confi
 import { ServiceService } from './service/service.service';
 import { pass } from './patron.guard';
 import { ModalController } from '@ionic/angular';
-import { NavController } from '@ionic/angular';
+// import { NavController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { NavController } from '@ionic/angular';
@@ -19,18 +19,11 @@ import { NavController } from '@ionic/angular';
 export class AppComponent implements OnInit {
   public usuario;
   public iniciales;
-<<<<<<< HEAD
   public modalDataResponse: any;
   constructor(public service: ServiceService, public modalCtrl: ModalController, public usuarioService: UsuarioService, public navctl: NavController) { }
   ngOnInit() {
     let nombre = localStorage.getItem("nombre");
     if (nombre && this.iniciales) {
-=======
-  constructor(public usuarioService:UsuarioService,private navCtrl : NavController) {}
-  ngOnInit(){
-    let nombre =  localStorage.getItem("nombre");
-    if(nombre && this.iniciales){
->>>>>>> 3a3373d2f3077d9e7d3689a8094037851cb93f76
       this.usuario = nombre;
 
       return false;
@@ -108,11 +101,12 @@ export class AppComponent implements OnInit {
    
   }
   public modal_abierto = 0;
-  
   IrAtras() {
     this.navctl.back();
   }
   
+}
+
 @Component({
   selector: 'welcome',
   template: `
@@ -131,6 +125,7 @@ export class AppComponent implements OnInit {
     </ion-content>
   `
 })
+
 export class SlideExample {
   // Optional parameters to pass to the swiper instance.
   // See http://idangero.us/swiper/api/ for valid options.

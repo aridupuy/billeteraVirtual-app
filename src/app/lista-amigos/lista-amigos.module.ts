@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts/ngx';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -15,6 +16,7 @@ import { ListaAmigosPage } from './lista-amigos.page';
     IonicModule,
     ListaAmigosPageRoutingModule
   ],
-  declarations: [ListaAmigosPage]
+  declarations: [ListaAmigosPage],
+  providers:[Contacts]
 })
 export class ListaAmigosPageModule {}

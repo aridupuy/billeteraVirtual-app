@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { PedirAmigoPageRoutingModule } from './pedir-amigo-routing.module';
 
 import { PedirAmigoPage } from './pedir-amigo.page';
+// import { Contacts } from '@ionic-native/contacts/ngx';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { PedirAmigoPage } from './pedir-amigo.page';
     IonicModule,
     PedirAmigoPageRoutingModule
   ],
-  declarations: [PedirAmigoPage]
+  declarations: [PedirAmigoPage],
+  
 })
 export class PedirAmigoPageModule {}

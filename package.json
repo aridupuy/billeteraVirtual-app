@@ -21,6 +21,7 @@
     "@angular/router": "~12.0.1",
     "@ionic-native/background-mode": "^5.33.1",
     "@ionic-native/camera-preview": "^5.33.1",
+    "@ionic-native/contacts": "^5.33.1",
     "@ionic-native/core": "^5.33.1",
     "@ionic-native/crop": "^5.33.1",
     "@ionic-native/file": "^5.33.1",
@@ -33,6 +34,7 @@
     "@zxing/library": "^0.18.6",
     "cordova-android": "9.1.0",
     "cordova-plugin-background-mode": "^0.7.3",
+    "cordova-plugin-contacts": "^3.0.1",
     "jshint": "^2.13.0",
     "ng2-cookies": "^1.0.12",
     "ngx-countdown": "^12.0.0",
@@ -109,7 +111,8 @@
       "cordova-plugin-touch-id": {},
       "cordova-plugin-fingerprint-aio": {},
       "cordova-plugin-file": {},
-      "cordova-plugin-crop": {}
+      "cordova-plugin-crop": {},
+      "cordova-plugin-contacts": {}
     },
     "platforms": [
       "browser",
