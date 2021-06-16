@@ -1,0 +1,35 @@
+image: marcoturi/ionic:latest
+
+stages:
+  - test
+  - deploy
+
+before_script:
+   - npm install
+  
+cache:
+  untracked: true
+  key: "$CI_PROJECT_ID"
+  paths:
+    - node_modules/
+    
+build_web:
+  stage: test
+  only:
+      - master
+  script:
+    - ionic build --prod
+
+build_android:
+  stage: deploy
+  only:
+    - master
+  script:
+    - ls
+    - ionic cordova platform rm android
+    - ionic cordova platform add android
+    - ionic cordova build android
+    - ls ./platforms/android/build/outputs/apk/android*.apk
+  artifacts:
+    paths:
+      - platforms/android/build/outputs/apk/
