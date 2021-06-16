@@ -8,12 +8,12 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./amigos.page.scss'],
 })
 export class AmigosPage implements OnInit {
-
-  constructor(private navCtrl: NavController,public contacto:ContactoService) { }
   public envios=[];
   public pedidos=[];
   public historial_pedidos=[];
   public historial_envios=[];
+  constructor(private navCtrl: NavController,public contacto:ContactoService) { }
+ 
   // () {
 
   // }
@@ -36,7 +36,7 @@ export class AmigosPage implements OnInit {
     }).catch(err=>{
       this.envios=[];
     });
-    console.log(this.envios);
+    // console.log(this.envios);
     this.contacto.obtener_pedidos_dinero_otros().then((data:any[])=>{
       console.log("aca");
       data.forEach(d=>{

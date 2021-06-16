@@ -1,3 +1,5 @@
+import { ContactoService } from '../service/contacto.service';
+import { Icontacto } from '../interfaces/Icontacto';
 import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
@@ -11,7 +13,8 @@ export class PedirAmigoDesdelista2Page implements OnInit {
   public monto;
   public referencia;
   public amigos;
-  constructor(public route: ActivatedRoute,private navCtrl: NavController) { }
+  public cargando=false;
+  constructor(public route: ActivatedRoute,public contacto:ContactoService,private navCtrl: NavController) { }
 
   ngOnInit() {
     let  p  = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
@@ -27,7 +30,25 @@ export class PedirAmigoDesdelista2Page implements OnInit {
         param: JSON.stringify(p)
       }
     };
-    this.navCtrl.navigateForward("pago",navigationExtras);
+    new Promise((resolve,rejects)=>{
+      this.amigos.forEach(async (amigo:Icontacto,index,array) => {
+        this.cargando=true;
+        
+        await this.contacto.crear_pedido(amigo.id,this.monto,this.referencia).then(data=>{
+          console.log(data);
+        });
+        if(index==array.length-1){
+            resolve(amigo);
+        }
+      });
+
+    }).then((data)=>{
+      this.cargando= false;
+      this.navCtrl.navigateForward("amigos");
+    });
+    
+    
+    
   }
   Modificar() {
     let  p  = JSON.parse(this.route.snapshot.queryParamMap.get("param"));

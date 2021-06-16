@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { PedirAmigoDesdelista2PageRoutingModule } from './pedir-amigo-desdelista2-routing.module';
 
 import { PedirAmigoDesdelista2Page } from './pedir-amigo-desdelista2.page';
+import { ContactoService } from '../service/contacto.service';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { PedirAmigoDesdelista2Page } from './pedir-amigo-desdelista2.page';
     IonicModule,
     PedirAmigoDesdelista2PageRoutingModule
   ],
-  declarations: [PedirAmigoDesdelista2Page]
+  declarations: [PedirAmigoDesdelista2Page],
+  providers:[ContactoService]
 })
 export class PedirAmigoDesdelista2PageModule {}

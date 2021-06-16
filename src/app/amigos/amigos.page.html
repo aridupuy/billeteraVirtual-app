@@ -26,7 +26,7 @@
       <div class="titulo">
         <h2>Pedidos en espera</h2>
       </div>
-      <div class="pedidos-wrapper" *ngIf="pedidos.length>0 and envios.lengh>0">
+      <div class="pedidos-wrapper" *ngIf="(pedidos.length>0 || envios.length>0)">
         <div class="pedido" *ngFor="let item of pedidos">
           <div class="imagen">
             <img src="assets/img/mov-pago.svg" alt="Pagaste">
@@ -55,7 +55,7 @@
           <div class="botones">
           </div>
         </div>
-        <div class="pedidos-wrapper" *ngIf="pedidos.length < 1 || envios.length < 1">
+        <div class="pedidos-wrapper" *ngIf="pedidos.length < 1 && envios.length < 1">
           <div class="pedido">
             <div class="imagen">
               <ion-skeleton-text animated></ion-skeleton-text>

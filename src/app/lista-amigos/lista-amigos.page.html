@@ -80,6 +80,6 @@
   <div class="onboarding-btn-group">
     <a (click)="agregarAmigo()" class="link">Agregar nuevo amigo</a>
     <div (click)="pedir()" *ngIf="amigos==null || amigos.length>0"  class="btn-round activo">Continuar</div>
-    <div *ngIf="amigos==null || amigos.length==0"  class="btn-round">Continuar</div>
+    <div *ngIf="amigos==null || amigos.length==0"  class="btn-round desactivado">Continuar</div>
   </div>
 </ion-content>
