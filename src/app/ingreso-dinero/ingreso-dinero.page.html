@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="IrAtras()" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Ingresar Dinero</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content center class="ingreso">
+  <div class="contenedor-90">
+    <h1>Elegí como querés <br />
+    ingresar dinero a tu cuenta</h1>
+    <div class="botonera">
+      <div class="boton pedir-dinero" (click)="tarjetadebito();">
+        <img src="assets/img/ingreso/tarjeta-debito.svg" alt="Tarjeta de débito">
+        <h2>Tarjeta de débito</h2>
+      </div>
+      <div class="boton enviar-dinero" (click)="transferencia();">
+        <img src="assets/img/ingreso/transferencia.svg" alt="Transferencia Bancaria">
+        <h2>Transferencia Bancaria</h2>
+      </div>
+      <div class="boton enviar-dinero" (click)="efectivo();">
+        <img src="assets/img/ingreso/efectivo.svg" alt="Efectivo">
+        <h2>Efectivo</h2>
+      </div>
+      <div class="boton enviar-dinero" (click)="pedirdinero();">
+        <img src="assets/img/ingreso/pedir-amigo.svg" alt="Pedir dinero a un amigo">
+        <h2>Pedir a un amigo</h2>
+      </div>
+    </div>
+   
+
+  </div>
+  
+</ion-content>

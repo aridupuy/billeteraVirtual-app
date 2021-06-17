@@ -253,7 +253,11 @@ const routes: Routes = [
   {
     path: 'agregar-amigo',
     loadChildren: () => import('./agregar-amigo/agregar-amigo.module').then( m => m.AgregarAmigoPageModule)
+  },  {
+    path: 'ingreso-dinero',
+    loadChildren: () => import('./ingreso-dinero/ingreso-dinero.module').then( m => m.IngresoDineroPageModule)
   },
+
 
 
 

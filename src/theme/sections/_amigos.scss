@@ -10,6 +10,7 @@
             border: 1px solid $border-rgba;
             border-radius: 20px;
             margin: 30px 0;
+            
             .boton {
                 width: 100%;
                 display: flex;
@@ -26,6 +27,11 @@
             }
             .boton:nth-of-type(1){
                 border-bottom: 1px solid $border-rgba;
+            }
+            &:nth-of-type(2) {
+                .boton {
+                    border-bottom: none
+                }
             }
         }
     }
@@ -128,8 +134,12 @@
         }
     }
 }
+
 .monto {
-    font-size: 280%;
+    font-size: 120%;
     width: 100%;
     font-weight: 400;
+}
+.montos-fijos .monto {
+    font-size: 120% !important;
 }
