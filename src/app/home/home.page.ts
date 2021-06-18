@@ -7,7 +7,7 @@ import { MiCvuPage } from '../mi-cvu/mi-cvu.page';
 import { SaldoService } from './../service/saldo.service';
 import { TransaccionesService } from './../service/transacciones.service';
 // import { Observable } from './../classes/observable';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 // import { LoginPage } from './../login/login.page';
 // import { FilterPage } from './../filter/filter.page';
 import { ModalController, NavController } from '@ionic/angular';
@@ -16,6 +16,7 @@ import { Transacciones } from '../interfaces/transacciones';
 import { UsuarioService } from '../service/usuario.service';
 // import { SaldoService } from '../service/saldo.service';
 import { PreloaderPage } from '../preloader/preloader.page';
+import { Validaridentidad1Page } from '../validaridentidad1/validaridentidad1.page';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -44,15 +45,22 @@ export class HomePage implements OnInit {
   public username;
   public iniciales;
   modalDataResponse: any;
+  public valida_mail;
+  public valida_ident;
   constructor(public modalCtrl: ModalController, public navCtl: NavController, private menu: MenuController, public saldoService: SaldoService, public transaccionesService: TransaccionesService, public route: ActivatedRoute, public router: Router, public usuarioService: UsuarioService) { }
 
   ngOnInit(): void {
     console.log("EN HOME");
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
-
+    console.log(p);
     if (this.route.snapshot.queryParamMap.has("param")) {
+      this.valida_ident = p.valida_ident ;
+      this.valida_mail = p.valida_mail ;
+      
       this.mensaje = p.Mensaje;
       this.validado = false;
+      this.obtener_datos_usuario();
+      return ;
     }
     else {
       this.validado = true;
@@ -63,6 +71,25 @@ export class HomePage implements OnInit {
   }
   irAHistorial() {
     this.navCtl.navigateForward("historial");
+  }
+  ir(){
+    // const navigationExtras: NavigationExtras = {
+    //   queryParams: {
+    //     param: JSON.stringify({rvalidar:true, ira:"/",})
+    //   }
+    // }
+    if(this.valida_ident){
+      const navigationExtras: NavigationExtras = {
+        queryParams: {
+          param: JSON.stringify({revalidar:true, ira:"/",})
+        }
+      }
+      this.navCtl.navigateForward("validaridentidad3",navigationExtras);
+    }
+    if(this.valida_mail){
+      
+    }
+    
   }
   async obtener_saldo() {
     await this.saldoService.obtener().then((data: number) => {
@@ -185,40 +212,43 @@ export class HomePage implements OnInit {
   }
 
   obtener_datos_usuario() {
-    // let nombre =  localStorage.getItem("nombre");
-    // if(nombre){
-    //   this.username = nombre;
-    //   return false;
-    // }
+    let nombre = localStorage.getItem("nombre");
+    let iniciales = localStorage.getItem("iniciales");
+    if (nombre && iniciales) {
+      this.username = nombre;
+      this.iniciales = iniciales;
+      return false;
+    }
     // this.usuarioService.obtener_mis_datos().then((data:any)=>{
 
     //     this.username = data.nombre;
     //     localStorage.setItem("nombre",this.username);
     // });
-    let nombre = localStorage.getItem("nombre");
-    if (nombre && this.iniciales) {
-      this.username = nombre;
+    else {
+      nombre = localStorage.getItem("nombre");
+      if (nombre && this.iniciales) {
+        this.username = nombre;
 
-      return false;
-    }
-    this.usuarioService.obtener_mis_datos().then((data: any) => {
-      this.username = data.nombre;
-      this.iniciales = data.nombre_completo
-        .split(' ')
-        .map(it => it.charAt(0))
-        .slice(0, 1)
-        .join('')
-        + data.nombre_completo
+        return false;
+      }
+      this.usuarioService.obtener_mis_datos().then((data: any) => {
+        this.username = data.nombre;
+        this.iniciales = data.nombre_completo
           .split(' ')
           .map(it => it.charAt(0))
-          .slice(2, 3)
-          .join('');
-      // console.log("aca");
-      localStorage.setItem("nombre", this.username);
-      localStorage.setItem("iniciales", this.iniciales);
-      // console.log(this.username);
-    });
-
+          .slice(0, 1)
+          .join('')
+          + data.nombre_completo
+            .split(' ')
+            .map(it => it.charAt(0))
+            .slice(2, 3)
+            .join('');
+        // console.log("aca");
+        localStorage.setItem("nombre", this.username);
+        localStorage.setItem("iniciales", this.iniciales);
+        // console.log(this.username);
+      });
+    }
   }
   async VerCvu() {
     const modal = await this.modalCtrl.create({

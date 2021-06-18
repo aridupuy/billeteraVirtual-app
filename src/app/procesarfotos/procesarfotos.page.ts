@@ -1,6 +1,7 @@
 import { files } from 'jasmine-core';
 import { RenaperService } from '../service/renaper.service';
 import { environment } from '../../environments/environment.prod';
+import { RevalidarRenaperService } from '../service/revalidar-renaper.service';
 import { ToastController } from '@ionic/angular';
 import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Router } from '@angular/router';
@@ -17,7 +18,7 @@ import { int } from '@zxing/library/esm/customTypings';
 })
 export class ProcesarfotosPage implements OnInit {
   public claseProcesando = 'procesandofotos-progress';
-  constructor(private screenOrientation: ScreenOrientation, public route: ActivatedRoute, public Router: Router, private navCtrl: NavController, private file: File, public toastController: ToastController, public renaper: RenaperService) { }
+  constructor(private screenOrientation: ScreenOrientation, public route: ActivatedRoute, public Router: Router, private navCtrl: NavController, private file: File, public toastController: ToastController, public renaper: RenaperService,public revalidar_renaper: RevalidarRenaperService) { }
   public mensaje = "Estamos procesando tus fotos ...";
   // // imagen cuando esta procesando (default) (mantiene clase default procesandofotos-progress)
   public imagen = 'assets/img/procesando.svg';
@@ -67,6 +68,26 @@ export class ProcesarfotosPage implements OnInit {
     let fotoRostro = p.foto_frente
     let data = { imagen: fotoDniFrente, x: 0, y: 0, width: 1280, height: 640 };
     console.log(environment.ACTIVAR_TEST);
+    console.log(JSON.stringify(p));
+    if(p.revalidar==true){
+      this.mensaje = "Estamos revalidando tu identidad.";
+      this.revalidar_renaper.revalidar_rostro(fotoRostro).then(data => {
+        console.log("se valida el rostro correctamente.");
+        this.validado = true;
+        this.mensaje = "Listo tus Fotos se cargaron correctamente.";
+        this.imagen = 'assets/img/procesando-success.svg';
+        this.claseProcesando = 'procesandofotos-success';
+      }).catch(async err => {
+        console.log("Error al validar renaper");
+        this.mensaje = "Vuelve a sacar la foto de tu rostro ";
+        this.imagen = 'assets/img/procesando-error.svg';
+        this.reintento = "validaridentidad3";
+        this.validado = false
+        this.claseProcesando = 'procesandofotos-error';
+        console.log("Error en validar identidad");
+      });
+    }
+
     if (this.ACTIVAR_TEST) {
       this.validado = true;
       this.mensaje = "Listo tus Fotos se cargaron correctamente.";
@@ -100,10 +121,15 @@ export class ProcesarfotosPage implements OnInit {
             this.nombre = datos[2] + " " + datos[1];
             this.sexo = datos[3];
             this.valida_dni = true;
-            this.file.removeFile(this.file.externalRootDirectory, nombre).then(data => { });
+            this.file.removeFile(this.file.externalRootDirectory, nombre).then(data => {
+              console.log("Archivo Eliminado");
+             }).catch(()=>{
+               console.error("No se pudo eliminar el archivo");
+             });
             if (!localStorage.getItem("proceso_alta"))
               localStorage.setItem("proceso_alta", "89296");
             this.mensaje = "Estamos Validando tu identidad...";
+            console.log("Valiando Renaper");
             this.renaper.validar_rostro(fotoRostro, this.dni, this.sexo).then(data => {
               console.log("se valida el rostro correctamente.");
               this.validado = true;
@@ -111,11 +137,13 @@ export class ProcesarfotosPage implements OnInit {
               this.imagen = 'assets/img/procesando-success.svg';
               this.claseProcesando = 'procesandofotos-success';
             }).catch(async err => {
+              console.log("Error al validar renaper");
               this.mensaje = "Vuelve a sacar la foto de tu rostro ";
               this.imagen = 'assets/img/procesando-error.svg';
               this.reintento = "validaridentidad3";
               this.validado = false
               this.claseProcesando = 'procesandofotos-error';
+              console.log("Error en validar identidad");
             });
 
           }).catch(async err => {
@@ -146,16 +174,22 @@ export class ProcesarfotosPage implements OnInit {
   Continuar() {
     localStorage.setItem("reintentos", null);
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
-    p["dni"] = this.dni;
+    if(p.revalidar==true){
+      this.navCtrl.navigateRoot(""); 
+      return ;
+    }
+    if (this.dni)
+      p["dni"] = this.dni;
     p["sexo"] = this.sexo;
     p["nombre"] = this.nombre;
-
+    p["valida_identidad"] = true;
     const navigationExtras: NavigationExtras = {
       queryParams: {
         param: JSON.stringify(p)
       },
       replaceUrl: true
     };
+    
     this.navCtrl.navigateForward("datospersonales", navigationExtras);
   }
   calcular_nombre(tipo) {
@@ -177,6 +211,7 @@ export class ProcesarfotosPage implements OnInit {
         console.log(reintentos);
       }
       else {
+        console.log("INTENTOS: "+reintentos);
         this.omitir = true;
         this.mensaje = "No pudimos validar tu identidad, Reintenta mas tarde ";
         this.imagen = 'assets/img/procesando-error.svg';
@@ -199,6 +234,10 @@ export class ProcesarfotosPage implements OnInit {
     this.reintento = "datospersonales";
 
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
+    p["dni"] = this.dni;
+    p["sexo"] = this.sexo;
+    p["nombre"] = this.nombre;
+    p["valida_identidad"] = false;
     const navigationExtras: NavigationExtras = {
       queryParams: {
         param: JSON.stringify(p)

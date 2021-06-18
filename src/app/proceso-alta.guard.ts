@@ -9,7 +9,10 @@ import { Validaridentidad1Page } from './validaridentidad1/validaridentidad1.pag
 interface datosProceso {
   valida_mail: Boolean | any,
   valida_ident: Boolean | any,
-  valida_cel: Boolean | any
+  valida_cel: Boolean | any,
+  estado_cuenta:any,
+  cel:any,
+  mail:any
 }
 
 @Injectable({
@@ -19,7 +22,7 @@ export class ProcesoAltaGuard implements CanActivate {
   CANTIDAD = 5;
   DIAS = 15;
   constructor(public proceso: ProcesoEstadoService, public validCel: ValidacionCelService, public router: Router, public navCtrl: NavController) {
-
+    console.log("PROCESOALTAGUARD");
   }
   async canActivate(
     next: ActivatedRouteSnapshot,
@@ -32,47 +35,66 @@ export class ProcesoAltaGuard implements CanActivate {
         Cookie.set("validador", (0).toString(), this.DIAS);
       }
       var validador = parseInt(Cookie.get("validador"));
-      if (validador >= this.CANTIDAD) {
-
-        return true;
-      }
+      // if (validador >= this.CANTIDAD) {
+      //   return true;
+      // }
       await this.proceso.validar().then(async (data: datosProceso) => {
         console.log(data);
-        if (data.valida_ident == null || data.valida_ident == undefined) {
+
+        if(data.estado_cuenta==4){
           const navigationExtras: NavigationExtras = {
             queryParams: {
-              param: JSON.stringify({ login: true, Mensaje: "Tienes que validar tu Identidad para operar" })
+              param: JSON.stringify({ login: true, Mensaje: "Tu cuenta ha sido bloqueada, por favor ponete en contacto con nosotros." })
             }
           };
           this.navCtrl.navigateForward("home", navigationExtras);
           resp = true
         }
-        else if (!data.valida_ident || data.valida_ident == 'f') {
+        else if(data.estado_cuenta==6){
           const navigationExtras: NavigationExtras = {
             queryParams: {
-              param: JSON.stringify({ login: true, Mensaje: "Tienes que validar tu Identidad para operar" })
+              param: JSON.stringify({ login: true, Mensaje: "Tu cuenta se encuentra en validacion manual, en 72hs tus datos seran procesados." })
+            }
+          };
+          this.navCtrl.navigateForward("home", navigationExtras);
+          resp = true
+        }
+        else if (data.estado_cuenta!=1 &&(data.valida_ident == null || data.valida_ident == undefined)) {
+          const navigationExtras: NavigationExtras = {
+            queryParams: {
+              param: JSON.stringify({ login: true,valida_ident:true, Mensaje: "Tienes que validar tu Identidad para operar" })
+            }
+          };
+          this.navCtrl.navigateForward("home", navigationExtras);
+          resp = true
+        }
+        else if (data.estado_cuenta!=1 &&(!data.valida_ident || data.valida_ident == 'f')) {
+          const navigationExtras: NavigationExtras = {
+            queryParams: {
+              param: JSON.stringify({ login: true,valida_ident:true, Mensaje: "Tienes que validar tu Identidad para operar" })
             }
           }; //parametros para el nav
           this.navCtrl.navigateForward("home", navigationExtras);
           resp = true
         }
-        else if (!data.valida_mail || data.valida_mail == 'f') {
+        else if (data.estado_cuenta!=1 &&(!data.valida_mail || data.valida_mail == 'f')) {
           const navigationExtras: NavigationExtras = {
             queryParams: {
-              param: JSON.stringify({ login: true, Mensaje: "Tienes que validar tu Correo para operar" })
+              param: JSON.stringify({ login: true,valida_mail:true, Mensaje: "Tienes que validar tu Correo para operar" })
             }
           };
           this.navCtrl.navigateForward("home", navigationExtras);
           resp = false
         }
-        else if (!data.valida_cel || data.valida_cel == 'f') {
-          await this.validCel.reenviar_codigo().then(cel => {
+        else if (data.estado_cuenta!=1 &&(!data.valida_cel || data.valida_cel == 'f')) {
+          await this.validCel.reenviar_codigo().then((cel) => {
+            console.log(cel);
             const navigationExtras: NavigationExtras = {
               queryParams: {
-                param: JSON.stringify({ login: true, Mensaje: "Tienes que validar tu Celular para operar" })
+                param: JSON.stringify({ login: true,valida_cel:true, Mensaje: "Tienes que validar tu Celular para operar",revalidar:true,cod_area:"",celular:cel})
               }
             };
-            this.navCtrl.navigateForward("validarCel", navigationExtras);
+            this.navCtrl.navigateForward("confirmasms", navigationExtras);
 
           });
         }

@@ -1,3 +1,4 @@
+import { ProcesarfotosPage } from '../procesarfotos/procesarfotos.page';
 import { NavigationExtras, Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -29,11 +30,13 @@ export class Validaridentidad3Page implements OnInit {
   ionViewDidEnter() {
     this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT).then(() => {
       let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
-      if (p.editar == true) {
+      console.log(JSON.stringify(p));
+      if (p.editar == true || p.revalidar == true) {
         this.cameraPreview.startCamera({ x: 0, y: 0, width: window.screen.width, height: window.screen.height, previewDrag: true, camera: "front", toBack: true });
+      }else{
+        this.cameraPreview.stopCamera();
+        this.cameraPreview.startCamera({ x: 0, y: 0, width: window.screen.height, height: window.screen.width, previewDrag: true, camera: "front", toBack: true });
       }
-      this.cameraPreview.stopCamera();
-      this.cameraPreview.startCamera({ x: 0, y: 0, width: window.screen.height, height: window.screen.width, previewDrag: true, camera: "front", toBack: true });
       // this.cameraPreview.startCamera({x: 0, y: 0, width: window.screen.width, height: window.screen.height, previewDrag: true, camera: "front",toBack: true});
       this.cameraPreview.switchCamera();
       this.cameraPreview.show();
@@ -63,8 +66,13 @@ export class Validaridentidad3Page implements OnInit {
           }
         };
         this.cameraPreview.stopCamera();
+        if (p.revalidar == true) {
+          this.navCtrl.navigateRoot("procesarfotos", navigationExtras);
+          return;
+        }
         if (p.editar == true) {
           this.navCtrl.navigateRoot("revisarfotos", navigationExtras);
+          return;
         }
         else {
           this.cameraPreview.hide();

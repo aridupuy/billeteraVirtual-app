@@ -53,19 +53,19 @@ export class AppComponent implements OnInit {
   onPause = () => {
     console.log("pause");
     console.log(localStorage.getItem("onboarding"));
-    if(localStorage.getItem("token") != null && localStorage.getItem("token")!="" && localStorage.getItem("onboarding")==null && localStorage.getItem("onboarding")!="1"){
-      localStorage.setItem("inBackground", "1");
+    // if(localStorage.getItem("token") != null && localStorage.getItem("token")!="" && localStorage.getItem("onboarding")==null && localStorage.getItem("onboarding")!="1"){
+      // localStorage.setItem("inBackground", "1");
     // this.mostrarModal("validar");
-    }
+    // }
   }
   onDeviceresume = async () => {
     console.log("onDeviceresume");
     console.log(localStorage.getItem("onboarding"));
     // localStorage.setItem("inBackground", "1");
-    // if(localStorage.getItem("token") != null && localStorage.getItem("token")!="" && localStorage.getItem("onboarding")==null && localStorage.getItem("onboarding")!="1")
+    if(localStorage.getItem("token") != null && localStorage.getItem("token")!="" && localStorage.getItem("onboarding")==null && localStorage.getItem("onboarding")!="1")
       if(localStorage.getItem("inBackground")== "1"){
         console.log("aca Modal patron");
-          this.mostrarModal("validar");
+          // this.mostrarModal("validar");
       }
   }
 

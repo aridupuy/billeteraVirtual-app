@@ -30,7 +30,9 @@ export class ConfirmasmsPage implements OnInit {
   public clave4
   public clave6
   public telefono
-  public error_code
+  public error_code;
+  public intentos=1;
+  public revalidar=false;
 
   constructor(public AlertController: AlertController, private navCtrl: NavController, public route: ActivatedRoute, public router: Router, public validCel: ValidacionCelService, public loginBo: LoginBoService) {
 
@@ -40,7 +42,7 @@ export class ConfirmasmsPage implements OnInit {
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
     console.log(p);
     this.telefono = p.cod_area.toString() + p.celular.toString();
-
+    this.revalidar = p.revalidar;
     let detener = false;
     console.log("Envia Codigo");
     console.log(p);
@@ -60,10 +62,11 @@ export class ConfirmasmsPage implements OnInit {
       if(event.target.value.length != 1) {
       this.setFocus(index - 2);
     } else {
-      this.values.push(event.target.value);
+      this.values[index-1]=(event.target.value);
       this.setFocus(index);
     }
     event.stopPropagation();
+    console.log(this.values);
   }
   setFocus(index) {
 
@@ -94,16 +97,55 @@ export class ConfirmasmsPage implements OnInit {
   }
 
   cdEvents(event) {
-    console.log(event);
+    // console.log(event);
     switch (event.action) {
       case "done":
         this.PopupCode("Se termino el tiempo por favor reintentá");
+        break;
+      case "saltear":
+        this.PopupCodeSaltear("No pudimos validar tu celular, intentaremos mas adelante.");
         break;
       default:
         break;
     }
   }
+  async PopupCodeSaltear(mensaje) {
+    const alert = await this.AlertController.create({
+      header: mensaje,
+      subHeader: 'Intentaremos mas adelante',
+      message: 'El número que ingresaste es +' + this.telefono + '. No pudimos validarlo ahora.',
+      buttons: [
+        {
+          text: 'Continuar',
+          handler: async () => {
+            this.intentos++;
+            let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
+            console.log(p);
+            p["valida_sms"] = false;
+            p["intentos"]=this.intentos;
+            p["proceso_alta"] = localStorage.getItem("id_proceso_alta");
+            const navigationExtras: NavigationExtras = {
+              queryParams: {
 
+                param: JSON.stringify(p)
+              }
+            };
+            console.log(navigationExtras);
+            this.countdown.stop();
+            if(!this.revalidar){
+              this.navCtrl.navigateForward("cuentacreada", navigationExtras);
+              return true;
+            }
+            else
+              this.navCtrl.navigateForward("home");
+            
+          }
+        },]
+    });
+    await alert.present();
+    let result = await alert.onDidDismiss();
+    console.log(result);
+  }
   async PopupCode(mensaje) {
     if (!mensaje) {
       mensaje = '¿No te llegó el código o no pudiste cargarlo?';
@@ -122,6 +164,7 @@ export class ConfirmasmsPage implements OnInit {
         {
           text: 'Reenviar código',
           handler: async () => {
+            this.intentos++;
             console.log("Envia Codigo");
             let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
             console.log(p);
@@ -146,22 +189,33 @@ export class ConfirmasmsPage implements OnInit {
   async validarCodigo() {
     let codigo = this.clave1.toString() + this.clave2 + this.clave3.toString() + this.clave4 + this.clave5.toString() + this.clave6;
     console.log(codigo);
+    console.log(this.intentos);
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
     console.log(p);
     let proceso_alta = localStorage.getItem("proceso_alta");
     if (p.login) {
-      await this.validCel.validar_codigo_reenviado(p.cod_area.toString()+p.celular.toString(), codigo).then(data => {
-
+      console.log("REVALIDAR CODIGO");
+      console.log(p);
+      await this.validCel.validar_codigo_reenviado(p.cod_area.toString()+p.celular.toString(), codigo,this.intentos).then(data => {
+        this.values=[];
+        console.log("Valida");
         this.retornar_exito_reenviado();
+        
       }).catch(err => {
-
+        console.log("Error",err);
+        this.intentos = err.intentos;
+        this.values=[];
         this.retornar_error();
       })
     }
     else {
-      await this.validCel.validar_codigo(p.cod_area+""+p.celular, codigo, proceso_alta).then(data => {
+      await this.validCel.validar_codigo(p.cod_area+""+p.celular, codigo, proceso_alta,this.intentos).then(data => {
+        this.values=[];
         this.retornar_exito();
       }).catch(err => {
+        console.log(err);
+        this.intentos = err.intentos;
+        this.values=[];
         this.retornar_error();
       })
       // this.navCtrl.navigateForward(["cuentacreada",{}]);
@@ -170,6 +224,8 @@ export class ConfirmasmsPage implements OnInit {
   }
   retornar_exito_reenviado() {
     this.error_code = false;
+    this.countdown.stop();
+    this.navCtrl.navigateForward("/");
   }
   retornar_exito() {
     this.error_code = false;
@@ -188,6 +244,9 @@ export class ConfirmasmsPage implements OnInit {
     this.navCtrl.navigateForward("cuentacreada", navigationExtras);
   }
   retornar_error() {
+    if(this.intentos>=3){
+      this.cdEvents({action:"saltear"});
+    }
     this.error_code = true;
   }
 }

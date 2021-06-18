@@ -24,6 +24,7 @@ export class Datospersonales2Page implements OnInit {
   public piso_mod;
   public depto_mod;
   public modificar = false;
+  public condatos=false;
   ngOnInit() {
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
     console.log(p);
@@ -31,6 +32,11 @@ export class Datospersonales2Page implements OnInit {
     this.altura = p.numero;
     this.piso = p.piso;
     this.depto = p.depto;
+    this.modificar=true;
+    if(this.calle && this.altura && this.piso && this.depto){
+      this.condatos = true;
+      this.modificar=false;
+    }
   }
   Continuar() {
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));

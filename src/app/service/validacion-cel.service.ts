@@ -11,8 +11,10 @@ interface result{
   log:any;
   extras:[{
     data:{
-      codigo:any
-    }
+      codigo:any,
+      
+    },
+    intentos?:number
   }]
 }
 interface resultRen{
@@ -46,14 +48,15 @@ export class ValidacionCelService extends ServiceService{
       });
     });
   }
-  validar_codigo(cel,codigo,procesoAlta){
+  validar_codigo(cel,codigo,procesoAlta,intento){
     httpOptions.headers.token=localStorage.getItem("proceso_alta");
     return new Promise((resolve, reject) => {
-      var postParams = ({ cel: cel, codigo:codigo,id_proceso_alta: localStorage.getItem("proceso_alta") });
+      var postParams = ({ cel: cel, codigo:codigo,id_proceso_alta: localStorage.getItem("proceso_alta"),intentos:intento});
       console.log(postParams);
       this.post<result>( 'api/validasms/validar_codigo',postParams,httpOptions).subscribe((data) => {
         if (data.resultado != null && data.resultado == false) {
-          reject(data.log);
+          console.log(data);
+          reject({log:data.log,intentos:data.extras[0].intentos});
         }
         return resolve(data.extras[0].data.codigo);
       });
@@ -63,7 +66,7 @@ export class ValidacionCelService extends ServiceService{
   reenviar_codigo(){
     httpOptions.headers.token=localStorage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.get<resultRen>(this.URL + 'api/validasmsreenvio/reenviar',httpOptions).subscribe((data) => {
+      this.get<resultRen>('api/validasmsreenvio/reenviar',httpOptions).subscribe((data) => {
         if (data.resultado != null && data.resultado == false) {
           reject(data.log);
         }
@@ -71,13 +74,13 @@ export class ValidacionCelService extends ServiceService{
       });
     });
   }
-  validar_codigo_reenviado(cel,codigo){
+  validar_codigo_reenviado(cel,codigo,intento){
     httpOptions.headers.token=localStorage.getItem("token");
     return new Promise((resolve, reject) => {
-      var postParams = ({ cel: cel, codigo:codigo });
-      this.post<result>(this.URL + 'api/validasmsreenvio/validar_codigo',postParams,httpOptions).subscribe((data) => {
+      var postParams = ({ cel: cel, codigo:codigo,intentos:intento });
+      this.post<result>('api/validasmsreenvio/validar_codigo',postParams,httpOptions).subscribe((data) => {
         if (data.resultado != null && data.resultado == false) {
-          reject(data.log);
+          reject({log:data.log,intentos:data.extras[0].intentos});
         }
         return resolve(data.extras[0].data.codigo);
       });

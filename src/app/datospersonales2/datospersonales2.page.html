@@ -16,7 +16,7 @@ domicilio actual?
     </h1>
     <p class="align-left">Si te mudaste, poné tu nueva dirección. Por las dudas, te recordamos que jamás compartiremos tus datos personales. Es solo para chequear que toda la info que tenemos sea la correcta.
     </p>
-    <div class="form datospersonales">
+    <div class="form datospersonales" *ngIf="condatos">
       <div class="dato mitad">
         <h2>Calle</h2>
         <p >{{calle}}</p>

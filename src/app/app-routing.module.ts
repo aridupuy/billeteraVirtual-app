@@ -1,16 +1,17 @@
 import { AuthGuardGuard } from './auth-guard.guard';
 import { PatronGuard } from './patron.guard';
+import { ProcesoAltaGuard } from './proceso-alta.guard';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),canActivate: [AuthGuardGuard,PatronGuard]
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),canActivate: [AuthGuardGuard,PatronGuard,ProcesoAltaGuard]
   },
   {
     path: '',
-    // redirectTo: 'welcome',
+    // redirectTo: 'validaridentidad',
     redirectTo: 'home',
     pathMatch: 'full'
   },
@@ -92,31 +93,31 @@ const routes: Routes = [
   },
   {
     path: 'ingresopatron',
-    loadChildren: () => import('./ingresopatron/ingresopatron.module').then( m => m.IngresopatronPageModule),canActivate: [AuthGuardGuard]
+    loadChildren: () => import('./ingresopatron/ingresopatron.module').then( m => m.IngresopatronPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
   },
   {
     path: 'lostpassword',
-    loadChildren: () => import('./lostpassword/lostpassword.module').then( m => m.LostpasswordPageModule),canActivate: [AuthGuardGuard]
+    loadChildren: () => import('./lostpassword/lostpassword.module').then( m => m.LostpasswordPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
   },
   {
     path: 'lostpassword1',
-    loadChildren: () => import('./lostpassword1/lostpassword1.module').then( m => m.Lostpassword1PageModule),canActivate: [AuthGuardGuard]
+    loadChildren: () => import('./lostpassword1/lostpassword1.module').then( m => m.Lostpassword1PageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
   },
   {
     path: 'lostpassword-confirma',
-    loadChildren: () => import('./lostpassword-confirma/lostpassword-confirma.module').then( m => m.LostpasswordConfirmaPageModule),canActivate: [AuthGuardGuard]
+    loadChildren: () => import('./lostpassword-confirma/lostpassword-confirma.module').then( m => m.LostpasswordConfirmaPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
   },
   {
     path: 'lostpassword-exito',
-    loadChildren: () => import('./lostpassword-exito/lostpassword-exito.module').then( m => m.LostpasswordExitoPageModule),canActivate: [AuthGuardGuard]
+    loadChildren: () => import('./lostpassword-exito/lostpassword-exito.module').then( m => m.LostpasswordExitoPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
   },
   {
     path: 'lostpassword-ayuda',
-    loadChildren: () => import('./lostpassword-ayuda/lostpassword-ayuda.module').then( m => m.LostpasswordAyudaPageModule),canActivate: [AuthGuardGuard]
+    loadChildren: () => import('./lostpassword-ayuda/lostpassword-ayuda.module').then( m => m.LostpasswordAyudaPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
   },
   {
     path: 'lostpassword-ayuda-confirm',
-    loadChildren: () => import('./lostpassword-ayuda-confirm/lostpassword-ayuda-confirm.module').then( m => m.LostpasswordAyudaConfirmPageModule),canActivate: [AuthGuardGuard]
+    loadChildren: () => import('./lostpassword-ayuda-confirm/lostpassword-ayuda-confirm.module').then( m => m.LostpasswordAyudaConfirmPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
   },
   {
     path: 'registro-cuentaexistente',
@@ -168,15 +169,15 @@ const routes: Routes = [
   },
   {
     path: 'menuprincipal',
-    loadChildren: () => import('./menuprincipal/menuprincipal.module').then( m => m.MenuprincipalPageModule),canActivate: [AuthGuardGuard]
+    loadChildren: () => import('./menuprincipal/menuprincipal.module').then( m => m.MenuprincipalPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
   },
   {
     path: 'datos-cuenta',
-    loadChildren: () => import('./datos-cuenta/datos-cuenta.module').then( m => m.DatosCuentaPageModule),canActivate: [AuthGuardGuard]
+    loadChildren: () => import('./datos-cuenta/datos-cuenta.module').then( m => m.DatosCuentaPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
   },
   {
     path: 'amigos',
-    loadChildren: () => import('./amigos/amigos.module').then( m => m.AmigosPageModule)
+    loadChildren: () => import('./amigos/amigos.module').then( m => m.AmigosPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
   },
   {
     path: 'validaridentidad4',
@@ -188,34 +189,34 @@ const routes: Routes = [
   },
   {
     path: 'pedir-amigo',
-    loadChildren: () => import('./pedir-amigo/pedir-amigo.module').then( m => m.PedirAmigoPageModule)
+    loadChildren: () => import('./pedir-amigo/pedir-amigo.module').then( m => m.PedirAmigoPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
   },
   {
     path: 'pedir-amigo-link',
-    loadChildren: () => import('./pedir-amigo-link/pedir-amigo-link.module').then( m => m.PedirAmigoLinkPageModule)
+    loadChildren: () => import('./pedir-amigo-link/pedir-amigo-link.module').then( m => m.PedirAmigoLinkPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
   },
   {
     path: 'lista-amigos',
-    loadChildren: () => import('./lista-amigos/lista-amigos.module').then( m => m.ListaAmigosPageModule)
+    loadChildren: () => import('./lista-amigos/lista-amigos.module').then( m => m.ListaAmigosPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
   },
   {
     path: 'pedir-amigo-link2',
-    loadChildren: () => import('./pedir-amigo-link2/pedir-amigo-link2.module').then( m => m.PedirAmigoLink2PageModule)
+    loadChildren: () => import('./pedir-amigo-link2/pedir-amigo-link2.module').then( m => m.PedirAmigoLink2PageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
   },{
     path: 'historial',
-    loadChildren: () => import('./historial/historial.module').then( m => m.HistorialPageModule)
+    loadChildren: () => import('./historial/historial.module').then( m => m.HistorialPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
   },
   {
     path: 'agenda-links',
-    loadChildren: () => import('./agenda-links/agenda-links.module').then( m => m.AgendaLinksPageModule)
+    loadChildren: () => import('./agenda-links/agenda-links.module').then( m => m.AgendaLinksPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
   },
   {
     path: 'ingreso-transferencia',
-    loadChildren: () => import('./ingreso-transferencia/ingreso-transferencia.module').then( m => m.IngresoTransferenciaPageModule)
+    loadChildren: () => import('./ingreso-transferencia/ingreso-transferencia.module').then( m => m.IngresoTransferenciaPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
   },
   {
     path: 'ingreso-efectivo',
-    loadChildren: () => import('./ingreso-efectivo/ingreso-efectivo.module').then( m => m.IngresoEfectivoPageModule)
+    loadChildren: () => import('./ingreso-efectivo/ingreso-efectivo.module').then( m => m.IngresoEfectivoPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
   },
   {
     path: 'mi-cvu',
@@ -223,11 +224,11 @@ const routes: Routes = [
   },
   {
     path: 'ingreso-debito',
-    loadChildren: () => import('./ingreso-debito/ingreso-debito.module').then( m => m.IngresoDebitoPageModule)
+    loadChildren: () => import('./ingreso-debito/ingreso-debito.module').then( m => m.IngresoDebitoPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
   },
   {
     path: 'ingreso-debito2',
-    loadChildren: () => import('./ingreso-debito2/ingreso-debito2.module').then( m => m.IngresoDebito2PageModule)
+    loadChildren: () => import('./ingreso-debito2/ingreso-debito2.module').then( m => m.IngresoDebito2PageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
   },
   {
     path: 'ingresa-pin',
@@ -240,19 +241,19 @@ const routes: Routes = [
 
   {
     path: 'pedir-amigo-desdelista',
-    loadChildren: () => import('./pedir-amigo-desdelista/pedir-amigo-desdelista.module').then( m => m.PedirAmigoDesdelistaPageModule)
+    loadChildren: () => import('./pedir-amigo-desdelista/pedir-amigo-desdelista.module').then( m => m.PedirAmigoDesdelistaPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
   },
   {
     path: 'pedir-amigo-desdelista2',
-    loadChildren: () => import('./pedir-amigo-desdelista2/pedir-amigo-desdelista2.module').then( m => m.PedirAmigoDesdelista2PageModule)
+    loadChildren: () => import('./pedir-amigo-desdelista2/pedir-amigo-desdelista2.module').then( m => m.PedirAmigoDesdelista2PageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
   },
   {
     path: 'pedir-amigo-link3',
-    loadChildren: () => import('./pedir-amigo-link3/pedir-amigo-link3.module').then( m => m.PedirAmigoLink3PageModule)
+    loadChildren: () => import('./pedir-amigo-link3/pedir-amigo-link3.module').then( m => m.PedirAmigoLink3PageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
   },
   {
     path: 'agregar-amigo',
-    loadChildren: () => import('./agregar-amigo/agregar-amigo.module').then( m => m.AgregarAmigoPageModule)
+    loadChildren: () => import('./agregar-amigo/agregar-amigo.module').then( m => m.AgregarAmigoPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
   },
 
 

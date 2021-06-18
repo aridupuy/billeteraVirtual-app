@@ -41,7 +41,7 @@ export class DatospersonalesPage implements OnInit {
         this.nombre = data.nombres;
         this.nombre_completo = data.nombres + " " + data.apellido;
         this.fec_nac = data.fecha_nacimiento;
-        // this.sexo = data.sexo;
+        this.sexo = data.sexo;
         this.nacionalidad = data.nacionalidad;
         this.provincia = data.provincia;
         this.ciudad = data.ciudad;

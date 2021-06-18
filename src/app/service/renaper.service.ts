@@ -79,6 +79,7 @@ export class RenaperService extends LoginBoService {
 
   public async validar_rostro(foto,dni,sexo){
     var resp  ;
+    console.log("Validando RostroService");
     await this.login().then((data:any)=>{
       resp = new Promise((resolve, reject) => {
         httpOptions.headers.token=data;
@@ -88,8 +89,10 @@ export class RenaperService extends LoginBoService {
           this.post<any>( 'api/validaidentidad/validar', postParams, httpOptions)
             .subscribe(data => {
               if (data.resultado != null && data.resultado == false) {
+                console.log("Validando RostroService Correcto");
                 reject(data.log);
               }
+              console.log("Validando RostroService Incorrecto");
               return resolve(data.extras[0]);
             });
         } catch (e) {
@@ -101,6 +104,7 @@ export class RenaperService extends LoginBoService {
     return resp
 
   }
+  
 
   private handleError<T>(operation = 'operation', result?: T) {
     console.log("error");
