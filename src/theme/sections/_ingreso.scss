@@ -1,4 +1,36 @@
 .ingreso {
+    .contenedor-90 {
+        .botonera {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            border: 1px solid $border-rgba;
+            border-radius: 20px;
+            margin: 30px 0;
+            
+            .boton {
+                width: 100%;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                align-items: center;
+                align-content: center;
+                padding: 20px 15px;
+                border-bottom: 1px solid $border-rgba;
+                h2 {
+                    margin: 0;
+                    padding: 0;
+                    padding-left: 10px;
+                }
+            }
+            .boton:last-of-type{
+                border-bottom: none;
+            }
+            
+        }
+    }
     .renglon {
         display: flex;
         flex-wrap: wrap;
@@ -95,7 +127,7 @@
             width: 30%;
             position: absolute;
             bottom: 25px;
-            right: 10%;
+            right: 30%;
             text-align: right;
         }
         &.black {
@@ -130,7 +162,7 @@
             color: #323232;
             .marca, .banco {
                 color: #323232;
-                filter: brightness(-100%);
+                // filter: brightness(-100%);
             }
         }
     }

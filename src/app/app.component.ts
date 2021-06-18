@@ -10,6 +10,7 @@ import { ModalController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { NavController } from '@ionic/angular';
+import { menuController } from "@ionic/core";
 
 @Component({
   selector: 'app-root',
@@ -20,7 +21,7 @@ export class AppComponent implements OnInit {
   public usuario;
   public iniciales;
   public modalDataResponse: any;
-  constructor(public service: ServiceService, public modalCtrl: ModalController, public usuarioService: UsuarioService, public navctl: NavController) { }
+  constructor(public service: ServiceService, public modalCtrl: ModalController, public usuarioService: UsuarioService, public navCtrl: NavController) { }
   ngOnInit() {
     let nombre = localStorage.getItem("nombre");
     if (nombre && this.iniciales) {
@@ -107,10 +108,46 @@ export class AppComponent implements OnInit {
   }
   public modal_abierto = 0;
   IrAtras() {
-    this.navctl.back();
+    this.navCtrl.back();
   }
-  
+  MenuDatosCuenta() {
+    this.navCtrl.navigateForward("datos-cuenta");
+    menuController.close()
+  }
+  MenuHistorial() {
+    this.navCtrl.navigateForward("historial");
+    menuController.close()
+  }
+  MenuAmigos() {
+    this.navCtrl.navigateForward("amigos");
+    menuController.close()
+  }
+  MenuIngresoDinero() {
+    this.navCtrl.navigateForward("ingreso-dinero");
+    menuController.close()
+  }
+  MenuRetiroDinero() {
+    this.navCtrl.navigateForward("transferir-dinero");
+    menuController.close()
+  }
+  MenuTransferirDinero() {
+    this.navCtrl.navigateForward("retirar-dinero");
+    menuController.close()
+  }
+  MenuCodigoQR() {
+    this.navCtrl.navigateForward("codigo-qr");
+    menuController.close()
+  }
+  MenuAyuda() {
+    this.navCtrl.navigateForward("ayuda");
+    menuController.close()
+  }
+  MenuLogout() {
+    this.navCtrl.navigateForward("logout");
+    menuController.close()
+  }
 }
+
 
 @Component({
   selector: 'welcome',

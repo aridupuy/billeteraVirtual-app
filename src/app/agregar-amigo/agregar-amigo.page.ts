@@ -118,4 +118,7 @@ export class AgregarAmigoPage implements OnInit {
         return false;
     })
   }
+  ContinuarBuscar() {
+    this.navCtrl.navigateForward(["agregar-amigo2", {}]);
+  }
 }

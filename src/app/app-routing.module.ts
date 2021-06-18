@@ -253,8 +253,21 @@ const routes: Routes = [
   },
   {
     path: 'agregar-amigo',
-    loadChildren: () => import('./agregar-amigo/agregar-amigo.module').then( m => m.AgregarAmigoPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
+    loadChildren: () => import('./agregar-amigo/agregar-amigo.module').then( m => m.AgregarAmigoPageModule)
   },
+  {
+    path: 'ingreso-dinero',
+    loadChildren: () => import('./ingreso-dinero/ingreso-dinero.module').then( m => m.IngresoDineroPageModule)
+  },
+  {
+    path: 'retirar-dinero',
+    loadChildren: () => import('./retirar-dinero/retirar-dinero.module').then( m => m.RetirarDineroPageModule)
+  },
+  {
+    path: 'agregar-amigo2',
+    loadChildren: () => import('./agregar-amigo2/agregar-amigo2.module').then( m => m.AgregarAmigo2PageModule)
+  },
+
 
 
 

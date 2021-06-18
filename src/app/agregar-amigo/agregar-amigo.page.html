@@ -9,140 +9,31 @@
 
 <ion-content center class="amigos">
   <div class="contenedor-90">
-    <h1>¿A quién querés <br />pedirle dinero?</h1>
-    <p>Seleccioná a las personas desde esta lista o agregalas si no las ves.
+    <h1>¡A sumar amigos a tu lista!</h1>
+    <p>Elegí si querés añadirlos a través de su correo electrónico o su número de celular.
     </p>
-    <!-- Modulo de lista de amigos -->
-
-    <ion-list>
-      <ion-col>
-        <ion-searchbar debounce="750" [(ngModel)]="busqueda" [animated]="true" placeholder='Buscar'
-          clear-icon="close-circle" type="search" (ionChange)="buscar($event)" search-icon="ios-search"
-          md="search-outline" ios="close-circle"></ion-searchbar>
-        <ion-list *ngIf="buscando">
-          <ion-item>
-            <ion-spinner name="dots"></ion-spinner>
-          </ion-item>
-        </ion-list>
-        <ion-list *ngIf="!buscando && sinResutados">
-          <ion-item>
-            Sin resultados
-          </ion-item>
-        </ion-list>
-        <ion-list class="lista-amigos" *ngIf="!buscando">
-          <!-- <ion-item *ngFor="let resultado of resultados"  (click)="pedir(resultado)"> -->
-          <ion-item class="amigo-wrapper" *ngFor="let resultado of resultados" (click)="marcar(resultado)">
-            <div class="amigo">
-              <div class="avatar-wrapper">
-                <div class="avatar">
-                  {{iniciales(resultado.nombre)}}
-                </div>
-              </div>
-              <div class="info-amigo">
-                <h2 class="nombre">{{ resultado.nombre}}</h2>
-                <!-- <span class="alias">Trabajo</span> -->
-              </div>
-              <div class="icon">
-                <ion-icon name="checkmark-circle" color="secondary" *ngIf="resultado.marcado"></ion-icon>
-                <ion-icon name="add-circle-outline" color="secondary" *ngIf="!resultado.marcado"></ion-icon>
-              </div>
-            </div>
-          </ion-item>
-        </ion-list>
-      </ion-col>
-    </ion-list>
-    <ion-list class="lista-amigos">
-      <ion-item class="amigo-wrapper" *ngFor="let item of allContacts" (click)="marcar(item)">
-        <div class="amigo">
-          <div class="avatar-wrapper">
-            <div class="avatar">
-              {{iniciales(item.nombre)}}
-            </div>
-          </div>
-          <div class="info-amigo">
-            <h2 class="nombre">{{item.nombre}}</h2>
-            <!-- <span class="alias">Trabajo</span> -->
-          </div>
-          <div class="icon">
-            <ion-icon name="checkmark-circle" color="secondary" *ngIf="item.marcado" (click)="marcar(item)"></ion-icon>
-            <ion-icon name="add-circle-outline" color="secondary" *ngIf="!item.marcado"></ion-icon>
-          </div>
-        </div>
-      </ion-item>
-    </ion-list>
-    <ion-list class="lista-amigos" *ngIf="allContacts.length==0">
-      <ion-item class="amigo-wrapper" *ngFor="let i of [1,2,3,4,5]">
-        <div class="amigo">
-          <div class="avatar-wrapper">
-            <div class="avatar">
-              <ion-skeleton-text animated="true" ></ion-skeleton-text>
-            </div>
-          </div>
-          <div class="info-amigo">
-            <h2 class="nombre">
-              <ion-skeleton-text animated="true" ></ion-skeleton-text>
-            </h2>
-            <span class="alias">
-              <ion-skeleton-text animated="true"></ion-skeleton-text>
-            </span>
-          </div>
-          <div class="icon">
-            <ion-icon>
-              <ion-skeleton-text animated="true" name="add-circle-outline" color="secondary"></ion-skeleton-text>
-            </ion-icon>
-          </div>
-        </div>
-
-      </ion-item>
-    </ion-list>
-    <!-- <ion-list class="lista-amigos">
-      <ion-item class="amigo-wrapper" *ngFor="let item of amigos" (click)="desmarcar(item)">
-        <div class="amigo">
-          <div class="avatar-wrapper">
-            <div class="avatar">
-              {{item.iniciales}}
-            </div>
-          </div>
-          <div class="info-amigo">
-            <h2 class="nombre">{{item.nombre}}</h2>
-
-          </div>
-          <div class="icon">
-            <ion-icon name="checkmark-circle" color="secondary" (click)="desmarcar(item)"></ion-icon>
-
-          </div>
-        </div>
-      </ion-item>
-
-    </ion-list> -->
-    <ion-list class="lista-amigos" *ngIf="ultimos.length==0">
-      <ion-item class="amigo-wrapper" *ngFor="let i of [1,2,3,4,5]">
-        <div class="amigo">
-          <div class="avatar-wrapper">
-            <div class="avatar">
-              <ion-skeleton-text animated="true"></ion-skeleton-text>
-            </div>
-          </div>
-          <div class="info-amigo">
-            <h2 class="nombre">
-              <ion-skeleton-text animated="true"></ion-skeleton-text>
-            </h2>
-            <span class="alias">
-              <ion-skeleton-text animated="true"></ion-skeleton-text>
-            </span>
-          </div>
-          <div class="icon">
-            <ion-icon>
-              <ion-skeleton-text animated="true" name="add-circle-outline" color="secondary"></ion-skeleton-text>
-            </ion-icon>
-          </div>
-        </div>
-
-      </ion-item>
-    </ion-list>
+    <div class="switch-container">
+      <div class="switch-button activo">Mail</div>
+      <div class="switch-button inactivo">Celular</div>
+    </div> 
+    <!-- Modulo Buscar por mail / celular cambia el h2 según el tipo -->
+    <div class="mail">
+       <h2 class="full">Escribí el mail de la persona que querés agregar</h2>
+    <ion-item class="input-container full">
+      <ion-input type="text"><ion-icon name="search-outline"></ion-icon></ion-input>
+    </ion-item>
+    </div>
+    <div class="validationMsg">
+      <div class="msg full danger" color="danger">El mail está mal escrito. No te preocupes, puede pasar. 
+        <br>Revisalo y volvé a intentarlo. 
+        
+      </div>
+    </div>
+   
   </div>
   <div class="onboarding-btn-group">
-    <a (click)="agregarAmigo()" class="link">Agregar nuevo amigo</a>
-    <div (click)="pedir()" class="btn-round activo">Continuar</div>
+    
+    <div (click)="ContinuarBuscar()" class="btn-round activo">Buscar</div>
+    <a (click)="IrAtras()" class="link">Volver a la lista de amigos</a>
   </div>
 </ion-content>
