@@ -81,3 +81,30 @@
     bottom: 40px;
     left: 0;
 }
+
+.switch-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 30px;
+    .switch-button {
+        border-radius: 5px;
+        width: 40%;
+        text-align: center;
+        padding: 8px 0;
+        font-size: 12px;
+        font-weight: 600;
+        margin: 0 -3px;
+        &.activo {
+            background: $btn-seleccion-bg;
+            color: $btn-seleccion-text;
+            z-index: 2;
+        }
+        &.inactivo {
+            background: $btn-inactivo-bg;
+            color: $btn-inactivo-txt;
+        }
+    }
+
+}

@@ -127,7 +127,7 @@
             width: 30%;
             position: absolute;
             bottom: 25px;
-            right: 10%;
+            right: 30%;
             text-align: right;
         }
         &.black {
@@ -162,7 +162,7 @@
             color: #323232;
             .marca, .banco {
                 color: #323232;
-                filter: brightness(-100%);
+                // filter: brightness(-100%);
             }
         }
     }

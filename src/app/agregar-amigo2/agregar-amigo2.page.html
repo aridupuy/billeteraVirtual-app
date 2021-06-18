@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="IrAtras()" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Pedir a un amigo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content center class="amigos">
+  <div class="contenedor-90">
+    <h1 class="align-center">¡Buscamos y encontramos!</h1>
+   
+    <div class="user-header full pt-5">
+      <div class="avatar">
+        {{iniciales}}
+      </div>
+      <div class="info-usuario align-center full">
+        <h2 class="nombre full">Ricardo Fort</h2>
+        <p class="mail full">ricky@gmail.com</p>
+      </div>
+    </div>
+
+    <!-- Agregar referencia -->
+    <div class="mail">
+       <h2 class="full">Referencia</h2>
+    <ion-item class="input-container full">
+      <ion-input type="text"></ion-input>
+    </ion-item>
+    </div>
+    
+   
+  </div>
+  <div class="onboarding-btn-group">
+    <div (click)="ContinuarBuscar()" class="btn-round activo">Confirmar y agregar</div>
+  </div>
+</ion-content>

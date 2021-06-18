@@ -1,6 +1,30 @@
 .amigos{
     .contenedor-90 {
         padding: 5% 0;
+        .user-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-content: center;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding-bottom: 40px;
+            .avatar {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-content: center;
+                align-items: center;
+                width: 70px;
+                height: 70px;
+                border-radius: 50%;
+                background: $principal;
+                color: $white;
+                border: 4px solid $border-rgba;
+                font-size: 150%;
+            
+            }
+        }
         .botonera {
             display: flex;
             flex-wrap: wrap;
@@ -97,6 +121,10 @@
             padding-top: 5px;
             width: 100%;
             font-size: 70%;
+            width: 250px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
     }
 }
@@ -140,6 +168,9 @@
     width: 100%;
     font-weight: 400;
 }
-.montos-fijos .monto {
-    font-size: 120% !important;
+.montos-fijos{
+    margin: 50px 0;
+ .monto {
+    font-size: 100% !important;
+}
 }
