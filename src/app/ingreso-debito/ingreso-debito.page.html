@@ -16,21 +16,21 @@
     <h2 class="align-center pt-5">Escribí el monto</h2>
     <ion-item class="input-monto">
       <ion-label position="fixed">$</ion-label>
-      <ion-input type="tel" pattern="[0-9]*" maxlength="7"></ion-input>
+      <ion-input [(ngModel)]="monto" type="number" pattern="[0-9]*" maxlength="10"></ion-input>
     </ion-item>
-    <div class="validationMsg">
+    <div class="validationMsg" *ngIf="monto >10000000">
       <div class="msg full danger align-center pt-2">Superaste el monto máximo</div>
     </div>
     <div class="montos-fijos">
-      <div class="monto">$500</div>
-      <div class="monto">$1000</div>
-      <div class="monto">$2000</div>
-      <div class="monto">$5000</div>
+      <div class="monto" (click)="ingresar(500,$event)">$500</div>
+      <div class="monto" (click)="ingresar(1000,$event)">$1000</div>
+      <div class="monto" (click)="ingresar(2000,$event)">$2000</div>
+      <div class="monto" (click)="ingresar(5000,$event)">$5000</div>
     </div>
   </div>
   <div class="onboarding-btn-group">
-  
-    <div class="btn-round inactivo" (click)="SeleccionaTarjeta()">Continuar</div>
+    <div class="btn-round activo" *ngIf="monto" (click)="SeleccionaTarjeta()">Continuar</div>
+    <div class="btn-round inactivo" *ngIf="!monto" >Continuar</div>
     
   </div>
 </ion-content>

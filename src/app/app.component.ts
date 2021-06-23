@@ -5,6 +5,7 @@ import { IngresaPinPage } from './ingresa-pin/ingresa-pin.page';
 import { IngresaPinConfirmaPage } from './ingresa-pin-confirma/ingresa-pin-confirma.page';
 import { ServiceService } from './service/service.service';
 import { pass } from './patron.guard';
+import { Pago } from './classes/Pago';
 import { ModalController } from '@ionic/angular';
 // import { NavController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
@@ -21,8 +22,9 @@ export class AppComponent implements OnInit {
   public usuario;
   public iniciales;
   public modalDataResponse: any;
-  constructor(public service: ServiceService, public modalCtrl: ModalController, public usuarioService: UsuarioService, public navCtrl: NavController) { }
+  constructor(private pago:Pago,public service: ServiceService, public modalCtrl: ModalController, public usuarioService: UsuarioService, public navCtrl: NavController) { }
   ngOnInit() {
+    
     let nombre = localStorage.getItem("nombre");
     if (nombre && this.iniciales) {
       this.usuario = nombre;
@@ -49,7 +51,7 @@ export class AppComponent implements OnInit {
     document.addEventListener("resume", this.onDeviceresume, false);
     document.addEventListener("pause", this.onPause, false);
     document.addEventListener("stop", this.onPause, false);
-
+    this.pago.registrar_observer();
   }
   onPause = () => {
     console.log("pause");

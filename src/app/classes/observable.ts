@@ -50,7 +50,7 @@ export class Observable {
           });
         }
         else {
-          throw "error en Observable (No existe el evento)";
+          throw "error en Observable (No existe el evento) " + titulo + " ("+JSON.stringify(variables)+")";
         }
            
     };

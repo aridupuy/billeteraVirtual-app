@@ -1,0 +1,8 @@
+<div class="arribaB" *ngIf="cargando" >
+  <ion-spinner name="crescent"></ion-spinner>
+  <div>
+      <ion-label *ngIf="mensaje" >{{mensaje}}</ion-label>
+      <ion-label *ngIf="!mensaje">Cargando</ion-label>
+  </div>
+  
+</div>

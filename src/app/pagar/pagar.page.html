@@ -1,0 +1,160 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="IrAtras()" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Carga con débito</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content center class="ingreso">
+  <div class="contenedor-90">
+    <h1>¿Qué tarjeta querés usar?</h1>
+    <p>Elegí una de las que ya tenés guardada o agregá una nueva.
+    </p>
+    <!-- Monto a ingresar -->
+    <div class="renglon">
+      <span class="leyenda">Monto a ingresar</span>
+      <span class="monto">${{deuda.monto.toString()| number:'1.0-2'}}</span>
+    </div>
+    <div class="renglon" *ngIf="comisiones[tipo_deuda]>0">
+      <span class="leyenda">Comisión</span>
+      <span class="monto">${{comisiones[tipo_deuda]| number:'1.0-2' }}</span>
+    </div>
+    <div class="renglon" *ngIf="comisiones[tipo_deuda]==0 && cargandoComisiones">
+      <span class="leyenda">Comisión</span>
+      <span class="monto"><ion-skeleton-text animated></ion-skeleton-text></span>
+    </div>
+    <div class="renglon" *ngIf="comisiones[tipo_deuda]==0  && !cargandoComisiones">
+      <span class="leyenda">Comisión</span>
+      <span class="monto">Sin Comision</span>
+    </div>
+    <div class="renglon" *ngIf="!cargandoComisiones">
+      <span class="leyenda">Total</span>
+      <span class="monto"> ${{monto_final[tipo_deuda] | number:'1.0-2'}}</span>
+    </div>
+    <div class="renglon" *ngIf="cargandoComisiones">
+      <span class="leyenda">Total</span>
+      <span class="monto"><ion-skeleton-text animated></ion-skeleton-text></span>
+      
+    </div>
+    <!-- Modulo seleccionador tarjetas -->
+    <div class="seleccionador-tarjeta">
+      <swiper id="slides" [config]="slideOpts" fxFlex="auto" [(index)]="indexSlide"  *ngIf="cargando_Tarjetas" >
+        <ion-skeleton-text animated class="tarjeta saldo-cuenta" [id]="tarjetas.length">
+          <h2>Saldo en cuenta</h2>
+          <p>${{saldo_en_cuenta}}</p>
+        </ion-skeleton-text>
+        <div animated class="tarjeta saldo-cuenta" [id]="tarjetas.length" *ngIf="!sinCuenta && (tarjetas.length!==0 || cargando_Tarjetas)">
+          <h2>Saldo en cuenta</h2>
+          <p>${{saldo_en_cuenta}}</p>
+        </div>
+        <div  class="tarjeta add-tarjeta" [id]="tarjetas.length+1" *ngIf="tarjetas!==undefined"  (click)="tap($event)">
+          <h2>Agregar Tarjeta</h2>
+          <h2>+</h2>
+      </div>
+      </swiper>
+
+
+      <swiper class="swiper" id="slides" [config]="slideOpts" fxFlex="auto" [(index)]="indexSlide" (slideChange)="change() "
+        *ngIf="!cargando_Tarjetas">
+        <div [class]="obtener_class(item.bin)"  *ngFor="let item of tarjetas index as i" [id]="i" (onClick)="tap()"
+          onload="marcar()">
+          <div class="marca">
+            <img src="" [src]="obtener_marca_img(item)" alt="Visa Débito">
+          </div>
+          <div class="banco" *ngIf="obtener_banco_img(item)">
+            <img src="" [src]="obtener_banco_img(item)" alt="banco">
+          </div>
+          <div class="banco" *ngIf="!obtener_banco_img(item)">
+          </div>
+          <div class="numeracion"><span class="ocultos">**** </span><span class="ocultos">**** </span><span
+              class="ocultos">**** </span><span class="visibles">{{item.numero}}</span></div>
+          <div class="titular">{{item.nombre}}</div>
+          <div class="vencimiento">{{item.mes}}/{{item.anio}}</div>
+        </div>
+        <div class="tarjeta saldo-cuenta" [id]="tarjetas.length" *ngIf="!sinCuenta && (tarjetas.length!==0 || !cargando_Tarjetas)" >
+          <h2>Saldo en cuenta</h2>
+          <p>${{saldo_en_cuenta}}</p>
+        </div>
+        <div  class="tarjeta add-tarjeta" [id]="tarjetas.length+1" *ngIf="tarjetas!==undefined"  (click)="tap($event)">
+            <h2>Agregar Tarjeta</h2>
+            <h2>+</h2>
+        </div>
+      </swiper>
+      <!-- > -->
+
+    </div>
+    <!-- <div class="tarjeta silver">
+        <div class="marca">
+          <img src="assets/img/ingreso/tarjetas/visa.svg" alt="Visa Débito"> Débito
+        </div>
+        <div class="banco">
+          <img src="assets/img/ingreso/tarjetas/santander.svg" alt="Santander Rio">
+        </div>
+        <div class="numeracion"><span class="ocultos">**** </span><span class="ocultos">**** </span><span class="ocultos">**** </span><span class="visibles">3487</span></div>
+        <div class="titular">Ricardo Anibal Fort</div>
+        <div class="vencimiento">01/22</div>
+      </div>
+      <div class="tarjeta gold">
+        <div class="marca">
+          <img src="assets/img/ingreso/tarjetas/visa.svg" alt="Visa Débito"> Débito
+        </div>
+        <div class="banco">
+          <img src="assets/img/ingreso/tarjetas/hsbc.svg" alt="Santander Rio">
+        </div>
+        <div class="numeracion"><span class="ocultos">**** </span><span class="ocultos">**** </span><span class="ocultos">**** </span><span class="visibles">3487</span></div>
+        <div class="titular">Ricardo Anibal Fort</div>
+        <div class="vencimiento">01/22</div>
+      </div>
+      <div class="tarjeta red">
+        <div class="marca">
+          <img src="assets/img/ingreso/tarjetas/visa.svg" alt="Visa Débito"> Débito
+        </div>
+        <div class="banco">
+          <img src="assets/img/ingreso/tarjetas/icbc.svg" alt="Santander Rio">
+        </div>
+        <div class="numeracion"><span class="ocultos">**** </span><span class="ocultos">**** </span><span class="ocultos">**** </span><span class="visibles">3487</span></div>
+        <div class="titular">Ricardo Anibal Fort</div>
+        <div class="vencimiento">01/22</div>
+      </div>
+      <div class="tarjeta traditional">
+        <div class="marca">
+          <img src="assets/img/ingreso/tarjetas/visa.svg" alt="Visa Débito"> Débito
+        </div>
+        <div class="banco">
+          <img src="assets/img/ingreso/tarjetas/ciudad.svg" alt="Santander Rio">
+        </div>
+        <div class="numeracion"><span class="ocultos">**** </span><span class="ocultos">**** </span><span class="ocultos">**** </span><span class="visibles">3487</span></div>
+        <div class="titular">Ricardo Anibal Fort</div>
+        <div class="vencimiento">01/22</div>
+      </div>
+      <div class="tarjeta white">
+        <div class="marca">
+          <img src="assets/img/ingreso/tarjetas/visa.svg" alt="Visa Débito"> Débito
+        </div>
+        <div class="banco">
+          <img src="assets/img/ingreso/tarjetas/santander.svg" alt="Santander Rio">
+        </div>
+        <div class="numeracion"><span class="ocultos">**** </span><span class="ocultos">**** </span><span class="ocultos">**** </span><span class="visibles">3487</span></div>
+        <div class="titular">Ricardo Anibal Fort</div>
+        <div class="vencimiento">01/22</div>
+      </div>
+      <div class="saldo-cuenta">
+        <h2>Saldo en cuenta</h2>
+        <p>$XXX.XX</p>
+      </div>
+    </div> -->
+
+
+  </div>
+
+  <div class="onboarding-btn-group">
+
+    <div class="btn-round inactivo" *ngIf="cargando!=0 || cargando_Tarjetas || cargandoComisiones">Continuar</div>
+    <div class="btn-round activo" *ngIf="cargando==0 && !cargando_Tarjetas && !cargandoComisiones"  (click)="pagar()">Continuar</div>
+
+  </div>
+  
+</ion-content>
+<app-respuesta-resultado [url]="url" [mensaje]="mensaje" [descripcion]="descripcion" [pedidook]="this.getStatus()" ></app-respuesta-resultado>

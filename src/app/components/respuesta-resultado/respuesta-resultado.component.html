@@ -1,0 +1,45 @@
+<div   *ngIf="getStatusInternal()==2">
+  <div class="color verde">
+    <ion-row>
+      <ion-col text-center>
+          <img src="../../assets/img/logo.svg">
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <h1 *ngIf="!mensaje">Operacion Exitosa</h1>
+        <h1 *ngIf="mensaje">{{mensaje}}</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <h1 class="texto">{{mensaje}}</h1>
+    </ion-row>
+  </div>
+  <div class="abajo">
+    <div class="btn-round activo" (click)="volver()">
+      Aceptar
+    </div>
+  </div>
+</div>
+<div  *ngIf="getStatusInternal()==3">
+  <div class="color rojo">
+    <ion-row>
+      <ion-col text-center>
+          <img src="../../assets/img/logo.svg">
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <h1>{{mensaje}}</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <p class="texto">{{descripcion}}</p>
+    </ion-row>
+  </div>
+  <div class="abajo">
+    <div class="btn-round activo" (click)="reintentar()">
+      REINTENTAR
+    </div>
+  </div>
+</div>

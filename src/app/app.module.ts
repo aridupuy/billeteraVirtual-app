@@ -12,12 +12,23 @@ import { FormBuilder } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { UsuarioService } from './service/usuario.service';
+import { Pago } from './classes/Pago';
+import { ComponentsModule } from './components/components.module';
+import {
+    RespuestaResultadoComponent
+} from './components/respuesta-resultado/respuesta-resultado.component';
+import { registerLocaleData } from '@angular/common';
+import { LOCALE_ID } from '@angular/core';
+import localeEs from '@angular/common/locales/es-AR';
+registerLocaleData(localeEs, 'es-AR');
+
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HammerModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
 import { BackgroundMode } from '@ionic-native/background-mode/ngx';
+
 
 
 declare var Hammer: any;
@@ -29,7 +40,7 @@ export class MyHammerConfig extends HammerGestureConfig {
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule,
+  imports: [ComponentsModule,BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule,
     IonicStorageModule.forRoot({
       name: '__mydb',
       driverOrder: ['indexeddb', 'sqlite', 'websql']
@@ -45,11 +56,12 @@ export class MyHammerConfig extends HammerGestureConfig {
     Geolocation,
     UsuarioService,
     
-    // Pago,
+    Pago,
     {
       provide: HAMMER_GESTURE_CONFIG,
       useClass: MyHammerConfig
-    }
+    },
+    { provide: LOCALE_ID, useValue: 'es-AR' },
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],

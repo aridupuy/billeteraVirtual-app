@@ -81,6 +81,7 @@ export class Pago{
             }).catch(e=>{
                 if(data["error"]==undefined || data["error"]==false)
                     data["error"]=e.log;
+                console.log(data);
                 Observable.notify("pagar-result",data);
                 Observable.notify("init-process",false);
             });
@@ -88,7 +89,7 @@ export class Pago{
     }
     ejecutar_metodo_pago(data:Ipagar){
         return new Promise(async (resolve,reject)=>{
-            
+            console.log(data.deuda.tipo_deuda);
             switch(data.deuda.tipo_deuda){
                 /*habria que optimizar esto con la base */
                 case "Contacto":
@@ -109,6 +110,8 @@ export class Pago{
                 }
                 break;
                 case "RecargaTd":
+                case "Recargatd":
+                    console.log("aca PAGO RecargaTd");
                     let resp = await this.recarcaSaldo(data);
                     if(resp.resultado == false)
                         reject(resp);
@@ -116,6 +119,9 @@ export class Pago{
                         console.log(resp);
                         resolve(resp);
                     }
+                    break;
+                default:
+                    console.log("sale por default");
                     break;
               }
         });

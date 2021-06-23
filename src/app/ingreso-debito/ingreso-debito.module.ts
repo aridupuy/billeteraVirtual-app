@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { IngresoDebitoPageRoutingModule } from './ingreso-debito-routing.module';
 
 import { IngresoDebitoPage } from './ingreso-debito.page';
+import { UsuarioService } from '../service/usuario.service';
 
 @NgModule({
   imports: [
@@ -16,5 +17,6 @@ import { IngresoDebitoPage } from './ingreso-debito.page';
     IngresoDebitoPageRoutingModule
   ],
   declarations: [IngresoDebitoPage]
+  ,providers:[UsuarioService]
 })
 export class IngresoDebitoPageModule {}

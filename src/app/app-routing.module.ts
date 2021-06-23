@@ -228,7 +228,11 @@ const routes: Routes = [
   },
   {
     path: 'ingreso-debito2',
-    loadChildren: () => import('./ingreso-debito2/ingreso-debito2.module').then( m => m.IngresoDebito2PageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
+    loadChildren: () => import('./pagar/pagar.module').then( m => m.PagarPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
+  },
+  {
+    path: 'pagar',
+    loadChildren: () => import('./pagar/pagar.module').then( m => m.PagarPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
   },
   {
     path: 'ingresa-pin',
