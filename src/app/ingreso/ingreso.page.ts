@@ -1,7 +1,7 @@
 import { LoginService, Ilogin } from '../service/login.service';
 import { Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -81,6 +81,11 @@ export class IngresoPage implements OnInit {
   }
   
   LostPassword(){
-    this.navCtrl.navigateForward(["lostpassword",{}]);
+    const navigationExtras: NavigationExtras = {
+      queryParams: {
+        param: JSON.stringify({usuario:this.usuario, logued:false})
+      }
+    }
+    this.navCtrl.navigateForward("lostpassword",navigationExtras);
   }
 }

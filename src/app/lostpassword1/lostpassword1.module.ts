@@ -7,13 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { Lostpassword1PageRoutingModule } from './lostpassword1-routing.module';
 
 import { Lostpassword1Page } from './lostpassword1.page';
+import { CountdownModule } from 'ngx-countdown';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    Lostpassword1PageRoutingModule
+    Lostpassword1PageRoutingModule,CountdownModule
   ],
   declarations: [Lostpassword1Page]
 })

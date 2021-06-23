@@ -97,27 +97,27 @@ const routes: Routes = [
   },
   {
     path: 'lostpassword',
-    loadChildren: () => import('./lostpassword/lostpassword.module').then( m => m.LostpasswordPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
+    loadChildren: () => import('./lostpassword/lostpassword.module').then( m => m.LostpasswordPageModule)
   },
   {
     path: 'lostpassword1',
-    loadChildren: () => import('./lostpassword1/lostpassword1.module').then( m => m.Lostpassword1PageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
+    loadChildren: () => import('./lostpassword1/lostpassword1.module').then( m => m.Lostpassword1PageModule)
   },
   {
     path: 'lostpassword-confirma',
-    loadChildren: () => import('./lostpassword-confirma/lostpassword-confirma.module').then( m => m.LostpasswordConfirmaPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
+    loadChildren: () => import('./lostpassword-confirma/lostpassword-confirma.module').then( m => m.LostpasswordConfirmaPageModule)
   },
   {
     path: 'lostpassword-exito',
-    loadChildren: () => import('./lostpassword-exito/lostpassword-exito.module').then( m => m.LostpasswordExitoPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
+    loadChildren: () => import('./lostpassword-exito/lostpassword-exito.module').then( m => m.LostpasswordExitoPageModule)
   },
   {
     path: 'lostpassword-ayuda',
-    loadChildren: () => import('./lostpassword-ayuda/lostpassword-ayuda.module').then( m => m.LostpasswordAyudaPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
+    loadChildren: () => import('./lostpassword-ayuda/lostpassword-ayuda.module').then( m => m.LostpasswordAyudaPageModule)
   },
   {
     path: 'lostpassword-ayuda-confirm',
-    loadChildren: () => import('./lostpassword-ayuda-confirm/lostpassword-ayuda-confirm.module').then( m => m.LostpasswordAyudaConfirmPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
+    loadChildren: () => import('./lostpassword-ayuda-confirm/lostpassword-ayuda-confirm.module').then( m => m.LostpasswordAyudaConfirmPageModule)
   },
   {
     path: 'registro-cuentaexistente',

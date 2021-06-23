@@ -1,5 +1,8 @@
+import { RegistroService } from '../service/registro.service';
+import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { AlertController, NavController} from '@ionic/angular';
+import { CountdownComponent } from 'ngx-countdown';
 
 @Component({
   selector: 'app-lostpassword1',
@@ -11,19 +14,58 @@ export class Lostpassword1Page implements OnInit {
   @ViewChild('passcode2') passcode2;
   @ViewChild('passcode3') passcode3;
   @ViewChild('passcode4') passcode4;
-  values:any=[];
-  constructor(public AlertController: AlertController,private navCtrl : NavController) { }
+  @ViewChild('cd', { static: false }) private countdown: CountdownComponent;
+
+  public values=[];
+  public selectMail;
+  public selectTel;
+  public usuario;
+  public ofus;
+  public ofustel;
+  public enviado;
+  constructor(public AlertController: AlertController,private navCtrl : NavController,public route: ActivatedRoute,public register:RegistroService) { }
 
   ngOnInit() {
+    let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
+    this.usuario = p.usuario;
+    this.selectMail=p.selectmail;
+    this.selectTel=p.selectTel;
+    this.ofus  = p.ofus;
+    this.ofustel  = p.ofustel;
+    console.log("aca1");
+    console.log(p);
+    this.enviado = this.selectMail ? this.ofus : this.ofustel;
+    if(this.selectTel || this.selectMail){
+      console.log("aca2");
+      this.register.enviar_codigo(this.selectMail,this.selectTel,this.usuario).then(data=>{
+
+      });
+    }
   }
+  cdEvents(event) {
+    // console.log(event);
+    switch (event.action) {
+      case "done":
+        this.PopupCode("Se termino el tiempo por favor reintentá");
+        break;
+      default:
+        break;
+    }
+  }
+ 
+
   onKeyUp(event,index){  
-    console.log(event);
+    console.log(event.target.value );
+    if(event.target.value == ""){
+       this.values.splice(index-1,1);
+    }
     if(event.target.value.length !=1){
       this.setFocus(index-2);  
     }else{
-      this.values.push(event.target.value);  
+      this.values[index-1]=(event.target.value);  
       this.setFocus(index);   
     }
+    console.log(this.values);
     event.stopPropagation();
   }
   setFocus(index){
@@ -43,28 +85,41 @@ export class Lostpassword1Page implements OnInit {
       break;
       }
   }
-  async PopupCode() {
+  async PopupCode(mensaje?) {
+    let enviado = this.selectMail ? this.ofus : this.ofustel;
     const alert = await this.AlertController.create({
       header: '¿No te llegó el código o no pudiste cargarlo?',
       subHeader: 'Vamos a enviarte otro',
-      message: 'Te vamos a mandar un nuevo código a brucexx@xx.com. Si no tenés acceso a ese mail, podés elegir otras opciones para recibirlo.',
+      message: 'Te vamos a mandar un nuevo código a '+enviado+'. Si no tenés acceso a ese mail, podés elegir otras opciones para recibirlo.',
       buttons: [
         {
-          text: 'Recibir código por SMS',
+          text: 'Recibir código',
           handler: () => {
-            console.log("ENVIA CODIGO POR SMS");
+            let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
+            const navigationExtras: NavigationExtras = {
+              queryParams: {
+
+                param: JSON.stringify(p)
+              }
+            }
+            this.navCtrl.navigateBack("lostpassword",navigationExtras);
+            this.countdown.stop();
           }
         },
         {
           text: 'Reenviar código',
           handler: () => {
-            console.log("Envia Codigo");
+            this.values=[];
+            this.error_code = true;
+            this.countdown.restart();
+            this.ngOnInit();
           }
         },
         {
           text: 'Necesito ayuda',
           handler: () => {
-            this.navCtrl.navigateForward(["lostpassword-ayuda",{}]);
+            this.countdown.stop();
+            this.navCtrl.navigateForward("lostpassword-ayuda");
           }
         }
       ]
@@ -74,6 +129,37 @@ export class Lostpassword1Page implements OnInit {
     console.log(result);
   }
   Confirmar(){
-    this.navCtrl.navigateForward(["lostpassword-confirma",{}]);
+    let codigo = this.values[0].toString() + this.values[1] + this.values[2].toString() + this.values[3];
+    this.register.validar_codigo(codigo,this.usuario).then((data:any)=>{
+      
+      this.retornar_exito(data.data.id_usuario);
+    }).catch(err=>{
+      this.retornar_error();
+    })
+
+    
+    
+    
+  }
+  retornar_exito(id_usuario) {
+    
+    let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
+    console.log(p);
+    
+    const navigationExtras: NavigationExtras = {
+      queryParams: {
+
+        param: JSON.stringify({id_usuario:id_usuario})
+      }
+    };
+    // console.log(navigationExtras);
+    this.values=[];
+    this.countdown.stop();
+    this.navCtrl.navigateForward("lostpassword-confirma",navigationExtras);
+  }
+  public error_code;
+  retornar_error() {
+    this.values=[];
+    this.error_code = true;
   }
 }
