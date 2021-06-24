@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { MiCvuPageRoutingModule } from './mi-cvu-routing.module';
 
 import { MiCvuPage } from './mi-cvu.page';
+import { Clipboard } from '@ionic-native/clipboard/ngx';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { MiCvuPage } from './mi-cvu.page';
     IonicModule,
     MiCvuPageRoutingModule
   ],
+  providers:[Clipboard],
   declarations: [MiCvuPage]
 })
 export class MiCvuPageModule {}

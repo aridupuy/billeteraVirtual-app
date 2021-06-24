@@ -15,13 +15,13 @@
     <!-- CVU Modulo -->
     <div class="cvu-modulo">
       <h2>CVU:</h2>
-      <h2 class="cvu-numero">435345345345345345345</h2>
-      <a class="link">Copiar</a>
+      <h2 class="cvu-numero">{{cvu}}</h2>
+      <a class="link" (click)="copy(cvu)">Copiar</a>
     </div>
     <div class="alias-modulo">
       <h2>Alias:</h2>
-      <h2 class="alias-referencia">mi.alias.elegido</h2>
-      <a class="link">Copiar</a>
+      <h2 class="alias-referencia">{{alias}}</h2>
+      <a class="link" (click)="copy(alias)">Copiar</a>
     </div>
 
   </div>

@@ -19,20 +19,19 @@
       <img src="assets/img/ingreso/pagofacil.svg" alt="Pagofacil">
       <img src="assets/img/ingreso/cobroexpress.svg" alt="Cobroexpress">
     </div>
-    <h2>Acordate de llevar tu DNI para poder realizar 
-      la operación. Van a necesitar tu número de documento 
-      y acreditar tu identidad.
-      </h2>
+    <h2>Solo debes presentar este codigo en la boca de cobranza.</h2>
     <!-- CVU Modulo -->
     <div class="cvu-modulo">
-      <h2>Numero 1:</h2>
-      <h2 class="cvu-numero">435345345345345345345</h2>
-      <a class="link">Copiar</a>
+      <h2>Codigo de pago:</h2>
+      <h2 class="cvu-numero" *ngIf="barcode">{{barcode}}</h2>
+      <ion-skeleton-text animated class="cvu-numero" *ngIf="!barcode">{{barcode}}</ion-skeleton-text>
+      <a class="link" (click)="copy(barcode)">Copiar</a>
     </div>
-    <div class="alias-modulo">
-      <h2>Numero 2:</h2>
-      <h2 class="alias-referencia">234234</h2>
-      <a class="link">Copiar</a>
+    <div class="alias-modulo" *ngIf="mostrar_pmc">
+      <h2>Codigo PagoMisCuentas/redLink:</h2>
+      <h2 class="alias-referencia" *ngIf="pmc19">{{pmc19}}</h2>
+      <ion-skeleton-text animated class="alias-referencia" *ngIf="!pmc19">{{pmc19}}</ion-skeleton-text>
+      <a class="link" (click)="copy(pmc19)">Copiar</a>
     </div>
    <h2 class="align-center">El monto mínimo a cargar en tu cuenta es de $500.
   </h2>

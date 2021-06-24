@@ -7,6 +7,7 @@ import * as CryptoJS from 'crypto-js';
 
 
 import { Observable } from 'rxjs';
+import { AppComponent } from '../app.component';
 export const CLAVE_ENCRIPTACION = 'teganamoscon9';
 interface CipherParams {
   iv?: string;
@@ -26,6 +27,11 @@ export const CryptoJSAesJson = {
   },
   parse: (jsonStr: string) => {
     const j = JSON.parse(jsonStr);
+    // console.log(j);C
+    if(!j || j.log!=undefined){
+      AppComponent.cargando=false;
+      return false;
+    }
     const cipherParams: CipherParams  = CryptoJS.lib.WordArray.create({ ciphertext: CryptoJS.enc.Base64.parse(j.ct) });
     cipherParams.ciphertext=cipherParams.words.ciphertext;
     if (j.iv) { cipherParams.iv = CryptoJS.enc.Hex.parse(j.iv); }
@@ -47,20 +53,27 @@ export class ServiceService extends HttpClient {
   }
   public decrypt(encrypted: string, pass: string) {
     const decrypted = JSON.parse(CryptoJS.AES.decrypt(encrypted, pass, { format: CryptoJSAesJson }).toString(CryptoJS.enc.Utf8));
+    AppComponent.cargando=false;
     return decrypted;
   }
   /* @overrride */
   // tslint:disable-next-line: align
   public post<T>(url: string, body: any | null, options?): Observable<T> {
-
+    AppComponent.cargando=true;
+    console.log(url);
     return super.post<T>(this.URL + url, this.encrypt(body, CLAVE_ENCRIPTACION), options).pipe<T>(
       map((data) => {
         if (data['token'] != undefined || data['tokenError'] != undefined ) {
-
+          AppComponent.cargando=false;
           return data as unknown as T;
         }
         // tslint:disable-next-line: comment-format
-        return JSON.parse(this.decrypt(JSON.stringify(data), CLAVE_ENCRIPTACION)) as T;
+        try{
+          return JSON.parse(this.decrypt(JSON.stringify(data), CLAVE_ENCRIPTACION)) as T;
+        }catch(err){
+          console.log(err);
+          AppComponent.cargando=false;
+        }
       }
       )
     );
@@ -68,12 +81,15 @@ export class ServiceService extends HttpClient {
 
 
   public get<T>(url: string, options) {
+    AppComponent.cargando=true;
     return super.get<T>(this.URL + url, options).pipe<T>(
 
       map(data => {
         if (data['token'] != undefined) {
+          AppComponent.cargando=false;
           return data as unknown as T;
         }
+        
         return JSON.parse(this.decrypt(JSON.stringify(data), CLAVE_ENCRIPTACION)) as T;
       }
       )

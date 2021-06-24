@@ -17,6 +17,8 @@ import { ComponentsModule } from './components/components.module';
 import {
     RespuestaResultadoComponent
 } from './components/respuesta-resultado/respuesta-resultado.component';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { registerLocaleData } from '@angular/common';
 import { LOCALE_ID } from '@angular/core';
 import localeEs from '@angular/common/locales/es-AR';
@@ -46,6 +48,8 @@ export class MyHammerConfig extends HammerGestureConfig {
       driverOrder: ['indexeddb', 'sqlite', 'websql']
       })],
   providers: [
+    StatusBar,
+    SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
     CameraPreview, FingerprintAIO , LoginService,
     ModalController,

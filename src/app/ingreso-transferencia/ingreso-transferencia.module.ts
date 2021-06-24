@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { IngresoTransferenciaPageRoutingModule } from './ingreso-transferencia-routing.module';
 
 import { IngresoTransferenciaPage } from './ingreso-transferencia.page';
+import { Clipboard } from '@ionic-native/clipboard/ngx';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { IngresoTransferenciaPage } from './ingreso-transferencia.page';
     IonicModule,
     IngresoTransferenciaPageRoutingModule
   ],
+  providers:[Clipboard],
   declarations: [IngresoTransferenciaPage]
 })
 export class IngresoTransferenciaPageModule {}

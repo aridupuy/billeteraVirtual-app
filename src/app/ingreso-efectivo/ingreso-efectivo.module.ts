@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { IngresoEfectivoPageRoutingModule } from './ingreso-efectivo-routing.module';
 
 import { IngresoEfectivoPage } from './ingreso-efectivo.page';
+import { Clipboard } from '@ionic-native/clipboard/ngx';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { IngresoEfectivoPage } from './ingreso-efectivo.page';
     IonicModule,
     IngresoEfectivoPageRoutingModule
   ],
+  providers:[Clipboard],
   declarations: [IngresoEfectivoPage]
 })
 export class IngresoEfectivoPageModule {}

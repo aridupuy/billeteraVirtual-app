@@ -1,6 +1,9 @@
 import { ContactoService } from '../service/contacto.service';
+import { Persona } from '../models/persona';
+import { Deuda } from '../models/deuda';
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-amigos',
@@ -132,13 +135,21 @@ export class AmigosPage implements OnInit {
   agregarAmigo(){}
 
   aceptar(item){
-    this.contacto.aceptar_pedido_saldo(item.id).then(()=>{
-      this.envios=[];
-      this.pedidos=[];
-      this.historial_envios=[];
-      this.historial_pedidos=[];
-      return this.cargarData();
-    });
+    const persona:Persona={id:item.id,nombre:item.nombre,iniciales:item.iniciales};
+    const deuda:Deuda={monto:item.monto,mensaje:item.mensaje,id:item.id,tipo_deuda:"Contacto"};
+    // this.contacto.aceptar_pedido_saldo(item.id).then(()=>{
+    //   this.envios=[];
+    //   this.pedidos=[];
+    //   this.historial_envios=[];
+    //   this.historial_pedidos=[];
+    //   return this.cargarData();
+    // });
+    const navigationExtras: NavigationExtras = {
+      queryParams: {
+        param: JSON.stringify({persona:persona,deuda:deuda,url:"amigos"})
+      }
+    };
+    this.navCtrl.navigateRoot("pagar",navigationExtras);
     console.log(item);
   }
   rechazar(item){

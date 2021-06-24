@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { PreloaderPage } from './preloader.page';
+import { IngresarEfectivoMontoPage } from './ingresar-efectivo-monto.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: PreloaderPage
+    component: IngresarEfectivoMontoPage
   }
 ];
 
@@ -14,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class PreloaderPageRoutingModule {}
+export class IngresarEfectivoMontoPageRoutingModule {}

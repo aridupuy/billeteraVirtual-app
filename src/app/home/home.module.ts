@@ -10,6 +10,7 @@ import { ServiceService } from '../service/service.service';
 import { UsuarioService } from '../service/usuario.service';
 import { TransaccionesService } from '../service/transacciones.service';
 
+import { Clipboard } from '@ionic-native/clipboard/ngx';
 
 @NgModule({
   imports: [
@@ -18,7 +19,7 @@ import { TransaccionesService } from '../service/transacciones.service';
     IonicModule,
     HomePageRoutingModule
   ],
-  providers:[LoginService,UsuarioService,TransaccionesService],
+  providers:[LoginService,UsuarioService,TransaccionesService,Clipboard],
   declarations: [HomePage]
 })
 export class HomePageModule {}

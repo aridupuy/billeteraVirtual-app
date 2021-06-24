@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { PreloaderPage } from './preloader.page';
+import { IngresarEfectivoMontoPage } from './ingresar-efectivo-monto.page';
 
-describe('PreloaderPage', () => {
-  let component: PreloaderPage;
-  let fixture: ComponentFixture<PreloaderPage>;
+describe('IngresarEfectivoMontoPage', () => {
+  let component: IngresarEfectivoMontoPage;
+  let fixture: ComponentFixture<IngresarEfectivoMontoPage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ PreloaderPage ],
+      declarations: [ IngresarEfectivoMontoPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(PreloaderPage);
+    fixture = TestBed.createComponent(IngresarEfectivoMontoPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

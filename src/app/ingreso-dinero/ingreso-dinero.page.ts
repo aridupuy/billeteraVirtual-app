@@ -16,7 +16,7 @@ export class IngresoDineroPage implements OnInit {
     this.navCtrl.navigateForward(["ingreso-transferencia",{}]);
   }
   efectivo() {
-    this.navCtrl.navigateForward(["ingreso-efectivo",{}]);
+    this.navCtrl.navigateForward(["ingresar-efectivo-monto",{}]);
   }
   tarjetadebito() {
     this.navCtrl.navigateForward(["ingreso-debito",{}]);

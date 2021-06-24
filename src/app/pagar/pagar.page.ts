@@ -316,7 +316,7 @@ export class PagarPage implements OnInit {
       RespuestaResultadoComponent.setStatus(2);
       this.mensaje = "Pagaste Con exito";
       this.descripcion = "Pagaste " + data.deuda.mensaje + "Por $" + data.deuda.monto + " a: " + data.persona.nombre + "",
-        this.url = "tabs";
+        this.url = "home";
       this.cargando = 0;
       //this.ngOnInit();
       /*aca va el llamado a la pagina de ok o de error*/

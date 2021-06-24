@@ -14,7 +14,8 @@
     </p>
     <!-- Monto a ingresar -->
     <div class="renglon">
-      <span class="leyenda">Monto a ingresar</span>
+      <span class="leyenda" *ngIf="deuda.tipo_deuda=='Recargatd'">Monto a cobrar</span>
+      <span class="leyenda" *ngIf="deuda.tipo_deuda=='Contacto'">Monto a acreditar</span>
       <span class="monto">${{deuda.monto.toString()| number:'1.0-2'}}</span>
     </div>
     <div class="renglon" *ngIf="comisiones[tipo_deuda]>0">
@@ -30,7 +31,8 @@
       <span class="monto">Sin Comision</span>
     </div>
     <div class="renglon" *ngIf="!cargandoComisiones">
-      <span class="leyenda">Total</span>
+      <span class="leyenda" *ngIf="deuda.tipo_deuda=='Recargatd'">Total a acreditar</span>
+      <span class="leyenda" *ngIf="deuda.tipo_deuda=='Contacto'">Total a cobrar</span>
       <span class="monto"> ${{monto_final[tipo_deuda] | number:'1.0-2'}}</span>
     </div>
     <div class="renglon" *ngIf="cargandoComisiones">

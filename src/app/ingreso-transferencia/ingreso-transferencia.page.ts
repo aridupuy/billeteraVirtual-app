@@ -1,3 +1,7 @@
+import { ObtenerDatosService } from '../service/obtener-datos.service';
+import { Icvu } from '../interfaces/Icvu';
+import { Clipboard } from '@ionic-native/clipboard/ngx';
+
 import { Component, OnInit } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
 
@@ -8,10 +12,21 @@ import { AlertController, NavController } from '@ionic/angular';
 })
 export class IngresoTransferenciaPage implements OnInit {
 
-  constructor(public alertController: AlertController,public navCtrl:NavController) { }
-
+  constructor(public alertController: AlertController,public navCtrl:NavController,public datos:ObtenerDatosService,public clipboard:Clipboard) { }
+  public cvu;
+  public alias;
   ngOnInit() {
+    this.datos.obtener_datos().then((data:Icvu)=>{
+      this.cvu = data.cvu;
+      this.alias = data.alias;
+    }).catch(err=>{
+      console.log(err);
+    })
   }
+  copy(data){
+    this.clipboard.copy(data);
+  }
+
   async comoTransferir() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',

@@ -15,8 +15,8 @@ import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { Transacciones } from '../interfaces/transacciones';
 import { UsuarioService } from '../service/usuario.service';
 // import { SaldoService } from '../service/saldo.service';
-import { PreloaderPage } from '../preloader/preloader.page';
 import { Validaridentidad1Page } from '../validaridentidad1/validaridentidad1.page';
+import { AppComponent } from '../app.component';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -50,6 +50,7 @@ export class HomePage implements OnInit {
   constructor(public modalCtrl: ModalController, public navCtl: NavController, private menu: MenuController, public saldoService: SaldoService, public transaccionesService: TransaccionesService, public route: ActivatedRoute, public router: Router, public usuarioService: UsuarioService) { }
 
   ngOnInit(): void {
+    // AppComponent.cargando=true;
     console.log("EN HOME");
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
     console.log(p);

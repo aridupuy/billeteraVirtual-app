@@ -183,10 +183,10 @@ const routes: Routes = [
     path: 'validaridentidad4',
     loadChildren: () => import('./validaridentidad4/validaridentidad4.module').then( m => m.Validaridentidad4PageModule)
   },
-  {
-    path: 'preloader',
-    loadChildren: () => import('./preloader/preloader.module').then( m => m.PreloaderPageModule)
-  },
+  // {
+  //   path: 'preloader',
+  //   loadChildren: () => import('./preloader/preloader.module').then( m => m.PreloaderPageModule)
+  // },
   {
     path: 'pedir-amigo',
     loadChildren: () => import('./pedir-amigo/pedir-amigo.module').then( m => m.PedirAmigoPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
@@ -271,6 +271,11 @@ const routes: Routes = [
     path: 'agregar-amigo2',
     loadChildren: () => import('./agregar-amigo2/agregar-amigo2.module').then( m => m.AgregarAmigo2PageModule)
   },
+  {
+    path: 'ingresar-efectivo-monto',
+    loadChildren: () => import('./ingresar-efectivo-monto/ingresar-efectivo-monto.module').then( m => m.IngresarEfectivoMontoPageModule)
+  },
+
 
 
 
