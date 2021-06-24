@@ -61,28 +61,30 @@ export class ServiceService extends HttpClient {
   public post<T>(url: string, body: any | null, options?): Observable<T> {
     AppComponent.cargando=true;
     console.log(url);
-    return super.post<T>(this.URL + url, this.encrypt(body, CLAVE_ENCRIPTACION), options).pipe<T>(
+    
+     let post = super.post<T>(this.URL + url, this.encrypt(body, CLAVE_ENCRIPTACION), options).pipe<T>(
       map((data) => {
         if (data['token'] != undefined || data['tokenError'] != undefined ) {
           AppComponent.cargando=false;
           return data as unknown as T;
         }
         // tslint:disable-next-line: comment-format
-        try{
           return JSON.parse(this.decrypt(JSON.stringify(data), CLAVE_ENCRIPTACION)) as T;
-        }catch(err){
-          console.log(err);
-          AppComponent.cargando=false;
-        }
       }
       )
     );
+    post.subscribe(data=>{},err=>{
+      console.log(err);
+      //aca podria levantar una vista general de error;
+      AppComponent.cargando=false;
+    });
+    return post;
   }
 
 
   public get<T>(url: string, options) {
     AppComponent.cargando=true;
-    return super.get<T>(this.URL + url, options).pipe<T>(
+    let get= super.get<T>(this.URL + url, options).pipe<T>(
 
       map(data => {
         if (data['token'] != undefined) {
@@ -94,6 +96,10 @@ export class ServiceService extends HttpClient {
       }
       )
     );
-
+    get.subscribe(data=>{},err=>{
+      console.log(err);
+      AppComponent.cargando=false;
+    })
+    return get;
   }
 }

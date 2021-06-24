@@ -157,6 +157,7 @@ export class PagarPage implements OnInit {
 
       this.tarjetas = data;
       console.log(this.tarjetas);
+      this.change();
     }).catch(err => {
       console.log(err);
     });
@@ -164,7 +165,7 @@ export class PagarPage implements OnInit {
       this.saldo_en_cuenta = saldo;
       //  this.change(false,this.slides);
       this.primeracarga = true;
-      this.change();
+      // this.change();
     });
 
   }
@@ -253,6 +254,7 @@ export class PagarPage implements OnInit {
         console.log("cargando comisiones false");
       })
     }
+    console.log(this.tarjeta_elegida);
   }
   CerrarModal() {
     // this.location.back();

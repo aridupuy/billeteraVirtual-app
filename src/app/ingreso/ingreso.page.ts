@@ -49,15 +49,15 @@ export class IngresoPage implements OnInit {
   
 
   async ngOnInit() {
-    await this.log_in.checkToken("api/checkToken", {token: localStorage.getItem("token")}).then(data=>{
-      this.cargando = false;
-      this.error_user=false;
-      this.error_pass=false;
-      this.router.navigateByUrl("home");
-    }).catch(data=>{
-      localStorage.removeItem("token");
-      return false
-    });
+    // await this.log_in.checkToken("api/checkToken", {token: localStorage.getItem("token")}).then(data=>{
+    //   this.cargando = false;
+    //   this.error_user=false;
+    //   this.error_pass=false;
+    //   this.router.navigateByUrl("home");
+    // }).catch(data=>{
+    //   localStorage.removeItem("token");
+    //   return false
+    // });
     
   }
   async Ingresar(){
