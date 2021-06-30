@@ -27,6 +27,7 @@ export class TarjetasService extends ServiceService{
           if (data.resultado != null && data.resultado == false) {
             reject(data.log);
           }
+          
           return resolve(data.extras[0]);
         });
       }
@@ -35,6 +36,7 @@ export class TarjetasService extends ServiceService{
           if (data.resultado != null && data.resultado == false) {
             reject(data.log);
           }
+          // console.log(data);
           return resolve(data.extras[0]);
         });
       }

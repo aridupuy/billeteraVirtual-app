@@ -134,6 +134,7 @@ export class ContactoService extends ServiceService {
     var postParams = { id: id, tarjeta: tarjeta,id_proceso:id_proceso };
     return new Promise((resolve, reject) => {
       this.post<any>('api/contacto/aceptar_pedido_tarjeta', postParams, httpOptions).subscribe((data: resp) => {
+        console.log(data);
         if (data.resultado != null && data.resultado === false) {
           console.log(data.log);
           reject(data.log);

@@ -48,7 +48,7 @@
               <div class="imagen">
                 <img src="assets/img/mov-recibiste.svg" alt="Recibiste" *ngIf="item.id_tipo_trans=='2'">
                 <img src="assets/img/mov-retiro.svg" alt="Recibiste" *ngIf="item.id_tipo_trans=='1'">
-                <img src="assets/img/mov-pago.svg" alt="Pagaste" *ngIf="item.tipo=='3'">
+                <img src="assets/img/mov-pago.svg" alt="Pagaste" *ngIf="item.id_tipo_trans=='3'">
               </div>
               <div class="texto">
                 <h4>{{item.titulo}}</h4>

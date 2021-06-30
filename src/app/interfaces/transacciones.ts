@@ -4,6 +4,7 @@ export interface Transacciones {
         monto: any;
         // tslint:disable-next-line: variable-name
         fecha_pago: any;
+        fecha_gen: any;
         concepto: any;
         id_tipo_trans:any;
         id_cuenta:any;

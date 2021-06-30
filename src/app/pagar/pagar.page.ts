@@ -216,7 +216,7 @@ export class PagarPage implements OnInit {
       //this.tarjeta_elegida = null;
     }
     else {
-
+      this.tarjeta_elegida = this.tarjetas[0];
     }
     this.tipo_deuda = "";
     /*esto va a escalar*/
@@ -254,7 +254,6 @@ export class PagarPage implements OnInit {
         console.log("cargando comisiones false");
       })
     }
-    console.log(this.tarjeta_elegida);
   }
   CerrarModal() {
     // this.location.back();
@@ -343,8 +342,11 @@ export class PagarPage implements OnInit {
 
 
   async obtener_carriers(identificacion, bin) {
+    
+    console.log(bin);
     var resp;
     let data = JSON.parse(identificacion);
+    console.log(data);
     this.carriers[bin] = { brand: data.scheme, color: data.brand, banco: data.bank, tc_td: data.type };
     return resp;
   }
@@ -358,7 +360,12 @@ export class PagarPage implements OnInit {
     var resp = this.carriers[bin].color;
     // if (!resp)
     //   return "";
-    let banco: String = this.carriers[bin].banco.name;
+    let banco: String;
+    if(this.carriers[bin].banco != undefined)
+      banco= this.carriers[bin].banco.name;
+    else
+    if(this.carriers[bin].brand != undefined)
+      banco= this.carriers[bin].brand;
     // if (banco == undefined) {
     //   return resp;
     // }
@@ -400,7 +407,7 @@ export class PagarPage implements OnInit {
   }
   obtener_banco_img(item){
     let ident = JSON.parse(item.identificacion);
-    if(!ident.bank.name)
+    if(!ident.bank)
     return false;
     switch(ident.bank.name){
       case "SANTANDER RIO":

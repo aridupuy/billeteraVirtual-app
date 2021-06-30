@@ -1,5 +1,5 @@
 import { Event } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { environment } from './../../environments/environment';
 import { HttpClient, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -73,33 +73,42 @@ export class ServiceService extends HttpClient {
       }
       )
     );
-    post.subscribe(data=>{},err=>{
-      console.log(err);
-      //aca podria levantar una vista general de error;
-      AppComponent.cargando=false;
-    });
+    // post.subscribe(null,err=>{
+    //   console.log(err);
+    //   //aca podria levantar una vista general de error;
+    //   AppComponent.cargando=false;
+    // });
     return post;
   }
 
 
   public get<T>(url: string, options) {
     AppComponent.cargando=true;
-    let get= super.get<T>(this.URL + url, options).pipe<T>(
-
+    let get= super.get<T>(this.URL + url, options)
+    .pipe(
+      catchError(error => {
+        if (error.error instanceof ErrorEvent) {
+            console.log(error.error);
+            AppComponent.cargando=false;
+        } 
+        return [];
+    }))
+    .pipe<T>(
+      
       map(data => {
         if (data['token'] != undefined) {
           AppComponent.cargando=false;
           return data as unknown as T;
         }
-        
+        // console.log(data);
         return JSON.parse(this.decrypt(JSON.stringify(data), CLAVE_ENCRIPTACION)) as T;
       }
       )
     );
-    get.subscribe(data=>{},err=>{
-      console.log(err);
-      AppComponent.cargando=false;
-    })
+    // get.subscribe(data=>{},err=>{
+    //   console.log(err);
+    //   AppComponent.cargando=false;
+    // })
     return get;
   }
 }

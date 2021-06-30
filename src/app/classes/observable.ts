@@ -26,6 +26,7 @@ export class Observable {
           resolve(observer);
         }
         else{
+          console.log("RESUSCRIPTO A "+titulo);
           resolve(this.Observers[titulo]);
         }
       });
@@ -41,7 +42,7 @@ export class Observable {
       
     }
     public static notify(titulo,variables){
-      console.log("notificando");
+      console.log("notificando "+titulo);
       if(typeof this.Observers[titulo] !== 'undefined'){
           this.Observers[titulo].notify(variables).then(vars=>{
             return vars;

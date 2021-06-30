@@ -40,7 +40,7 @@ export class Pago{
         await this.contacto.aceptar_pedido_tc(data.deuda.id,data.tarjeta_elegida,this.id_proceso).then(d=>{
             console.log(d);
             execute=false;
-            result= data;
+            result= d;
           }).catch(err=>{
                 execute=false;  
                 throw err;
@@ -51,6 +51,7 @@ export class Pago{
     }
     async recarcaSaldo(data:Ipagar){
         var response;
+        console.log(data);
         await this.saldo.recargar_saldo_td(data.deuda.monto,data.tarjeta_elegida).then((d:any)=>{
             response=d;
 
