@@ -1,6 +1,7 @@
 import { UsuarioService } from '../service/usuario.service';
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-datos-cuenta',
@@ -21,7 +22,11 @@ export class DatosCuentaPage implements OnInit {
   public domicilio="";
   public email="";
   public celular="";
-  
+  public editar_cel;
+  public editar_mail;
+  public editar_pass;
+  public valor_ant;
+  public usuario;
   constructor(private navCtrl: NavController, public usuarioService: UsuarioService) { }
 
   ngOnInit() {
@@ -50,6 +55,7 @@ export class DatosCuentaPage implements OnInit {
         this.cuil = data.cuil;
         this.domicilio = data.direccion;
         this.nacionalidad = data.nacionalidad;
+        this.usuario = data;
         // this.
       // localStorage.setItem("nombre",this.username);
       // localStorage.setItem("iniciales",this.iniciales);
@@ -58,6 +64,32 @@ export class DatosCuentaPage implements OnInit {
 
   }
   EditarCel(){
+   
+    const navigationExtras: NavigationExtras = {
+      queryParams: {
 
+        param: JSON.stringify({usuario:this.usuario.email, selectmail:true,change_cel:true})
+      }
+    }
+    this.navCtrl.navigateRoot("lostpassword1",navigationExtras)
+
+  }
+  EditarPass(){
+    const navigationExtras: NavigationExtras = {
+      queryParams: {
+
+        param: JSON.stringify({usuario:this.usuario.email, selectTel:true,selectmail:true})
+      }
+    }
+    this.navCtrl.navigateRoot("lostpassword1",navigationExtras)
+  }
+  EditarMail(){
+    const navigationExtras: NavigationExtras = {
+      queryParams: {
+
+        param: JSON.stringify({usuario:this.usuario.email, selectTel:true,change_mail:true,ofustel:this.celular})
+      }
+    }
+    this.navCtrl.navigateRoot("lostpassword1",navigationExtras)
   }
 }

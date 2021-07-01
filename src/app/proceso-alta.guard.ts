@@ -77,7 +77,8 @@ export class ProcesoAltaGuard implements CanActivate {
           this.navCtrl.navigateForward("home", navigationExtras);
           resp = true
         }
-        else if (data.estado_cuenta!=1 &&(!data.valida_mail || data.valida_mail == 'f')) {
+        // else if (data.estado_cuenta!=1 &&(!data.valida_mail || data.valida_mail == 'f')) {
+          else if ((!data.valida_mail || data.valida_mail == 'f')) {
           const navigationExtras: NavigationExtras = {
             queryParams: {
               param: JSON.stringify({ login: true,valida_mail:true, Mensaje: "Tienes que validar tu Correo para operar" })
@@ -86,7 +87,8 @@ export class ProcesoAltaGuard implements CanActivate {
           this.navCtrl.navigateForward("home", navigationExtras);
           resp = false
         }
-        else if (data.estado_cuenta!=1 &&(!data.valida_cel || data.valida_cel == 'f')) {
+        // else if (data.estado_cuenta!=1 &&(!data.valida_cel || data.valida_cel == 'f')) {
+          else if ((!data.valida_cel || data.valida_cel == 'f')) {
           await this.validCel.reenviar_codigo().then((cel) => {
             console.log(cel);
             const navigationExtras: NavigationExtras = {

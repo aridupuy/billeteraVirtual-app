@@ -52,7 +52,12 @@ export class ServiceService extends HttpClient {
     return encrypted;
   }
   public decrypt(encrypted: string, pass: string) {
-    const decrypted = JSON.parse(CryptoJS.AES.decrypt(encrypted, pass, { format: CryptoJSAesJson }).toString(CryptoJS.enc.Utf8));
+    let json =  CryptoJS.AES.decrypt(encrypted, pass, { format: CryptoJSAesJson }).toString(CryptoJS.enc.Utf8)
+    // console.log(json);
+    if(!json){
+      return {};
+    }
+    const decrypted = JSON.parse(json);
     AppComponent.cargando=false;
     return decrypted;
   }

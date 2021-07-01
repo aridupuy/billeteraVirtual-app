@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Cambiar Celular</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content center>
+<div class="contenedor-90">
+  <h1 class="align-left">
+    Ahora sí ya podés cambiar tu Celular
+      </h1>
+  <p class="align-left"> Está todo OK para que elijas tu nuevo Email.</p>
+  <div class="form">
+    <div class="input-container">
+      <h2 class="align-left full">¿Cuál es tu número de celular?</h2>
+      <ion-item>
+        <ion-input [(ngModel)]="mail" type="email" placeholder="pepe@unmail.com" ></ion-input>
+        <ion-icon name="close-circle-sharp" *ngIf="mail &&  errorMail" slot="end" color="danger"></ion-icon>
+        <ion-icon name="checkmark-circle-sharp" *ngIf="mail && !errorMail" slot="end" color="success"></ion-icon>
+      </ion-item>
+    </div>
+    <div class="validationMsg" *ngIf="mail &&  errorMail">
+      <div class="msg full danger">
+        El Email que ingresaste no es válido. Intentá otra vez.
+      </div>
+    </div>
+  </div>
+
+  
+</div>
+<div class="onboarding-btn-group">
+  <div class="btn-round inactivo" *ngIf="!mail || errorMail ">
+    Continuar
+  </div>
+  <div class="btn-round activo" *ngIf="mail && !errorMail" (click)="Continuar()">
+    Continuar
+  </div>
+</div>
+
+</ion-content>
+<ion-footer>
+  <ion-progress-bar color="primary" value="0.7"></ion-progress-bar>
+</ion-footer>

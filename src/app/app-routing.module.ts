@@ -274,7 +274,15 @@ const routes: Routes = [
   {
     path: 'ingresar-efectivo-monto',
     loadChildren: () => import('./ingresar-efectivo-monto/ingresar-efectivo-monto.module').then( m => m.IngresarEfectivoMontoPageModule)
+  },  {
+    path: 'changecel',
+    loadChildren: () => import('./changecel/changecel.module').then( m => m.ChangecelPageModule)
   },
+  {
+    path: 'changemail',
+    loadChildren: () => import('./changemail/changemail.module').then( m => m.ChangemailPageModule)
+  },
+
 
 
 

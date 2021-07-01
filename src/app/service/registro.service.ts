@@ -89,7 +89,7 @@ export class RegistroService extends LoginBoService {
     });
     return resp
   }
-  async enviar_codigo(porMail, porTel, usuario) {
+  async enviar_codigo(porMail, porTel, usuario,changemail?,changetel?) {
     var resp;
     await this.login().then((data: any) => {
       resp = new Promise((resolve, reject) => {
@@ -97,7 +97,9 @@ export class RegistroService extends LoginBoService {
         var postParams = ({
           email: usuario,
           porMail: porMail,
-          porTel: porTel
+          porTel: porTel,
+          change_mail:changemail,
+          change_cel:changetel
         });
         console.log(postParams);
         this.post<res>('api/alta/enviar_codigo', postParams, httpOptions).subscribe((data) => {
@@ -142,6 +144,47 @@ export class RegistroService extends LoginBoService {
         });
         console.log(postParams);
         this.post<res>('api/alta/cambiar_password', postParams, httpOptions).subscribe((data) => {
+          if (data.resultado != null && data.resultado == false) {
+            reject(data.log);
+          }
+          return resolve(data.extras[0]);
+        });
+      });
+    });
+    return resp
+  }
+  async cambiar_cel(id_usuario, cod_area,cel) {
+    var resp;
+    await this.login().then((data: any) => {
+      resp = new Promise((resolve, reject) => {
+        httpOptions["headers"]["token"] = data;
+        var postParams = ({
+          id_usuario: id_usuario,
+          nuevo_cel: cel,
+          nuevo_cod_area:cod_area
+        });
+        console.log(postParams);
+        this.post<res>('api/alta/cambiar_celular', postParams, httpOptions).subscribe((data) => {
+          if (data.resultado != null && data.resultado == false) {
+            reject(data.log);
+          }
+          return resolve(data.extras[0]);
+        });
+      });
+    });
+    return resp
+  }
+  async cambiar_mail(id_usuario, mail) {
+    var resp;
+    await this.login().then((data: any) => {
+      resp = new Promise((resolve, reject) => {
+        httpOptions["headers"]["token"] = data;
+        var postParams = ({
+          id_usuario: id_usuario,
+          nuevo_mail: mail,
+        });
+        console.log(postParams);
+        this.post<res>('api/alta/cambiar_mail', postParams, httpOptions).subscribe((data) => {
           if (data.resultado != null && data.resultado == false) {
             reject(data.log);
           }

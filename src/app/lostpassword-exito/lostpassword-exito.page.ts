@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 
@@ -8,9 +9,18 @@ import { NavController } from '@ionic/angular';
 })
 export class LostpasswordExitoPage implements OnInit {
 
-  constructor(private navCtrl : NavController) {}
-
+  constructor(private navCtrl : NavController,private route:ActivatedRoute) {}
+  public tel;
+  public mail;
   ngOnInit() {
+    let  p  = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
+    if(p != null){
+      if(p["mail"]!=null)
+    this.mail = p.mail;
+    if(p["tel"]!=null)
+      this.tel = p.tel;
+    }
+
   }
   Ingresar(){
     this.navCtrl.navigateForward(["ingreso",{}]);

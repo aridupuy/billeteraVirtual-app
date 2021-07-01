@@ -20,19 +20,19 @@
     <div class="input-container with-label">
       <ion-item id="celularItem">
       <ion-label position="stacked">Celular</ion-label>
-      <ion-input type="text" readonly="true"  placeholder="+54 11 51312789" [(ngModel)]="celular"></ion-input>
+      <ion-input type="text" [readonly]="editar_cel"  placeholder="+54 11 51312789" [(ngModel)]="celular"></ion-input>
       </ion-item>
       <div class="icon"><ion-icon slot="end" name="create-outline" (click)="EditarCel()"></ion-icon></div>
       <ion-item #emailItem>
         <ion-label position="stacked">E-mail</ion-label>
-        <ion-input type="email" readonly="true"  placeholder="riki.fort@gmail.com" [ngModel]="email"></ion-input>
+        <ion-input type="email" [readonly]="editar_mail"  placeholder="riki.fort@gmail.com" [ngModel]="email"></ion-input>
         </ion-item>
-        <div class="icon"><ion-icon slot="end" name="create-outline"></ion-icon></div>
+        <div class="icon"><ion-icon slot="end" name="create-outline" (click)="EditarMail()"></ion-icon></div>
         <ion-item #passwordItem>
           <ion-label position="stacked">Contraseña</ion-label>
-          <ion-input type="password" readonly="true" #password placeholder="********"></ion-input>
+          <ion-input type="password" [readonly]="editar_pass" #password placeholder="********"></ion-input>
         </ion-item>
-        <div class="icon"><ion-icon slot="end" name="create-outline"></ion-icon></div>
+        <div class="icon"><ion-icon slot="end" name="create-outline" (click)="EditarPass()"></ion-icon></div>
     </div>
   </div>
   <div class="datos-personales">

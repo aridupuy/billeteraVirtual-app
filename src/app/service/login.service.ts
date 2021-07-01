@@ -70,13 +70,14 @@ export class LoginService extends ServiceService{
       }
       this.post<IcheckToken>(url, json, httpOption)
         .subscribe(async (data) => {
-          // console.log(data);
+          console.log(data);
           if (data != undefined  && (data.check == 1 || data.check =='true')){
             resolve(true);
           }
           else{
             let resp;
             await this.loginWithToken("api/loginwithtoken",json).then((data)=>{
+              console.log(data);
               resolve(data);
               resp = true;
             }).catch((data)=>{
@@ -110,6 +111,8 @@ export class LoginService extends ServiceService{
           }
           await localStorage.setItem("token", data.token);
           console.log(localStorage.getItem("token"));
+          if(!data.token)
+            rejects(false)
           this.token = data.token;
           return resolve(this.token);
         }) ;
