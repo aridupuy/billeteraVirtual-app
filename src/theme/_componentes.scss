@@ -518,3 +518,52 @@ ion-list {
         border-radius: 5px;
     }
 }
+
+.teclado {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    .tecla {
+        width: 30%;
+        margin: 10px 5px;
+        text-align: center;
+        padding: 15px 20px;
+        background: $btn-inactivo-bg;
+        color: $btn-inactivo-txt;
+        border-radius: 10px;
+        &:hover {
+            background: $link-color;
+            color: $btn-activo-text;
+        }
+        &.transparent {
+            background: transparent;
+            &:hover {
+                background: transparent;
+            }
+        }
+    }
+
+}
+.confirma-sms {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    padding-bottom: 10px;
+    .ingreso {
+        border-radius: 50px;
+        width: 30px;
+        height: 30px;
+        margin: 0 5px;
+        background: $btn-inactivo-bg;
+        .confirm {
+            background: $btn-activo-bg;
+        }
+    }
+}
