@@ -63,7 +63,7 @@ export class PatronGuard implements CanActivate {
 
         modal.onDidDismiss().then(async (modalDataResponse) => {
           let clave1;
-          console.log(modalDataResponse);
+          // console.log(modalDataResponse);
           clave1 = modalDataResponse.data;
           const modal = await this.modalCtrl.create({
             component: IngresaPinConfirmaPage
@@ -109,7 +109,7 @@ export class PatronGuard implements CanActivate {
   }
   guardarClave(clave) {
     let claveEnc = this.service.encrypt(clave, pass);
-    localStorage.setItem("pin", claveEnc); //esto deberia estar hasheado;
+    localStorage.setItem("pin", claveEnc); 
     console.log("clave guardada");
     return true;
   }

@@ -157,7 +157,6 @@ export class IngresaPinPage implements OnInit {
         this.values.forEach(valor => {
           clave += "" + valor;
         });
-
         // this.navCtrl.navigateForward("ingresa-pin-confirma", navigationExtras);
         this.viewCtrl.dismiss(clave);
         this.platform.backButton.observers.pop();

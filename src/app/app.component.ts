@@ -35,84 +35,54 @@ export class AppComponent implements OnInit {
   public static cargando = false;
   public menu = Array();
   public DIAS = 3;
-  constructor(private platform: Platform,private loginService:LoginService, private statusBar: StatusBar, private splashScreen: SplashScreen, private pago: Pago, public service: ServiceService, public menuService: MenuserviceService, public modalCtrl: ModalController, public usuarioService: UsuarioService, public navCtrl: NavController) { }
+  constructor(private platform: Platform, private loginService: LoginService, private statusBar: StatusBar, private splashScreen: SplashScreen, private pago: Pago, public service: ServiceService, public menuService: MenuserviceService, public modalCtrl: ModalController, public usuarioService: UsuarioService, public navCtrl: NavController) { }
   async ngOnInit() {
-    let nombre = localStorage.getItem("nombre");
-    if (nombre && this.iniciales) {
-      this.usuario = nombre;
 
-      return false;
+    let menu = localStorage.getItem("menu");
+    if (menu || menu.length > 0) {
+      let data = JSON.parse(menu);
+      for (var i in data) {
+        this.menu.push(data[i]);
+      }
     }
-   
     // this.checkToken("api/checkToken", {token: localStorage.getItem("token")}).then(()=>console.log()).catch(()=>console.log());   
-     this.platform.ready().then(async () => {
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
-      // AppComponent.cargando=false;
-      document.addEventListener("resume", this.onDeviceresume, false);
-      document.addEventListener("pause", this.onPause, false);
-      document.addEventListener("stop", this.onPause, false);
-      /*Esto es un test para mas adelante */
-      Deeplinks.routeWithNavController(this.navCtrl, {
-        '/': HomePage,
-        '/amigos': AmigosPage,
-        '/ingresodinero': IngresoDineroPage
-      }).subscribe((match) => {
-        console.log('Successfully routed', match);
-      }, (nomatch) => {
-        console.warn('Unmatched Route', nomatch);
-      });
-
-      
-      console.error("app.component");
-      await this.loginService.checkToken("api/checkToken", {token: localStorage.getItem("token")})
-        .then(data=>{
-          if (localStorage.getItem("token") != null) {
-            console.log("aca");
-            let menu = Cookie.get("menu");
-            if (!menu || menu.length == 0) {
-              this.menuService.obtener_menu().then((data: []) => {
-                data.forEach(element => {
-                  this.menu.push(element);
-                });
-                Cookie.set("menu", JSON.stringify(this.menu), this.DIAS);
-              })
-            }
-            else {
-              let data = JSON.parse(menu);
-              for (var i in data) {
-                this.menu.push(data[i]);
-              }
-            }
-          }
-          // console.log(this.menu);
-          if (localStorage.getItem("token") != null)
-            this.usuarioService.obtener_mis_datos().then((data: any) => {
-              this.usuario = data.nombre;
-              this.iniciales = data.nombre_completo
-                .split(' ')
-                .map(it => it.charAt(0))
-                .slice(0, 1)
-                .join('')
-                + data.nombre_completo
-                  .split(' ')
-                  .map(it => it.charAt(0))
-                  .slice(2, 3)
-                  .join('');
-              console.log("aca");
-              localStorage.setItem("nombre", this.usuario);
-              localStorage.setItem("iniciales", this.iniciales);
-              console.log(this.usuario);
-            });
-        })
-        .catch(data=>{
-          this.navCtrl.navigateBack("/");
-        });
-
-
-      this.pago.registrar_observer();
+    this.platform.ready().then(async () => {
+    this.statusBar.styleDefault();
+    this.splashScreen.hide();
+    // AppComponent.cargando=false;
+    document.addEventListener("resume", this.onDeviceresume, false);
+    document.addEventListener("pause", this.onPause, false);
+    document.addEventListener("stop", this.onPause, false);
+    /*Esto es un test para mas adelante */
+    Deeplinks.routeWithNavController(this.navCtrl, {
+      '/': HomePage,
+      '/amigos': AmigosPage,
+      '/ingresodinero': IngresoDineroPage
+    }).subscribe((match) => {
+      console.log('Successfully routed', match);
+    }, (nomatch) => {
+      console.warn('Unmatched Route', nomatch);
     });
-    
+
+
+    console.error("app.component");
+    // await this.loginService.checkToken("api/checkToken", { token: localStorage.getItem("token") })
+    //   .then(data => {
+    //     // if (localStorage.getItem("token") != null) {
+    //     // alert("aca");
+
+
+    //     // if (localStorage.getItem("token") != null)
+
+    //   })
+    //   .catch(data => {
+    //     this.navCtrl.navigateBack("/");
+    //   });
+
+
+    });
+    this.pago.registrar_observer();
+
   }
   Ir(path) {
     this.navCtrl.navigateForward(path);
@@ -128,6 +98,69 @@ export class AppComponent implements OnInit {
     }
     return grupo;
   }
+  obtener_array_menu() {
+    let menu = Cookie.get("menu");
+    // let menu = localStorage.getItem("menu");
+    if(localStorage.getItem("token")==undefined){
+      return false;
+    }
+    if (!menu || menu.length == 0) {
+      this.menuService.obtener_menu().then((data: []) => {
+        this.menu=[];
+        data.forEach(element => {
+          this.menu.push(element);
+        });
+        Cookie.set("menu", JSON.stringify(this.menu), this.DIAS);
+        // localStorage.setItem("menu", JSON.stringify(this.menu));
+      })
+    }
+    else {
+      this.menu=[];
+      let data = JSON.parse(menu);
+      for (var i in data) {
+        this.menu.push(data[i]);
+      }
+    }
+    // alert("MENU CARGADO");
+    return this.menu;
+    // }
+  }
+  obtener_nombre() {
+    if(localStorage.getItem("token")==undefined){
+      return false;
+    }
+    let nombre = localStorage.getItem("nombre");
+    let iniciales = localStorage.getItem("iniciales");
+    if (nombre && iniciales) {
+      this.usuario = nombre;
+      this.iniciales = iniciales;
+      return this.usuario;
+    }
+    else {
+      this.usuarioService.obtener_mis_datos().then((data: any) => {
+        this.usuario = data.nombre;
+        this.iniciales = data.nombre_completo
+          .split(' ')
+          .map(it => it.charAt(0))
+          .slice(0, 1)
+          .join('')
+          + data.nombre_completo
+            .split(' ')
+            .map(it => it.charAt(0))
+            .slice(2, 3)
+            .join('');
+        console.log("aca");
+        // localStorage.setItem("usuario", JSON.stringify(data));
+        localStorage.setItem("nombre", this.usuario);
+        localStorage.setItem("iniciales", this.iniciales);
+        console.log(this.usuario);
+        // alert("DATOS USUARIO CARGADO");
+      });
+    }
+    return this.usuario;
+  }
+
+
   getCargando() {
     // console.log(AppComponent.cargando);
     return AppComponent.cargando;
@@ -135,9 +168,9 @@ export class AppComponent implements OnInit {
   onPause = () => {
     console.log("pause");
     console.log(localStorage.getItem("onboarding"));
-    if(localStorage.getItem("token") != null && localStorage.getItem("token")!="" && localStorage.getItem("onboarding")==null && localStorage.getItem("onboarding")!="1"){
-    localStorage.setItem("inBackground", "1");
-    this.mostrarModal("validar");
+    if (localStorage.getItem("token") != null && localStorage.getItem("token") != "" && localStorage.getItem("onboarding") == null && localStorage.getItem("onboarding") != "1") {
+      localStorage.setItem("inBackground", "1");
+      this.mostrarModal("validar");
     }
   }
   onDeviceresume = async () => {

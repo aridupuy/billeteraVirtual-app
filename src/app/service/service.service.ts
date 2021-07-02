@@ -69,8 +69,9 @@ export class ServiceService extends HttpClient {
     
      let post = super.post<T>(this.URL + url, this.encrypt(body, CLAVE_ENCRIPTACION), options).pipe<T>(
       map((data) => {
+        AppComponent.cargando=false;
         if (data['token'] != undefined || data['tokenError'] != undefined ) {
-          AppComponent.cargando=false;
+          // AppComponent.cargando=false;
           return data as unknown as T;
         }
         // tslint:disable-next-line: comment-format

@@ -21,7 +21,7 @@
     <div class="ingreso" #ingreso3></div>
     <div class="ingreso" #ingreso4></div>
   </div>
-  <div class="msg full danger" color="danger" #error_code>
+  <div class="msg full danger" color="danger" *ngIf="error_code">
     El codigo ingresado es incorrecto
   </div>
   <div class="teclado">

@@ -86,12 +86,13 @@ export class LoginService extends ServiceService {
             // if (LoginService.singleton == 0) {
               // LoginService.singleton=1;
               await this.loginWithToken("api/loginwithtoken", json).then((data) => {
-                console.log(data);
+                console.log(JSON.stringify(data));
                 resolve(data);
                 resp = true;
                 LoginService.singleton[json.token] = data;
                 return resp;
               }).catch((data) => {
+                console.log(JSON.stringify(data));
                 rejects(data);
                 resp = false;
                 
@@ -120,7 +121,7 @@ export class LoginService extends ServiceService {
       return this.resp;
     }
 
-    this.resp= new Promise((resolve, rejects) => {
+    return new Promise((resolve, rejects) => {
       if (!localStorage.getItem("token") || localStorage.getItem("token") == 'false' || localStorage.getItem("token") == undefined) {
         console.log("no logueado");
         localStorage.removeItem("intentosLogin");
@@ -159,8 +160,8 @@ export class LoginService extends ServiceService {
           return resolve(this.token);
         });
     });
-    console.log(this.resp);
-    return this.resp;
+      // console.log(JSON.stringify(this.resp));
+      // return this.resp;
   }
 
 
