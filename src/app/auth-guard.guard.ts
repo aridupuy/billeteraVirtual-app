@@ -20,11 +20,7 @@ export class AuthGuardGuard implements CanActivate {
     console.error("authGuard");
     console.log("authGuard" + this.router.url);
     var resp: any = false;
-    console.log(AppComponent.CheckedToken);
-    if (await AppComponent.CheckedToken == true) {
-      return true;
-    }
-    else
+    // console.log(AppComponent.CheckedToken);
       await this.login.checkToken("api/checkToken", { token: localStorage.getItem("token") }).then(data => {
         resp = true;
         console.log("llego hasta aca" + this.router.url + " " + resp);

@@ -35,7 +35,6 @@ export class AppComponent implements OnInit {
   public static cargando = false;
   public menu = Array();
   public DIAS = 3;
-  public static CheckedToken = false;
   constructor(private platform: Platform,private loginService:LoginService, private statusBar: StatusBar, private splashScreen: SplashScreen, private pago: Pago, public service: ServiceService, public menuService: MenuserviceService, public modalCtrl: ModalController, public usuarioService: UsuarioService, public navCtrl: NavController) { }
   async ngOnInit() {
     let nombre = localStorage.getItem("nombre");
@@ -68,7 +67,6 @@ export class AppComponent implements OnInit {
       console.error("app.component");
       await this.loginService.checkToken("api/checkToken", {token: localStorage.getItem("token")})
         .then(data=>{
-          AppComponent.CheckedToken = true;
           if (localStorage.getItem("token") != null) {
             console.log("aca");
             let menu = Cookie.get("menu");
@@ -108,13 +106,13 @@ export class AppComponent implements OnInit {
             });
         })
         .catch(data=>{
-          AppComponent.CheckedToken = false;
           this.navCtrl.navigateBack("/");
         });
 
 
       this.pago.registrar_observer();
     });
+    
   }
   Ir(path) {
     this.navCtrl.navigateForward(path);
@@ -137,10 +135,10 @@ export class AppComponent implements OnInit {
   onPause = () => {
     console.log("pause");
     console.log(localStorage.getItem("onboarding"));
-    // if(localStorage.getItem("token") != null && localStorage.getItem("token")!="" && localStorage.getItem("onboarding")==null && localStorage.getItem("onboarding")!="1"){
-    // localStorage.setItem("inBackground", "1");
-    // this.mostrarModal("validar");
-    // }
+    if(localStorage.getItem("token") != null && localStorage.getItem("token")!="" && localStorage.getItem("onboarding")==null && localStorage.getItem("onboarding")!="1"){
+    localStorage.setItem("inBackground", "1");
+    this.mostrarModal("validar");
+    }
   }
   onDeviceresume = async () => {
     console.log("onDeviceresume");
@@ -149,7 +147,7 @@ export class AppComponent implements OnInit {
     if (localStorage.getItem("token") != null && localStorage.getItem("token") != "" && localStorage.getItem("onboarding") == null && localStorage.getItem("onboarding") != "1")
       if (localStorage.getItem("inBackground") == "1") {
         console.log("aca Modal patron");
-        // this.mostrarModal("validar");
+        this.mostrarModal("validar");
       }
   }
 

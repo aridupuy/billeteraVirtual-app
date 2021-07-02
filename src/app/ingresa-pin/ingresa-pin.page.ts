@@ -19,15 +19,16 @@ import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
   styleUrls: ['./ingresa-pin.page.scss'],
 })
 export class IngresaPinPage implements OnInit {
-  @ViewChild('passcode1')  passcode1 :ElementRef;
-  @ViewChild('passcode2') passcode2 :ElementRef;
-  @ViewChild('passcode3') passcode3 :ElementRef;
-  @ViewChild('passcode4') passcode4 :ElementRef;
+  @ViewChild('ingreso1')  passcode1;
+  @ViewChild('ingreso2') passcode2 ;
+  @ViewChild('ingreso3') passcode3 ;
+  // @ViewChild('ingreso4') passcode4:HTMLElement ;
+  @ViewChild('ingreso4') passcode4;
 
-  @ViewChild('passcode1')  passcode11;
-  @ViewChild('passcode2') passcode22 ;
-  @ViewChild('passcode3') passcode33 ;
-  @ViewChild('passcode4') passcode44;
+  // @ViewChild('passcode1')  passcode11;
+  // @ViewChild('passcode2') passcode22 ;
+  // @ViewChild('passcode3') passcode33 ;
+  // @ViewChild('passcode4') passcode44;
   // @ViewChild('error_code') error_code :HTMLElement;
   public values: any = [];
 
@@ -88,13 +89,22 @@ export class IngresaPinPage implements OnInit {
   }
 
   onKeyUp(event, index) {
-    if (event.target.value.length != 1) {
-      this.setFocus(index - 2);
-    } else {
-      this.values.push(event.target.value);
+    // if (event.target.value.length != 1) {
+    //   this.setFocus(index - 2);
+    // } else {
+      this.values.push(index);
       // event.target.type = "password";
-      this.setFocus(index);
-    }
+      if(index=="borrar"){
+        this.setFocus("borrar");
+        this.values = [];
+      }
+      else if(this.values.length==4){
+        this.setFocus(this.values.length);
+        this.validarCodigo();
+      }
+      else 
+        this.setFocus(this.values.length);
+      console.log(this.values);
     event.stopPropagation();
   }
   setFocus(index) {
@@ -102,23 +112,37 @@ export class IngresaPinPage implements OnInit {
     console.log(index);
     switch (index) {
       case 0:
-        this.passcode22.setFocus();
-        this.passcode2.nativeElement.setFocus();
+        // this.
+        this.passcode1.nativeElement.classList.toggle("confirm");
+        // this.passcode22.setFocus();
+        // this.passcode2.nativeElement.setFocus();
         break;
       case 1:
-        this.passcode33.setFocus();
-        this.passcode3.nativeElement.setFocus();
+        this.passcode2.nativeElement.classList.toggle("confirm");
+        // this.passcode33.setFocus();
+        // this.passcode3.nativeElement.setFocus();
         break;
       case 2:
-        this.passcode44.setFocus();
-        this.passcode4.nativeElement.setFocus();
+        this.passcode3.nativeElement.classList.toggle("confirm");
+        // this.passcode44.setFocus();
+        // this.passcode4.nativeElement.setFocus();
         break;
       case 3:
-        this.validarCodigo();
+        this.passcode4.nativeElement.classList.toggle("confirm");
+        // this.passcode44.setFocus();
+        // this.passcode4.nativeElement.setFocus();
         break;
       default:
-        this.passcode1.nativeElement.setFocus();
-        this.passcode11.setFocus();
+        this.passcode1.nativeElement.classList.remove("confirm");
+        this.passcode2.nativeElement.classList.remove("confirm");
+        this.passcode3.nativeElement.classList.remove("confirm");
+        this.passcode4.nativeElement.classList.remove("confirm");
+        // this.passcode44.setFocus();
+        // this.passcode4.nativeElement.setFocus();
+        break;
+      
+        // this.passcode1.nativeElement.setFocus();
+        // this.passcode11.setFocus();
     }
     // console.log(this.clave1+""+this.clave2+""+this.clave3+""+this.clave4+"");
   }

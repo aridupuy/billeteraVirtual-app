@@ -26,7 +26,7 @@ export class PatronGuard implements CanActivate {
     state: RouterStateSnapshot): Promise<boolean> {
 
     return await new Promise(async (resolve, reject) => {
-      if (!this.platfrom.is('mobile') && localStorage.getItem("token") != null && localStorage.getItem("token")!=""){
+      if (this.platfrom.is('mobile') && localStorage.getItem("token") != null && localStorage.getItem("token")!=""){
         if (localStorage.getItem("inBackground") == null || localStorage.getItem("inBackground") == "1") {
           if (localStorage.getItem("pin") == undefined || localStorage.getItem("pin") == null) {
             await this.mostrarModal("crear").then(data => {
@@ -35,28 +35,12 @@ export class PatronGuard implements CanActivate {
               reject(false);
             });
           }
-          
-          // else {
-          //   console.log("va a validar");
-          //   await this.mostrarModal("validar").then(data => {
-          //     console.log("valida true");
-          //     resolve(true);
-
-          //   }).catch(data => {
-          //     console.log("valida false");
-          //     reject(false);
-
-          //   });
-          // }
           if (next.url.toString() == "ingresopatron") {
             console.log("ingresopatron");
             localStorage.setItem("inBackground", "0");
             console.log("false");
-
           }
-        
         }
-        
         else {
           console.log("no requiere auth");
         }
@@ -66,6 +50,7 @@ export class PatronGuard implements CanActivate {
       console.log("true aca");
       resolve(true);
     })
+    
   }
 
   async mostrarModal(tipo) {

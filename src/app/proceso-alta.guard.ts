@@ -40,7 +40,7 @@ export class ProcesoAltaGuard implements CanActivate {
       // }
       await this.proceso.validar().then(async (data: datosProceso) => {
         console.log(data);
-
+        console.log("aca3");
         if(data.estado_cuenta==4){
           const navigationExtras: NavigationExtras = {
             queryParams: {
@@ -105,6 +105,7 @@ export class ProcesoAltaGuard implements CanActivate {
           resp = true
         }
         Cookie.set("validador", validador.toString(), this.DIAS);
+        console.log(resp);
         return resp;
       }).catch(data=>{
         console.log("PROCESO_ALTA");

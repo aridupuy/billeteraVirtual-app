@@ -33,7 +33,7 @@ export class LoginService extends ServiceService {
 
   URL = environment.URL_LOGIN;
   public token;
-  public static singleton = 0;
+  public static singleton;
   //public storage;
   //public URL = "http://192.168.0.163:358/";
 
@@ -67,6 +67,7 @@ export class LoginService extends ServiceService {
   checkToken(url, json) {
 
     return new Promise((resolve, rejects) => {
+      json = {token:localStorage.getItem("token")};
       if (!localStorage.getItem("token") || localStorage.getItem("token") == 'false' || localStorage.getItem("token") == undefined) {
         console.log("no logueado");
         rejects(false);
@@ -80,18 +81,20 @@ export class LoginService extends ServiceService {
           }
           else {
             let resp;
+            if(LoginService.singleton!=null && LoginService.singleton[json.token]!=undefined)
+              return data
             // if (LoginService.singleton == 0) {
               // LoginService.singleton=1;
               await this.loginWithToken("api/loginwithtoken", json).then((data) => {
                 console.log(data);
                 resolve(data);
                 resp = true;
-                // LoginService.singleton=0;
+                LoginService.singleton[json.token] = data;
                 return resp;
               }).catch((data) => {
                 rejects(data);
                 resp = false;
-                // LoginService.singleton=0;
+                
                 return resp;
               });
             // }
@@ -109,15 +112,21 @@ export class LoginService extends ServiceService {
         });
     });
   }
-
+  public resp;
   loginWithToken(url, json) {
     console.log("loginWithToken");
-    return new Promise((resolve, rejects) => {
+    if(this.resp!=null){
+      console.error("retorno cache loginWithToken");
+      return this.resp;
+    }
+
+    this.resp= new Promise((resolve, rejects) => {
       if (!localStorage.getItem("token") || localStorage.getItem("token") == 'false' || localStorage.getItem("token") == undefined) {
         console.log("no logueado");
         localStorage.removeItem("intentosLogin");
         rejects(false);
       }
+      json = {token:localStorage.getItem("token")};
       this.post<Ilogin>(url, json, httpOption)
         .subscribe(async (data) => {
           // console.log(data);
@@ -150,6 +159,8 @@ export class LoginService extends ServiceService {
           return resolve(this.token);
         });
     });
+    console.log(this.resp);
+    return this.resp;
   }
 
 

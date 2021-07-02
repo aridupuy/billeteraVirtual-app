@@ -265,4 +265,41 @@ export class HomePage implements OnInit {
 
     return await modal.present();
   }
+  MenuDatosCuenta() {
+    this.navCtl.navigateForward("datos-cuenta");
+    // menuController.close()
+  }
+  MenuHistorial() {
+    this.navCtl.navigateForward("historial");
+    // menuController.close()
+  }
+  MenuAmigos() {
+    this.navCtl.navigateForward("amigos");
+    // menuController.close()
+  }
+  MenuIngresoDinero() {
+    this.navCtl.navigateForward("ingreso-dinero");
+    // menuController.close()
+  }
+  MenuRetiroDinero() {
+    this.navCtl.navigateForward("transferir-dinero");
+    // menuController.close()
+  }
+  MenuTransferirDinero() {
+    this.navCtl.navigateForward("retirar-dinero");
+    // menuController.close()
+  }
+  MenuCodigoQR() {
+    this.navCtl.navigateForward("codigo-qr");
+    // menuController.close()
+  }
+  MenuAyuda() {
+    this.navCtl.navigateForward("ayuda");
+    // menuController.close()
+  }
+  MenuLogout() {
+    this.navCtl.navigateForward("logout");
+    // menuController.close()
+  }
 }
+
