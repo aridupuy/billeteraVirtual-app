@@ -106,7 +106,10 @@ export class ProcesoAltaGuard implements CanActivate {
         }
         Cookie.set("validador", validador.toString(), this.DIAS);
         return resp;
-      }).catch();
+      }).catch(data=>{
+        console.log("PROCESO_ALTA");
+        this.navCtrl.navigateRoot("home");
+      });
     }
     else{
       return true;

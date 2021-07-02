@@ -16,19 +16,20 @@ export class LoginGuardGuard implements CanActivate {
     ){
       //
       var resp = false;
-      console.log("aca");
+      console.log("Loguin Guard");
+      console.error("Loguin Guard");
       await this.login.checkToken("api/checkToken", {token: localStorage.getItem("token")}).then(data=>{
         console.log(data);
-        resp=false;
+        resp=true;
         console.log("voy a ingreso");
-        this.router.navigateByUrl("home");
-        return false;
+        // this.router.navigateByUrl("home");
+        return true;
       }).catch(data=>{
         console.log(data);
         localStorage.removeItem("token");
-        // this.router.navigateByUrl("welcome");
-        resp=true;
-        return true
+        this.router.navigateByUrl("welcome");
+        resp=false;
+        return false
       });
       return resp;
   }

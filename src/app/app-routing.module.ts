@@ -1,6 +1,7 @@
 import { AuthGuardGuard } from './auth-guard.guard';
 import { PatronGuard } from './patron.guard';
 import { ProcesoAltaGuard } from './proceso-alta.guard';
+import { LoginGuardGuard } from './login-guard.guard';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
@@ -169,7 +170,7 @@ const routes: Routes = [
   },
   {
     path: 'menuprincipal',
-    loadChildren: () => import('./menuprincipal/menuprincipal.module').then( m => m.MenuprincipalPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
+    loadChildren: () => import('./menuprincipal/menuprincipal.module').then( m => m.MenuprincipalPageModule),canActivate: [ProcesoAltaGuard]
   },
   {
     path: 'datos-cuenta',
@@ -274,13 +275,18 @@ const routes: Routes = [
   {
     path: 'ingresar-efectivo-monto',
     loadChildren: () => import('./ingresar-efectivo-monto/ingresar-efectivo-monto.module').then( m => m.IngresarEfectivoMontoPageModule)
-  },  {
+  },
+  {
     path: 'changecel',
     loadChildren: () => import('./changecel/changecel.module').then( m => m.ChangecelPageModule)
   },
   {
     path: 'changemail',
     loadChildren: () => import('./changemail/changemail.module').then( m => m.ChangemailPageModule)
+  },
+  {
+    path: 'logout',
+    loadChildren: () => import('./logout/logout.module').then( m => m.LogoutPageModule)
   },
 
 

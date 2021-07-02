@@ -105,7 +105,8 @@ export class ServiceService extends HttpClient {
           AppComponent.cargando=false;
           return data as unknown as T;
         }
-        // console.log(data);
+        if(data.length<3)
+          return null;
         return JSON.parse(this.decrypt(JSON.stringify(data), CLAVE_ENCRIPTACION)) as T;
       }
       )
