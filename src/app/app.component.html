@@ -9,51 +9,58 @@
           <span class="bienvenida">Hola,<span class="username"> {{usuario}}</span></span>
         </div>
       </div>
-    <div class="menu-lista">
-      <a (click)="MenuDatosCuenta()" class="opcion-menu">
-        <img src="assets/img/menu/user.svg" alt="">
-        <p>Datos de mi cuenta</p>
-      </a>
-      <a (click)="MenuHistorial()" class="opcion-menu">
-        <img src="assets/img/menu/historial.svg" alt="">
-        <p>Historial de Movimientos</p>
-      </a>
-      <a (click)="MenuAmigos()" class="opcion-menu">
-        <img src="assets/img/menu/friends.svg" alt="">
-        <p>Amigos</p>
-      </a>
-    </div>
-    <div class="menu-lista">
-      <a (click)="MenuIngresoDinero()" class="opcion-menu">
-        <img src="assets/img/menu/ingreso-dinero.svg" alt="">
-        <p>Ingreso de dinero</p>
-      </a>
-      <a (click)="MenuTransferirDinero()" class="opcion-menu">
-        <img src="assets/img/menu/transferir-dinero.svg" alt="">
-        <p>Transferir dinero</p>
-      </a>
-      <a (click)="MenuRetiroDinero()" class="opcion-menu">
-        <img src="assets/img/menu/retirar-dinero.svg" alt="">
-        <p>Retiro de dinero</p>
-      </a>
-      <a (click)="MenuCodigoQR()" class="opcion-menu">
-        <img src="assets/img/menu/qr.svg" alt="">
-        <p>QR</p>
-      </a>
-    </div>
-    <div class="menu-lista">
-      <a (click)="MenuAyuda()" class="opcion-menu">
-        <img src="assets/img/menu/ayuda.svg" alt="">
-        <p>Ayuda</p>
-      </a>
-      <a (click)="MenuLogout()" class="opcion-menu">
-        <img src="assets/img/menu/logout.svg" alt="">
-        <p>Cerrar Sesión</p>
-      </a>
-    </div>
-    
+       <div class="menu-lista" *ngFor="let grupo of menu">
+          <a (click)="Ir(item.path)" class="opcion-menu" *ngFor="let item of grupo">
+          <img [src]="item.icono" alt="">
+          <p>{{item.nombre}}</p>
+        </a>
+      </div>
+      <!-- <div class="menu-lista">
+        <a (click)="MenuDatosCuenta()" class="opcion-menu">
+          <img src="assets/img/menu/user.svg" alt="">
+          <p>Datos de mi cuenta</p>
+        </a>
+        <a (click)="MenuHistorial()" class="opcion-menu">
+          <img src="assets/img/menu/historial.svg" alt="">
+          <p>Historial de Movimientos</p>
+        </a>
+        <a (click)="MenuAmigos()" class="opcion-menu">
+          <img src="assets/img/menu/friends.svg" alt="">
+          <p>Amigos</p>
+        </a>
+      </div>
+      <div class="menu-lista">
+        <a (click)="MenuIngresoDinero()" class="opcion-menu">
+          <img src="assets/img/menu/ingreso-dinero.svg" alt="">
+          <p>Ingreso de dinero</p>
+        </a>
+        <a (click)="MenuTransferirDinero()" class="opcion-menu">
+          <img src="assets/img/menu/transferir-dinero.svg" alt="">
+          <p>Transferir dinero</p>
+        </a>
+        <a (click)="MenuRetiroDinero()" class="opcion-menu">
+          <img src="assets/img/menu/retirar-dinero.svg" alt="">
+          <p>Retiro de dinero</p>
+        </a>
+        <a (click)="MenuCodigoQR()" class="opcion-menu">
+          <img src="assets/img/menu/qr.svg" alt="">
+          <p>QR</p>
+        </a>
+      </div> -->
+
+      <div class="menu-lista">
+        <a (click)="MenuAyuda()" class="opcion-menu">
+          <img src="assets/img/menu/ayuda.svg" alt="">
+          <p>Ayuda</p>
+        </a>
+        <a (click)="MenuLogout()" class="opcion-menu">
+          <img src="assets/img/menu/logout.svg" alt="">
+          <p>Cerrar Sesión</p>
+        </a>
+      </div>
+
     </ion-content>
-  </ion-menu>      
+  </ion-menu>
   <ion-router-outlet id="main"></ion-router-outlet>
   <app-preloader *ngIf="getCargando()"></app-preloader>
 </ion-app>
