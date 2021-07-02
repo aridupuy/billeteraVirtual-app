@@ -15,45 +15,29 @@
   <h1 class="align-center">
     ¡Reingresá el PIN de acceso!
   </h1>
-  <div class="form">
-    <!-- <div class="input-container confirma-sms">
-      <ion-item class="number-code">
-        <ion-input type="password" maxlength="1" class="align-center" #passcode1 (keyup)="onKeyUp($event,1)" ></ion-input>
-      </ion-item>
-      <ion-item class="number-code">
-        <ion-input type="password" maxlength="1" class="align-center" #passcode2 (keyup)="onKeyUp($event,2)" ></ion-input>
-      </ion-item>
-      <ion-item class="number-code">
-        <ion-input type="password" maxlength="1" class="align-center" #passcode3 (keyup)="onKeyUp($event,3)" ></ion-input>
-      </ion-item>
-      <ion-item class="number-code">
-        <ion-input type="password" maxlength="1" class="align-center" #passcode4 (keyup)="onKeyUp($event,4)" ></ion-input>
-      </ion-item>
-    </div> -->
-    <div class="input-container confirma-sms">
-      <ion-item class="number-code">
-        <ion-input type="number" maxlength="1" class="align-center" #passcode1 (keyup)="onKeyUp($event,1)" ></ion-input>
-      </ion-item>
-      <ion-item class="number-code">
-        <ion-input type="number" maxlength="1" class="align-center" #passcode2 (keyup)="onKeyUp($event,2)" ></ion-input>
-      </ion-item>
-      <ion-item class="number-code">
-        <ion-input type="number" maxlength="1" class="align-center" #passcode3 (keyup)="onKeyUp($event,3)" ></ion-input>
-      </ion-item>
-      <ion-item class="number-code">
-        <ion-input type="number" maxlength="1" class="align-center" #passcode4 (keyup)="onKeyUp($event,4)" ></ion-input>
-      </ion-item>
-    </div>
+  <div class="confirma-sms">
+    <div class="ingreso confirm" #1></div>
+    <div class="ingreso" #2></div>
+    <div class="ingreso" #3></div>
+    <div class="ingreso" #4></div>
   </div>
-  <div class="msg full danger" color="danger" *ngIf="error_code">
+  <div class="msg full danger" color="danger" #error_code>
     El codigo ingresado es incorrecto
   </div>
-</div>
-<div class="onboarding-btn-group">
-  <a (click)="LostPassword()" class="link">Olvide mi contraseña</a>
-  <div class="btn-round activo"  (click)="validarCodigo()">
-    
-    Continuar
+  <div class="teclado">
+    <div class="tecla" #1>1</div>
+    <div class="tecla" #2>2</div>
+    <div class="tecla" #3>3</div>
+    <div class="tecla" #4>4</div>
+    <div class="tecla" #5>5</div>
+    <div class="tecla" #6>6</div>
+    <div class="tecla" #7>7</div>
+    <div class="tecla" #8>8</div>
+    <div class="tecla" #9>9</div>
+    <div class="tecla transparent" #none> </div>
+    <div class="tecla" #0>0</div>
+    <div class="tecla" #del>Borrar</div>
   </div>
+  <a (click)="LostPassword()" class="link">Olvide mi contraseña</a>
 </div>
 </ion-content>

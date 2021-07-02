@@ -189,6 +189,7 @@ export class AppComponent implements OnInit {
 
 
   }
+
   public modal_abierto = 0;
   IrAtras() {
     this.navCtrl.back();
