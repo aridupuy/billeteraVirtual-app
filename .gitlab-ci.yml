@@ -43,6 +43,9 @@ build_ios:
   before_script:
     - /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     - /home/linuxbrew/.linuxbrew/bin/brew install node
+    - ls /home/linuxbrew/.linuxbrew/
+    - ls /home/linuxbrew/.linuxbrew/etc/
+    - - ls /home/linuxbrew/.linuxbrew/bin/
     - npm update
     - npm install
   script:
