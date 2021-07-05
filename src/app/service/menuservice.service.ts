@@ -1,8 +1,6 @@
 import { ServiceService } from './service.service';
 import { Imenu } from '../interfaces/Imenu';
 import { Injectable } from '@angular/core';
-import { rejects } from 'assert';
-import { resolve } from '../../../platforms/android/cordova/lib/target';
 var httpOptions = {
 
   headers: { 'Content-Type': 'application/json', "token": "" }
