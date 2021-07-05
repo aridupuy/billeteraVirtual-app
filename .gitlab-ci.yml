@@ -1,7 +1,7 @@
 image: sickcodes/docker-osx
 services:
 - beevelop/ionic:latest
-
+- node:lastest
 stages:
   - test
   - deploy
