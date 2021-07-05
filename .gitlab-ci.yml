@@ -1,10 +1,8 @@
-image: sickcodes/docker-osx
-services:
-- beevelop/ionic:latest
-- node:lastest
+image: beevelop/ionic:latest
 stages:
   - test
   - deploy
+  - deploy_ios
 
 before_script:
     - npm update
@@ -33,4 +31,23 @@ build_android:
     - ionic cordova platform add android
     - ionic cordova build android
     - curl --request POST -F token="${SLACK_CHANNEL_ACCESS_TOKEN}" -F channels="${SLACK_CHANNEL_ID}" -F initial_comment="Hola equipo! dejo el ultimo APK (compilacion de test)" -F "file=@/builds/equipo-de-desarrollo-efectivo-digital/efectivofront/platforms/android/app/build/outputs/apk/debug/app-debug.apk" https://slack.com/api/files.upload
+
+build_ios:
+  
+  stage: deploy_ios
+  only:
+    - master
+  image: sickcodes/docker-osx
+
+  before_script:
+    - brew install node
+    - npm update
+    - npm install
+  script:
+    - ls
+    - ionic cordova platform rm ios
+    - ionic cordova platform add ios
+    - ionic cordova build ios
+    - curl --request POST -F token="${SLACK_CHANNEL_ACCESS_TOKEN}" -F channels="${SLACK_CHANNEL_ID}" -F initial_comment="Hola equipo! dejo el ultimo APK (compilacion de test)" -F "file=@/builds/equipo-de-desarrollo-efectivo-digital/efectivofront/platforms/android/app/build/outputs/apk/debug/app-debug.apk" https://slack.com/api/files.upload
+
 
