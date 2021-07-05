@@ -1,8 +1,8 @@
 
 image: beevelop/ionic:latest
 stages:
-  - test
-  - deploy
+  - build_web
+  - deploy_android
   - deploy_ios
 
 before_script:
@@ -16,14 +16,14 @@ cache:
     - node_modules/
     
 build_web:
-  stage: test
+  stage: build_web
   only:
       - master
   script:
     - ionic build 
 
 build_android:
-  stage: deploy
+  stage: deploy_android
   only:
     - master
   script:
