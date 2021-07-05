@@ -45,7 +45,7 @@ build_ios:
     - /home/linuxbrew/.linuxbrew/bin/brew install node
     - ls /home/linuxbrew/.linuxbrew/
     - ls /home/linuxbrew/.linuxbrew/etc/
-    - - ls /home/linuxbrew/.linuxbrew/bin/
+    - ls /home/linuxbrew/.linuxbrew/bin/
     - npm update
     - npm install
   script:
