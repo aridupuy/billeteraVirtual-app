@@ -1,11 +1,5 @@
-<<<<<<< HEAD
+
 image: beevelop/ionic:latest
-=======
-image: sickcodes/docker-osx
-services:
-- beevelop/ionic:latest
-- node
->>>>>>> 9bf072b1874d364a688c26f41bfb1d6caa787dcc
 stages:
   - test
   - deploy
