@@ -1,4 +1,4 @@
-image: marcoturi/ionic:latest
+image: beevelop/ionic:latest
 
 stages:
   - test
