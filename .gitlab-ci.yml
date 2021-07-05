@@ -1,4 +1,6 @@
-image: beevelop/ionic:latest
+image: sickcodes/docker-osx
+services:
+- beevelop/ionic:latest
 
 stages:
   - test
