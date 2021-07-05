@@ -1,4 +1,3 @@
-
 image: beevelop/ionic:latest
 stages:
 #  - build_web
@@ -42,7 +41,7 @@ build_ios:
   image: sickcodes/docker-osx
 
   before_script:
-    -/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    - /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     - brew install node
     - npm update
     - npm install
