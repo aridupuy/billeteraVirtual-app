@@ -26,6 +26,7 @@ export class PatronGuard implements CanActivate {
     state: RouterStateSnapshot): Promise<boolean> {
 
     return await new Promise(async (resolve, reject) => {
+      // alert(this.platfrom.is('mobile'));
       if (this.platfrom.is('mobile') && localStorage.getItem("token") != null && localStorage.getItem("token")!=""){
         if (localStorage.getItem("inBackground") == null || localStorage.getItem("inBackground") == "1") {
           if (localStorage.getItem("pin") == undefined || localStorage.getItem("pin") == null) {
@@ -36,18 +37,12 @@ export class PatronGuard implements CanActivate {
             });
           }
           if (next.url.toString() == "ingresopatron") {
-            console.log("ingresopatron");
+            // console.log("ingresopatron");
             localStorage.setItem("inBackground", "0");
-            console.log("false");
+            // console.log("false");
           }
         }
-        else {
-          console.log("no requiere auth");
-        }
-      }else{
-        console.log("En NAVEGADOR");
       }
-      console.log("true aca");
       resolve(true);
     })
     
@@ -78,7 +73,7 @@ export class PatronGuard implements CanActivate {
           return await modal.present();
 
         });
-        console.log("aca Modal patron");
+        // console.log("aca Modal patron");
         return await modal.present();
       case "validar":
       // const modal2 = await this.modalCtrl.create({
@@ -102,7 +97,7 @@ export class PatronGuard implements CanActivate {
 
   }
   validarClave(clave1, clave2): Boolean {
-    console.log(clave1, clave2);
+    // console.log(clave1, clave2);
     if (clave1 === clave2)
       return true;
     return false;
@@ -110,7 +105,7 @@ export class PatronGuard implements CanActivate {
   guardarClave(clave) {
     let claveEnc = this.service.encrypt(clave, pass);
     localStorage.setItem("pin", claveEnc); 
-    console.log("clave guardada");
+    // console.log("clave guardada");
     return true;
   }
 

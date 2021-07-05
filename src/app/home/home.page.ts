@@ -51,9 +51,9 @@ export class HomePage implements OnInit {
 
   ngOnInit(): void {
     // AppComponent.cargando=true;
-    console.log("EN HOME");
+    // console.log("EN HOME");
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
-    console.log(p);
+    // console.log(p);
     if (this.route.snapshot.queryParamMap.has("param")) {
       this.valida_ident = p.valida_ident ;
       this.valida_mail = p.valida_mail ;
@@ -133,7 +133,7 @@ export class HomePage implements OnInit {
       // let fila = {titulo:data[0].mp,precio:data[0].monto,fecha:data[0].fecha_pago,tipo:data[0].concepto,click: function () {}};
       // this.items[i]=fila;
       this.itemback = this.items;
-      console.log(this.items);
+      // console.log(this.items);
     });
 
 
@@ -188,13 +188,13 @@ export class HomePage implements OnInit {
       //console.log(data);
       let i = 0;
       for (const dato of data) {
-        console.log(data);
+        // console.log(data);
         const fila = { titulo: dato.mp, precio: dato.monto, fecha: dato.fecha_pago, tipo: dato.concepto, id_tipo_trans: dato.id_tipo_trans, id_cuenta: dato.id_cuenta, fijo: dato.pri_fijo, variable: dato.pri_variable, monto_final: dato.monto_final, id_entidad: dato.id_entidad, id_referencia: dato.id_referencia, resumen: dato.resumen_op, click() { } };
         // tslint:disable-next-line: triple-equals
         if (this.items == undefined) {
           this.items = [fila];
         }
-        console.log(fila);
+        // console.log(fila);
         this.items.push(fila);
         i++;
       }
@@ -259,7 +259,7 @@ export class HomePage implements OnInit {
     modal.onDidDismiss().then((modalDataResponse) => {
       if (modalDataResponse !== null) {
         this.modalDataResponse = modalDataResponse.data;
-        console.log('Modal Sent Data : ' + modalDataResponse.data);
+        // console.log('Modal Sent Data : ' + modalDataResponse.data);
       }
     });
 

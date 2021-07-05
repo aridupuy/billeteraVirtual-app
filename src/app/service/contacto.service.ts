@@ -120,6 +120,7 @@ export class ContactoService extends ServiceService {
 
 
         if (data.resultado != null && data.resultado === false) {
+          console.log(data.log);
           reject(data.log);
         }
 

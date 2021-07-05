@@ -30,7 +30,7 @@ import { LoginService } from './service/login.service';
 })
 export class AppComponent implements OnInit {
   public usuario;
-  public iniciales;
+  public iniciales = "ID";
   public modalDataResponse: any;
   public static cargando = false;
   public menu = Array();
@@ -39,47 +39,30 @@ export class AppComponent implements OnInit {
   async ngOnInit() {
 
     let menu = localStorage.getItem("menu");
-    if (menu || menu.length > 0) {
+    if (menu && menu.length > 0) {
       let data = JSON.parse(menu);
       for (var i in data) {
         this.menu.push(data[i]);
       }
     }
-    // this.checkToken("api/checkToken", {token: localStorage.getItem("token")}).then(()=>console.log()).catch(()=>console.log());   
     this.platform.ready().then(async () => {
-    this.statusBar.styleDefault();
-    this.splashScreen.hide();
-    // AppComponent.cargando=false;
-    document.addEventListener("resume", this.onDeviceresume, false);
-    document.addEventListener("pause", this.onPause, false);
-    document.addEventListener("stop", this.onPause, false);
-    /*Esto es un test para mas adelante */
-    Deeplinks.routeWithNavController(this.navCtrl, {
-      '/': HomePage,
-      '/amigos': AmigosPage,
-      '/ingresodinero': IngresoDineroPage
-    }).subscribe((match) => {
-      console.log('Successfully routed', match);
-    }, (nomatch) => {
-      console.warn('Unmatched Route', nomatch);
-    });
-
-
-    console.error("app.component");
-    // await this.loginService.checkToken("api/checkToken", { token: localStorage.getItem("token") })
-    //   .then(data => {
-    //     // if (localStorage.getItem("token") != null) {
-    //     // alert("aca");
-
-
-    //     // if (localStorage.getItem("token") != null)
-
-    //   })
-    //   .catch(data => {
-    //     this.navCtrl.navigateBack("/");
-    //   });
-
-
+      this.statusBar.styleDefault();
+      this.splashScreen.hide();
+      // AppComponent.cargando=false;
+      document.addEventListener("resume", this.onDeviceresume, false);
+      document.addEventListener("pause", this.onPause, false);
+      document.addEventListener("stop", this.onPause, false);
+      /*Esto es un test para mas adelante */
+      Deeplinks.routeWithNavController(this.navCtrl, {
+        '/': HomePage,
+        '/amigos': AmigosPage,
+        '/ingresodinero': IngresoDineroPage
+      }).subscribe((match) => {
+        console.log('Successfully routed', match);
+      }, (nomatch) => {
+        console.warn('Unmatched Route', nomatch);
+      });
+      // console.error("app.component");
     });
     this.pago.registrar_observer();
 
@@ -101,12 +84,12 @@ export class AppComponent implements OnInit {
   obtener_array_menu() {
     let menu = Cookie.get("menu");
     // let menu = localStorage.getItem("menu");
-    if(localStorage.getItem("token")==undefined){
+    if (localStorage.getItem("token") == undefined) {
       return false;
     }
     if (!menu || menu.length == 0) {
       this.menuService.obtener_menu().then((data: []) => {
-        this.menu=[];
+        this.menu = [];
         data.forEach(element => {
           this.menu.push(element);
         });
@@ -115,7 +98,7 @@ export class AppComponent implements OnInit {
       })
     }
     else {
-      this.menu=[];
+      this.menu = [];
       let data = JSON.parse(menu);
       for (var i in data) {
         this.menu.push(data[i]);
@@ -125,15 +108,17 @@ export class AppComponent implements OnInit {
     return this.menu;
     // }
   }
+  obtener_iniciales() {
+    return localStorage.getItem("iniciales");
+  }
   obtener_nombre() {
-    if(localStorage.getItem("token")==undefined){
+    if (localStorage.getItem("token") == undefined) {
       return false;
     }
     let nombre = localStorage.getItem("nombre");
-    let iniciales = localStorage.getItem("iniciales");
-    if (nombre && iniciales) {
+
+    if (nombre) {
       this.usuario = nombre;
-      this.iniciales = iniciales;
       return this.usuario;
     }
     else {
@@ -149,11 +134,11 @@ export class AppComponent implements OnInit {
             .map(it => it.charAt(0))
             .slice(2, 3)
             .join('');
-        console.log("aca");
+        // console.log("aca");
         // localStorage.setItem("usuario", JSON.stringify(data));
         localStorage.setItem("nombre", this.usuario);
         localStorage.setItem("iniciales", this.iniciales);
-        console.log(this.usuario);
+        // console.log(this.usuario);
         // alert("DATOS USUARIO CARGADO");
       });
     }
@@ -166,39 +151,39 @@ export class AppComponent implements OnInit {
     return AppComponent.cargando;
   }
   onPause = () => {
-    console.log("pause");
-    console.log(localStorage.getItem("onboarding"));
+    // console.log("pause");
+    // console.log(localStorage.getItem("onboarding"));
     if (localStorage.getItem("token") != null && localStorage.getItem("token") != "" && localStorage.getItem("onboarding") == null && localStorage.getItem("onboarding") != "1") {
       localStorage.setItem("inBackground", "1");
       this.mostrarModal("validar");
     }
   }
   onDeviceresume = async () => {
-    console.log("onDeviceresume");
-    console.log(localStorage.getItem("onboarding"));
+    // console.log("onDeviceresume");
+    // console.log(localStorage.getItem("onboarding"));
     // localStorage.setItem("inBackground", "1");
     if (localStorage.getItem("token") != null && localStorage.getItem("token") != "" && localStorage.getItem("onboarding") == null && localStorage.getItem("onboarding") != "1")
       if (localStorage.getItem("inBackground") == "1") {
-        console.log("aca Modal patron");
+        // console.log("aca Modal patron");
         this.mostrarModal("validar");
       }
   }
 
   validarClave(clave1, clave2): Boolean {
-    console.log(clave1, clave2);
+    // console.log(clave1, clave2);
     if (clave1 === clave2)
       return true;
     return false;
   }
 
   async mostrarModal(tipo) {
-    console.log(localStorage.getItem("modal-abierto"));
+    // console.log(localStorage.getItem("modal-abierto"));
     if (this.modal_abierto == 1) {
-      console.log("no abre");
+      // console.log("no abre");
       return false;
     }
     else {
-      console.log("abre");
+      // console.log("abre");
     }
     const modal2 = await this.modalCtrl.create({
       component: IngresaPinPage,
@@ -211,11 +196,11 @@ export class AppComponent implements OnInit {
       clave1 = modalDataResponse.data;
       localStorage.setItem("inBackground", "0");
       this.modal_abierto = 0;
-      console.log("MODAL CERRADO setitem 0");
+      // console.log("MODAL CERRADO setitem 0");
       return true;
     });
     this.modal_abierto = 1;
-    console.log("MODAL ABIERTO setitem 1");
+    // console.log("MODAL ABIERTO setitem 1");
     await modal2.present();
 
 

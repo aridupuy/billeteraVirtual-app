@@ -17,13 +17,13 @@ export class AuthGuardGuard implements CanActivate {
     state: RouterStateSnapshot,
   ) {
     //
-    console.error("authGuard");
-    console.log("authGuard" + this.router.url);
+    // console.error("authGuard");
+    // console.log("authGuard" + this.router.url);
     var resp: any = false;
     // console.log(AppComponent.CheckedToken);
       await this.login.checkToken("api/checkToken", { token: localStorage.getItem("token") }).then(data => {
         resp = true;
-        console.log("llego hasta aca" + this.router.url + " " + resp);
+        // console.log("llego hasta aca" + this.router.url + " " + resp);
         localStorage.removeItem("onboarding");
         return true;
       }).catch(data => {

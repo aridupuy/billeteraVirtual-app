@@ -17,7 +17,7 @@ export class RespuestaResultadoComponent implements OnInit {
   @Input() static pedidook;
   @Input() url;
   constructor(public route: ActivatedRoute, public router: Router, public navCtrl: NavController) {
-    console.log("EN CONTRUCTOR");
+    // console.log("EN CONTRUCTOR");
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
     if (p != null) {
       if (p.mensaje != null)
@@ -33,14 +33,14 @@ export class RespuestaResultadoComponent implements OnInit {
 
   ngOnInit() {
     
-    console.log(RespuestaResultadoComponent.pedidook);
-    console.log(this.descripcion);
-    console.log(this.mensaje);
-    console.log(this.url);
+    // console.log(RespuestaResultadoComponent.pedidook);
+    // console.log(this.descripcion);
+    // console.log(this.mensaje);
+    // console.log(this.url);
   }
   volver() {
     
-    console.log(this.url);
+    // console.log(this.url);
     this.navCtrl.navigateRoot(this.url);
   }
   reintentar() {
@@ -54,7 +54,7 @@ export class RespuestaResultadoComponent implements OnInit {
   }
   public static setStatus(pedidook) {
     
-    console.log(pedidook);
+    // console.log(pedidook);
     RespuestaResultadoComponent.pedidook = pedidook;
   }
   public getStatusInternal() {

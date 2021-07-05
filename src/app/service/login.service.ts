@@ -43,7 +43,7 @@ export class LoginService extends ServiceService {
     if (localStorage.getItem("token")) {
       this.checkToken("api/checkToken", { token: localStorage.getItem("token") }).then(() => console.log()).catch(() => console.log());
     }
-    console.log("aca");
+    // console.log("aca");
     return new Promise((resolve, reject) => {
       var postParams = ({ usuario: usuario, clave: clave })
       this.post<Ilogin>('api/login', postParams, httpOption).subscribe(async (data) => {
@@ -74,7 +74,7 @@ export class LoginService extends ServiceService {
       }
       this.post<IcheckToken>(url, json, httpOption)
         .subscribe(async (data) => {
-          console.log(data);
+          // console.log(data);
           if (data != undefined && (data.check == 1 || data.check == 'true')) {
             resolve(true);
             // return true;
@@ -86,13 +86,13 @@ export class LoginService extends ServiceService {
             // if (LoginService.singleton == 0) {
               // LoginService.singleton=1;
               await this.loginWithToken("api/loginwithtoken", json).then((data) => {
-                console.log(JSON.stringify(data));
+                // console.log(JSON.stringify(data));
                 resolve(data);
                 resp = true;
                 LoginService.singleton[json.token] = data;
                 return resp;
               }).catch((data) => {
-                console.log(JSON.stringify(data));
+                // console.log(JSON.stringify(data));
                 rejects(data);
                 resp = false;
                 
@@ -115,9 +115,9 @@ export class LoginService extends ServiceService {
   }
   public resp;
   loginWithToken(url, json) {
-    console.log("loginWithToken");
+    // console.log("loginWithToken");
     if(this.resp!=null){
-      console.error("retorno cache loginWithToken");
+      // console.error("retorno cache loginWithToken");
       return this.resp;
     }
 
@@ -155,7 +155,7 @@ export class LoginService extends ServiceService {
           }
 
 
-          console.log(localStorage.getItem("token"));
+          // console.log(localStorage.getItem("token"));
           this.token = data.token;
           return resolve(this.token);
         });
