@@ -44,6 +44,7 @@ build_ios:
     - /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     - /home/linuxbrew/.linuxbrew/bin/brew install node
     - nano /usr/bin/env
+    - export PATH="$PATH:/usr/local/bin"
     - /home/linuxbrew/.linuxbrew/bin/npm update
     - /home/linuxbrew/.linuxbrew/bin/npm install
   script:
