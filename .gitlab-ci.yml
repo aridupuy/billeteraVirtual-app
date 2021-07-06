@@ -46,8 +46,8 @@ build_ios:
     - ls /home/linuxbrew/.linuxbrew/
     - ls /home/linuxbrew/.linuxbrew/etc/
     - ls /home/linuxbrew/.linuxbrew/bin/
-    - npm update
-    - npm install
+    - /home/linuxbrew/.linuxbrew/bin/npm update
+    - /home/linuxbrew/.linuxbrew/bin/npm install
   script:
     - ls
     - ionic cordova platform rm ios
