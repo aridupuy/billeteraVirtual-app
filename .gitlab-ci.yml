@@ -11,7 +11,8 @@ cache:
   paths:
     - node_modules/
 before_script:
-    - npm update
+    - npm install npm@latest -g
+    - npm update 
     
 build_android:
    stage: deploy_android
