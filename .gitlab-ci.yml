@@ -53,9 +53,8 @@ build_ios:
     #- /home/linuxbrew/.linuxbrew/bin/brew install node
     #- sudo ln -s /usr/bin/nodejs /usr/bin/node
     #- export PATH="$PATH:/usr/local/bin"
-    - ls $HOME/node-v14.17.3-darwin-x64/bin/
-    - $HOME/node-v14.17.3-darwin-x64/bin/npm install -g grunt
-    - $HOME/node-v14.17.3-darwin-x64/bin/npm install
+    - ./npm install -g grunt
+    - ./npm install
   script:
     - ls
     #- ionic cordova platform rm ios
