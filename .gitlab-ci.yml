@@ -44,16 +44,13 @@ build_ios:
     #- /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     #- curl "https://nodejs.org/dist/latest/node-${VERSION:-$(wget -qO- https://nodejs.org/dist/latest/ | sed -nE 's|.*>node-(.*)\.pkg</a>.*|\1|p')}.pkg" > "$HOME/node-latest.pkg" && sudo installer -store -pkg "$HOME/node-latest.pkg" -target "/"
     #- pkgin -y install nodejs
-    - curl "https://nodejs.org/dist/v14.17.3/node-v14.17.3.pkg" > "$HOME/node-v14.17.3.pkg"
-    - ls /usr/sbin/install
-    - sudo install  "$HOME/node-v14.17.3.pkg" -target /
-    - /usr/sbin/installer 
+    - curl "https://nodejs.org/dist/v14.17.3/node-v14.17.3-darwin-x64.tar.gz" > "$HOME/node-v14.17.3-darwin-x64.tar.gz"
+    - gunzip -c "$HOME/node-v14.17.3-darwin-x64.tar.gz" | tar xopf -
     #- /home/linuxbrew/.linuxbrew/bin/brew install node
     #- sudo ln -s /usr/bin/nodejs /usr/bin/node
     #- export PATH="$PATH:/usr/local/bin"
-    - npm install -g grunt
-    - npm update
-    - npm install
+    - "$HOME/node-v14.17.3-darwin-x64/bin/npm" install -g grunt
+    - "$HOME/node-v14.17.3-darwin-x64/bin/npm" install
   script:
     - ls
     #- ionic cordova platform rm ios
