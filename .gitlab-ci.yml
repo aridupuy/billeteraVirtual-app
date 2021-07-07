@@ -11,7 +11,7 @@ cache:
   paths:
     - node_modules/
 before_script:
-    - sudo npm install 
+    - npm install 
 build_android:
    stage: deploy_android
    only:
