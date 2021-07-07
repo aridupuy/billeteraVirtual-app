@@ -11,13 +11,14 @@ cache:
   paths:
     - node_modules/
 before_script:
-    - npm install 
+    - npm update
+    
 build_android:
    stage: deploy_android
    only:
      - master
    script:
-     - ls
+     - npm install 
      - ionic  platform rm android
      - ionic  platform add android
      - ionic  build android
