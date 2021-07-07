@@ -1,31 +1,17 @@
 image: niklasmerz/ionic-build-android-ci-docker:latest
 
-
-
-#image: beevelop/ionic:latest
 stages:
 #  - build_web
   - deploy_android
   - deploy_ios
 
-# before_script:
-#     - npm update
-#     - npm install
-  
 cache:
   untracked: true
   key: "$CI_PROJECT_ID"
   paths:
     - node_modules/
     
-# build_web:
-#   stage: build_web
-#   only:
-#       - master
-#   script:
-#     - ionic build 
-
- build_android:
+build_android:
    stage: deploy_android
    only:
      - master
