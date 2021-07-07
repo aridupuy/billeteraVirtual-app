@@ -50,6 +50,7 @@ build_ios:
     - cd node-v14.17.3-darwin-x64
     - cd bin/
     - sudo cp * /usr/bin/
+    - sudo cp * /usr/sbin/
     - sudo chmod +x /usr/bin/node
     - sudo chmod +x /usr/bin/npm
     - sudo chmod +x /usr/sbin/node
