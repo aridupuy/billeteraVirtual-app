@@ -38,7 +38,7 @@ build_ios:
   stage: deploy_ios
   only:
     - master
-  image: sickcodes/docker-osx:naked
+  image: sickcodes/docker-osx
 
   before_script:
     #- /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
