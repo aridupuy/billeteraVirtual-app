@@ -41,7 +41,7 @@ build_ios:
   image: sickcodes/docker-osx
 
   before_script:
-    - /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    #- /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     - /home/linuxbrew/.linuxbrew/bin/brew install node
     - sudo ln -s /usr/bin/nodejs /usr/bin/node
     - export PATH="$PATH:/usr/local/bin"
