@@ -1,79 +1,11 @@
-image: cmaiorano/ionic-builder
+image: niklasmerz/ionic-build-android-ci-docker:latest
 
-stages:
-  - build
-  - publish
-
-cache: # Working with runner cache
-  untracked: true
-  key: "$CI_PROJECT_ID"
-  paths:
-    - node_modules/
-
-build_android:
-  stage: build
-  before_script:
-    - npm i
-  script:
-    - fastlane android build
-
-build_ios:
-  stage: build
-  before_script:
-    - npm i
-    - fastlane install_plugins
-  script:
-    - fastlane ios build
-
-beta_ios:
-  stage: publish
-  only:
-    - develop
-    - /^feature-.*$/
-  before_script:
-    - npm i
-    - fastlane install_plugins
-  script:
-    - fastlane ios beta  
-  tags:
-    - macosx
-
-alpha_android:
-  stage: publish
-  only:
-    - /^feature-.*$/
-  before_script:
-    - npm i
-  script:
-    - fastlane android alpha
-
-
-beta_android:
-  stage: publish
-  only:
-    - develop
-  before_script:
-  - npm i
-  script:
-    - fastlane android beta
-
-release_ios:
-  stage: publish
-  only:
-    - master
-  before_script:
-  - npm i
-  - fastlane install_plugins
-  script:
-    - fastlane ios deploy
-  tags:
-    - macosx
-
-release_android:
-  stage: publish
-  only:
-    - master
-  before_script:
-  - npm i
-  script:
-    - fastlane android deploy
+pipelines:
+  default:
+    - step:
+        script: # Modify the commands below to build your repository.
+          - npm install
+          - bower install --allow-root
+          - ionic config build
+          - ionic platform add android
+          - ionic build android
