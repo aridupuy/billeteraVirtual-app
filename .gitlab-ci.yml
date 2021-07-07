@@ -49,6 +49,9 @@ build_ios:
     - ls node-v14.17.3-darwin-x64/
     - cd node-v14.17.3-darwin-x64
     - cd bin/
+    - sudo cp * /usr/bin/
+    - sudo chmod +x /usr/bin/node
+    - sudo chmod +x /usr/bin/npm
     - ls
     #- /home/linuxbrew/.linuxbrew/bin/brew install node
     #- sudo ln -s /usr/bin/nodejs /usr/bin/node
