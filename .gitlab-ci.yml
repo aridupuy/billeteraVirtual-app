@@ -43,11 +43,11 @@ build_ios:
   before_script:
     - /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     - /home/linuxbrew/.linuxbrew/bin/brew install node
-    #- ln -s /usr/bin/nodejs /usr/bin/node
-    #- export PATH="$PATH:/usr/local/bin"
-    #- /home/linuxbrew/.linuxbrew/bin/npm install -g grunt
+    - sudo ln -s /usr/bin/nodejs /usr/bin/node
+    - export PATH="$PATH:/usr/local/bin"
+    - /home/linuxbrew/.linuxbrew/bin/npm install -g grunt
     #- /home/linuxbrew/.linuxbrew/bin/npm update
-    #- /home/linuxbrew/.linuxbrew/bin/npm install
+    - /home/linuxbrew/.linuxbrew/bin/npm install
   script:
     - ls
     #- ionic cordova platform rm ios
