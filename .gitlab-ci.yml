@@ -2,7 +2,7 @@ image: niklasmerz/ionic-build-android-ci-docker:latest
 
 
 
-image: beevelop/ionic:latest
+#image: beevelop/ionic:latest
 stages:
 #  - build_web
   - deploy_android
