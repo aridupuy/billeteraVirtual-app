@@ -41,12 +41,8 @@ build_ios:
   image: sickcodes/docker-osx
 
   before_script:
-    #- /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-    #- curl "https://nodejs.org/dist/latest/node-${VERSION:-$(wget -qO- https://nodejs.org/dist/latest/ | sed -nE 's|.*>node-(.*)\.pkg</a>.*|\1|p')}.pkg" > "$HOME/node-latest.pkg" && sudo installer -store -pkg "$HOME/node-latest.pkg" -target "/"
-    #- pkgin -y install nodejs
-    - ls /usr/bin
-    - ls /usr/sbin
-    - /usr/sbin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    - /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    - ls /bin
     - brew doctor
     - brew install nodejs
     - node -v
