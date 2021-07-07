@@ -1,11 +1,57 @@
 image: niklasmerz/ionic-build-android-ci-docker:latest
 
-pipelines:
-  default:
-    - step:
-        script: # Modify the commands below to build your repository.
-          - npm install
-          - bower install --allow-root
-          - ionic config build
-          - ionic platform add android
-          - ionic build android
+
+
+image: beevelop/ionic:latest
+stages:
+#  - build_web
+  - deploy_android
+  - deploy_ios
+
+# before_script:
+#     - npm update
+#     - npm install
+  
+cache:
+  untracked: true
+  key: "$CI_PROJECT_ID"
+  paths:
+    - node_modules/
+    
+# build_web:
+#   stage: build_web
+#   only:
+#       - master
+#   script:
+#     - ionic build 
+
+ build_android:
+   stage: deploy_android
+   only:
+     - master
+   script:
+     - ls
+     - ionic cordova platform rm android
+     - ionic cordova platform add android
+     - ionic cordova build android
+     - curl --request POST -F token="${SLACK_CHANNEL_ACCESS_TOKEN}" -F channels="${SLACK_CHANNEL_ID}" -
+       F initial_comment="Hola equipo! dejo el ultimo APK (compilacion de test)" -F "file=@/builds/equipo-de-desarrollo-efectivo-digital/efectivodigitalappfront/platforms/android/app/build/outputs/apk/debug/app-debug.apk" https://slack.com/api/files.upload
+
+build_ios:
+  
+  stage: deploy_ios
+  only:
+    - master
+  #image: sickcodes/docker-osx:naked
+
+  before_script:
+    
+  script:
+    - npm install
+    - bower install --allow-root
+    - ionic config build
+    - ionic platform add ios
+    - ionic build ios
+      - curl --request POST -F token="${SLACK_CHANNEL_ACCESS_TOKEN}" -F channels="${SLACK_CHANNEL_ID}" -
+       F initial_comment="Hola equipo! dejo el ultimo APK (compilacion de test)" -F "file=@/builds/equipo-de-desarrollo-efectivo-digital/efectivodigitalappfront/platforms/android/app/build/outputs/apk/debug/app-debug.apk" https://slack.com/api/files.upload
+
