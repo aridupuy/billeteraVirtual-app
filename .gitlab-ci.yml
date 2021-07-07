@@ -1,76 +1,79 @@
-image: beevelop/ionic:latest
-stages:
-#  - build_web
-#  - deploy_android
-  - deploy_ios
+image: cmaiorano/ionic-builder
 
-# before_script:
-#     - npm update
-#     - npm install
-  
-cache:
+stages:
+  - build
+  - publish
+
+cache: # Working with runner cache
   untracked: true
   key: "$CI_PROJECT_ID"
   paths:
     - node_modules/
-    
-# build_web:
-#   stage: build_web
-#   only:
-#       - master
-#   script:
-#     - ionic build 
 
-# build_android:
-#   stage: deploy_android
-#   only:
-#     - master
-#   script:
-#     - ls
-#     - ionic cordova platform rm android
-#     - ionic cordova platform add android
-#     - ionic cordova build android
-#     - curl --request POST -F token="${SLACK_CHANNEL_ACCESS_TOKEN}" -F channels="${SLACK_CHANNEL_ID}" -
-#       F initial_comment="Hola equipo! dejo el ultimo APK (compilacion de test)" -F "file=@/builds/equipo-de-desarrollo-efectivo-digital/efectivodigitalappfront/platforms/android/app/build/outputs/apk/debug/app-debug.apk" https://slack.com/api/files.upload
+build_android:
+  stage: build
+  before_script:
+    - npm i
+  script:
+    - fastlane android build
 
 build_ios:
-  
-  stage: deploy_ios
+  stage: build
+  before_script:
+    - npm i
+    - fastlane install_plugins
+  script:
+    - fastlane ios build
+
+beta_ios:
+  stage: publish
+  only:
+    - develop
+    - /^feature-.*$/
+  before_script:
+    - npm i
+    - fastlane install_plugins
+  script:
+    - fastlane ios beta  
+  tags:
+    - macosx
+
+alpha_android:
+  stage: publish
+  only:
+    - /^feature-.*$/
+  before_script:
+    - npm i
+  script:
+    - fastlane android alpha
+
+
+beta_android:
+  stage: publish
+  only:
+    - develop
+  before_script:
+  - npm i
+  script:
+    - fastlane android beta
+
+release_ios:
+  stage: publish
   only:
     - master
-  image: sickcodes/docker-osx
-
   before_script:
-    - /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-    - ls /bin
-    - brew doctor
-    - brew install nodejs
-    - node -v
-    - npm -v 
-#    - curl "https://nodejs.org/dist/v14.17.3/node-v14.17.3-darwin-x64.tar.gz" > "$HOME/node-v14.17.3-darwin-x64.tar.gz"
-#    - gunzip -c "$HOME/node-v14.17.3-darwin-x64.tar.gz" | tar xopf -
-#    - ls node-v14.17.3-darwin-x64/
-#    - cd node-v14.17.3-darwin-x64
-#    - cd bin/
-#    - sudo cp * /usr/bin/
-#    - sudo cp * /usr/sbin/
-#    - sudo chmod +x /usr/bin/node
-#    - sudo chmod +x /usr/bin/npm
-#    - sudo chmod +x /usr/sbin/node
-#    - sudo chmod +x /usr/sbin/npm
-#    - sudo chmod 777 /usr/sbin/node
-#    - sudo chmod 777 /usr/sbin/npm
-#    - ls
-    #- /home/linuxbrew/.linuxbrew/bin/brew install node
-    #- sudo ln -s /usr/bin/nodejs /usr/bin/node
-    #- export PATH="$PATH:/usr/local/bin"
-    - npm install -g grunt
-    - npm install
+  - npm i
+  - fastlane install_plugins
   script:
-    - ls
-    #- ionic cordova platform rm ios
-    #- ionic cordova platform add ios
-    #- ionic cordova build ios
-    #- curl --request POST -F token="${SLACK_CHANNEL_ACCESS_TOKEN}" -F channels="${SLACK_CHANNEL_ID}" -F initial_comment="Hola equipo! dejo el ultimo APK (compilacion de test)" -F "file=@/builds/equipo-de-desarrollo-efectivo-digital/efectivodigitalappfront/platforms/android/app/build/outputs/apk/debug/app-debug.apk" https://slack.com/api/files.upload
+    - fastlane ios deploy
+  tags:
+    - macosx
 
-
+release_android:
+  stage: publish
+  only:
+    - master
+  before_script:
+  - npm i
+  script:
+    - fastlane android deploy
