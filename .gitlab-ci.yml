@@ -44,25 +44,31 @@ build_ios:
     #- /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     #- curl "https://nodejs.org/dist/latest/node-${VERSION:-$(wget -qO- https://nodejs.org/dist/latest/ | sed -nE 's|.*>node-(.*)\.pkg</a>.*|\1|p')}.pkg" > "$HOME/node-latest.pkg" && sudo installer -store -pkg "$HOME/node-latest.pkg" -target "/"
     #- pkgin -y install nodejs
-    - curl "https://nodejs.org/dist/v14.17.3/node-v14.17.3-darwin-x64.tar.gz" > "$HOME/node-v14.17.3-darwin-x64.tar.gz"
-    - gunzip -c "$HOME/node-v14.17.3-darwin-x64.tar.gz" | tar xopf -
-    - ls node-v14.17.3-darwin-x64/
-    - cd node-v14.17.3-darwin-x64
-    - cd bin/
-    - sudo cp * /usr/bin/
-    - sudo cp * /usr/sbin/
-    - sudo chmod +x /usr/bin/node
-    - sudo chmod +x /usr/bin/npm
-    - sudo chmod +x /usr/sbin/node
-    - sudo chmod +x /usr/sbin/npm
-    - sudo chmod 777 /usr/sbin/node
-    - sudo chmod 777 /usr/sbin/npm
-    - ls
+    - xcode-select --install
+    - /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    - brew doctor
+    - brew install nodejs
+    - node -v
+    - npm -v 
+#    - curl "https://nodejs.org/dist/v14.17.3/node-v14.17.3-darwin-x64.tar.gz" > "$HOME/node-v14.17.3-darwin-x64.tar.gz"
+#    - gunzip -c "$HOME/node-v14.17.3-darwin-x64.tar.gz" | tar xopf -
+#    - ls node-v14.17.3-darwin-x64/
+#    - cd node-v14.17.3-darwin-x64
+#    - cd bin/
+#    - sudo cp * /usr/bin/
+#    - sudo cp * /usr/sbin/
+#    - sudo chmod +x /usr/bin/node
+#    - sudo chmod +x /usr/bin/npm
+#    - sudo chmod +x /usr/sbin/node
+#    - sudo chmod +x /usr/sbin/npm
+#    - sudo chmod 777 /usr/sbin/node
+#    - sudo chmod 777 /usr/sbin/npm
+#    - ls
     #- /home/linuxbrew/.linuxbrew/bin/brew install node
     #- sudo ln -s /usr/bin/nodejs /usr/bin/node
     #- export PATH="$PATH:/usr/local/bin"
-    - ./npm install -g grunt
-    - ./npm install
+    - npm install -g grunt
+    - npm install
   script:
     - ls
     #- ionic cordova platform rm ios
