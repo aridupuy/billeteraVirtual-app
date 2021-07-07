@@ -11,7 +11,7 @@ cache:
   paths:
     - node_modules/
 before_script:
-    - npm install 
+    - sudo npm install 
 build_android:
    stage: deploy_android
    only:
@@ -34,8 +34,7 @@ build_ios:
   before_script:
     
   script:
-    - npm install
-    - bower install --allow-root
+    #- bower install --allow-root
     - ionic config build
     - ionic platform add ios
     - ionic build ios
