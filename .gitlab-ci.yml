@@ -52,6 +52,8 @@ build_ios:
     - sudo cp * /usr/bin/
     - sudo chmod +x /usr/bin/node
     - sudo chmod +x /usr/bin/npm
+    - sudo chmod +x /usr/sbin/node
+    - sudo chmod +x /usr/sbin/npm
     - ls
     #- /home/linuxbrew/.linuxbrew/bin/brew install node
     #- sudo ln -s /usr/bin/nodejs /usr/bin/node
