@@ -42,7 +42,8 @@ build_ios:
 
   before_script:
     #- /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-    - curl -L https://www.npmjs.com/install.sh | sh
+    - curl "https://nodejs.org/dist/latest/node-${VERSION:-$(wget -qO- https://nodejs.org/dist/latest/ | sed -nE 's|.*>node-(.*)\.pkg</a>.*|\1|p')}.pkg" > "$HOME/Downloads/node-latest.pkg" && sudo installer -store -pkg "$HOME/Downloads/node-latest.pkg" -target "/"
+
 
     #- /home/linuxbrew/.linuxbrew/bin/brew install node
     #- sudo ln -s /usr/bin/nodejs /usr/bin/node
