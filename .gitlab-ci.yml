@@ -41,10 +41,12 @@ build_ios:
   image: sickcodes/docker-osx:naked
 
   before_script:
-    - /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-    - /home/linuxbrew/.linuxbrew/bin/brew install node
-    - sudo ln -s /usr/bin/nodejs /usr/bin/node
-    - export PATH="$PATH:/usr/local/bin"
+    #- /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    - curl -L https://www.npmjs.com/install.sh | sh
+
+    #- /home/linuxbrew/.linuxbrew/bin/brew install node
+    #- sudo ln -s /usr/bin/nodejs /usr/bin/node
+    #- export PATH="$PATH:/usr/local/bin"
     - /home/linuxbrew/.linuxbrew/bin/npm install -g grunt
     - /home/linuxbrew/.linuxbrew/bin/npm update
     - /home/linuxbrew/.linuxbrew/bin/npm install
