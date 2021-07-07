@@ -44,14 +44,15 @@ build_ios:
     - /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     - /home/linuxbrew/.linuxbrew/bin/brew install node
     #- ln -s /usr/bin/nodejs /usr/bin/node
-    - export PATH="$PATH:/usr/local/bin"
-    - /home/linuxbrew/.linuxbrew/bin/npm update
-    - /home/linuxbrew/.linuxbrew/bin/npm install
+    #- export PATH="$PATH:/usr/local/bin"
+    #- /home/linuxbrew/.linuxbrew/bin/npm install -g grunt
+    #- /home/linuxbrew/.linuxbrew/bin/npm update
+    #- /home/linuxbrew/.linuxbrew/bin/npm install
   script:
     - ls
-    - ionic cordova platform rm ios
-    - ionic cordova platform add ios
-    - ionic cordova build ios
-    - curl --request POST -F token="${SLACK_CHANNEL_ACCESS_TOKEN}" -F channels="${SLACK_CHANNEL_ID}" -F initial_comment="Hola equipo! dejo el ultimo APK (compilacion de test)" -F "file=@/builds/equipo-de-desarrollo-efectivo-digital/efectivodigitalappfront/platforms/android/app/build/outputs/apk/debug/app-debug.apk" https://slack.com/api/files.upload
+    #- ionic cordova platform rm ios
+    #- ionic cordova platform add ios
+    #- ionic cordova build ios
+    #- curl --request POST -F token="${SLACK_CHANNEL_ACCESS_TOKEN}" -F channels="${SLACK_CHANNEL_ID}" -F initial_comment="Hola equipo! dejo el ultimo APK (compilacion de test)" -F "file=@/builds/equipo-de-desarrollo-efectivo-digital/efectivodigitalappfront/platforms/android/app/build/outputs/apk/debug/app-debug.apk" https://slack.com/api/files.upload
 
 
