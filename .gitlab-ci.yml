@@ -47,6 +47,9 @@ build_ios:
     - curl "https://nodejs.org/dist/v14.17.3/node-v14.17.3-darwin-x64.tar.gz" > "$HOME/node-v14.17.3-darwin-x64.tar.gz"
     - gunzip -c "$HOME/node-v14.17.3-darwin-x64.tar.gz" | tar xopf -
     - ls node-v14.17.3-darwin-x64/
+    - cd node-v14.17.3-darwin-x64
+    - cd bin/
+    - ls
     #- /home/linuxbrew/.linuxbrew/bin/brew install node
     #- sudo ln -s /usr/bin/nodejs /usr/bin/node
     #- export PATH="$PATH:/usr/local/bin"
