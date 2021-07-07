@@ -46,7 +46,7 @@ build_ios:
     #- pkgin -y install nodejs
     - curl "https://nodejs.org/dist/v14.17.3/node-v14.17.3.pkg" > "$HOME/node-v14.17.3.pkg"
     - ls /usr/sbin/install
-    - sudo install -pkg "$HOME/node-v14.17.3.pkg" -target /
+    - sudo install  "$HOME/node-v14.17.3.pkg" -target /
     - /usr/sbin/installer 
     #- /home/linuxbrew/.linuxbrew/bin/brew install node
     #- sudo ln -s /usr/bin/nodejs /usr/bin/node
