@@ -22,6 +22,7 @@ import { Deeplinks, DeeplinksOriginal } from '@ionic-native/deeplinks'
 import { MenuserviceService } from './service/menuservice.service';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { LoginService } from './service/login.service';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -37,7 +38,8 @@ export class AppComponent implements OnInit {
   public DIAS = 3;
   constructor(private platform: Platform, private loginService: LoginService, private statusBar: StatusBar, private splashScreen: SplashScreen, private pago: Pago, public service: ServiceService, public menuService: MenuserviceService, public modalCtrl: ModalController, public usuarioService: UsuarioService, public navCtrl: NavController) { }
   async ngOnInit() {
-
+    alert(environment.URL);
+    alert(environment.URL_LOGIN);
     let menu = localStorage.getItem("menu");
     if (menu && menu.length > 0) {
       let data = JSON.parse(menu);

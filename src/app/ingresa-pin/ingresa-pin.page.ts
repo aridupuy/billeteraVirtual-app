@@ -82,6 +82,27 @@ export class IngresaPinPage implements OnInit {
     switch (this.proposito) {
       case "crear":
         this.titulo = "Crea tu Pin";
+        this.faio.isAvailable().then((result: any) => {
+          // console.log(result)
+          
+          this.faio.show({
+            
+            cancelButtonTitle: 'Cancelar',
+            description: "Usá tus datos biometricos para iniciar sesión e ingresar a la app.",
+            disableBackup: false,
+            title: 'Hola ' + this.nombre,
+            fallbackButtonTitle: 'Atras',
+          })
+            .then((result: any) => {
+              // console.log(result);
+              this.viewCtrl.dismiss(true);
+              // this.navCtl.navigateForward("home");
+            })
+            
+        })
+          .catch((error: any) => {
+            // this.navCtrl.navigateForward(["ingreso",{}]);
+          });
         break;
       case "validar":
         this.titulo = "Ingresá tu Pin";
