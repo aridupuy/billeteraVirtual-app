@@ -85,7 +85,10 @@ export class FcmService {
         this.localNotifications.schedule({
           id: 1,
           text: data.title,
-          data: { body: data.body }
+          // icon:'../../assets/img/logo.svg',
+          priority:2,
+          data: { body: data.body },
+          foreground:true,
         });
         
         // this.router.navigate([data.landing_page, data.price]);
@@ -93,7 +96,7 @@ export class FcmService {
         this.localNotifications.schedule({
           id: 1,
           text: data.title,
-          icon:'../../assets/img/logo.svg',
+          // icon:'../../assets/img/logo.svg',
           priority:2,
           data: { body: data.body },
           foreground:true,
