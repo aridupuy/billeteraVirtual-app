@@ -71,6 +71,7 @@ export class AppComponent implements OnInit {
 
   }
   Ir(path) {
+    console.log(path);
     this.navCtrl.navigateForward(path);
     menuController.close();
   }

@@ -6,6 +6,7 @@ import { FCM } from "cordova-plugin-fcm-with-dependecy-updated/ionic";
 import www from '../../../plugins/cordova-plugin-fcm-with-dependecy-updated/src/www/rollup.config';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
+import { CordovaCheck } from '@ionic-native/core';
 
 
 
@@ -23,14 +24,14 @@ export class FcmService {
 
   async getToken() {
     let token;
-    
-    if (this.platform.is('android')) {
+    console.log(FCM.hasOwnProperty("getToken"));
+    if (this.platform.is('android') && FCM.hasOwnProperty("getToken")) {
       console.log("es android");
       await FCM.getToken().then(tok => {
         token = tok;
       });
     }
-    else if (this.platform.is('ios')) {
+    else if (this.platform.is('ios') && FCM.hasOwnProperty("getToken")) {
       console.log("es ios");
       await FCM.getToken().then(tok => {
         token = tok;
@@ -57,9 +58,10 @@ export class FcmService {
           token = tok.toString().replace("0.","0");
         }
     }
-    FCM.onTokenRefresh().subscribe((token)=>{
-      this.registerToken(token);
-    })
+    if(FCM.hasOwnProperty("getToken"))
+      FCM.onTokenRefresh().subscribe((token)=>{
+        this.registerToken(token);
+      })
     this.registerToken(token);
     console.log(token);
   }
@@ -78,7 +80,7 @@ export class FcmService {
   // }
 
   onNotifications() {
-    
+    if(FCM.hasOwnProperty("getToken"))
     return FCM.onNotification().subscribe(data=>{
       if (data.wasTapped) {
         console.log('Received in background');
