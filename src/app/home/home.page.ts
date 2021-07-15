@@ -17,6 +17,8 @@ import { UsuarioService } from '../service/usuario.service';
 // import { SaldoService } from '../service/saldo.service';
 import { Validaridentidad1Page } from '../validaridentidad1/validaridentidad1.page';
 import { AppComponent } from '../app.component';
+import { FcmService } from '../service/fcm.service';
+import { Platform } from '@ionic/angular';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -47,7 +49,7 @@ export class HomePage implements OnInit {
   modalDataResponse: any;
   public valida_mail;
   public valida_ident;
-  constructor(public modalCtrl: ModalController, public navCtl: NavController, private menu: MenuController, public saldoService: SaldoService, public transaccionesService: TransaccionesService, public route: ActivatedRoute, public router: Router, public usuarioService: UsuarioService) { }
+  constructor(private fcm : FcmService,private platform: Platform,public modalCtrl: ModalController, public navCtl: NavController, private menu: MenuController, public saldoService: SaldoService, public transaccionesService: TransaccionesService, public route: ActivatedRoute, public router: Router, public usuarioService: UsuarioService) { }
 
   ngOnInit(): void {
     // AppComponent.cargando=true;
@@ -61,6 +63,7 @@ export class HomePage implements OnInit {
       this.mensaje = p.Mensaje;
       this.validado = false;
       this.obtener_datos_usuario();
+      
       return ;
     }
     else {
@@ -69,6 +72,7 @@ export class HomePage implements OnInit {
       this.obtener_saldo();
       this.cargar_transacciones();
     }
+    this.notificationSetup();
   }
   irAHistorial() {
     this.navCtl.navigateForward("historial");
@@ -111,6 +115,10 @@ export class HomePage implements OnInit {
       saldoUsuarioSelector.innerHTML = "******";
       localStorage.setItem("saldoVisible", "false");
     }
+  }
+  private notificationSetup() {
+    this.fcm.getToken();
+    this.fcm.onNotifications();
   }
 
   // Formateador de Float a Currency

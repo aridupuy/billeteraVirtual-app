@@ -65,11 +65,11 @@ export class ServiceService extends HttpClient {
   // tslint:disable-next-line: align
   public post<T>(url: string, body: any | null, options?): Observable<T> {
     AppComponent.cargando=true;
-     console.log(url);
+    //  console.log(url);
     
      let post = super.post<T>(this.URL + url, this.encrypt(body, CLAVE_ENCRIPTACION), options).pipe<T>(
       map((data) => {
-        console.log(JSON.stringify(data));
+        // console.log(JSON.stringify(data));
         AppComponent.cargando=false;
         if (data['token'] != undefined || data['tokenError'] != undefined ) {
           // AppComponent.cargando=false;

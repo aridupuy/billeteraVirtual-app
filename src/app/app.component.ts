@@ -22,7 +22,7 @@ import { Deeplinks, DeeplinksOriginal } from '@ionic-native/deeplinks'
 import { MenuserviceService } from './service/menuservice.service';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { LoginService } from './service/login.service';
-import { environment } from '../environments/environment';
+
 
 @Component({
   selector: 'app-root',
@@ -38,8 +38,8 @@ export class AppComponent implements OnInit {
   public DIAS = 3;
   constructor(private platform: Platform, private loginService: LoginService, private statusBar: StatusBar, private splashScreen: SplashScreen, private pago: Pago, public service: ServiceService, public menuService: MenuserviceService, public modalCtrl: ModalController, public usuarioService: UsuarioService, public navCtrl: NavController) { }
   async ngOnInit() {
-    alert(environment.URL);
-    alert(environment.URL_LOGIN);
+    // alert(environment.URL);
+    // alert(environment.URL_LOGIN);
     let menu = localStorage.getItem("menu");
     if (menu && menu.length > 0) {
       let data = JSON.parse(menu);
@@ -51,6 +51,7 @@ export class AppComponent implements OnInit {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       // AppComponent.cargando=false;
+      
       document.addEventListener("resume", this.onDeviceresume, false);
       document.addEventListener("pause", this.onPause, false);
       document.addEventListener("stop", this.onPause, false);
@@ -85,17 +86,23 @@ export class AppComponent implements OnInit {
   }
   obtener_array_menu() {
     let menu = Cookie.get("menu");
+    let menu_cargando = Cookie.get("menu_cargando");
     // let menu = localStorage.getItem("menu");
+    if(this.menu.length>0){
+      return this.menu;
+    }
     if (localStorage.getItem("token") == undefined) {
       return false;
     }
-    if (!menu || menu.length == 0) {
+    if (!menu || menu.length == 0 && menu_cargando!="1") {
+      Cookie.set("menu_cargando","1");
       this.menuService.obtener_menu().then((data: []) => {
         this.menu = [];
         data.forEach(element => {
           this.menu.push(element);
         });
         Cookie.set("menu", JSON.stringify(this.menu), this.DIAS);
+        Cookie.set("menu_cargando","0");
         // localStorage.setItem("menu", JSON.stringify(this.menu));
       })
     }
@@ -248,6 +255,8 @@ export class AppComponent implements OnInit {
     this.navCtrl.navigateForward("logout");
     menuController.close()
   }
+  
+
 }
 
 
