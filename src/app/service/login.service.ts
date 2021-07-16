@@ -2,6 +2,7 @@ import { ServiceService } from './service.service';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs'
 import { environment } from 'src/environments/environment';
+import { AppComponent } from '../app.component';
 import Integer from '@zxing/library/esm/core/util/Integer';
 
 export interface Ilogin {
@@ -41,9 +42,9 @@ export class LoginService extends ServiceService {
 
   login(usuario: any, clave: any) {
     if (localStorage.getItem("token")) {
-      this.checkToken("api/checkToken", { token: localStorage.getItem("token") }).then(() => console.log()).catch(() => console.log());
+      this.checkToken("api/checkToken", { token: localStorage.getItem("token") }).then((data) => console.log(JSON.stringify(data))).catch((err) => console.log(JSON.stringify(err)));
     }
-    // console.log("aca");
+     console.log("aca");
     return new Promise((resolve, reject) => {
       var postParams = ({ usuario: usuario, clave: clave })
       this.post<Ilogin>('api/login', postParams, httpOption).subscribe(async (data) => {
@@ -168,6 +169,8 @@ export class LoginService extends ServiceService {
   public handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       // TODO: send the error to remote logging infrastructure
+      console.error("aca loginService");
+      AppComponent.cargando=false;
       console.error(JSON.stringify(error)); // log to console instead
       console.error(JSON.stringify(error)); // log to console instead
       // TODO: better job of transforming error for user consumption

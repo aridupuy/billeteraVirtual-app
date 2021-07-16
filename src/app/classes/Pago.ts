@@ -60,7 +60,6 @@ export class Pago {
             response = d;
 
         }).catch(e => {
-            console.log("aca");
             response = e;
         });
         return response;
@@ -132,7 +131,7 @@ export class Pago {
                         }
 
                     } catch (e) {
-                        // console.error("excepcion capturada");
+                         console.error("excepcion capturada");
                         console.log(e);
                         console.error(e);
                         reject(e);

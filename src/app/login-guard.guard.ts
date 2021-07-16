@@ -17,7 +17,7 @@ export class LoginGuardGuard implements CanActivate {
       //
       var resp = false;
       console.log("Loguin Guard");
-      console.error("Loguin Guard");
+      // console.error("Loguin Guard");
       await this.login.checkToken("api/checkToken", {token: localStorage.getItem("token")}).then(data=>{
         console.log(data);
         resp=true;

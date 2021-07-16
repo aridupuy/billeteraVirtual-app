@@ -45,9 +45,9 @@ export class FcmService {
     }
     else {
       let tok = await localStorage.getItem("tokenFCM");
-      console.log("aca");
+      console.log("aca FCM");
         if (tok == null || tok == undefined) {
-          console.log("aca");
+          console.log("aca TOKENFCM");
           token = Math.random() + Date.now().toString();
           token = token.replace("0.","0");
           // console.log(token.replace("0.","0"));
@@ -82,12 +82,13 @@ export class FcmService {
   onNotifications() {
     if(FCM.hasOwnProperty("getToken"))
     return FCM.onNotification().subscribe(data=>{
+      console.log(JSON.stringify(data));
       if (data.wasTapped) {
         console.log('Received in background');
         this.localNotifications.schedule({
           id: 1,
           text: data.title,
-          // icon:'../../assets/img/logo.svg',
+          icon:'assets/img/logo.svg',
           priority:2,
           data: { body: data.body },
           foreground:true,
@@ -95,10 +96,11 @@ export class FcmService {
         
         // this.router.navigate([data.landing_page, data.price]);
       } else {
+        console.log(JSON.stringify(data));
         this.localNotifications.schedule({
           id: 1,
           text: data.title,
-          // icon:'../../assets/img/logo.svg',
+          icon:'assets/img/logo.svg',
           priority:2,
           data: { body: data.body },
           foreground:true,

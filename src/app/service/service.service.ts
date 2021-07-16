@@ -53,7 +53,8 @@ export class ServiceService extends HttpClient {
   }
   public decrypt(encrypted: string, pass: string) {
     let json =  CryptoJS.AES.decrypt(encrypted, pass, { format: CryptoJSAesJson }).toString(CryptoJS.enc.Utf8)
-    // console.log(json);
+    console.log("json:");
+    console.log(json);
     if(!json){
       return {};
     }
@@ -95,7 +96,8 @@ export class ServiceService extends HttpClient {
     .pipe(
       catchError(error => {
         if (error.error instanceof ErrorEvent) {
-            console.log(error.error);
+          console.log("aca-get");
+          console.log(JSON.stringify(error.error));
             AppComponent.cargando=false;
         } 
         return [];
