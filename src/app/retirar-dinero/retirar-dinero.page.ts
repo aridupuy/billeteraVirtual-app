@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-retirar-dinero',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RetirarDineroPage implements OnInit {
 
-  constructor() { }
+  constructor(private navCtrl: NavController) { }
 
   ngOnInit() {
-  }
 
+  }
+  transferencia() {
+    this.navCtrl.navigateForward("retiro-transferencia");
+  }
+  tarjetadebito() {
+    this.navCtrl.navigateForward("retiro-debito");
+  }
+  enviardinero() {
+    this.navCtrl.navigateForward("retiro-amigo");
+  }
 }
