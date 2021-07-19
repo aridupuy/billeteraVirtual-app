@@ -10,7 +10,7 @@ import { TransaccionesService } from './../service/transacciones.service';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 // import { LoginPage } from './../login/login.page';
 // import { FilterPage } from './../filter/filter.page';
-import { ModalController} from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { Transacciones } from '../interfaces/transacciones';
@@ -50,7 +50,7 @@ export class HomePage implements OnInit {
   modalDataResponse: any;
   public valida_mail;
   public valida_ident;
-  constructor(private fcm : FcmService,private platform: Platform,public modalCtrl: ModalController, public navCtl: NavController, private menu: MenuController, public saldoService: SaldoService, public transaccionesService: TransaccionesService, public route: ActivatedRoute, public router: Router, public usuarioService: UsuarioService) { }
+  constructor(private fcm: FcmService, private platform: Platform, public modalCtrl: ModalController, public navCtl: NavController, private menu: MenuController, public saldoService: SaldoService, public transaccionesService: TransaccionesService, public route: ActivatedRoute, public router: Router, public usuarioService: UsuarioService) { }
 
   ngOnInit(): void {
     // AppComponent.cargando=true;
@@ -64,12 +64,7 @@ export class HomePage implements OnInit {
       this.mensaje = p.Mensaje;
       this.validado = false;
       this.obtener_datos_usuario();
-<<<<<<< HEAD
       return;
-=======
-      
-      return ;
->>>>>>> a6222dcb800d92353e51b0ce7c246e2c1cc14cde
     }
     else {
       this.validado = true;
@@ -82,22 +77,7 @@ export class HomePage implements OnInit {
   irAHistorial() {
     this.navCtl.navigateForward("historial");
   }
-  MenuIngresoDinero() {
-    this.navCtl.navigateForward("ingreso-dinero");
 
-  }
-  MenuRetiroDinero() {
-    this.navCtl.navigateForward("transferir-dinero");
-
-  }
-  MenuTransferirDinero() {
-    this.navCtl.navigateForward("retirar-dinero");
-
-  }
-  MenuCodigoQR() {
-    this.navCtl.navigateForward("codigo-qr");
-
-  }
   ir() {
     // const navigationExtras: NavigationExtras = {
     //   queryParams: {
