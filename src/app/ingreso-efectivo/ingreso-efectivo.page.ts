@@ -12,25 +12,28 @@ import { Clipboard } from '@ionic-native/clipboard/ngx';
 })
 export class IngresoEfectivoPage implements OnInit {
 
-  constructor(public navCtrl:NavController,public cargaEfectivo:CargarEfectivoService, public route:ActivatedRoute,private clipboard: Clipboard) { }
+  constructor(public navCtrl: NavController, public cargaEfectivo: CargarEfectivoService, public route: ActivatedRoute, private clipboard: Clipboard) { }
   public barcode;
   public pmc19;
-  public mostrar_pmc=true
+  public mostrar_pmc = true
   ngOnInit() {
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
-    this.cargaEfectivo.obtener_barcode(p.monto).then((data:IBarcode)=>{
+    this.cargaEfectivo.obtener_barcode(p.monto).then((data: IBarcode) => {
       console.log(data);
       this.barcode = data.barcode1;
       this.pmc19 = data.pmc;
-      if(this.pmc19=="")
-        this.mostrar_pmc=false;
+      if (this.pmc19 == "")
+        this.mostrar_pmc = false;
     })
   }
-  copy(data){
+  copy(data) {
     this.clipboard.copy(data);
 
   }
-  Home(){
-    this.navCtrl.navigateForward(["home",{}]);
+  Home() {
+    this.navCtrl.navigateForward(["home", {}]);
+  }
+  Atras() {
+    this.navCtrl.navigateBack(["ingreso-efectivo-monto", {}]);
   }
 }

@@ -55,13 +55,13 @@ export class HomePage implements OnInit {
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
     console.log(p);
     if (this.route.snapshot.queryParamMap.has("param")) {
-      this.valida_ident = p.valida_ident ;
-      this.valida_mail = p.valida_mail ;
-      
+      this.valida_ident = p.valida_ident;
+      this.valida_mail = p.valida_mail;
+
       this.mensaje = p.Mensaje;
       this.validado = false;
       this.obtener_datos_usuario();
-      return ;
+      return;
     }
     else {
       this.validado = true;
@@ -73,24 +73,40 @@ export class HomePage implements OnInit {
   irAHistorial() {
     this.navCtl.navigateForward("historial");
   }
-  ir(){
+  MenuIngresoDinero() {
+    this.navCtl.navigateForward("ingreso-dinero");
+
+  }
+  MenuRetiroDinero() {
+    this.navCtl.navigateForward("transferir-dinero");
+
+  }
+  MenuTransferirDinero() {
+    this.navCtl.navigateForward("retirar-dinero");
+
+  }
+  MenuCodigoQR() {
+    this.navCtl.navigateForward("codigo-qr");
+
+  }
+  ir() {
     // const navigationExtras: NavigationExtras = {
     //   queryParams: {
     //     param: JSON.stringify({rvalidar:true, ira:"/",})
     //   }
     // }
-    if(this.valida_ident){
+    if (this.valida_ident) {
       const navigationExtras: NavigationExtras = {
         queryParams: {
-          param: JSON.stringify({revalidar:true, ira:"/",})
+          param: JSON.stringify({ revalidar: true, ira: "/", })
         }
       }
-      this.navCtl.navigateForward("validaridentidad3",navigationExtras);
+      this.navCtl.navigateForward("validaridentidad3", navigationExtras);
     }
-    if(this.valida_mail){
-      
+    if (this.valida_mail) {
+
     }
-    
+
   }
   async obtener_saldo() {
     await this.saldoService.obtener().then((data: number) => {

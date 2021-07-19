@@ -30,10 +30,10 @@
           <ion-icon slot="end" *ngIf="!mostrarSaldo"  name="eye-outline" (click)="toggleIcon()" color="white"></ion-icon>
         </div>
         <div class="botonera" *ngIf="validado">
-            <a href="" (click)="MenuIngresoDinero()"><img src="assets/img/ingresar-dinero.svg" alt="Ingresar Dinero"></a>
-            <a href="" (click)="MenuTransferirDinero()"><img src="assets/img/transferir-dinero.svg" alt="Transferir Dinero"></a>
-            <a href="" (click)="MenuRetiroDinero()"><img src="assets/img/retirar-dinero.svg" alt="Retirar Dinero"></a>
-            <a href="" (click)="MenuCodigoQR()"><img src="assets/img/codigo-qr.svg" alt="Código QR"></a>
+            <a (click)="MenuIngresoDinero()"><img src="assets/img/ingresar-dinero.svg" alt="Ingresar Dinero"></a>
+            <a (click)="MenuTransferirDinero()"><img src="assets/img/transferir-dinero.svg" alt="Transferir Dinero"></a>
+            <a (click)="MenuRetiroDinero()"><img src="assets/img/retirar-dinero.svg" alt="Retirar Dinero"></a>
+            <a (click)="MenuCodigoQR()"><img src="assets/img/codigo-qr.svg" alt="Código QR"></a>
         </div>
 
       </div>

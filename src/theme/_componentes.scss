@@ -83,7 +83,7 @@ ion-list {
     justify-content: center;
     align-items: center;
     align-content: center;
-    border: 1px solid $border-rgba;
+    box-shadow: 0px 1px 5px 1px rgb(0 0 0 / 10%);
     border-radius: 20px;
     width: 100%;
     margin-bottom: 30px;
@@ -96,7 +96,7 @@ ion-list {
         flex-wrap: wrap;
         h2 {
             margin: 13px 0;
-            font-size: 15px;
+            font-size: 14px;
             width: 50%;
         }
         h2:nth-of-type(2) {
@@ -112,13 +112,14 @@ ion-list {
         justify-content: space-between;
         align-items: center;
         align-content: center;
+       
         .movimiento {
             display: flex;
             flex-wrap: wrap;
             align-content: center;
             align-items: center;
             width: 100%;
-            padding: 15px 10px;
+            padding: 15px 10px; 
             border-bottom: 1px solid $border-rgba;
             &:last-of-type {
                 border: none;
@@ -167,7 +168,7 @@ ion-list {
     justify-content: center;
     align-items: center;
     align-content: center;
-    border: 1px solid $border-rgba;
+    box-shadow: 0px 1px 5px 1px rgb(0 0 0 / 10%);
     border-radius: 20px;
     width: 100%;
     margin-bottom: 30px;
@@ -266,7 +267,7 @@ ion-list {
     justify-content: center;
     align-items: center;
     align-content: center;
-    border: 1px solid $border-rgba;
+    box-shadow: 0px 1px 5px 1px rgb(0 0 0 / 10%);
     border-radius: 20px;
     width: 100%;
     margin-bottom: 30px;
