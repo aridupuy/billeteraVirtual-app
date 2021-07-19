@@ -26,7 +26,8 @@ export class PatronGuard implements CanActivate {
     state: RouterStateSnapshot): Promise<boolean> {
 
     return await new Promise(async (resolve, reject) => {
-      if (!this.platfrom.is('mobile') && localStorage.getItem("token") != null && localStorage.getItem("token")!=""){
+      // alert(this.platfrom.is('mobile'));
+      if (this.platfrom.is('mobile') && localStorage.getItem("token") != null && localStorage.getItem("token")!=""){
         if (localStorage.getItem("inBackground") == null || localStorage.getItem("inBackground") == "1") {
           if (localStorage.getItem("pin") == undefined || localStorage.getItem("pin") == null) {
             await this.mostrarModal("crear").then(data => {
@@ -35,37 +36,16 @@ export class PatronGuard implements CanActivate {
               reject(false);
             });
           }
-          
-          // else {
-          //   console.log("va a validar");
-          //   await this.mostrarModal("validar").then(data => {
-          //     console.log("valida true");
-          //     resolve(true);
-
-          //   }).catch(data => {
-          //     console.log("valida false");
-          //     reject(false);
-
-          //   });
-          // }
           if (next.url.toString() == "ingresopatron") {
-            console.log("ingresopatron");
+            // console.log("ingresopatron");
             localStorage.setItem("inBackground", "0");
-            console.log("false");
-
+            // console.log("false");
           }
-        
         }
-        
-        else {
-          console.log("no requiere auth");
-        }
-      }else{
-        console.log("En NAVEGADOR");
       }
-      console.log("true aca");
       resolve(true);
     })
+    
   }
 
   async mostrarModal(tipo) {
@@ -78,7 +58,7 @@ export class PatronGuard implements CanActivate {
 
         modal.onDidDismiss().then(async (modalDataResponse) => {
           let clave1;
-          console.log(modalDataResponse);
+          // console.log(modalDataResponse);
           clave1 = modalDataResponse.data;
           const modal = await this.modalCtrl.create({
             component: IngresaPinConfirmaPage
@@ -93,7 +73,7 @@ export class PatronGuard implements CanActivate {
           return await modal.present();
 
         });
-        console.log("aca Modal patron");
+        // console.log("aca Modal patron");
         return await modal.present();
       case "validar":
       // const modal2 = await this.modalCtrl.create({
@@ -117,15 +97,15 @@ export class PatronGuard implements CanActivate {
 
   }
   validarClave(clave1, clave2): Boolean {
-    console.log(clave1, clave2);
+    // console.log(clave1, clave2);
     if (clave1 === clave2)
       return true;
     return false;
   }
   guardarClave(clave) {
     let claveEnc = this.service.encrypt(clave, pass);
-    localStorage.setItem("pin", claveEnc); //esto deberia estar hasheado;
-    console.log("clave guardada");
+    localStorage.setItem("pin", claveEnc); 
+    // console.log("clave guardada");
     return true;
   }
 

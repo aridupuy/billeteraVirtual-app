@@ -32,7 +32,14 @@ export class DatosCuentaPage implements OnInit {
   ngOnInit() {
     this.usuarioService.obtener_mis_datos().then((data: any) => {
       console.log(data);
-      this.username = data.nombre_completo;
+      this.cargar_datos(data);
+      
+    });
+
+  }
+
+  cargar_datos(data){
+    this.username = data.nombre_completo;
       this.iniciales = data.nombre_completo
         .split(' ')
         .map(it => it.charAt(0))
@@ -56,15 +63,9 @@ export class DatosCuentaPage implements OnInit {
         this.domicilio = data.direccion;
         this.nacionalidad = data.nacionalidad;
         this.usuario = data;
-        // this.
-      // localStorage.setItem("nombre",this.username);
-      // localStorage.setItem("iniciales",this.iniciales);
-      // console.log(this.username);
-    });
-
   }
   EditarCel(){
-   
+   localStorage.removeItem("usuario");
     const navigationExtras: NavigationExtras = {
       queryParams: {
 
@@ -75,6 +76,7 @@ export class DatosCuentaPage implements OnInit {
 
   }
   EditarPass(){
+    localStorage.removeItem("usuario");
     const navigationExtras: NavigationExtras = {
       queryParams: {
 
@@ -84,6 +86,7 @@ export class DatosCuentaPage implements OnInit {
     this.navCtrl.navigateRoot("lostpassword1",navigationExtras)
   }
   EditarMail(){
+    localStorage.removeItem("usuario");
     const navigationExtras: NavigationExtras = {
       queryParams: {
 

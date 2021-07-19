@@ -1,0 +1,13 @@
+<webviewproviders>
+    <!-- The default WebView implementation -->
+    <!--[BUGFIX]-Mod-BEGIN by mengqin.zhang,09/29/2018,task 7040859-->
+    <!--<webviewprovider description="Android WebView" packageName="com.android.webview" availableByDefault="true">
+    </webviewprovider>-->
+    <webviewprovider description="Chrome Stable" packageName="com.android.chrome" availableByDefault="true">
+        <!-- Ignore this package on user/release builds unless preinstalled. -->
+    </webviewprovider>
+    <webviewprovider description="Google WebView" packageName="com.google.android.webview" availableByDefault="true" isFallback="true">
+        <!-- Ignore this package on user/release builds unless preinstalled. -->
+    </webviewprovider>
+    <!--[BUGFIX]-Mod-END by mengqin.zhang,09/29/2018,task 7040859-->
+</webviewproviders>

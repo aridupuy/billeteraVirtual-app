@@ -22,7 +22,7 @@ export class ProcesoAltaGuard implements CanActivate {
   CANTIDAD = 5;
   DIAS = 15;
   constructor(public proceso: ProcesoEstadoService, public validCel: ValidacionCelService, public router: Router, public navCtrl: NavController) {
-    console.log("PROCESOALTAGUARD");
+    // console.log("PROCESOALTAGUARD");
   }
   async canActivate(
     next: ActivatedRouteSnapshot,
@@ -30,7 +30,7 @@ export class ProcesoAltaGuard implements CanActivate {
     var resp;
     let val = Cookie.get("validador");
     if (!next.queryParamMap.has("param")) {
-      console.log("aca2");
+      // console.log("aca2");
       if (val == undefined) {
         Cookie.set("validador", (0).toString(), this.DIAS);
       }
@@ -39,8 +39,8 @@ export class ProcesoAltaGuard implements CanActivate {
       //   return true;
       // }
       await this.proceso.validar().then(async (data: datosProceso) => {
-        console.log(data);
-
+        // console.log(data);
+        // console.log("aca3");
         if(data.estado_cuenta==4){
           const navigationExtras: NavigationExtras = {
             queryParams: {
@@ -90,7 +90,7 @@ export class ProcesoAltaGuard implements CanActivate {
         // else if (data.estado_cuenta!=1 &&(!data.valida_cel || data.valida_cel == 'f')) {
           else if ((!data.valida_cel || data.valida_cel == 'f')) {
           await this.validCel.reenviar_codigo().then((cel) => {
-            console.log(cel);
+            // console.log(cel);
             const navigationExtras: NavigationExtras = {
               queryParams: {
                 param: JSON.stringify({ login: true,valida_cel:true, Mensaje: "Tienes que validar tu Celular para operar",revalidar:true,cod_area:"",celular:cel})
@@ -105,8 +105,12 @@ export class ProcesoAltaGuard implements CanActivate {
           resp = true
         }
         Cookie.set("validador", validador.toString(), this.DIAS);
+        // console.log(resp);
         return resp;
-      }).catch();
+      }).catch(data=>{
+        // console.log("PROCESO_ALTA");
+        this.navCtrl.navigateRoot("home");
+      });
     }
     else{
       return true;

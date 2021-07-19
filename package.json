@@ -15,6 +15,7 @@
   "dependencies": {
     "@angular/common": "~12.0.1",
     "@angular/core": "~12.0.1",
+    "@angular/fire": "^6.1.5",
     "@angular/forms": "~12.0.1",
     "@angular/platform-browser": "~12.0.1",
     "@angular/platform-browser-dynamic": "~12.0.1",
@@ -28,18 +29,23 @@
     "@ionic-native/deeplinks": "^5.33.1",
     "@ionic-native/file": "^5.33.1",
     "@ionic-native/fingerprint-aio": "^5.33.1",
+    "@ionic-native/firebase": "^5.34.0",
+    "@ionic-native/ionic-webview": "^5.34.0",
+    "@ionic-native/local-notifications": "^5.34.0",
     "@ionic-native/screen-orientation": "^5.33.1",
     "@ionic-native/splash-screen": "^5.33.1",
     "@ionic-native/status-bar": "^5.33.1",
     "@ionic-native/touch-id": "^5.33.1",
+    "@ionic-native/unique-device-id": "^5.34.0",
     "@ionic/angular": "^5.5.2",
     "@ionic/storage": "2.3.0",
     "@zxing/browser": "^0.0.9",
     "@zxing/library": "^0.18.6",
-    "cordova-android": "9.1.0",
     "cordova-clipboard": "^1.3.0",
     "cordova-plugin-background-mode": "^0.7.3",
     "cordova-plugin-contacts": "^3.0.1",
+    "firebase": "^8.7.1",
+    "ionic": "^5.4.16",
     "jshint": "^2.13.0",
     "ng2-cookies": "^1.0.12",
     "ngx-countdown": "^12.0.0",
@@ -47,6 +53,7 @@
     "rxjs": "~6.6.0",
     "storage": "^0.2.0",
     "swiper": "^6.7.0",
+    "timers-browserify": "^2.0.12",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"
   },
@@ -66,21 +73,25 @@
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "4.16.1",
     "@typescript-eslint/parser": "4.16.1",
+    "cordova-android": "^9.1.0",
     "cordova-browser": "^6.0.0",
-    "cordova-ios": "^6.2.0",
     "cordova-plugin-androidx": "^3.0.0",
     "cordova-plugin-androidx-adapter": "^1.1.3",
+    "cordova-plugin-badge": "^0.8.8",
     "cordova-plugin-camera-preview": "^0.12.2",
     "cordova-plugin-crop": "^0.4.0",
     "cordova-plugin-device": "^2.0.2",
+    "cordova-plugin-fcm-with-dependecy-updated": "^7.8.0",
     "cordova-plugin-file": "^6.0.2",
     "cordova-plugin-fingerprint-aio": "^4.0.2",
     "cordova-plugin-ionic-keyboard": "^2.2.0",
     "cordova-plugin-ionic-webview": "^4.2.1",
+    "cordova-plugin-local-notification": "^0.9.0-beta.2",
     "cordova-plugin-screen-orientation": "^3.0.2",
     "cordova-plugin-splashscreen": "^5.0.2",
     "cordova-plugin-statusbar": "^2.4.2",
     "cordova-plugin-touch-id": "^3.4.0",
+    "cordova-plugin-uniquedeviceid": "^1.3.2",
     "cordova-plugin-whitelist": "^1.3.3",
     "cordova-res": "^0.15.3",
     "crypto-js": "^3.1.9-1",
@@ -110,9 +121,7 @@
       "cordova-plugin-statusbar": {},
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
-      "cordova-plugin-ionic-webview": {
-        "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
-      },
+      "cordova-plugin-ionic-webview": {},
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-screen-orientation": {},
       "cordova-plugin-androidx": {},
@@ -140,12 +149,21 @@
         "DEEPLINK_4_HOST": " ",
         "DEEPLINK_5_SCHEME": " ",
         "DEEPLINK_5_HOST": " "
-      }
+      },
+      "cordova-plugin-fcm-with-dependecy-updated": {
+        "ANDROID_DEFAULT_NOTIFICATION_ICON": "@mipmap/ic_launcher",
+        "ANDROID_FIREBASE_BOM_VERSION": "26.0.0",
+        "ANDROID_GOOGLE_SERVICES_VERSION": "4.3.4",
+        "ANDROID_GRADLE_TOOLS_VERSION": "4.1.0",
+        "IOS_FIREBASE_MESSAGING_VERSION": "~> 7.4.0",
+        "ANDROID_FCM_VERSION": "21.0.0"
+      },
+      "cordova-plugin-local-notification": {},
+      "cordova-plugin-uniquedeviceid": {}
     },
     "platforms": [
       "browser",
-      "android",
-      "ios"
+      "android"
     ]
   }
 }

@@ -120,6 +120,7 @@ export class ContactoService extends ServiceService {
 
 
         if (data.resultado != null && data.resultado === false) {
+          console.log(data.log);
           reject(data.log);
         }
 
@@ -158,10 +159,10 @@ export class ContactoService extends ServiceService {
     });
   }
 
-  buscar_contactos(texto) {
+  buscar_contactos(texto,tipo) {
 
     httpOptions.headers.token = localStorage.getItem('token');
-    var postParams = { texto: texto };
+    var postParams = { texto: texto,tipo:tipo };
     return new Promise((resolve, reject) => {
       this.post<any>('api/contacto/buscar_contactos', postParams, httpOptions).subscribe((data: resp) => {
         if (data.resultado != null && data.resultado === false) {
