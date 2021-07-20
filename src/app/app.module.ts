@@ -17,7 +17,6 @@ import { ComponentsModule } from './components/components.module';
 import {
     RespuestaResultadoComponent
 } from './components/respuesta-resultado/respuesta-resultado.component';
-import { FcmService } from './service/fcm.service';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { registerLocaleData } from '@angular/common';
@@ -31,13 +30,6 @@ import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
 import { BackgroundMode } from '@ionic-native/background-mode/ngx';
-import { Firebase } from '@ionic-native/firebase/ngx';
-import { firebaseConfig } from 'src/environments/firebaseconfig';
-// import { FCM } from "cordova-plugin-fcm-with-dependecy-updated/ionic";
-import { AngularFireModule } from '@angular/fire';
-import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
-import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
-
 
 
 
@@ -54,7 +46,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     IonicStorageModule.forRoot({
       name: '__mydb',
       driverOrder: ['indexeddb', 'sqlite', 'websql']
-      }),AngularFireModule.initializeApp(firebaseConfig)],
+      })],
   providers: [
     StatusBar,
     SplashScreen,
@@ -67,10 +59,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     ServiceService,
     Geolocation,
     UsuarioService,
-    FcmService,
-    UniqueDeviceID,
-    LocalNotifications,
-    Firebase,
+    
     Pago,
     {
       provide: HAMMER_GESTURE_CONFIG,

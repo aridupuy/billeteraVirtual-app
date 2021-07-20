@@ -53,8 +53,7 @@ export class ServiceService extends HttpClient {
   }
   public decrypt(encrypted: string, pass: string) {
     let json =  CryptoJS.AES.decrypt(encrypted, pass, { format: CryptoJSAesJson }).toString(CryptoJS.enc.Utf8)
-    console.log("json:");
-    console.log(json);
+    // console.log(json);
     if(!json){
       return {};
     }
@@ -66,14 +65,12 @@ export class ServiceService extends HttpClient {
   // tslint:disable-next-line: align
   public post<T>(url: string, body: any | null, options?): Observable<T> {
     AppComponent.cargando=true;
-    //  console.log(url);
+    console.log(url);
     
      let post = super.post<T>(this.URL + url, this.encrypt(body, CLAVE_ENCRIPTACION), options).pipe<T>(
       map((data) => {
-        // console.log(JSON.stringify(data));
-        AppComponent.cargando=false;
         if (data['token'] != undefined || data['tokenError'] != undefined ) {
-          // AppComponent.cargando=false;
+          AppComponent.cargando=false;
           return data as unknown as T;
         }
         // tslint:disable-next-line: comment-format
@@ -96,8 +93,7 @@ export class ServiceService extends HttpClient {
     .pipe(
       catchError(error => {
         if (error.error instanceof ErrorEvent) {
-          console.log("aca-get");
-          console.log(JSON.stringify(error.error));
+            console.log(error.error);
             AppComponent.cargando=false;
         } 
         return [];
@@ -109,8 +105,7 @@ export class ServiceService extends HttpClient {
           AppComponent.cargando=false;
           return data as unknown as T;
         }
-        if(data.length<3)
-          return null;
+        // console.log(data);
         return JSON.parse(this.decrypt(JSON.stringify(data), CLAVE_ENCRIPTACION)) as T;
       }
       )

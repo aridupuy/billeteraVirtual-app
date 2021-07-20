@@ -6,5 +6,4 @@ export interface Ipagar{
     persona:Persona,
     deuda:Deuda,
     error?:any,
-    log?:any
   }

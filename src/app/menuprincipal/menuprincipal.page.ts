@@ -30,7 +30,7 @@ export class MenuprincipalPage implements OnInit {
         .map( it => it.charAt(0) )
         .slice(2,3)
         .join('');
-        console.log("aca NOMBRE MENU");
+        console.log("aca");
         localStorage.setItem("nombre",this.usuario);
         localStorage.setItem("iniciales",this.iniciales);
         console.log(this.usuario);
