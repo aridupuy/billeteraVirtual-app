@@ -17,7 +17,7 @@ export class FcmService {
 
 
   constructor(private localNotifications: LocalNotifications,
-    private platform: Platform, public FCMServerservice: FCMServerService, public UniqueDeviceID: UniqueDeviceID) {
+    private platform: Platform, public FCMServerservice: FCMServerService,public UniqueDeviceID:UniqueDeviceID) {
 
     console.log("levantando fcm");
   }
@@ -46,20 +46,20 @@ export class FcmService {
     else {
       let tok = await localStorage.getItem("tokenFCM");
       console.log("aca FCM");
-      if (tok == null || tok == undefined) {
-        console.log("aca TOKENFCM");
-        token = Math.random() + Date.now().toString();
-        token = token.replace("0.", "0");
-        // console.log(token.replace("0.","0"));
-        await localStorage.setItem("tokenFCM", token);
-        this.registerToken(token);
-      }
-      else {
-        token = tok.toString().replace("0.", "0");
-      }
+        if (tok == null || tok == undefined) {
+          console.log("aca TOKENFCM");
+          token = Math.random() + Date.now().toString();
+          token = token.replace("0.","0");
+          // console.log(token.replace("0.","0"));
+          await localStorage.setItem("tokenFCM", token);
+          this.registerToken(token);
+        }
+        else {
+          token = tok.toString().replace("0.","0");
+        }
     }
-    if (FCM.hasOwnProperty("getToken"))
-      FCM.onTokenRefresh().subscribe((token) => {
+    if(FCM.hasOwnProperty("getToken"))
+      FCM.onTokenRefresh().subscribe((token)=>{
         this.registerToken(token);
       })
     this.registerToken(token);
@@ -80,59 +80,59 @@ export class FcmService {
   // }
 
   onNotifications() {
-    if (FCM.hasOwnProperty("getToken"))
-      return FCM.onNotification().subscribe(data => {
+    if(FCM.hasOwnProperty("getToken"))
+    return FCM.onNotification().subscribe(data=>{
+      console.log(JSON.stringify(data));
+      if (data.wasTapped) {
+        console.log('Received in background');
+        this.localNotifications.schedule({
+          id: 1,
+          text: data.title,
+          icon:'assets/img/logo.svg',
+          priority:2,
+          data: { body: data.body },
+          foreground:true,
+        });
+        
+        // this.router.navigate([data.landing_page, data.price]);
+      } else {
         console.log(JSON.stringify(data));
-        if (data.wasTapped) {
-          console.log('Received in background');
-          this.localNotifications.schedule({
-            id: 1,
-            text: data.title,
-            icon: 'assets/img/logo.svg',
-            priority: 2,
-            data: { body: data.body },
-            foreground: true,
-          });
-
-          // this.router.navigate([data.landing_page, data.price]);
-        } else {
-          console.log(JSON.stringify(data));
-          this.localNotifications.schedule({
-            id: 1,
-            text: data.title,
-            icon: 'assets/img/logo.svg',
-            priority: 2,
-            data: { body: data.body },
-            foreground: true,
-          });
-          console.log('Received in foreground');
-          // this.router.navigate([data.landing_page, data.price]);
-        }
-      });
+        this.localNotifications.schedule({
+          id: 1,
+          text: data.title,
+          icon:'assets/img/logo.svg',
+          priority:2,
+          data: { body: data.body },
+          foreground:true,
+        });
+        console.log('Received in foreground');
+        // this.router.navigate([data.landing_page, data.price]);
+      }
+    });
   }
   async registerToken(token) {
     localStorage.setItem("tokenFCM", token);
     var tipo = "navegador_" + this.platform.platforms()[0];
     if (this.platform.is("android")) {
-      tipo = "android";
+        tipo = "android";
     }
     else if (this.platform.is("ios")) {
-      tipo = "ios";
+        tipo = "ios";
     }
     var device;
     if (this.platform.is("ios") || this.platform.is("android")) {
-      await this.UniqueDeviceID.get()
-        .then((uuid: any) => {
-          console.log("DEVICENRO:" + uuid);
-          this.FCMServerservice.refreshToken(token, this.platform, uuid, tipo);
-        })
-        .catch((error: any) => console.log(error));
+        await this.UniqueDeviceID.get()
+            .then((uuid: any) =>{
+              console.log("DEVICENRO:"+uuid);
+              this.FCMServerservice.refreshToken(token, this.platform,uuid,tipo);
+            })
+            .catch((error: any) => console.log(error));
     }
     else {
-      device = Math.random() + Date.now().toString();
-      this.FCMServerservice.refreshToken(token, this.platform, device, tipo);
+        device = Math.random() + Date.now().toString();
+        this.FCMServerservice.refreshToken(token, this.platform,device,tipo);
     }
-
+    
   }
 
 
