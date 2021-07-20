@@ -1,17 +1,11 @@
-image: beevelop/ionic:latest
+image: marcoturi/ionic:latest
 
 stages:
-#  - build_web
-  - deploy_android
-#  - deploy_ios
-
-# before_script:
-#     - npm update
-#     - npm install
-  
+  - test
+  - deploy
 
 before_script:
-  #  - npm update
+    - npm update
     - npm install
   
 cache:
@@ -20,15 +14,15 @@ cache:
   paths:
     - node_modules/
     
-#build_web:
-#  stage: test
-#  only:
-#      - master
-#  script:
-#    - ionic build 
+build_web:
+  stage: test
+  only:
+      - master
+  script:
+    - ionic build 
 
-deploy_android:
-  stage: deploy_android
+build_android:
+  stage: deploy
   only:
     - master
   script:
@@ -36,5 +30,5 @@ deploy_android:
     - ionic cordova platform rm android
     - ionic cordova platform add android
     - ionic cordova build android
-    - curl --request POST -F token="${SLACK_CHANNEL_ACCESS_TOKEN}" -F channels="${SLACK_CHANNEL_ID}" -F initial_comment="Hola equipo! dejo el ultimo APK (compilacion de test)" -F "file=@/builds/equipo-de-desarrollo-efectivo-digital/efectivodigitalappfront/platforms/android/app/build/outputs/apk/debug/app-debug.apk" https://slack.com/api/files.upload
+    - curl --request POST -F token="${SLACK_CHANNEL_ACCESS_TOKEN}" -F channels="${SLACK_CHANNEL_ID}" -F initial_comment="Hola equipo! dejo el ultimo APK (compilacion de test)" -F "file=@/builds/equipo-de-desarrollo-efectivo-digital/efectivofront/platforms/android/app/build/outputs/apk/debug/app-debug.apk" https://slack.com/api/files.upload
 

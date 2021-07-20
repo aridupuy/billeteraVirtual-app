@@ -14,7 +14,7 @@ export class PricingService extends ServiceService{
     obtener_comisiones(monto,tipoDeuda){
       httpOptions.headers.token=localStorage.getItem("token");
       return new Promise((resolve, reject) => {
-        // console.log(tipoDeuda);
+        console.log(tipoDeuda);
         var postParams = ({ monto:monto,tipoDeuda:tipoDeuda });
         this.post<IPricing>('api/comisiones/calcular_comisiones',postParams,httpOptions).subscribe((data) => {
           if (data.resulado != null && data.resulado == false) {

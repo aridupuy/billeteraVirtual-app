@@ -32,6 +32,7 @@
               }
             ],
             "styles": ["src/theme/variables.scss", "src/global.scss"],
+            "scripts": [],
             "aot": false,
             "vendorChunk": true,
             "extractLicenses": false,
@@ -97,6 +98,7 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "styles": [],
+            "scripts": [],
             "assets": [
               {
                 "glob": "favicon.ico",

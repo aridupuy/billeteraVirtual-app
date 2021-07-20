@@ -57,8 +57,7 @@ export class LostpasswordPage implements OnInit {
   }
   public ofus;
   ofuscar(usuario){
-    if(!usuario)
-      return false;
+
     let usu:string = usuario.split("@");
     this.ofus = usu[0].substr(0,1)+"".padStart((usu[0].length)-2,"*")+usu[0].substr(usu[0].length-1,usu[0].length)+"@"+usu[1];
     return this.ofus;

@@ -91,23 +91,23 @@ export class PagarPage implements OnInit {
   }
 
   ngOnInit() {
-    // console.log("onInit");
+    console.log("onInit");
     this.cargando_Tarjetas = true;
     Observable.suscribe("change", (status) => {
       Observable.unsuscribe("change");
-      // console.log("event call");
+      console.log("event call");
       this.cargando = 0;
       // RespuestaResultadoComponent.setStatus(0);
       this.saldo.obtener().then(saldo => {
-        // console.log(saldo);
+        console.log(saldo);
         this.saldo_en_cuenta = saldo;
         //  this.change(false,this.slides);
-        // console.log(this.slides);
+        console.log(this.slides);
         this.tap();
       });
     })
     this.tarjetas;
-    // console.log(this.indexSlide);
+    console.log(this.indexSlide);
     if ((this.route.snapshot.queryParamMap.has("param"))) {
       this.persona = (JSON.parse(this.route.snapshot.queryParamMap.get("param"))).persona;
       this.deuda = (JSON.parse(this.route.snapshot.queryParamMap.get("param"))).deuda;
@@ -119,14 +119,14 @@ export class PagarPage implements OnInit {
       if ((JSON.parse(this.route.snapshot.queryParamMap.get("param"))).url != undefined)
         this.url = (JSON.parse(this.route.snapshot.queryParamMap.get("param"))).url;
     }
-    // console.log("termina OnInit");
+    console.log("termina OnInit");
   }
 
   async tap(event?) {
-    // console.log(this.tarjetas.length);
-    // console.log(this.indexSlide);
+    console.log(this.tarjetas.length);
+    console.log(this.indexSlide);
     if (this.indexSlide == this.tarjetas.length + 1 || (this.tarjetas.length == this.indexSlide && this.sinCuenta == true)) {
-      // console.log("aca");
+      console.log("aca");
       this.presentModal();
       Observable.suscribe("return", data => {
         Observable.unsuscribe("return");
@@ -140,7 +140,7 @@ export class PagarPage implements OnInit {
         })
       })
     } else {
-      // console.log("aca");
+      console.log("aca");
       return this.change();
     }
 
@@ -148,7 +148,7 @@ export class PagarPage implements OnInit {
   public ionViewDidEnter() {
     this.indexSlide = 0;
     //console.log(this.slides);
-    // console.log("en pagar");
+    console.log("en pagar");
     this.tar.obtener(this.soloDebito).then((data: any[]) => {
       data.forEach(d => {
         this.tarjetas.push({ nroTarjeta: d.numero, titular: d.nombre, id: d.id, mes: d.mes, anio: d.anio });
@@ -156,18 +156,16 @@ export class PagarPage implements OnInit {
       })
 
       this.tarjetas = data;
-      // console.log(this.tarjetas);
+      console.log(this.tarjetas);
       this.change();
     }).catch(err => {
-      this.cargando_Tarjetas=false;
-      // console.log(err);
+      console.log(err);
     });
     this.saldo.obtener().then(saldo => {
       this.saldo_en_cuenta = saldo;
       //  this.change(false,this.slides);
       this.primeracarga = true;
-      if(this.tarjetas.length==0)
-        this.change();
+      // this.change();
     });
 
   }
@@ -177,9 +175,9 @@ export class PagarPage implements OnInit {
 
   public tipo_deuda = "";
   async presentModal() {
-    // console.log("suscribiendo");
+    console.log("suscribiendo");
     Observable.suscribe("return", async () => {
-      // console.log("aca en return");
+      console.log("aca en return");
       await this.modalCtrl.dismiss();
       this.ngOnInit();
       this.ionViewDidEnter();
@@ -194,7 +192,7 @@ export class PagarPage implements OnInit {
     return true;
   }
   async change() {
-    // console.log("tap");
+    console.log("tap");
     this.tarjeta_elegida = null;
     this.saldo_elegido = false;
     this.cargando_Tarjetas = false;
@@ -233,7 +231,7 @@ export class PagarPage implements OnInit {
         }
         break;
       case "Recargatd":
-        // console.log("aca2");
+        console.log("aca2");
         this.tipo_deuda = "recarga-td";
         // this.tipo_deuda = "contacto-tc";
         break;
@@ -241,19 +239,19 @@ export class PagarPage implements OnInit {
         this.tipo_deuda = "recarga-td";
         break;
     }
-    // console.log(this.tipo_deuda);
-    // console.log(this.comisiones);
+    console.log(this.tipo_deuda);
+    console.log(this.comisiones);
     if (this.comisiones[this.tipo_deuda] == undefined) {
       this.cargandoComisiones = true;
-      // console.log("cargando comisiones");
+      console.log("cargando comisiones");
       this.comisiones[this.tipo_deuda] = 0;
       this.monto_final[this.tipo_deuda] = 0;
       await this.pricing.obtener_comisiones(this.deuda.monto, this.tipo_deuda).then((data: any) => {
-        // console.log(data);
+        console.log(data);
         this.comisiones[this.tipo_deuda] = data.comision;
         this.monto_final[this.tipo_deuda] = data.monto_final;
         this.cargandoComisiones = false;
-        // console.log("cargando comisiones false");
+        console.log("cargando comisiones false");
       })
     }
   }
@@ -277,7 +275,7 @@ export class PagarPage implements OnInit {
   }
   pagar() {
     var object;
-    // console.log(this.tarjeta_elegida);
+    console.log(this.tarjeta_elegida);
     if (this.tarjeta_elegida != null) {
       object = {
         tarjeta_elegida: this.tarjeta_elegida,
@@ -298,7 +296,7 @@ export class PagarPage implements OnInit {
     });
     Observable.suscribe("pagar-result", async (data?: Ipagar | any) => {
       this.cargando = 2;
-      // console.log("llego a pagar-result");
+      console.log("llego a pagar-result");
       this.mostrar_mensaje(data);
     });
     Observable.notify("pagar",
@@ -307,11 +305,11 @@ export class PagarPage implements OnInit {
   }
   mostrar_mensaje(data: Ipagar) {
     this.cargando = 2;
-    //  console.log(data);
+     console.log(data);
     if (data.error !== false || data.error == undefined) {
-      // console.log(data.error);
+      console.log(data.error);
       this.descripcion = "Ocurrio un error"
-      this.mensaje = data.log;
+      this.mensaje = data.error;
       this.cargando = 0;
       RespuestaResultadoComponent.setStatus(3);
     }
@@ -345,10 +343,10 @@ export class PagarPage implements OnInit {
 
   async obtener_carriers(identificacion, bin) {
     
-    // console.log(bin);
+    console.log(bin);
     var resp;
     let data = JSON.parse(identificacion);
-    // console.log(data);
+    console.log(data);
     this.carriers[bin] = { brand: data.scheme, color: data.brand, banco: data.bank, tc_td: data.type };
     return resp;
   }
