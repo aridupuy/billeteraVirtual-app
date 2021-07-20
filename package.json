@@ -13,8 +13,6 @@
   },
   "private": true,
   "dependencies": {
-    "@angular-devkit/core": "^12.1.2",
-    "@angular-devkit/schematics": "^12.1.2",
     "@angular/common": "~12.0.1",
     "@angular/core": "~12.0.1",
     "@angular/fire": "^6.1.5",
@@ -157,7 +155,8 @@
         "ANDROID_FIREBASE_BOM_VERSION": "26.0.0",
         "ANDROID_GOOGLE_SERVICES_VERSION": "4.3.4",
         "ANDROID_GRADLE_TOOLS_VERSION": "4.1.0",
-        "IOS_FIREBASE_MESSAGING_VERSION": "~> 7.4.0"
+        "IOS_FIREBASE_MESSAGING_VERSION": "~> 7.4.0",
+        "ANDROID_FCM_VERSION": "21.0.0"
       },
       "cordova-plugin-local-notification": {},
       "cordova-plugin-uniquedeviceid": {}
