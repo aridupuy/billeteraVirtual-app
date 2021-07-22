@@ -38,7 +38,7 @@ export class LoginService extends ServiceService{
   //  constructor(private http: HttpClient) { }
 
   login(usuario: any, clave: any) {
-    if(localStorage.getItem("token")){
+    if(localStorage.getItem("token") && localStorage.getItem("token")!="false"){
       this.checkToken("api/checkToken", {token: localStorage.getItem("token")}).then(()=>console.log()).catch(()=>console.log());
     }
     console.log("aca");
