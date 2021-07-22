@@ -15,6 +15,8 @@ export class AmigosPage implements OnInit {
   public pedidos=[];
   public historial_pedidos=[];
   public historial_envios=[];
+  public limit = 5;
+  public offset = 0;
   constructor(private navCtrl: NavController,public contacto:ContactoService) { }
  
   // () {
@@ -41,7 +43,7 @@ export class AmigosPage implements OnInit {
     });
     // console.log(this.envios);
     this.contacto.obtener_pedidos_dinero_otros().then((data:any[])=>{
-      console.log("aca");
+      // console.log("aca");
       data.forEach(d=>{
         d["iniciales"]=d.nombre
         .split(' ')
@@ -53,35 +55,49 @@ export class AmigosPage implements OnInit {
     }).catch(err=>{
       this.pedidos=[];
     });
-    this.contacto.obtener_historial_envios().then((data:any[])=>{
-      console.log("aca3");
+    this.contacto.obtener_historial_envios(this.offset,this.limit).then((data:any[])=>{
+      // console.log("aca3");
       data.forEach(d=>{
+        
         data.forEach(d=>{
-          d["iniciales"]=d.nombre_receptor
+          // console.log(d);
+          d["iniciales"]= (d.nombre_receptor!=null) ?d.nombre_receptor
           .split(' ')
           .map( it => it.charAt(0) )
           .slice(0,2)
-          .join('');
+          .join('') : "";
         });
+        d["rechazo"]=(d.id_authstat==141)?true:false;
         if(d.condicion=='pide'){
-          d["iniciales"]=d.nombre
+          d["recibido"]=true;
+          d["pago"]=false;
+          
+        }
+         else{ 
+          d["recibido"]=false;
+          d["pago"]=true;
+          // d["rechazo"]=(d.id_authstat)?true:false;
+        }
+          d["iniciales"]=(d.nombre!=null) ?d.nombre 
           .split(' ')
           .map( it => it.charAt(0) )
           .slice(0,2)
-          .join('');
+          .join('') : "";
           this.historial_pedidos.push(d);
-        }
-        else{
-          d["iniciales"]=d.nombre
-          .split(' ')
-          .map( it => it.charAt(0) )
-          .slice(0,2)
-          .join('');
-          this.historial_envios.push(d);
-        }
+
+        // }
+        // else{
+        //   d["iniciales"]=(d.nombre!=null) ?d.nombre
+        //   .split(' ')
+        //   .map( it => it.charAt(0) )
+        //   .slice(0,2)
+        //   .join('') : "";
+        //   this.historial_envios.push(d);
+        // }
         
         
       });
+      // console.log(this.historial_pedidos);
     });
 
   }
@@ -161,5 +177,8 @@ export class AmigosPage implements OnInit {
         return this.cargarData();
     });
     console.log(item);
+  }
+  irAHistorial(){
+    this.navCtrl.navigateForward("amigos-historial");
   }
 }

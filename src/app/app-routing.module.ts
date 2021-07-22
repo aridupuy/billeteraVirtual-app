@@ -291,6 +291,14 @@ const routes: Routes = [
     path: 'transferencia-nuevacuenta',
     loadChildren: () => import('./transferencia-nuevacuenta/transferencia-nuevacuenta.module').then( m => m.TransferenciaNuevacuentaPageModule)
   },
+  {
+    path: 'logout',
+    loadChildren: () => import('./logout/logout.module').then( m => m.LogoutPageModule)
+  },  {
+    path: 'amigos-historial',
+    loadChildren: () => import('./amigos-historial/amigos-historial.module').then( m => m.AmigosHistorialPageModule)
+  },
+
 ];
 
 @NgModule({

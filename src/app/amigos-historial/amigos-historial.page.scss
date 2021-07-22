@@ -1,0 +1,17 @@
+// ion-infinite-scroll{
+//     position: absolute;
+// }
+.refresher{
+    z-index: 1;
+    height: 79px; 
+    width: 100%;
+    margin-top: -8%;
+    background-color: transparent;
+    display: block;
+    margin-right: auto;
+    flex-direction: column;
+    position: relative;
+}
+.refresher-refreshing{
+    margin-top: 1%;
+}

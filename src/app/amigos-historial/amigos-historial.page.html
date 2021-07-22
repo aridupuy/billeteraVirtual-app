@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="IrAtras()" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Todos los Movimientos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content center class="amigos">
+  <div class="contenedor-90">
+    <h1>Historial</h1>
+    <p>Todos los pedidos y envios de dinero a amigos.</p>
+    <!-- Lista Ultimos Movimientos -->
+    <div class="lista-ultimos-movimientos">
+      <div class="titulo">
+        <h2>Últimos movimientos</h2>
+        
+        <!-- <h2 (click)="irAHistorial();">Ver todos</h2> -->
+      </div>
+      <ion-refresher [class]="class_refresher" slot="fixed" (ionStart)="mostrar($event)"
+          (ionRefresh)="refresh($event)">
+          <ion-refresher-content refreshingText="Recargando..." refreshingSpinner="bubbles">
+          </ion-refresher-content>
+        </ion-refresher>
+      <div class="movimientos-wrapper">
+        <div class="movimiento" *ngFor="let item of historial_pedidos">
+          <div class="imagen">
+            <img src="assets/img/mov-recibiste.svg" alt="Recibiste" *ngIf="item.recibido==true">
+            <img src="assets/img/mov-pago.svg" alt="Pagaste" *ngIf="item.pago==true">
+          </div>
+          <div class="texto">
+            <h4 *ngIf="item.recibido==true && !item.rechazo">Recibiste de {{item.nombre}}</h4>
+            <h4 *ngIf="item.pago==true && !item.rechazo">Enviaste a {{item.nombre}}</h4>
+            <h4 *ngIf="item.rechazo==true">Rechazo de {{item.nombre}}</h4>
+            <span>{{ item.fecha | date:'dd'}} de {{ fecha_espaniol(item.fecha | date:'M')}} - {{ item.fecha |
+              date:'hh:mma'}}</span>
+          </div>
+          <div class="monto"> ${{item.monto}} </div>
+        </div>
+        <!-- <div class="movimiento">
+            <div class="imagen">
+              <img src="assets/img/mov-pago.svg" alt="Pagaste">
+            </div>
+            <div class="texto">
+              <h4>Pagaste a Florencia Pisandelli</h4>
+              <span>20 de mayo - 15:45pm</span>
+            </div>
+            <div class="monto"> -$456 </div>
+        </div> -->
+      
+      </div>
+          
+    </div>
+    <ion-infinite-scroll threshold="1px" (ionInfinite)="cargarmas($event)">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Cargando mas...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+    
+
+  </div>
+ 
+</ion-content>

@@ -9,7 +9,7 @@
 <ion-content [fullscreen]="true">
   <div class="contenedor-90">
     <h1>Historial de movimientos</h1>
-    <p>Texto que iría acá</p>
+    <p>Acá podes ver todos los movimientos de tu cuenta.</p>
     <div class="lista-ultimos-movimientos mt-10" *ngIf="items">
         <ion-refresher [class]="class_refresher" slot="fixed" (ionStart)="mostrar($event)"
           (ionRefresh)="refresh($event)">
@@ -32,11 +32,12 @@
           </div>
           
         </div>
-        <ion-infinite-scroll threshold="100px" (ionInfinite)="cargarmas($event)">
-          <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Cargando mas...">
-          </ion-infinite-scroll-content>
-        </ion-infinite-scroll>
+        
       
     </div>
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="cargarmas($event)">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Cargando mas...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
   </div>
 </ion-content>

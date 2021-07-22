@@ -17,6 +17,7 @@ export class IngresoTransferenciaPage implements OnInit {
   public alias;
   ngOnInit() {
     this.datos.obtener_datos().then((data:Icvu)=>{
+      console.log(data);
       this.cvu = data.cvu;
       this.alias = data.alias;
     }).catch(err=>{

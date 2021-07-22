@@ -1,13 +1,13 @@
 import { EstadoProcesoService } from './estado-proceso.service';
 import { catchError } from 'rxjs/operators';
-import { HttpEventType, HttpEvent } from '@angular/common/http';
+import { HttpEventType, HttpEvent, HttpParams } from '@angular/common/http';
 import { ServiceService } from './service.service';
 import { Injectable } from '@angular/core';
 let httpOptions = {
 
   headers: { contentType: 'application/json', token: '', responseType: 'json',  reportProgress: true,
-  observe: 'events' }
-
+  observe: 'events' },
+  params :new HttpParams()
 };
 interface resp {
   log: any,
@@ -61,9 +61,10 @@ export class ContactoService extends ServiceService {
     });
   }
 
-  obtener_historial_envios() {
+  obtener_historial_envios(offset?,limit?) {
     httpOptions.headers.token = localStorage.getItem('token');
-    //var postParams = { nombre: nombre, apellido: apellido,cuit:cuit,referencia:referencia, email:email,cvu:cvu,cbu:cbu,alias:alias };
+    let params = new HttpParams().append("limit",limit).append("offset",offset);
+    httpOptions.params = params;
     return new Promise((resolve, reject) => {
       this.get<any>('api/contacto/obtener_historial_envios', httpOptions).subscribe((data: resp) => {
         if (data.resultado != null && data.resultado === false) {
