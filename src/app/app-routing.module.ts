@@ -274,22 +274,8 @@ const routes: Routes = [
   {
     path: 'ingresar-efectivo-monto',
     loadChildren: () => import('./ingresar-efectivo-monto/ingresar-efectivo-monto.module').then( m => m.IngresarEfectivoMontoPageModule)
-<<<<<<< HEAD
   },
   {
-    path: 'changecel',
-    loadChildren: () => import('./changecel/changecel.module').then( m => m.ChangecelPageModule)
-  },
-  {
-    path: 'changemail',
-    loadChildren: () => import('./changemail/changemail.module').then( m => m.ChangemailPageModule)
-  },
-  {
-    path: 'logout',
-    loadChildren: () => import('./logout/logout.module').then( m => m.LogoutPageModule)
-  },
-=======
-  },  {
     path: 'changecel',
     loadChildren: () => import('./changecel/changecel.module').then( m => m.ChangecelPageModule)
   },
@@ -305,14 +291,6 @@ const routes: Routes = [
     path: 'transferencia-nuevacuenta',
     loadChildren: () => import('./transferencia-nuevacuenta/transferencia-nuevacuenta.module').then( m => m.TransferenciaNuevacuentaPageModule)
   },
-
->>>>>>> c95668f03589dbb90d4b8cb7060d07ffdb5dcb25
-
-
-
-
-
-
 ];
 
 @NgModule({
