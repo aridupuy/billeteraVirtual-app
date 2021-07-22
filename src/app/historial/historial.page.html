@@ -16,8 +16,8 @@
           <ion-refresher-content refreshingText="Recargando..." refreshingSpinner="bubbles">
           </ion-refresher-content>
         </ion-refresher>
-        <div class="movimientos-wrapper" *ngFor="let item of items">
-          <div class="movimiento">
+        <div class="movimientos-wrapper">
+          <div class="movimiento" *ngFor="let item of items">
             <div class="imagen">
               <img src="assets/img/mov-recibiste.svg" alt="Recibiste" *ngIf="item.id_tipo_trans=='2'">
               <img src="assets/img/mov-retiro.svg" alt="Recibiste" *ngIf="item.id_tipo_trans=='1'">
