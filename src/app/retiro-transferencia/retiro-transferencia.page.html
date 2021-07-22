@@ -1,9 +1,27 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>retiro-transferencia</ion-title>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="IrAtras()" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Transferir Dinero</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content center class="ingreso">
+  <div class="contenedor-90">
+    <h1>Agregar una cuenta</h1>
+    <div class="botonera">
+      <div class="boton enviar-dinero" (click)="transferencia();">
+        <img src="assets/img/transferencia/nuevacuenta.svg" alt="Agregar una nueva cuenta">
+        <h2>Nueva cuenta con CBU, CVU o alias</h2>
+      </div>
+      <div class="boton enviar-dinero" (click)="enviardinero();">
+        <img src="assets/img/transferencia/destinatarios.svg" alt="Lista de destinatarios">
+        <h2>Destinatarios</h2>
+      </div>
+    </div>
+    <!-- Modulo de últimos destinatarios -->
 
+  </div>
+  
 </ion-content>

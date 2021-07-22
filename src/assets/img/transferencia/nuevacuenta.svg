@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20.977" height="20.977" viewBox="0 0 20.977 20.977">
+  <g id="Grupo_1814" data-name="Grupo 1814" transform="translate(-302.671 -208.5)">
+    <g id="Elipse_236" data-name="Elipse 236" transform="translate(302.671 208.5)" fill="#fff" stroke="#414141" stroke-width="1">
+      <circle cx="10.489" cy="10.489" r="10.489" stroke="none"/>
+      <circle cx="10.489" cy="10.489" r="9.989" fill="none"/>
+    </g>
+    <text id="_" data-name="+" transform="translate(307.671 224.5)" fill="#414141" font-size="17" font-family="Rubik-Medium, Rubik" font-weight="500"><tspan x="0" y="0">+</tspan></text>
+  </g>
+</svg>

@@ -282,6 +282,14 @@ const routes: Routes = [
     path: 'changemail',
     loadChildren: () => import('./changemail/changemail.module').then( m => m.ChangemailPageModule)
   },
+  {
+    path: 'lista-destinatarios',
+    loadChildren: () => import('./lista-destinatarios/lista-destinatarios.module').then( m => m.ListaDestinatariosPageModule)
+  },
+  {
+    path: 'transferencia-nuevacuenta',
+    loadChildren: () => import('./transferencia-nuevacuenta/transferencia-nuevacuenta.module').then( m => m.TransferenciaNuevacuentaPageModule)
+  },
 
 
 
