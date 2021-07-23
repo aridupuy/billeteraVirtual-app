@@ -7,21 +7,49 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content center class="ingreso">
+<ion-content center class="transferencias">
   <div class="contenedor-90">
     <h1>Agregar una cuenta</h1>
     <div class="botonera">
-      <div class="boton enviar-dinero" (click)="transferencia();">
+      <div class="boton enviar-dinero" (click)="nuevacuenta();">
         <img src="assets/img/transferencia/nuevacuenta.svg" alt="Agregar una nueva cuenta">
         <h2>Nueva cuenta con CBU, CVU o alias</h2>
       </div>
-      <div class="boton enviar-dinero" (click)="enviardinero();">
+      <div class="boton enviar-dinero" (click)="destinatarios();">
         <img src="assets/img/transferencia/destinatarios.svg" alt="Lista de destinatarios">
         <h2>Destinatarios</h2>
       </div>
     </div>
     <!-- Modulo de últimos destinatarios -->
-
+    <div class="lista-destinatarios mt-10">
+      <div class="titulo">
+        <h2>Últimas</h2>
+      </div>
+      <div class="destinatarios-wrapper">
+        <div class="destinatario">
+          <div class="avatar-wrapper">
+            <div class="avatar">
+              AH
+            </div>
+          </div>
+          <div class="info-destinatario">
+            <h4 class="nombre">Martin Lopez</h4>
+            <span class="banco">Banco Santander Río</span>
+          </div>
+        </div>
+        <div class="destinatario">
+          <div class="avatar-wrapper">
+            <div class="avatar">
+              AH
+            </div>
+          </div>
+          <div class="info-destinatario">
+            <h4 class="nombre">Martin Lopez</h4>
+            <span class="banco">Banco Santander Río</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  
+
 </ion-content>

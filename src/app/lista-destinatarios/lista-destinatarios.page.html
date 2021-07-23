@@ -1,9 +1,85 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>lista-destinatarios</ion-title>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="IrAtras()" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>TRANSFERIR DINERO</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content center class="destinatarios">
+  <div class="contenedor-90">
+    <h1>Destinatarios</h1>
+    <p>Seleccioná a las personas desde esta lista o agregalas si no las ves.
+    </p>
+    <!-- Modulo de lista de destinatarios -->
+    <ion-list>
+      <ion-col>
+        <ion-searchbar debounce="750" [(ngModel)]="busqueda" [animated]="true" placeholder='Buscar'
+          clear-icon="close-circle" type="search" (ionChange)="buscar($event)" search-icon="ios-search"
+          md="search-outline" ios="close-circle"></ion-searchbar>
+        <ion-list *ngIf="buscando">
+          <ion-item>
+            <ion-spinner name="dots"></ion-spinner>
+          </ion-item>
+        </ion-list>
+        <ion-list *ngIf="!buscando && sinResutados">
+          <ion-item>
+            Sin resultados
+          </ion-item>
+        </ion-list>
+        <ion-list class="lista-destinatarios">
+          <!-- <ion-item *ngFor="let resultado of resultados"  (click)="pedir(resultado)"> -->
+          <ion-item class="destinatario-wrapper" *ngFor="let resultado of ultimos" (click)="marcar(resultado)">
+            <div class="destinatario">
+              <div class="avatar-wrapper">
+                <div class="avatar">
+                  {{iniciales(resultado.nombre)}}
+                </div>
+              </div>
+              <div class="info-destinatario">
+                <h2 class="nombre">{{ resultado.nombre}}</h2>
+                <!-- <span class="alias">Trabajo</span> -->
+              </div>
+              <div class="icon">
+                <ion-icon name="checkmark-circle" color="secondary" *ngIf="resultado.marcado"></ion-icon>
+                <ion-icon name="add-circle-outline" color="secondary" *ngIf="!resultado.marcado"></ion-icon>
+              </div>
+            </div>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-list>
+    <ion-list class="lista-destinatarios" *ngIf="!ultimos || ultimos.length==0 && this.sinResutados==false ">
+      <ion-item class="destinatario-wrapper" *ngFor="let i of [1,2,3,4,5]">
+        <div class="destinatario">
+          <div class="avatar-wrapper">
+            <div class="avatar">
+              <ion-skeleton-text animated="true"></ion-skeleton-text>
+            </div>
+          </div>
+          <div class="info-destinatario">
+            <h2 class="nombre">
+              <ion-skeleton-text animated="true"></ion-skeleton-text>
+            </h2>
+            <span class="banco">
+              <ion-skeleton-text animated="true"></ion-skeleton-text>
+            </span>
+          </div>
+          <div class="icon">
+            <ion-icon>
+              <ion-skeleton-text animated="true" name="add-circle-outline" color="secondary"></ion-skeleton-text>
+            </ion-icon>
+          </div>
+        </div>
 
+      </ion-item>
+    </ion-list>
+  </div>
+  <div class="onboarding-btn-group">
+    <a (click)="agregardestinatario()" class="link">Agregar nuevo destinatario</a>
+    <div (click)="pedir()" *ngIf="destinatarios==null || destinatarios.length>0" class="btn-round activo">Continuar
+    </div>
+    <div *ngIf="destinatarios==null || destinatarios.length==0" class="btn-round inactivo">Continuar</div>
+  </div>
 </ion-content>

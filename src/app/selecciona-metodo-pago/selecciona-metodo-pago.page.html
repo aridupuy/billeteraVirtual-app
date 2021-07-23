@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="IrAtras()" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Transferir Dinero</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content center class="transferencias">
+  <div class="contenedor-90">
+    <h1>Seleccionar medio de pago</h1>
+    <div class="botonera">
+      <div class="boton plata-cuenta" (click)="platacuenta();">
+        <img src="assets/img/transferencia/efectivo.svg" alt="Plata en Cuenta">
+        <h2>Plata en cuenta</h2>
+        <ion-icon name="checkmark-circle-sharp" color="success" *ngIf="visiblePlata"></ion-icon>
+      </div>
+      <div class="boton tarjeta-debito" (click)="tarjetadebito();">
+        <img src="assets/img/transferencia/tarjeta-debito.svg" alt="Tarjeta de debito">
+        <h2>Tarjeta de débito</h2>
+        <ion-icon name="checkmark-circle-sharp" color="success" *ngIf="visibleDebito"></ion-icon>
+      </div>
+    </div>
+    <!-- Modulo seleccionador tarjetas -->
+    <div class="seleccionador-tarjeta" *ngIf="visibleDebito">
+      <swiper id="slides" [config]="slideOpts" fxFlex="auto" [(index)]="indexSlide" *ngIf="cargando_Tarjetas">
+        <ion-skeleton-text animated class="tarjeta saldo-cuenta" [id]="tarjetas.length">
+          <h2>Saldo en cuenta</h2>
+          <p>${{saldo_en_cuenta}}</p>
+        </ion-skeleton-text>
+        <div animated class="tarjeta saldo-cuenta" [id]="tarjetas.length"
+          *ngIf="!sinCuenta && (tarjetas.length!==0 || cargando_Tarjetas)">
+          <h2>Saldo en cuenta</h2>
+          <p>${{saldo_en_cuenta}}</p>
+        </div>
+        <div class="tarjeta add-tarjeta" [id]="tarjetas.length+1" *ngIf="tarjetas!==undefined" (click)="tap($event)">
+          <h2>Agregar Tarjeta</h2>
+          <h2>+</h2>
+        </div>
+      </swiper>
+
+
+      <swiper class="swiper" id="slides" [config]="slideOpts" fxFlex="auto" [(index)]="indexSlide"
+        (slideChange)="change() " *ngIf="!cargando_Tarjetas">
+        <div [class]="obtener_class(item.bin)" *ngFor="let item of tarjetas index as i" [id]="i" (onClick)="tap()"
+          onload="marcar()">
+          <div class="marca">
+            <img src="" [src]="obtener_marca_img(item)" alt="Visa Débito">
+          </div>
+          <div class="banco" *ngIf="obtener_banco_img(item)">
+            <img src="" [src]="obtener_banco_img(item)" alt="banco">
+          </div>
+          <div class="banco" *ngIf="!obtener_banco_img(item)">
+          </div>
+          <div class="numeracion"><span class="ocultos">**** </span><span class="ocultos">**** </span><span
+              class="ocultos">**** </span><span class="visibles">{{item.numero}}</span></div>
+          <div class="titular">{{item.nombre}}</div>
+          <div class="vencimiento">{{item.mes}}/{{item.anio}}</div>
+        </div>
+        <div class="tarjeta saldo-cuenta" [id]="tarjetas.length"
+          *ngIf="!sinCuenta && (tarjetas.length!==0 || !cargando_Tarjetas)">
+          <h2>Saldo en cuenta</h2>
+          <p>${{saldo_en_cuenta}}</p>
+        </div>
+        <div class="tarjeta add-tarjeta" [id]="tarjetas.length+1" *ngIf="tarjetas!==undefined" (click)="tap($event)">
+          <h2>Agregar Tarjeta</h2>
+          <h2>+</h2>
+        </div>
+      </swiper>
+      <!-- > -->
+    </div>
+
+  </div>
+  <div class="onboarding-btn-group">
+    <div class="btn-round activo" (click)="Continuar()">
+      Continuar
+    </div>
+  </div>
+
+</ion-content>

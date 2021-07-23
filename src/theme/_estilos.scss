@@ -4,65 +4,126 @@
 
 // 1. Margenes y Paddings
 .mt-5 {
-    margin-top: 5%;
+  margin-top: 5%;
 }
+
 .mt-10 {
-    margin-top: 10%;
+  margin-top: 10%;
 }
+
 .mb-5 {
-    margin-bottom: 5%;
+  margin-bottom: 5%;
 }
+
 .pt-2 {
-    padding-top: 2%;
+  padding-top: 2%;
 }
+
 .pt-5 {
-    padding-top: 5%;
+  padding-top: 5%;
 }
+
 .pb-5 {
-    padding-bottom: 5%;
+  padding-bottom: 5%;
 }
-.pt-10{
-    padding-top: 10%;
+
+.pt-10 {
+  padding-top: 10%;
 }
 
 // 2. Alineaciones
 .absolute {
-    position: absolute;
+  position: absolute;
 }
+
 .align-center {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
 }
+
 .centrado {
-   --padding-top: 20%;
+  --padding-top: 20%;
 }
+
 .space-between {
-    justify-content: space-between;
+  justify-content: space-between;
 }
 
 // 3. Tamaños de Items
 .un-tercio {
-    width: 28%;
+  width: 28%;
 }
+
 .tres-tercios {
-    width: 70%;
+  width: 70%;
 }
+
 .mitad {
-    width: 48%;
+  width: 48%;
 }
+
 .full {
-    width: 100% !important;
+  width: 100% !important;
 }
+
 // 4. Ocultar / Mostrar Elementos
 .show {
-    opacity: 1;
-    display: flex;
-    transition: all 0.3s ease-in-out;
+  opacity: 1;
+  display: flex;
+  transition: all 0.3s ease-in-out;
 }
+
 .hide {
-    opacity: 0;
-    display: none;
+  opacity: 0;
+  display: none;
+}
+
+ion-list,
+ion-label,
+ion-input,
+ion-select,
+ion-item {
+  --background: transparent !important;
+}
+
+ion-select {
+  font-size: 13px !important;
+  width: 100%;
+  position: absolute;
+
+  .select-icon {
+    position: absolute;
+    right: 20px;
+  }
+}
+
+.action-sheet-group {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+
+  .action-sheet-button {
+    padding: 5px 10px;
+    border-bottom: 1px solid $border-rgba;
+  }
+
+  &:last-of-type {
+    border-top-left-radius: unset;
+    border-top-right-radius: unset;
+
+    .action-sheet-button {
+      border-bottom: none;
+    }
+
+    button {
+      color: $link-color;
+    }
+  }
+}
+
+.select-icon {
+  position: absolute !important;
+  right: 20px !important;
 }

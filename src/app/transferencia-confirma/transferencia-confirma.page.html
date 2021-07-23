@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="IrAtras()" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Pedir a un amigo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content center class="transferencias">
+  <div class="contenedor-90 align-center">
+    <h1>Vas a solicitar </h1>
+    <h2 class="monto full">$ 200</h2>
+    <p>A esta persona:</p>
+    <!-- Modulo Destinatario Seleccionado -->
+    <div class="destinatario-seleccionado">
+      <img src="../../assets/img/transferencia/edit.svg" alt="Editar" class="edit-icon" (click)="editarDestinatario()">
+      <div class="avatar-wrapper">
+        <div class="avatar">PG</div>
+      </div>
+      <div class="info-resultado">
+        <h4 class="nombre">Pablo Gomez</h4>
+        <span class="banco">Banco Santander Rio</span>
+        <span class="cbu">CBU: 01231214135135135613</span>
+        <span class="tipo-cuenta">Caja de ahorro</span>
+      </div>
+    </div>
+    <!-- Modulo de campos completados -->
+    <div class="campos-completados">
+      <img src="../../assets/img/transferencia/edit.svg" alt="Editar" class="edit-icon" (click)="editarCampos()">
+      <h4 class="motivo">Cena</h4>
+      <p class="mensaje">Pablo te esta enviando la plata de la cena</p>
+      <span class="email">pablo.g@gmail.com</span>
+    </div>
+  </div>
+  <div class="onboarding-btn-group">
+    <div class="btn-round activo" (click)="Continuar()">Continuar</div>
+
+  </div>
+  <div class="preloader" *ngIf="cargando">
+    <img src="assets/img/preloader.gif" alt="Cargando...">
+  </div>
+</ion-content>

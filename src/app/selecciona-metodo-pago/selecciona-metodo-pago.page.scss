@@ -1,0 +1,57 @@
+.swiper-slides {
+  width: 100%;
+  min-width: -webkit-fill-available;
+  overflow: auto;
+}
+
+.active section {
+  background-color: #008000bd;
+  border-radius: 7%;
+  padding: 1% 2% 9% 2%;
+  border-radius: 15px;
+}
+
+.active .tarjeta {
+  width: 100%;
+
+}
+
+.swiper_wrapper {
+  margin-bottom: 7%;
+}
+
+.swiper-pagination-bullets {
+  display: none;
+}
+
+.active {
+  background-color: #008000bd;
+  border-radius: 7%;
+  padding: 1% 2% 9% 2%;
+  border-radius: 15px;
+}
+
+.active .tarjeta {
+  width: 100%;
+
+}
+
+.swiper-pagination,
+.swiper-pagination-bullets,
+.swiper-pagination-handle {
+  display: none !important;
+}
+
+swiper[fxflex] {
+  display: flex;
+  flex-direction: inherit;
+  min-height: 0;
+  min-width: 0;
+  width: 90%;
+}
+
+scale-up-center {
+  -webkit-animation: shadow-inset-left 5s steps(4, end) 2s both;
+  animation: shadow-inset-left 5s steps(4, end) 2s both;
+  transition: all cubic-bezier(0.55, 0.66, 0, 0.46) 3.8s !important;
+}

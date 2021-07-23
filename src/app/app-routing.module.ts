@@ -288,17 +288,46 @@ const routes: Routes = [
     loadChildren: () => import('./lista-destinatarios/lista-destinatarios.module').then( m => m.ListaDestinatariosPageModule)
   },
   {
-    path: 'transferencia-nuevacuenta',
-    loadChildren: () => import('./transferencia-nuevacuenta/transferencia-nuevacuenta.module').then( m => m.TransferenciaNuevacuentaPageModule)
-  },
-  {
     path: 'logout',
     loadChildren: () => import('./logout/logout.module').then( m => m.LogoutPageModule)
-  },  {
+  },
+  {
     path: 'amigos-historial',
     loadChildren: () => import('./amigos-historial/amigos-historial.module').then( m => m.AmigosHistorialPageModule)
   },
+  {
+    path: 'retiro-transferencia',
+    loadChildren: () => import('./retiro-transferencia/retiro-transferencia.module').then( m => m.RetiroTransferenciaPageModule)
+  },  {
+    path: 'agregar-destinatario',
+    loadChildren: () => import('./agregar-destinatario/agregar-destinatario.module').then( m => m.AgregarDestinatarioPageModule)
+  },
+  {
+    path: 'transferencia-monto',
+    loadChildren: () => import('./transferencia-monto/transferencia-monto.module').then( m => m.TransferenciaMontoPageModule)
+  },
+  {
+    path: 'selecciona-metodo-pago',
+    loadChildren: () => import('./selecciona-metodo-pago/selecciona-metodo-pago.module').then( m => m.SeleccionaMetodoPagoPageModule)
+  },
+  {
+    path: 'transferencia-confirma',
+    loadChildren: () => import('./transferencia-confirma/transferencia-confirma.module').then( m => m.TransferenciaConfirmaPageModule)
+  },
+  {
+    path: 'success',
+    loadChildren: () => import('./success/success.module').then( m => m.SuccessPageModule)
+  },
+  {
+    path: 'error',
+    loadChildren: () => import('./error/error.module').then( m => m.ErrorPageModule)
+  },
+  {
+    path: 'warning',
+    loadChildren: () => import('./warning/warning.module').then( m => m.WarningPageModule)
+  },
 
+ 
 ];
 
 @NgModule({
