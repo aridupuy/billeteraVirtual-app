@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-retiro-transferencia',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RetiroTransferenciaPage implements OnInit {
 
-  constructor() { }
+  constructor(private NavCtrl: NavController) {}
 
   ngOnInit() {
   }
-
+  nuevacuenta() {
+    this.NavCtrl.navigateForward("agregar-destinatario")
+  }
+  destinatarios() {
+    this.NavCtrl.navigateForward("lista-destinatarios");
+  }
 }

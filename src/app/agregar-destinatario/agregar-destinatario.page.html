@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="IrAtras()" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Transferir Dinero</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content center class="destinatarios">
+  <div class="contenedor-90">
+    <h1>Agregar nueva cuenta</h1>
+    <p>Agregá tu nuevo destinatario para poder enviarle dinero.
+    </p>
+    <!-- Modulo Agregar destinatario -->
+    <div class="destinatario">
+      <h2 class="full">Ingresar CBU, CVU o alias</h2>
+      <ion-item class="input-container full">
+        <ion-input type="text">
+        </ion-input>
+        <ion-icon name="close-sharp" color="danger" slot="end"></ion-icon>
+        <ion-icon name="checkmark-sharp" color="success" slot="end"></ion-icon>
+      </ion-item>
+    </div>
+    <div class="validationMsg">
+      <div class="msg full danger" color="danger">El CBU está mal escrito. No te preocupes, puede pasar. <br>
+        Revisalo y volvé a intentarlo.
+      </div>
+    </div>
+    <div class="resultado-agrega">
+      <div class="avatar-wrapper">
+        <div class="avatar">PG</div>
+      </div>
+      <div class="info-resultado">
+        <h4 class="nombre">Pablo Gomez</h4>
+        <span class="banco">Banco Santander Rio</span>
+        <span class="cbu">CBU: 01231214135135135613</span>
+        <span class="tipo-cuenta">Caja de ahorro</span>
+      </div>
+    </div>
+  </div>
+  <div class="onboarding-btn-group">
+
+    <div (click)="Continuar()" class="btn-round activo">Continuar</div>
+    <a (click)="IrAtras()" class="link">Volver</a>
+  </div>
+</ion-content>

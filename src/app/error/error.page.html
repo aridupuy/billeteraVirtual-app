@@ -1,0 +1,25 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+
+  </ion-toolbar>
+</ion-header>
+<ion-content class="centrado transferencias">
+  <div class="imagen">
+    <img src="../../assets/icon/error.svg" alt="Operación no realizada">
+  </div>
+  <div class="contenedor-90 align-center">
+    <h1 class="align-center">¡Hubo un error!</h1>
+    <p class="align-center full">(Error de comunicación / falta de fondos / etc.) Invitar al usuario que invite a un
+      amigo para que use la billetera virtual o que lo vuelva a reintentar</p>
+
+
+  </div>
+  <div class="onboarding-btn-group">
+    <a (click)="reintentar()" class="link">Reintentar</a>
+    <div class="btn-round activo" (click)="finalizar()">
+      Boton 2
+    </div>
+    <a (click)="otroCall()" class="link">3er button de ser necesario</a>
+  </div>
+
+</ion-content>

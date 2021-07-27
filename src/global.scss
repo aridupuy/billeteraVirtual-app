@@ -43,9 +43,9 @@ $btn-seleccion-bg: #09b59a;
 $btn-seleccion-text: #fff;
 
 $border: #707070;
-$border-rgba: rgba(112, 112, 112,0.2);
+$border-rgba: rgba(112, 112, 112, 0.2);
 $error: #eb445a;
-$warning: rgba(255, 196, 9,0.3);
+$warning: rgba(255, 196, 9, 0.3);
 $success: #2fdf75;
 $white: #fff;
 
@@ -80,7 +80,7 @@ $home-button-bg: #F7F7F7;
 @import 'theme/sections/ingreso.scss';
 // 15. Secciones de Transferencias
 @import 'theme/sections/transferencias.scss';
+// 15. Secciones de Destinatarios
+@import 'theme/sections/destinatarios.scss';
 // 16. Media Querys para diferentes tamaños
 @import 'theme/responsive.scss';
-
-
