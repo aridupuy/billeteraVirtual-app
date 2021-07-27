@@ -25,27 +25,16 @@
       <div class="titulo">
         <h2>Últimas</h2>
       </div>
-      <div class="destinatarios-wrapper">
-        <div class="destinatario">
+      <div class="destinatarios-wrapper" *ngIf="listaDestinatarios.length>0">
+        <div class="destinatario" *ngFor="let item of listaDestinatarios" (click)="transferir(item)">
           <div class="avatar-wrapper">
             <div class="avatar">
-              AH
+              {{libs.iniciales(item.nombre+" "+item.apellido)}}
             </div>
           </div>
           <div class="info-destinatario">
-            <h4 class="nombre">Martin Lopez</h4>
-            <span class="banco">Banco Santander Río</span>
-          </div>
-        </div>
-        <div class="destinatario">
-          <div class="avatar-wrapper">
-            <div class="avatar">
-              AH
-            </div>
-          </div>
-          <div class="info-destinatario">
-            <h4 class="nombre">Martin Lopez</h4>
-            <span class="banco">Banco Santander Río</span>
+            <h4 class="nombre">{{libs.capitalize(item.nombre)+" "+libs.capitalize(item.apellido)}}</h4>
+            <span class="banco">{{libs.capitalize(item.referencia)}}</span>
           </div>
         </div>
       </div>

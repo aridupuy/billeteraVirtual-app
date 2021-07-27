@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { SuccessPageRoutingModule } from './success-routing.module';
 
 import { SuccessPage } from './success.page';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SuccessPageRoutingModule
+    SuccessPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [SuccessPage]
 })

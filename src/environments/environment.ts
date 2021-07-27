@@ -7,16 +7,16 @@ export const environment = {
   production: false,
   //  URL:"http://localhost:358/" ,
   //  URL:"http://172.20.20.10:358/" ,
-  // URL:"http://192.168.0.163:360/" ,
+  URL:"http://192.168.0.163:360/" ,
   //  URL:"http://172.20.10.36:358/" ,
-  URL: "http://172.20.20.53:360/",
-  // URL_LOGIN:"http://192.168.0.163:358/",
+  // URL: "http://172.20.20.53:360/",
+  // URL_LOGIN:"http://192.168.0.163:360/",
   ACTIVAR_TEST: true,
   // URL_LOGIN:"http://localhost:358/" 
   //  URL_LOGIN:"http://172.20.10.36:358/" 
   // URL_LOGIN:"http://172.20.20.10:358/"
-  URL_LOGIN: "http://172.20.20.53:360/"
-  // URL_LOGIN: "http://192.168.0.163:360/"
+  // URL_LOGIN: "http://172.20.20.53:360/"
+  URL_LOGIN: "http://192.168.0.163:360/"
   // ionic cordova run browser --livereload  --consolelogs --serverlogs
 };
 

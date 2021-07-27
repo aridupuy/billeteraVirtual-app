@@ -1,3 +1,4 @@
+import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 
@@ -7,15 +8,38 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./transferencia-monto.page.scss'],
 })
 export class TransferenciaMontoPage implements OnInit {
-
-  constructor(private navCtrl: NavController) { }
+  public email;
+  public monto;
+  public motivo;
+  public mensaje;
+  public destinatario;
+  constructor(public route: ActivatedRoute,private navCtrl: NavController) { }
 
   ngOnInit() {
+    
+    let  p  = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
+    if(p.monto!=null){
+      this.monto=p.monto;
+      this.mensaje=p.mensaje;
+      this.motivo=p.motivo;
+      this.destinatario = p.destinatario;
+      this.email=p.destinatario.email;
+    }else{
+    console.log(p.destinatario.email);
+    this.email=p.destinatario.email;
+    this.destinatario =p.destinatario;
+    }
+    
   }
   customActionSheetOptions: any = {
     
   };
   Continuar() {
-    this.navCtrl.navigateForward("selecciona-metodo-pago")
+    const navigationExtras: NavigationExtras = {
+      queryParams: {
+        param: JSON.stringify({destinatario:this.destinatario,monto:this.monto,motivo:this.motivo,mensaje:this.mensaje})
+      }
+    };
+    this.navCtrl.navigateForward("transferencia-confirma",navigationExtras);
   }
 }

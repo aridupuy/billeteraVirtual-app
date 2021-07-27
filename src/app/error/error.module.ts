@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ErrorPageRoutingModule } from './error-routing.module';
 
 import { ErrorPage } from './error.page';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ErrorPageRoutingModule
+    ErrorPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [ErrorPage]
 })

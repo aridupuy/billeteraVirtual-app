@@ -77,7 +77,14 @@ export class ServiceService extends HttpClient {
           return JSON.parse(this.decrypt(JSON.stringify(data), CLAVE_ENCRIPTACION)) as T;
       }
       )
-    );
+    ).pipe(
+      catchError(error => {
+        if (error.error instanceof ErrorEvent) {
+            console.log(error.error);
+            AppComponent.cargando=false;
+        } 
+        return [];
+    }));
     // post.subscribe(null,err=>{
     //   console.log(err);
     //   //aca podria levantar una vista general de error;

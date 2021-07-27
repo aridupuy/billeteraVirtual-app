@@ -1,0 +1,36 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+
+  </ion-toolbar>
+</ion-header>
+<ion-content class="centrado transferencias">
+  <div class="imagen">
+    <img src="../../assets/icon/check-mark.svg" alt="Operación realizada correctamente">
+  </div>
+  <div class="contenedor-90 align-center">
+    <h1 *ngIf="envio" class="align-center">¡Dinero enviado!</h1>
+    <p  *ngIf="envio" class="align-center full">Le enviaste</p>
+    <h1 *ngIf="pedido" class="align-center">¡Dinero Pedido!</h1>
+    <p *ngIf="pedido" class="align-center full">Le pediste</p>
+    <div class="monto">$ {{monto}}</div>
+    <!-- Modulo Destinatario Seleccionado -->
+    <div class="destinatario-seleccionado success">
+      <div class="avatar-wrapper">
+        <div class="avatar">{{inciales()}}</div>
+      </div>
+      <div class="info-resultado">
+        <h4 class="nombre">{{this.libs.capitalize(nombre)}} {{this.libs.capitalize(apellido)}}</h4>
+        <span class="cbu">{{dato}}</span>
+        
+      </div>
+    </div>
+
+  </div>
+  <div class="onboarding-btn-group">
+    <a (click)="compartirComprobante()" class="link">Compartir comprobante</a>
+    <div class="btn-round activo" (click)="finalizar()">
+      Finalizar
+    </div>
+  </div>
+
+</ion-content>

@@ -37,6 +37,9 @@ export class SaldoService extends ServiceService {
     console.log("recarga_td");
     httpOptions.headers.token=localStorage.getItem("token");
     return new Promise((resolve, reject) => {
+      if(!tarjeta){
+        reject(false);
+      }
       var postParams = {id_tarjeta: tarjeta.id , monto: monto};
       this.post<any>('api/saldo/recargar_saldo_td',postParams,httpOptions).subscribe((data) => {
         if (data.resultado != null && data.resultado == false) {

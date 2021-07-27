@@ -17,6 +17,7 @@ import { ComponentsModule } from './components/components.module';
 import {
     RespuestaResultadoComponent
 } from './components/respuesta-resultado/respuesta-resultado.component';
+import { Libs } from './classes/libs';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { registerLocaleData } from '@angular/common';
@@ -59,7 +60,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     ServiceService,
     Geolocation,
     UsuarioService,
-    
+    Libs,
     Pago,
     {
       provide: HAMMER_GESTURE_CONFIG,

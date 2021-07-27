@@ -17,6 +17,7 @@ import { UsuarioService } from '../service/usuario.service';
 // import { SaldoService } from '../service/saldo.service';
 import { Validaridentidad1Page } from '../validaridentidad1/validaridentidad1.page';
 import { AppComponent } from '../app.component';
+import { Libs } from '../classes/libs';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -47,7 +48,7 @@ export class HomePage implements OnInit {
   modalDataResponse: any;
   public valida_mail;
   public valida_ident;
-  constructor(public modalCtrl: ModalController, public navCtl: NavController, private menu: MenuController, public saldoService: SaldoService, public transaccionesService: TransaccionesService, public route: ActivatedRoute, public router: Router, public usuarioService: UsuarioService) { }
+  constructor(public modalCtrl: ModalController, public navCtl: NavController, private menu: MenuController, public saldoService: SaldoService, public transaccionesService: TransaccionesService, public route: ActivatedRoute, public router: Router, public usuarioService: UsuarioService,public libs:Libs) { }
 
   ngOnInit(): void {
     // AppComponent.cargando=true;
@@ -250,16 +251,7 @@ export class HomePage implements OnInit {
       }
       this.usuarioService.obtener_mis_datos().then((data: any) => {
         this.username = data.nombre;
-        this.iniciales = data.nombre_completo
-          .split(' ')
-          .map(it => it.charAt(0))
-          .slice(0, 1)
-          .join('')
-          + data.nombre_completo
-            .split(' ')
-            .map(it => it.charAt(0))
-            .slice(2, 3)
-            .join('');
+        this.iniciales = this.libs.iniciales(data.nombre_completo);
         // console.log("aca");
         localStorage.setItem("nombre", this.username);
         localStorage.setItem("iniciales", this.iniciales);

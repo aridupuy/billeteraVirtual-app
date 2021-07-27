@@ -39,6 +39,7 @@ export class PagarPage implements OnInit {
   public mensaje;
   public descripcion;
   public url;
+  public goto="pagar";
   public sinCuenta = false;
   public primeracarga = false;
   public cargando_Tarjetas = true;
@@ -88,23 +89,38 @@ export class PagarPage implements OnInit {
   };
   constructor(public modalCtrl: ModalController, public route: ActivatedRoute, public router: Router, public contacto: ContactoService, public navCtrl: NavController, public saldo: SaldoService, public tar: TarjetasService, public pricing: PricingService) {
     RespuestaResultadoComponent.setStatus(0);
+    console.log(this.route.snapshot.queryParamMap);
+    // this.goto = "/pagar?"+(JSON.stringify(this.route.snapshot.queryParams));
+    this.goto  = "pagar";
   }
 
   ngOnInit() {
     console.log("onInit");
     this.cargando_Tarjetas = true;
+    
+    this.goto = this.route.snapshot.url.toString();
     Observable.suscribe("change", (status) => {
       Observable.unsuscribe("change");
       console.log("event call");
-      this.cargando = 0;
+      // this.cargando = 0;
+      this.indexSlide = 0;
       // RespuestaResultadoComponent.setStatus(0);
-      this.saldo.obtener().then(saldo => {
-        console.log(saldo);
-        this.saldo_en_cuenta = saldo;
-        //  this.change(false,this.slides);
-        console.log(this.slides);
-        this.tap();
-      });
+      // this.saldo.obtener().then(saldo => {
+      //   console.log(saldo);
+      //   this.saldo_en_cuenta = saldo;
+      //   //  this.change(false,this.slides);
+      //   this.tap();
+      //   console.log(this.slides);
+      // });
+      this.tarjetas = [];
+      this.comisiones=[];
+      this.saldo_en_cuenta = 0;
+      this.cargando = 0;
+      this.cargando_Tarjetas=false;
+      this.cargandoComisiones=false;
+      this.ngOnInit();
+      this.ionViewDidEnter();
+      
     })
     this.tarjetas;
     console.log(this.indexSlide);
@@ -229,10 +245,15 @@ export class PagarPage implements OnInit {
           /*va por tc */
           this.tipo_deuda = "contacto-tc";
         }
+        this.mensaje="Enviaste al contacto";
+        // this.
+        this.descripcion = this.deuda.mensaje;
         break;
       case "Recargatd":
         console.log("aca2");
         this.tipo_deuda = "recarga-td";
+        this.mensaje="Recargaste"
+        this.descripcion = this.deuda.mensaje;
         // this.tipo_deuda = "contacto-tc";
         break;
       case "recarga-efectivo":
@@ -307,18 +328,21 @@ export class PagarPage implements OnInit {
     this.cargando = 2;
      console.log(data);
     if (data.error !== false || data.error == undefined) {
+      RespuestaResultadoComponent.setStatus(3);
       console.log(data.error);
       this.descripcion = "Ocurrio un error"
       this.mensaje = data.error;
       this.cargando = 0;
-      RespuestaResultadoComponent.setStatus(3);
+      
     }
     else {
       RespuestaResultadoComponent.setStatus(2);
       this.mensaje = "Pagaste Con exito";
       this.descripcion = "Pagaste " + data.deuda.mensaje + "Por $" + data.deuda.monto + " a: " + data.persona.nombre + "",
-        this.url = "home";
+      this.url = "home";
       this.cargando = 0;
+      console.log(this);
+      
       //this.ngOnInit();
       /*aca va el llamado a la pagina de ok o de error*/
       //this.navCtrl.back();

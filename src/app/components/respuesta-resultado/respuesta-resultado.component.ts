@@ -2,6 +2,9 @@ import { Observable } from './../../classes/observable';
 import { NavController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, Input, Inject } from '@angular/core';
+import { ErrorPage } from '../../error/error.page';
+import { SuccessPage } from '../../success/success.page';
+
 
 
 
@@ -16,8 +19,14 @@ export class RespuestaResultadoComponent implements OnInit {
   @Input() descripcion;
   @Input() static pedidook;
   @Input() url;
+  public dato;
+  public monto;
+  public persona;
+  public deuda;
+
   constructor(public route: ActivatedRoute, public router: Router, public navCtrl: NavController) {
     console.log("EN CONTRUCTOR");
+    console.log(this);
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
     if (p != null) {
       if (p.mensaje != null)
@@ -26,8 +35,12 @@ export class RespuestaResultadoComponent implements OnInit {
         this.descripcion = p.mensaje;
       if (p.pedidook != null)
         RespuestaResultadoComponent.pedidook = p.pedidook;
+      if (p.persona != null)
+        this.persona = p.persona; 
+      if (p.deuda != null)
+        this.deuda = p.deuda; 
     }
-
+    console.log(this);
 
   }
 
@@ -38,12 +51,15 @@ export class RespuestaResultadoComponent implements OnInit {
     console.log(this.mensaje);
     console.log(this.url);
   }
+  ionViewDidEnter(){
+    console.log(this);
+  }
   volver() {
     
     console.log(this.url);
     this.navCtrl.navigateRoot(this.url);
   }
-  reintentar() {
+  static reintentar() {
     
     RespuestaResultadoComponent.pedidook = 0;
     Observable.notify("change", RespuestaResultadoComponent.pedidook);
@@ -64,5 +80,6 @@ export class RespuestaResultadoComponent implements OnInit {
   public setStatusInternal(pedidook) {
     
     RespuestaResultadoComponent.pedidook = pedidook;
+    console.log(this);
   }
 }
