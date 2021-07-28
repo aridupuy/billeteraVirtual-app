@@ -1,18 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { NavigationExtras } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { ContactoService } from '../service/contacto.service';
 import { Icontacto } from '../interfaces/Icontacto';
-import { Libs } from '../classes/libs';
-import { TransferirProveedorService } from '../service/transferir-proveedor.service';
-import { DestinatariosService } from '../service/destinatarios.service';
-import { IDestinatario } from '../interfaces/IDestinatario';
-
+import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
+import { NavigationExtras } from '@angular/router';
 @Component({
-  selector: 'app-lista-destinatarios',
-  templateUrl: './lista-destinatarios.page.html',
-  styleUrls: ['./lista-destinatarios.page.scss'],
+  selector: 'app-lista-amigos-env',
+  templateUrl: './lista-amigos-env.page.html',
+  styleUrls: ['./lista-amigos-env.page.scss'],
 })
-export class ListaDestinatariosPage implements OnInit {
+export class ListaAmigosEnvPage implements OnInit {
+
   public monto_escrito;
   public monto;
   public ultimos = [];
@@ -21,29 +18,31 @@ export class ListaDestinatariosPage implements OnInit {
   public resultados;
   public buscando = false;
   public sinResutados = false
-  public destinatarios = [];
-  constructor(public contacto: TransferirProveedorService,public destiService:DestinatariosService, private navCtrl: NavController,public Libs:Libs) { }
+  public amigos = [];
+  constructor(public contacto: ContactoService, private navCtrl: NavController) { }
   ngOnInit() {
 
-    this.destiService.obtener_destinatarios().then((data:IDestinatario) => {
-      console.log(data);
-      data.data.forEach(d => {
-        console.log(d);
+    this.contacto.obtener_ultimos_contactos().then((data: Icontacto[]) => {
+      data.forEach(d => {
         d.iniciales = this.iniciales(d.nombre);
         d.marcado = 0;
       });
-      this.ultimos = data.data;
+      this.ultimos = data;
       this.ultimos_back = this.ultimos;
     }).catch(err => {
       console.log(err);
       this.sinResutados=true;
     });
-    this.destinatarios=[];
+    this.amigos=[];
 
   }
-  agregardestinatario() {
-    console.log("agregar-destinatario");
-    this.navCtrl.navigateRoot("agregar-destinatario");
+  agregarAmigo() {
+    const navigationExtras: NavigationExtras = {
+      queryParams: {
+        param: JSON.stringify({envio:true })
+      }
+    };
+    this.navCtrl.navigateRoot("agregar-amigo",navigationExtras);
   }
   buscar(event) {
     console.log(this.busqueda);
@@ -64,46 +63,46 @@ export class ListaDestinatariosPage implements OnInit {
       this.sinResutados = false;
     }
   }
-  iniciales(nombre):string {
-    return this.Libs.iniciales(nombre).toString();
-      
+  iniciales(nombre) {
+    return nombre
+      .split(' ')
+      .map(it => it.charAt(0))
+      .slice(0, 1)
+      .join('')
+      + nombre
+        .split(' ')
+        .map(it => it.charAt(0))
+        .slice(2, 3)
+        .join('');
   }
   Continuar() {
+    this.navCtrl.navigateForward(["pedir-amigo-desdelista", {}]);
+  }
+  pedir() {
+
     const navigationExtras: NavigationExtras = {
       queryParams: {
-        param: JSON.stringify({ destinatario: this.destinatarios })
+        param: JSON.stringify({ var: this.amigos })
       }
     };
     console.log(navigationExtras);
     // this.modalCtrl.dismiss();
-    // this.navCtrl.navigateForward("transferencia-monto",navigationExtras);
-    this.navCtrl.navigateForward("transferencia-monto",navigationExtras);
-  }
-  pedir() {
-
-   
+    this.navCtrl.navigateForward("pedir-amigo-desdelista", navigationExtras);
 
   }
 
   marcar(resultado:Icontacto) {
     console.log("MARCANDO");
-    let contactos = this.destinatarios;
-    this.destinatarios = [];
+    let contactos = this.amigos;
+    this.amigos = [];
     var esta = false;
     if(contactos .length == 0){
       console.log("VACIO");
-      console.log(this.destinatarios.length);
+      console.log(this.amigos.length);
       resultado.marcado = 1;
       resultado.iniciales = this.iniciales(resultado.nombre);
-      this.destinatarios.push(resultado);
+      this.amigos.push(resultado);
       return false;
-    }
-    else{
-      contactos.forEach(data=>{
-        data.marcado=0;
-      });
-      contactos=[];
-      // resultado.iniciales = this.iniciales(resultado.nombre);
     }
     
     contactos.forEach((cont) => {
@@ -111,7 +110,7 @@ export class ListaDestinatariosPage implements OnInit {
       console.log(cont.id);
       console.log(resultado.id);
       if(!esta)
-        if ((cont.id == resultado.id)) {
+        if (cont.id == resultado.id) {
           console.log("ESTA");
           esta=true;
         } else {
@@ -125,24 +124,23 @@ export class ListaDestinatariosPage implements OnInit {
       if ( i !== -1 ) {
           contactos.splice( i, 1 );
       }
-      this.destinatarios = contactos;
+      this.amigos = contactos;
     }
     else{
       resultado.marcado = 1;
       resultado.iniciales = this.iniciales(resultado.nombre);
-      this.destinatarios = contactos;
+      this.amigos = contactos;
       console.log("AGREGO");
-      this.destinatarios.push(resultado);
+      this.amigos.push(resultado);
     }
-    console.log(this.destinatarios);
+    console.log(this.amigos);
   }
   desmarcar(resultado) {
     console.log(resultado);
-    this.destinatarios.reduce((item) => {
+    this.amigos.reduce((item) => {
       console.log(item);
       if (item.id == resultado.id)
         return false;
     })
   }
-
 }

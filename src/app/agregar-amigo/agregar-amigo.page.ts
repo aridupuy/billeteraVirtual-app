@@ -2,6 +2,7 @@
 import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts/ngx';
 import { ContactoService } from '../service/contacto.service';
 import { PedirAmigoDesdelistaPage } from '../pedir-amigo-desdelista/pedir-amigo-desdelista.page';
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { NavigationExtras } from '@angular/router';
@@ -14,62 +15,112 @@ import { NavigationExtras } from '@angular/router';
 export class AgregarAmigoPage implements OnInit {
   public monto_escrito;
   public monto;
-  public ultimos=[];
+  public ultimos = [];
   public busqueda;
   public resultados;
   public buscando = false;
   public sinResutados = false
   public amigos = [];
-  constructor(private contact: Contacts, private contacts: Contacts, public contacto: ContactoService, private navCtrl: NavController) { }
+  public enviar;
+  public pedido;
+  constructor(public route:ActivatedRoute,private contact: Contacts, private contacts: Contacts, public contacto: ContactoService, private navCtrl: NavController) { }
   public allContacts = [];
-  ngOnInit(){};
+  public loading_contacts=true;
+  ngOnInit() {
+    let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
+    // this.p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
+
+    console.log(p);
+    if('envio' in p ){
+      this.enviar = p.envio;
+    }
+    if('pedir' in p ){
+      this.pedido = p.pedir;
+    }
+   };
   ionViewDidEnter() {
-    this.contact.find(['displayName', 'name', 'phoneNumbers', 'emails'], { filter: "", multiple: true })
-      .then(data => {
-        /*ver como hacer mas optimo esto*/
-        data.forEach((cont) => {
-          // console.log(JSON.stringify(cont));
-          if (cont.emails != null)
-            cont.emails.forEach((email) => {
-              // console.log(JSON.stringify(email));
-              this.contacto.buscar_contactos(email.value).then((usuario:any[]) => {
-                console.log(usuario);
-                usuario.forEach(usu => {
-                  usu["marcado"]=0;
-                  console.log(usu);
+    this.loading_contacts = true;
+    if (window.hasOwnProperty('cordova'))
+      this.contact.find(['displayName', 'name', 'phoneNumbers', 'emails'], { filter: "", multiple: true })
+        .then(data => {
+          /*ver como hacer mas optimo esto*/
+          data.forEach((cont) => {
+            // console.log(JSON.stringify(cont));
+            if (cont.emails != null)
+              cont.emails.forEach((email) => {
+                // console.log(JSON.stringify(email));
+                this.contacto.buscar_contactos(email.value,this.tipo).then((usuario: any[]) => {
+                  console.log(usuario);
+                  usuario.forEach(usu => {
+                    usu["marcado"] = 0;
+                    usu["invitar"]=0;
+                    this.allContacts.push(usu);
+                  })
+                  // 
+                  // console.log(JSON.stringify(usuario[0]));
+                  // 
+                  this.loading_contacts = false;
+                }).catch(err=>{
+                  let usu=[];
+                  usu["marcado"] = 0;
+                  usu["nombre"]=cont.displayName;
+                  usu["id"]=cont.name+"_"+cont.phoneNumbers[0];
+                  usu["invitar"]=1;
                   this.allContacts.push(usu);
                 });
-                // 
-                // console.log(JSON.stringify(usuario[0]));
-                // 
               })
-            })
             console.log(JSON.stringify(this.allContacts));
-        })
-        // console.log(JSON.stringify(this.allContacts));
-        // = data
-        console.log(JSON.stringify(this.allContacts));
+          })
+          // console.log(JSON.stringify(this.allContacts));
+          // = data
+          console.log(JSON.stringify(this.allContacts));
+        });
+        else {
+          this.loading_contacts = false;
+        }
+    this.contacto.obtener_ultimos_contactos().then((data: any[]) => {
+      console.log(data);
+      data.forEach(d => {
+        d["iniciales"] = this.iniciales(d.nombre);
       });
-      this.contacto.obtener_ultimos_contactos().then((data:any[])=>{
-        console.log(data);
-        data.forEach(d=>{
-            d["iniciales"]=this.iniciales(d.nombre);
-          });
-          this.ultimos=data;
-      }).catch(err=>{
-        console.log(err);
-      });
+      this.ultimos = data;
+    }).catch(err => {
+      console.log(err);
+    });
 
 
   }
   agregarAmigo() {
-
+    return this.pedir();
   }
+  tipo = "mail";
+  metodo_busqueda(tipo) {
+    switch (tipo) {
+      case "mail":
+        document.getElementById("metodo_mail").classList.remove("inactivo");
+        document.getElementById("metodo_mail").classList.add("activo");
+        document.getElementById("metodo_cel").classList.remove("activo");
+        document.getElementById("metodo_cel").classList.add("inactivo");
+        this.resultados = [];
+        this.tipo = "mail";
+        break;
+      case "celular":
+        this.resultados = [];
+        document.getElementById("metodo_cel").classList.remove("inactivo");
+        document.getElementById("metodo_cel").classList.add("activo");
+        document.getElementById("metodo_mail").classList.remove("activo");
+        document.getElementById("metodo_mail").classList.add("inactivo");
+        this.tipo = "celular";
+        break;
+    }
+  }
+
   buscar(event) {
     console.log(this.busqueda);
     this.buscando = true;
     this.sinResutados = false
-    this.contacto.buscar_contactos(this.busqueda).then(data => {
+    this.resultados=[];
+    this.contacto.buscar_contactos(this.busqueda,this.tipo).then(data => {
       this.resultados = data;
       this.buscando = false;
       console.log(data);
@@ -97,27 +148,35 @@ export class AgregarAmigoPage implements OnInit {
 
     const navigationExtras: NavigationExtras = {
       queryParams: {
-        param: JSON.stringify({ var: this.amigos })
+        param: JSON.stringify({ var: this.amigos,pedir:this.pedido,envio:this.enviar })
       }
     };
     console.log(navigationExtras);
     // this.modalCtrl.dismiss();
-    this.navCtrl.navigateForward("pedir-amigo-desdelista", navigationExtras);
+    this.navCtrl.navigateForward("agregar-amigo2", navigationExtras);
 
   }
   marcar(resultado) {
-    resultado["marcado"] = 1;
-    resultado["iniciales"] = this.iniciales(resultado.nombre);
-    this.amigos.push(resultado);
-  }
-  desmarcar(resultado) {
     console.log(resultado);
-    this.amigos.reduce((item) => {
-      console.log(item);
-      if (item.id == resultado.id)
-        return false;
-    })
+    if(resultado.marcado==undefined || resultado.marcado==0){
+      resultado["marcado"] = 1;
+      resultado["iniciales"] = this.iniciales(resultado.nombre);
+      this.amigos.push(resultado);
+    }else{
+      resultado["marcado"] = 0;
+      let index = this.amigos.findIndex(res=>resultado.id==res.id);
+      this.amigos.splice(index,1);
+    }
+    console.log(this.amigos);
   }
+  // desmarcar(resultado) {
+  //   console.log(resultado);
+  //   this.amigos.reduce((item) => {
+  //     console.log(item);
+  //     if (item.id == resultado.id)
+  //       return false;
+  //   })
+  // }
   ContinuarBuscar() {
     this.navCtrl.navigateForward(["agregar-amigo2", {}]);
   }

@@ -3,6 +3,8 @@ import Integer from "@zxing/library/esm/core/util/Integer";
 export class Libs {
 
     public capitalize(txt: String): String {
+        if(!txt)
+            return txt;
         let text = txt.toLowerCase();
         let firstLetter = txt.charAt(0);
         firstLetter = firstLetter.toUpperCase();

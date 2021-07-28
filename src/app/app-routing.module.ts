@@ -192,6 +192,10 @@ const routes: Routes = [
     loadChildren: () => import('./pedir-amigo/pedir-amigo.module').then( m => m.PedirAmigoPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
   },
   {
+    path: 'enviar-amigo',
+    loadChildren: () => import('./enviar-amigo/enviar-amigo.module').then( m => m.EnviarAmigoPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
+  },
+  {
     path: 'pedir-amigo-link',
     loadChildren: () => import('./pedir-amigo-link/pedir-amigo-link.module').then( m => m.PedirAmigoLinkPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
   },
@@ -298,7 +302,8 @@ const routes: Routes = [
   {
     path: 'retiro-transferencia',
     loadChildren: () => import('./retiro-transferencia/retiro-transferencia.module').then( m => m.RetiroTransferenciaPageModule)
-  },  {
+  },
+  {
     path: 'agregar-destinatario',
     loadChildren: () => import('./agregar-destinatario/agregar-destinatario.module').then( m => m.AgregarDestinatarioPageModule)
   },
@@ -325,6 +330,9 @@ const routes: Routes = [
   {
     path: 'warning',
     loadChildren: () => import('./warning/warning.module').then( m => m.WarningPageModule)
+  },  {
+    path: 'lista-amigos-env',
+    loadChildren: () => import('./lista-amigos-env/lista-amigos-env.module').then( m => m.ListaAmigosEnvPageModule)
   },
 
  

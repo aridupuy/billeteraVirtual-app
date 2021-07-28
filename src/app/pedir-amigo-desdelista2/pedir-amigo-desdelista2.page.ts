@@ -14,6 +14,8 @@ export class PedirAmigoDesdelista2Page implements OnInit {
   public referencia;
   public amigos;
   public cargando=false;
+  public enviar;
+  public pedir;
   constructor(public route: ActivatedRoute,public contacto:ContactoService,private navCtrl: NavController) { }
 
   ngOnInit() {
@@ -22,6 +24,10 @@ export class PedirAmigoDesdelista2Page implements OnInit {
     this.monto = p.monto;
     this.amigos  = p.amigos;
     this.referencia = p.referencia;
+    if('envio' in p)
+      this.enviar = p.envio;
+    if('pedir' in p)
+      this.pedir = p.pedir;
   }
   Continuar() {
     let  p  = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
@@ -31,8 +37,9 @@ export class PedirAmigoDesdelista2Page implements OnInit {
       }
     };
     new Promise((resolve,rejects)=>{
+      if(this.pedir){
       this.amigos.forEach(async (amigo:Icontacto,index,array) => {
-        this.cargando=true;
+        // this.cargando=true;
         
         await this.contacto.crear_pedido(amigo.id,this.monto,this.referencia).then(data=>{
           console.log(data);
@@ -41,9 +48,21 @@ export class PedirAmigoDesdelista2Page implements OnInit {
             resolve(amigo);
         }
       });
-
+    }
+    if(this.enviar){
+      this.amigos.forEach(async (amigo:Icontacto,index,array) => {
+        // this.cargando=true;
+        
+        await this.contacto.crear_envio(amigo.id,this.monto,this.referencia).then(data=>{
+          console.log(data);
+        });
+        if(index==array.length-1){
+            resolve(amigo);
+        }
+      });
+    }
     }).then((data)=>{
-      this.cargando= false;
+      // this.cargando= false;
       this.navCtrl.navigateForward("amigos");
     });
     

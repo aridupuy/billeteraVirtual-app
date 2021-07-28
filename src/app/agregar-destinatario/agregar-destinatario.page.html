@@ -16,32 +16,48 @@
     <div class="destinatario">
       <h2 class="full">Ingresar CBU, CVU o alias</h2>
       <ion-item class="input-container full">
-        <ion-input type="text">
+        <ion-input type="text" [(ngModel)]="dato" (ngModelChange)="validar_dato()">
         </ion-input>
-        <ion-icon name="close-sharp" color="danger" slot="end"></ion-icon>
-        <ion-icon name="checkmark-sharp" color="success" slot="end"></ion-icon>
+        <!-- <ion-icon [name]="close-sharp"  color="danger" slot="end"></ion-icon> -->
+        <ion-icon [name]="Iconname"  [color]="IconColor" slot="end"></ion-icon>
+        <!-- <ion-icon name="checkmark-sharp" class="activo" color="success" slot="end"></ion-icon> -->
       </ion-item>
     </div>
     <div class="validationMsg">
-      <div class="msg full danger" color="danger">El CBU está mal escrito. No te preocupes, puede pasar. <br>
+      <div class="msg full danger" color="danger" *ngIf="error">El CBU está mal escrito. No te preocupes, puede pasar. <br>
         Revisalo y volvé a intentarlo.
       </div>
+      <div class="msg full danger" color="danger" *ngIf="mensajeError">{{mensajeError}}</div>
     </div>
-    <div class="resultado-agrega">
+    <div class="resultado-agrega" *ngIf="encontrado">
       <div class="avatar-wrapper">
-        <div class="avatar">PG</div>
+        <div class="avatar">{{libs.iniciales(encontrado.nombre)}}</div>
       </div>
       <div class="info-resultado">
-        <h4 class="nombre">Pablo Gomez</h4>
-        <span class="banco">Banco Santander Rio</span>
-        <span class="cbu">CBU: 01231214135135135613</span>
-        <span class="tipo-cuenta">Caja de ahorro</span>
+        <h4 class="nombre">{{encontrado.nombre}}</h4>
+        <span class="banco" *ngIf="encontrado.banco != null ">Banco {{encontrado.nombre_banco}</span>
+        <span class="cbu" *ngIf="en('cbu',encontrado)">CBU: {{encontrado.cbu}}</span>
+        <span class="cbu" *ngIf="en('cvu',encontrado)">CVU: {{encontrado.cvu}}</span>
+        <span class="cbu" *ngIf="en('alias',encontrado)">ALIAS: {{encontrado.alias}}</span>
+        <!-- <span class="tipo-cuenta">Caja de ahorro</span> -->
       </div>
     </div>
+    <div class="form" *ngIf="encontrado">
+      <ion-item class="input-container with-label">
+        <ion-label position="floating">Indica su email</ion-label>
+        <ion-input type="email" [(ngModel)]="email" placeholder="algo@unmail.com"></ion-input>
+      </ion-item>
+      <ion-item class="input-container with-label">
+        <ion-label position="floating">Ingresá una referencia</ion-label>
+        <ion-input [(ngModel)]="referencia" type="text" placeholder="una referencia"></ion-input>
+      </ion-item>
+    </div>
   </div>
+  
   <div class="onboarding-btn-group">
 
-    <div (click)="Continuar()" class="btn-round activo">Continuar</div>
-    <a (click)="IrAtras()" class="link">Volver</a>
+    <div (click)="Continuar()" *ngIf="!error && !mensajeError&& dato!=undefined && dato.length>0" class="btn-round activo">Continuar</div>
+    <div *ngIf="error || mensajeError ||  dato==undefined " class="btn-round inactivo">Continuar</div>
+    <!-- <a (click)="IrAtras()" class="link">Volver</a> -->
   </div>
 </ion-content>

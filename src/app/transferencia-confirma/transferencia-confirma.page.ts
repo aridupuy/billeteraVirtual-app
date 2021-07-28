@@ -1,4 +1,6 @@
 import { Libs } from '../classes/libs';
+import { TransferirProveedorService } from '../service/transferir-proveedor.service';
+import { Router } from '@angular/router';
 import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
@@ -15,7 +17,7 @@ export class TransferenciaConfirmaPage implements OnInit {
   public mensaje;
   public cargando;
   public p;
-  constructor(public route: ActivatedRoute,private navCtrl: NavController,public libs:Libs) { }
+  constructor(public route: ActivatedRoute,public router:Router,private navCtrl: NavController,public libs:Libs,public Transferencia:TransferirProveedorService) { }
 
   ngOnInit() {
     this.p  = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
@@ -27,7 +29,6 @@ export class TransferenciaConfirmaPage implements OnInit {
   }
   Continuar() {
     let dato ;
-    console.log(this.destinatario);
     if(this.destinatario.cbu!=null && this.destinatario.cbu!='')
       dato  = "CBU "+this.destinatario.cbu;
     if(this.destinatario.cvu!=null && this.destinatario.cvu!='')
@@ -40,10 +41,26 @@ export class TransferenciaConfirmaPage implements OnInit {
         param: JSON.stringify({envio:envio,monto:this.monto,motivo:this.motivo,nombre:this.destinatario.nombre,apellido:this.destinatario.apellido,dato:dato})
       }
     };
-    /* sale bien*/
-    // this.navCtrl.navigateForward("success",navigationExtras);
-    /* sale mal*/
-      this.navCtrl.navigateForward("error",navigationExtras);
+    
+    
+    
+    this.Transferencia.transferir_proveedor(this.destinatario.id_destinatario,this.monto,this.mensaje,this.motivo,this.destinatario.email).then(data=>{
+      /* sale bien*/
+      console.log(data);
+      this.navCtrl.navigateForward("success",navigationExtras);
+    }).catch(err=>{
+      /* sale mal*/
+      console.log(err);
+      console.log(this.router.url);
+      let url = "transferencia-confirma";
+      let navigationExtrasError: NavigationExtras = {
+        queryParams: {
+          param: JSON.stringify({envio:envio,monto:this.monto,motivo:this.motivo,nombre:this.destinatario.nombre,apellido:this.destinatario.apellido,dato:dato,mensaje:err,url:url,goto:url})
+        }
+      }
+      this.navCtrl.navigateForward("error",navigationExtrasError);
+    });
+    
   }
   editarDestinatario(){
     const navigationExtras: NavigationExtras = {

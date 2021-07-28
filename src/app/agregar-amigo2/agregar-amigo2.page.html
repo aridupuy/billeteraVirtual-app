@@ -3,7 +3,8 @@
     <ion-buttons slot="start" class="absolute">
       <ion-back-button defaultHref="IrAtras()" class="small"></ion-back-button>
     </ion-buttons>
-    <ion-title>Pedir a un amigo</ion-title>
+    <ion-title *ngIf="enviar">enviar a un amigo</ion-title>
+    <ion-title *ngIf="pedir">Pedir a un amigo</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -16,8 +17,8 @@
         {{iniciales}}
       </div>
       <div class="info-usuario align-center full">
-        <h2 class="nombre full">Ricardo Fort</h2>
-        <p class="mail full">ricky@gmail.com</p>
+        <h2 class="nombre full">{{nombre}}</h2>
+        <p class="mail full">{{dato}}</p>
       </div>
     </div>
 

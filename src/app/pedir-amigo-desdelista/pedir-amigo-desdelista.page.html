@@ -3,21 +3,23 @@
     <ion-buttons slot="start" class="absolute">
       <ion-back-button defaultHref="IrAtras()" class="small"></ion-back-button>
     </ion-buttons>
-    <ion-title>Pedir a un amigo</ion-title>
+    <ion-title *ngIf="pedir">Pedir a un amigo</ion-title>
+    <ion-title *ngIf="enviar">Enviar a un amigo</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content center class="amigos">
   <div class="contenedor-90 align-center">
-    <h1>Vas a pedirle dinero a </h1>
+    <h1 *ngIf="pedir">Vas a pedirle dinero a </h1>
+    <h1 *ngIf="enviar">Vas a enviar dinero a </h1>
     <!-- <div> -->
     <div class="amigos-seleccionados">
       <div class="amigo"  *ngFor="let item of amigos">
         <div class="avatar">
-          {{item.iniciales}}
+          {{libs.iniciales(item.nombre)}}
         </div>
         <div class="nombre">
-          {{item.nombre}}
+          {{libs.capitalize(item.nombre)}}
         </div>
       </div>
      <!-- </div> -->

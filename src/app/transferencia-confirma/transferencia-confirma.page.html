@@ -20,7 +20,7 @@
       </div>
       <div class="info-resultado">
         <h4 class="nombre">{{libs.capitalize(destinatario.nombre)}} {{libs.capitalize(destinatario.apellido)}}</h4>
-        <span class="banco">{{destinatario.banco}}</span>
+        <span class="banco">{{destinatario.nombre_banco}}</span>
         <span class="cbu" *ngIf="destinatario.cbu!='' && destinatario.cbu!=null">CBU: {{destinatario.cbu}}</span>
         <span class="cbu" *ngIf="destinatario.cvu!='' && destinatario.cvu!=null  ">CVU: {{destinatario.cvu}}</span>
         <span class="cbu" *ngIf="destinatario.alias!='' && destinatario.alias!=null">ALIAS: {{destinatario.alias}}</span>
@@ -29,8 +29,8 @@
     <!-- Modulo de campos completados -->
     <div class="campos-completados">
       <img src="../../assets/img/transferencia/edit.svg" alt="Editar" class="edit-icon" (click)="editarCampos()">
-      <h4 class="motivo">{{motivo}}</h4>
-      <p class="mensaje">{{mensaje}}</p>
+      <h4 class="motivo">{{libs.capitalize(motivo)}}</h4>
+      <p class="mensaje">{{libs.capitalize(mensaje)}}</p>
       <span class="email">{{destinatario.email}}</span>
     </div>
   </div>

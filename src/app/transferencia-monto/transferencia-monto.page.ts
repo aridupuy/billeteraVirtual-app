@@ -29,6 +29,17 @@ export class TransferenciaMontoPage implements OnInit {
     this.email=p.destinatario.email;
     this.destinatario =p.destinatario;
     }
+    console.log(p);
+    if('destinatario' in p){
+      if(0 in p.destinatario){
+        this.email=p.destinatario[0].email;
+        this.destinatario =p.destinatario[0];
+      }
+      else{
+        this.email=p.destinatario.email;
+        this.destinatario =p.destinatario;
+      }
+    }
     
   }
   customActionSheetOptions: any = {

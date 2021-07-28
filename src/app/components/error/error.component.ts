@@ -45,16 +45,17 @@ export class ErrorComponent implements OnInit {
 
   }
   reintentar(){
+    
+    console.log(this.url);
+    console.log(this.goto);
+    console.log(this.dato);
+    const navigationExtras: NavigationExtras = {
+      queryParams: {
+        param: JSON.stringify(this.p)
+      }
+    };
+    this.navCtrl.navigateForward(this.url,navigationExtras);
     RespuestaResultadoComponent.reintentar();
-    // console.log(this.url);
-    // console.log(this.goto);
-    // console.log(this.dato);
-    // const navigationExtras: NavigationExtras = {
-    //   queryParams: {
-    //     param: JSON.stringify(this.p)
-    //   }
-    // };
-    // this.navCtrl.navigateForward(this.url,navigationExtras);
   }
   otrocall(){
     

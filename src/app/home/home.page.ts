@@ -79,11 +79,11 @@ export class HomePage implements OnInit {
 
   }
   MenuRetiroDinero() {
-    this.navCtl.navigateForward("transferir-dinero");
+    this.navCtl.navigateForward("retirar-dinero");
 
   }
   MenuTransferirDinero() {
-    this.navCtl.navigateForward("retirar-dinero");
+    this.navCtl.navigateForward("retiro-transferencia");
 
   }
   MenuCodigoQR() {

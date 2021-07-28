@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { ErrorPage } from '../../error/error.page';
 import { SuccessPage } from '../../success/success.page';
+import { Exception } from '@zxing/library';
 
 
 
@@ -60,9 +61,12 @@ export class RespuestaResultadoComponent implements OnInit {
     this.navCtrl.navigateRoot(this.url);
   }
   static reintentar() {
-    
+    try{
     RespuestaResultadoComponent.pedidook = 0;
     Observable.notify("change", RespuestaResultadoComponent.pedidook);
+    }catch(e){
+      console.log(e);
+    }
   }
   public static getStatus() {
     

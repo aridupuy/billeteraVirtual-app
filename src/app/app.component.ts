@@ -199,11 +199,11 @@ export class AppComponent implements OnInit {
     menuController.close()
   }
   MenuRetiroDinero() {
-    this.navCtrl.navigateForward("transferir-dinero");
+    this.navCtrl.navigateForward("retirar-dinero");
     menuController.close()
   }
   MenuTransferirDinero() {
-    this.navCtrl.navigateForward("retirar-dinero");
+    this.navCtrl.navigateForward("retiro-transferencia");
     menuController.close()
   }
   MenuCodigoQR() {

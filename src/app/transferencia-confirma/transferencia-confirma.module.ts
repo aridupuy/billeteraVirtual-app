@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { TransferenciaConfirmaPageRoutingModule } from './transferencia-confirma-routing.module';
 
 import { TransferenciaConfirmaPage } from './transferencia-confirma.page';
+import { TransferirProveedorService } from '../service/transferir-proveedor.service';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { TransferenciaConfirmaPage } from './transferencia-confirma.page';
     IonicModule,
     TransferenciaConfirmaPageRoutingModule
   ],
+  providers:[TransferirProveedorService],
   declarations: [TransferenciaConfirmaPage]
 })
 export class TransferenciaConfirmaPageModule {}

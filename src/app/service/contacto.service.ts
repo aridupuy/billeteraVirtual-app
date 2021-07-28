@@ -109,7 +109,18 @@ export class ContactoService extends ServiceService {
       });
     });
   }
-
+  crear_envio(id, monto, mensaje) {
+    httpOptions.headers.token = localStorage.getItem('token');
+    var postParams = { id_usuario_contacto: id, monto: monto, mensaje: mensaje };
+    return new Promise((resolve, reject) => {
+      this.post<any>('api/contacto/crear_envio', postParams, httpOptions).subscribe((data: resp) => {
+        if (data.resultado != null && data.resultado === false) {
+          reject(data.log);
+        }
+        return resolve(data);
+      });
+    });
+  }
 
 
   aceptar_pedido_saldo(id) {
@@ -159,10 +170,11 @@ export class ContactoService extends ServiceService {
     });
   }
 
-  buscar_contactos(texto) {
+  
+  buscar_contactos(texto,tipo) {
 
     httpOptions.headers.token = localStorage.getItem('token');
-    var postParams = { texto: texto };
+    var postParams = { texto: texto,tipo:tipo };
     return new Promise((resolve, reject) => {
       this.post<any>('api/contacto/buscar_contactos', postParams, httpOptions).subscribe((data: resp) => {
         if (data.resultado != null && data.resultado === false) {

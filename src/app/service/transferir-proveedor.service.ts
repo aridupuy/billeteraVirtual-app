@@ -24,6 +24,19 @@ export class TransferirProveedorService extends ServiceService {
         });
     });
   }
+  public ultimas_transferencias() {
+    return new Promise((resolve,reject ) => {
+      httpOptions.headers.token = localStorage.getItem('token');
+      this.get<any>('api/transferencia/ultimas_transferencias',httpOptions)
+        .subscribe(data => {
+          if (data.resultado != null && data.resultado == false) {
+              reject(data.log);
+          }
+          return resolve(data.extras[0]);
+        });
+    });
+  }
+  
 
 
 

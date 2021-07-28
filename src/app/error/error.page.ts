@@ -15,7 +15,10 @@ export class ErrorPage implements OnInit {
   public envio=false;
   public pedido = false;
   public goto="home";
+  public url;
   public p;
+  public mensaje;
+  public motivo;
   constructor(public route:ActivatedRoute){
 
   }
@@ -27,6 +30,10 @@ export class ErrorPage implements OnInit {
     this.envio = this.p.envio;
     this.pedido = this.p.pedido;
     this.dato = this.p.dato;
+    this.goto = this.p.goto;
+    this.url = this.p.url;
+    this.mensaje = this.p.mensaje;
+    this.motivo=this.p.motivo;
   }
 
 }

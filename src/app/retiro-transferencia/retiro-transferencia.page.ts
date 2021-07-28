@@ -1,5 +1,6 @@
 import { ObtenerDestinatariosService } from '../service/obtener-destinatarios.service';
 import { Libs } from '../classes/libs';
+import { TransferirProveedorService } from '../service/transferir-proveedor.service';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
@@ -13,14 +14,17 @@ import { NavigationExtras } from '@angular/router';
 export class RetiroTransferenciaPage implements OnInit {
   public listaDestinatarios=[];
   public p ;
-  constructor(public route: ActivatedRoute,private NavCtrl: NavController,public destinatarionService:ObtenerDestinatariosService,public libs:Libs) {}
+  constructor(public route: ActivatedRoute,private NavCtrl: NavController,public TransferirProveedorService:TransferirProveedorService,public libs:Libs) {}
 
   ngOnInit() {
     this.p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
     
-    this.destinatarionService.obtener_destinatarios().then(data=>{
-      this.listaDestinatarios.push(data[0]);
-      console.log(data[0]);
+    this.TransferirProveedorService.ultimas_transferencias().then((data:[])=>{
+      console.log(data);
+      data.forEach(d => {
+        this.listaDestinatarios.push(d);  
+      });
+      
     });
     
   }
@@ -32,7 +36,8 @@ export class RetiroTransferenciaPage implements OnInit {
     this.NavCtrl.navigateForward("lista-destinatarios");
   }
   transferir(item){
-    if(this.p.destinatario !=null){
+    console.log(item);
+    if(this.p && "destinatario" in this.p ){
       this.p.destinatario = item;
       const navigationExtras: NavigationExtras = {
         queryParams: {

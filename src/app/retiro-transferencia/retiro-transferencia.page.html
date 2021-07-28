@@ -23,18 +23,19 @@
     <!-- Modulo de últimos destinatarios -->
     <div class="lista-destinatarios mt-10">
       <div class="titulo">
-        <h2>Últimas</h2>
+        <h2>Recientes</h2>
       </div>
       <div class="destinatarios-wrapper" *ngIf="listaDestinatarios.length>0">
         <div class="destinatario" *ngFor="let item of listaDestinatarios" (click)="transferir(item)">
           <div class="avatar-wrapper">
             <div class="avatar">
-              {{libs.iniciales(item.nombre+" "+item.apellido)}}
+              {{libs.iniciales(item.nombre)}}
             </div>
           </div>
           <div class="info-destinatario">
-            <h4 class="nombre">{{libs.capitalize(item.nombre)+" "+libs.capitalize(item.apellido)}}</h4>
-            <span class="banco">{{libs.capitalize(item.referencia)}}</span>
+            <h4 class="nombre">{{libs.capitalize(item.referencia)}}</h4>
+            <span class="banco">{{libs.capitalize(item.nombre)}}</span>
+            <span class="banco">{{libs.capitalize(item.cuit)}}</span>
           </div>
         </div>
       </div>
