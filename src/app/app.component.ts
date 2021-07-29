@@ -21,6 +21,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Deeplinks, DeeplinksOriginal } from '@ionic-native/deeplinks'
 import { MenuserviceService } from './service/menuservice.service';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
+import { ConfirmasmsPageModule } from './confirmasms/confirmasms.module';
 
 @Component({
   selector: 'app-root',
@@ -83,6 +84,9 @@ export class AppComponent implements OnInit {
         localStorage.setItem("nombre", this.usuario);
         localStorage.setItem("iniciales", this.iniciales);
         console.log(this.usuario);
+      }).catch(err=>{
+        console.log(err);
+        
       });
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();

@@ -8,13 +8,15 @@ import { PedirAmigoDesdelista2PageRoutingModule } from './pedir-amigo-desdelista
 
 import { PedirAmigoDesdelista2Page } from './pedir-amigo-desdelista2.page';
 import { ContactoService } from '../service/contacto.service';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PedirAmigoDesdelista2PageRoutingModule
+    PedirAmigoDesdelista2PageRoutingModule,
+    ComponentsModule
   ],
   declarations: [PedirAmigoDesdelista2Page],
   providers:[ContactoService]

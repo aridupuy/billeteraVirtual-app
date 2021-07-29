@@ -37,8 +37,14 @@ export class ProcesoEstadoService extends ServiceService {
           if (data.resultado != null && data.resultado == false) {
             reject(data.log);
           }
-          let dataReturn = {cel:data.extras[0].data.cel,mail:data.extras[0].data.mail,estado_cuenta:data.extras[0].data.estado_validacion, valida_mail: data.extras[0].data.valida_mail, valida_ident: data.extras[0].data.valida_ident, valida_cel: data.extras[0].data.valida_cel };
-          return resolve(dataReturn);
+          let dataReturn={};
+          if('data' in data.extras[0]){
+            dataReturn = {cel:data.extras[0].data.cel,mail:data.extras[0].data.mail,estado_cuenta:data.extras[0].data.estado_validacion, valida_mail: data.extras[0].data.valida_mail, valida_ident: data.extras[0].data.valida_ident, valida_cel: data.extras[0].data.valida_cel };
+            return resolve(dataReturn);
+          }
+          else{
+            reject(false);
+          }
         });
       });
   }

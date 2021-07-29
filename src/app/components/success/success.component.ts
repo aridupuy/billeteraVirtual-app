@@ -38,6 +38,8 @@ export class SuccessComponent implements OnInit {
   inciales(){
      return this.libs.iniciales(this.nombre+" "+this.apellido);
   }
-
+  is_array(valor){
+    return Array.isArray(valor);
+  }
 }
 

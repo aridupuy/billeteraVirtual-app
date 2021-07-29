@@ -82,7 +82,7 @@ export class ListaAmigosEnvPage implements OnInit {
 
     const navigationExtras: NavigationExtras = {
       queryParams: {
-        param: JSON.stringify({ var: this.amigos })
+        param: JSON.stringify({ var: this.amigos ,envio:true,pedir:false})
       }
     };
     console.log(navigationExtras);

@@ -36,4 +36,6 @@
   <div class="preloader" *ngIf="cargando">
     <img src="assets/img/preloader.gif" alt="Cargando...">
   </div>
+  <app-success *ngIf="success" [dato]="dato" [nombre]="nombre"  [apellido]="apellido" [monto]="monto" [envio]="enviar"  [pedido]="pedir" [goto]="goto" [url]="url" [mensaje]="mensaje"></app-success>
+  <app-error *ngIf="error" [dato]="dato" [nombre]="nombre"  [apellido]="apellido" [monto]="monto" [envio]="enviar"  [pedido]="pedido" [goto]="goto" [url]="url" [mensaje]="mensaje" [descripcion]="motivo"></app-error>
 </ion-content>

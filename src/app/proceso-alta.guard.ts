@@ -106,7 +106,15 @@ export class ProcesoAltaGuard implements CanActivate {
         }
         Cookie.set("validador", validador.toString(), this.DIAS);
         return resp;
-      }).catch();
+      }).catch(err=>{
+        console.log(err);
+        if(err=="El token es invalido"){
+          this.navCtrl.navigateForward("home");
+          return true;
+        }
+          
+        return false;
+      });
     }
     else{
       return true;

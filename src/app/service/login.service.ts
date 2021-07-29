@@ -77,7 +77,7 @@ export class LoginService extends ServiceService{
           else{
             let resp;
             await this.loginWithToken("api/loginwithtoken",json).then((data)=>{
-              console.log(data);
+              // console.log(data);
               resolve(data);
               resp = true;
             }).catch((data)=>{
@@ -105,12 +105,12 @@ export class LoginService extends ServiceService{
           if (data.resultado == false && data.log != false) {
             rejects(data.log);
           }
-          console.log(localStorage.getItem("token"));
+          // console.log(localStorage.getItem("token"));
           if(localStorage.getItem("token")){
             localStorage.removeItem("token");
           }
           await localStorage.setItem("token", data.token);
-          console.log(localStorage.getItem("token"));
+          // console.log(localStorage.getItem("token"));
           if(!data.token)
             rejects(false)
           this.token = data.token;

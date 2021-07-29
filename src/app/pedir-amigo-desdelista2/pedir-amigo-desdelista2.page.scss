@@ -1,3 +1,12 @@
 h1 {
     margin: 0;
 }
+app-error,app-success{
+    height: 100vh;
+    z-index: 999;
+    position: absolute;
+    top: 0;
+    left: auto;
+    right: auto;
+    width: 100%;
+}

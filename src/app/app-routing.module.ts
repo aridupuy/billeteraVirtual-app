@@ -330,13 +330,12 @@ const routes: Routes = [
   {
     path: 'warning',
     loadChildren: () => import('./warning/warning.module').then( m => m.WarningPageModule)
-  },  {
+  },
+  {
     path: 'lista-amigos-env',
     loadChildren: () => import('./lista-amigos-env/lista-amigos-env.module').then( m => m.ListaAmigosEnvPageModule)
-  },
-
- 
-];
+  }
+ ];
 
 @NgModule({
   imports: [
