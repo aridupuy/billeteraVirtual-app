@@ -250,6 +250,7 @@ export class HomePage implements OnInit {
         return false;
       }
       this.usuarioService.obtener_mis_datos().then((data: any) => {
+        console.log(data);
         this.username = data.nombre;
         this.iniciales = this.libs.iniciales(data.nombre_completo);
         // console.log("aca");
