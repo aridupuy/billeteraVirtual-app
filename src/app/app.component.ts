@@ -33,9 +33,9 @@ export class AppComponent implements OnInit {
   public iniciales;
   public modalDataResponse: any;
   public static cargando = false;
-  public menu = Array();
-  public DIAS = 3;
-  constructor(private platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen, private pago: Pago, public service: ServiceService, public menuService: MenuserviceService, public modalCtrl: ModalController, public usuarioService: UsuarioService, public navCtrl: NavController) { }
+  public static menu = Array();
+  public static DIAS = 3;
+  constructor(private platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen, private pago: Pago, public service: ServiceService, public modalCtrl: ModalController, public usuarioService: UsuarioService, public navCtrl: NavController) { }
   ngOnInit() {
     let nombre = localStorage.getItem("nombre");
     if (nombre && this.iniciales) {
@@ -43,28 +43,7 @@ export class AppComponent implements OnInit {
 
       return false;
     }
-    let menu = Cookie.get("menu");
-
-
-    if (!menu || menu.length == 0) {
-      this.menuService.obtener_menu().then((data: []) => {
-
-        data.forEach(element => {
-          this.menu.push(element);
-        });
-        console.log(this.menu);
-        Cookie.set("menu", JSON.stringify(this.menu), this.DIAS);
-      })
-    }
-    else {
-      console.log("Levanto desde interno");
-      let data = JSON.parse(menu);
-      for (var i in data) {
-        this.menu.push(data[i]);
-      }
-
-      console.log(menu);
-    }
+  
     // console.log(this.menu);
 
     if (localStorage.getItem("token") != null)
@@ -113,14 +92,17 @@ export class AppComponent implements OnInit {
     menuController.close();
   }
   obtener_menu(i) {
-    return this.menu[i];
+    return AppComponent.menu[i];
   }
   obtener_grupo() {
     let grupo = new Array();
-    for (let i = 1; i <= Object.keys(this.menu).length; i++) {
+    for (let i = 1; i <= Object.keys(AppComponent.menu).length; i++) {
       grupo.push(i);
     }
     return grupo;
+  }
+  get_menu(){
+    return AppComponent.menu;
   }
   getCargando() {
     // console.log(AppComponent.cargando);

@@ -18,6 +18,7 @@ import { UsuarioService } from '../service/usuario.service';
 import { Validaridentidad1Page } from '../validaridentidad1/validaridentidad1.page';
 import { AppComponent } from '../app.component';
 import { Libs } from '../classes/libs';
+import { MenuserviceService } from '../service/menuservice.service';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -48,7 +49,7 @@ export class HomePage implements OnInit {
   modalDataResponse: any;
   public valida_mail;
   public valida_ident;
-  constructor(public modalCtrl: ModalController, public navCtl: NavController, private menu: MenuController, public saldoService: SaldoService, public transaccionesService: TransaccionesService, public route: ActivatedRoute, public router: Router, public usuarioService: UsuarioService,public libs:Libs) { }
+  constructor(public modalCtrl: ModalController, public navCtl: NavController, private menu: MenuController, public saldoService: SaldoService, public transaccionesService: TransaccionesService, public route: ActivatedRoute, public router: Router, public usuarioService: UsuarioService, public libs: Libs, public menuService: MenuserviceService) { }
 
   ngOnInit(): void {
     // AppComponent.cargando=true;
@@ -65,6 +66,7 @@ export class HomePage implements OnInit {
       return;
     }
     else {
+      console.log("sin datos");
       this.validado = true;
       this.obtener_datos_usuario();
       this.obtener_saldo();
@@ -111,6 +113,7 @@ export class HomePage implements OnInit {
   }
   async obtener_saldo() {
     await this.saldoService.obtener().then((data: number) => {
+      console.log(data);
       this.saldoUsuario = formatCurrency(data, 'en-US', '$', 'ARS', '4.2-2');
       this.cargandoSaldo = false;
     });
@@ -230,12 +233,13 @@ export class HomePage implements OnInit {
   }
 
   obtener_datos_usuario() {
+    
     let nombre = localStorage.getItem("nombre");
     let iniciales = localStorage.getItem("iniciales");
     if (nombre && iniciales) {
       this.username = nombre;
       this.iniciales = iniciales;
-      return false;
+      // return false;
     }
     // this.usuarioService.obtener_mis_datos().then((data:any)=>{
 
@@ -247,17 +251,39 @@ export class HomePage implements OnInit {
       if (nombre && this.iniciales) {
         this.username = nombre;
 
-        return false;
+        // return false;
+      } else {
+        this.usuarioService.obtener_mis_datos().then((data: any) => {
+          console.log(data);
+          this.username = data.nombre;
+          this.iniciales = this.libs.iniciales(data.nombre_completo);
+          // console.log("aca");
+          localStorage.setItem("nombre", this.username);
+          localStorage.setItem("iniciales", this.iniciales);
+          // console.log(this.username);
+        });
       }
-      this.usuarioService.obtener_mis_datos().then((data: any) => {
-        console.log(data);
-        this.username = data.nombre;
-        this.iniciales = this.libs.iniciales(data.nombre_completo);
-        // console.log("aca");
-        localStorage.setItem("nombre", this.username);
-        localStorage.setItem("iniciales", this.iniciales);
-        // console.log(this.username);
-      });
+    }
+    // alert("aca");
+    let menu = Cookie.get("menu");
+    if (!menu || menu.length == 0) {
+      this.menuService.obtener_menu().then((data: []) => {
+        console.log("Levanto desde api");
+        data.forEach(element => {
+          AppComponent.menu.push(element);
+        });
+        console.log(this.menu);
+        Cookie.set("menu", JSON.stringify(AppComponent.menu), AppComponent.DIAS);
+      })
+    }
+    else {
+      console.log("Levanto desde interno");
+      let data = JSON.parse(menu);
+      for (var i in data) {
+        AppComponent.menu.push(data[i]);
+      }
+      Cookie.set("menu", JSON.stringify(AppComponent.menu), AppComponent.DIAS);
+      console.log(AppComponent.menu);
     }
   }
   async VerCvu() {

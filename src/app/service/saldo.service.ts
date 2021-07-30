@@ -7,7 +7,7 @@ interface saldo {
   resultado: any;
   log: any;
   extras : [
-        { saldo_actual:any }
+        { saldo_actual:any,saldo_no_liquidado:any,saldo_disponible:any }
   ]
 }
 var httpOptions = {
@@ -26,6 +26,7 @@ export class SaldoService extends ServiceService {
     httpOptions.headers.token=localStorage.getItem("token");
     return new Promise((resolve, reject) => {
       this.get<saldo>('api/saldo/obtener_saldo',httpOptions).subscribe((data) => {
+        console.log(data);
         if (data.log != null && data.log != false) {
           reject(data.log);
         }

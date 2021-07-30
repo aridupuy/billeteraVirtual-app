@@ -9,7 +9,7 @@
           <span class="bienvenida">Hola,<span class="username"> {{usuario}}</span></span>
         </div>
       </div>
-       <div class="menu-lista" *ngFor="let grupo of menu">
+       <div class="menu-lista" *ngFor="let grupo of get_menu()">
           <a (click)="Ir(item.path)" class="opcion-menu" *ngFor="let item of grupo">
           <img [src]="item.icono" alt="">
           <p>{{item.nombre}}</p>
