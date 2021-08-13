@@ -100,18 +100,29 @@ export class ProcesarfotosPage implements OnInit {
     }
     else {
       // this.recortarImagen(data);
-      this.file.checkDir(this.file.externalRootDirectory, '').then(async _ => {
+      console.log("Storage Directory");
+      let documentsDirectory = this.file.dataDirectory;
+      console.log(documentsDirectory);
+      // console.log(this.file.applicationDirectory);
+      // console.log(this.file.applicationStorageDirectory);
+      // console.log(this.file.cacheDirectory);
+      // console.log(this.file.dataDirectory);
+      // console.log(this.file.sharedDirectory);
+      // console.log(this.file.tempDirectory);
+        // console.log(nombre);
+      this.file.checkDir(documentsDirectory, '').then(async _ => {
         var binaryData = this.base64toBlob(fotoDniFrente, 'image/jpeg');
         var nombre = this.calcular_nombre("dni");
         var img;
-        await this.file.writeFile(this.file.externalRootDirectory + '', nombre, binaryData, { replace: true }).then(data => {
+        
+        await this.file.writeFile(documentsDirectory + '', nombre, binaryData, { replace: true }).then(data => {
           img = <HTMLImageElement>document.getElementById('img');
         }).catch(data => {
-          console.log(data);
-
+          console.log(JSON.stringify(data));
+          console.log("No se pudo crear el archivo");
         });
-        await this.file.checkFile(this.file.externalRootDirectory, nombre).then(async data => {
-          this.imagePath = (<any>window).Ionic.WebView.convertFileSrc(this.file.externalRootDirectory + nombre);
+        await this.file.checkFile(documentsDirectory, nombre).then(async data => {
+          this.imagePath = (<any>window).Ionic.WebView.convertFileSrc(documentsDirectory + nombre);
           var codeReader = new BrowserPDF417Reader();
           this.mensaje = "Estamos procesando tu Dni...";
           var result = await codeReader.decodeFromImageUrl(this.imagePath).then((data) => {
@@ -121,7 +132,7 @@ export class ProcesarfotosPage implements OnInit {
             this.nombre = datos[2] + " " + datos[1];
             this.sexo = datos[3];
             this.valida_dni = true;
-            this.file.removeFile(this.file.externalRootDirectory, nombre).then(data => {
+            this.file.removeFile(documentsDirectory, nombre).then(data => {
               console.log("Archivo Eliminado");
              }).catch(()=>{
                console.error("No se pudo eliminar el archivo");
@@ -153,7 +164,7 @@ export class ProcesarfotosPage implements OnInit {
             // });
             // toast.present();
             console.error("QR_READER" + err);
-            this.file.removeFile(this.file.externalRootDirectory, nombre);
+            this.file.removeFile(documentsDirectory, nombre);
             this.mensaje = "Vuelve a sacar la foto del frente de tu dni ";
             this.imagen = 'assets/img/procesando-error.svg';
             this.claseProcesando = 'procesandofotos-error';

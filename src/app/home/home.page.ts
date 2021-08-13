@@ -19,6 +19,7 @@ import { Validaridentidad1Page } from '../validaridentidad1/validaridentidad1.pa
 import { AppComponent } from '../app.component';
 import { Libs } from '../classes/libs';
 import { MenuserviceService } from '../service/menuservice.service';
+import { FcmService } from '../service/fcm.service';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -49,11 +50,12 @@ export class HomePage implements OnInit {
   modalDataResponse: any;
   public valida_mail;
   public valida_ident;
-  constructor(public modalCtrl: ModalController, public navCtl: NavController, private menu: MenuController, public saldoService: SaldoService, public transaccionesService: TransaccionesService, public route: ActivatedRoute, public router: Router, public usuarioService: UsuarioService, public libs: Libs, public menuService: MenuserviceService) { }
+  constructor(public modalCtrl: ModalController, public navCtl: NavController, private menu: MenuController, public saldoService: SaldoService, public transaccionesService: TransaccionesService, public route: ActivatedRoute, public router: Router, public usuarioService: UsuarioService, public libs: Libs, public menuService: MenuserviceService, public FcmService: FcmService) { }
 
   ngOnInit(): void {
     // AppComponent.cargando=true;
     console.log("EN HOME");
+    this.FcmService.getToken();
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
     console.log(p);
     if (this.route.snapshot.queryParamMap.has("param")) {
@@ -72,25 +74,6 @@ export class HomePage implements OnInit {
       this.obtener_saldo();
       this.cargar_transacciones();
     }
-  }
-  irAHistorial() {
-    this.navCtl.navigateForward("historial");
-  }
-  MenuIngresoDinero() {
-    this.navCtl.navigateForward("ingreso-dinero");
-
-  }
-  MenuRetiroDinero() {
-    this.navCtl.navigateForward("retirar-dinero");
-
-  }
-  MenuTransferirDinero() {
-    this.navCtl.navigateForward("retiro-transferencia");
-
-  }
-  MenuCodigoQR() {
-    this.navCtl.navigateForward("codigo-qr");
-
   }
   ir() {
     // const navigationExtras: NavigationExtras = {
@@ -233,7 +216,7 @@ export class HomePage implements OnInit {
   }
 
   obtener_datos_usuario() {
-    
+
     let nombre = localStorage.getItem("nombre");
     let iniciales = localStorage.getItem("iniciales");
     if (nombre && iniciales) {
@@ -299,5 +282,60 @@ export class HomePage implements OnInit {
     });
 
     return await modal.present();
+  }
+
+  MenuIngresoDinero() {
+    let menu = JSON.parse(Cookie.get("menu"));
+    if (this.puede(menu, "ingreso-dinero")) {
+      this.navCtl.navigateForward(this.navigateMenu(menu, "ingreso-dinero"));
+    }
+  }
+  MenuTransferirDinero() {
+    let menu = JSON.parse(Cookie.get("menu"));
+    console.log(menu);
+    if (this.puede(menu,"retiro-transferencia")) {
+      this.navCtl.navigateForward(this.navigateMenu(menu, "ingreso-dinero"));
+    }
+  }
+  MenuRetiroDinero() {
+    let menu  = this.obtener_menu();
+    if (this.puede(menu,"retirar-dinero")) {
+      this.navCtl.navigateForward(this.navigateMenu(menu, "ingreso-dinero"));
+    }
+  }
+  MenuCodigoQR() {
+    let menu  = this.obtener_menu();
+    if (this.puede(menu,"Qr-pago")) {
+      this.navCtl.navigateForward(this.navigateMenu(menu, "ingreso-dinero"));
+    }
+  }
+  puede(menu, item) {
+    let puede= menu.filter(menuElement=>{
+      let submenu = menuElement.filter(submenuElmement=>{
+        return submenuElmement.path == item
+      });
+      return submenu.length !=0;
+    })
+    return puede.length !=0;
+  }
+  navigateMenu(menu, item): string {
+    let path="";
+    menu.find(menuElement=>{
+      let submenu = menuElement.filter(submenuElmement=>{
+        if(submenuElmement.path == item){
+          path=submenuElmement.path;
+        }
+        return submenuElmement.path == item
+      });
+      return submenu.length !=0;
+    });
+    console.log(path);
+    return path;
+  }
+  obtener_menu(){
+    return JSON.parse(Cookie.get("menu"));
+  }
+  irAHistorial() {
+    this.navCtl.navigateForward("historial");
   }
 }

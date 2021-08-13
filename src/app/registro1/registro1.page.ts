@@ -32,7 +32,7 @@ export class Registro1Page implements OnInit {
         console.log(this.codArea+this.celular);
         console.log(this.codArea);
         this.cargando=true;
-          await this.validCel.obtener_codigo(this.codArea.toString()+this.celular.toString(),token).then( data=>{
+          await this.validCel.obtener_codigo("54"+this.codArea.toString()+this.celular.toString(),token).then( data=>{
           //   console.log("codigo enviado");
             const navigationExtras: NavigationExtras = {
               queryParams: {
@@ -49,7 +49,7 @@ export class Registro1Page implements OnInit {
   }
   validar_celular(){
     
-    let result = (""+this.codArea+this.celular).match(/^[+]?[0-9]{2}([0-9]{2}[0-9]{8})$/);
+    let result = ("54"+this.codArea+this.celular).match(/^[+]?[0-9]{2}([0-9]{2}[0-9]{8})$/);
     if(result!==null){
         this.errorCel=false;
     }

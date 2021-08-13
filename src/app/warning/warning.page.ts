@@ -11,5 +11,8 @@ export class WarningPage implements OnInit {
 
   ngOnInit() {
   }
+  reintentar(){}
+  otroCall(){}
+  finalizar(){}
 
 }

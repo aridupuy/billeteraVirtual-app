@@ -20,55 +20,74 @@ export class PatronGuard implements CanActivate {
 
   public modalDataResponse: any;
 
-  constructor(public platfrom:Platform,public service: ServiceService, public modalCtrl: ModalController, public router: Router, public navController: NavController) { }
+  constructor(public platfrom: Platform, public service: ServiceService, public modalCtrl: ModalController, public router: Router, public navController: NavController) { }
   public async canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Promise<boolean> {
 
     return await new Promise(async (resolve, reject) => {
-      if (!this.platfrom.is('mobile') && localStorage.getItem("token") != null && localStorage.getItem("token")!=""){
-        if (localStorage.getItem("inBackground") == null || localStorage.getItem("inBackground") == "1") {
-          if (localStorage.getItem("pin") == undefined || localStorage.getItem("pin") == null) {
-            await this.mostrarModal("crear").then(data => {
-              resolve(true);
-            }).catch(data => {
-              reject(false);
-            });
-          }
-          
-          // else {
-          //   console.log("va a validar");
-          //   await this.mostrarModal("validar").then(data => {
-          //     console.log("valida true");
-          //     resolve(true);
-
-          //   }).catch(data => {
-          //     console.log("valida false");
-          //     reject(false);
-
-          //   });
-          // }
-          if (next.url.toString() == "ingresopatron") {
-            console.log("ingresopatron");
-            localStorage.setItem("inBackground", "0");
-            console.log("false");
-
-          }
-        
-        }
-        
-        else {
-          console.log("no requiere auth");
-        }
-      }else{
-        console.log("En NAVEGADOR");
+      if (!this.platfrom.is('mobile')) {
+        console.log("no es mobile");
+        return resolve(true);
       }
-      console.log("true aca");
-      resolve(true);
-    })
+      if (!this.is_login()) {
+        console.log("no esta logueado");
+        return resolve(true);
+      }
+      if (this.is_abierto()) {
+        console.log("esta abierto");
+        return resolve(true);
+      }
+      if (this.is_validado()) {
+        console.log("esta validado");
+        return resolve(true);
+      }
+      // if (this.from_lastLogin()) {
+      //   console.log("esta ingresando recien");
+      //   localStorage.setItem("fromlastLogin","0");
+      //   return resolve(true);
+      // }
+      if (this.is_login() && this.existe_pin()) {
+        console.log("esta logueado y existe pin");
+        await this.mostrarModal("validar").then(data => {
+          localStorage.setItem("inBackground", "0");
+          return resolve(true);
+        }).catch(data => {
+          return reject(false);
+        });
+      }
+      else {
+        console.log("esta logueado y existe no existe pin");
+        await this.mostrarModal("crear").then(data => {
+          return  resolve(true);
+        }).catch(data => {
+          return reject(false);
+        });
+      }
+      if (next.url.toString() == "ingresopatron") {
+        console.log("ingresopatron");
+        localStorage.setItem("inBackground", "0");
+        console.log("false");
+      }
+    });
   }
-
+  from_lastLogin(){
+    return (localStorage.getItem("fromlastLogin") == "1" )
+  }
+  is_login() {
+    return (localStorage.getItem("token") != null && localStorage.getItem("token") != "" && localStorage.getItem("token") != "false")
+  }
+  is_abierto() {
+    return (localStorage.getItem("modalAbiero") == "1")
+  }
+  is_validado() {
+    return (localStorage.getItem("modalvalidado") == "1");
+  }
+  existe_pin() {
+    return !(localStorage.getItem("pin") == undefined || localStorage.getItem("pin") == null || localStorage.getItem("pin") == "false")
+  }
   async mostrarModal(tipo) {
+    localStorage.setItem("modalAbiero","1");
     switch (tipo) {
       case "crear":
         const modal = await this.modalCtrl.create({
@@ -86,6 +105,8 @@ export class PatronGuard implements CanActivate {
           modal.onDidDismiss().then(data => {
             if (this.validarClave(clave1, data.data)) {
               this.guardarClave(clave1);
+              localStorage.setItem("modalAbiero","0");
+              localStorage.setItem("modalValidado","1");
               // this.navController.navigateRoot("home");
               return true;
             }
@@ -96,20 +117,22 @@ export class PatronGuard implements CanActivate {
         console.log("aca Modal patron");
         return await modal.present();
       case "validar":
-      // const modal2 = await this.modalCtrl.create({
-      //   component: IngresaPinPage,
-      //   componentProps: { tipo: "validar" }
-      // });
+      const modal2 = await this.modalCtrl.create({
+        component: IngresaPinPage,
+        componentProps: { tipo: "validar" }
+      });
 
-      // modal2.onDidDismiss().then(async (modalDataResponse) => {
-      //   let clave1;
-      //   console.log(modalDataResponse);
-      //   clave1 = modalDataResponse.data;
-      //   localStorage.setItem("inBackground", "0");
-      //   return true;
-      // });
-      // await modal2.present();
-      // break;
+      modal2.onDidDismiss().then(async (modalDataResponse) => {
+        let clave1;
+        console.log(modalDataResponse);
+        localStorage.setItem("modalAbiero","0");
+        localStorage.setItem("modalValidado","1");
+        clave1 = modalDataResponse.data;
+        // localStorage.setItem("inBackground", "0");
+        return true;
+      });
+      await modal2.present();
+      break;
       default:
 
         break;

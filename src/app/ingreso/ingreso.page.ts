@@ -70,6 +70,7 @@ export class IngresoPage implements OnInit {
            this.error_pass=false;
            console.log("logeado voy aca");
           localStorage.removeItem("onboarding");
+          localStorage.setItem("fromlastLogin","1");
           this.navCtrl.navigateForward(["home",{}]);
         }).catch(err=>{
           this.cargando = false;

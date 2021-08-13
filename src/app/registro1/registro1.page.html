@@ -18,12 +18,15 @@
     
     <div class="input-container">
       <h2 class="align-left full">¿Cuál es tu número de celular?</h2>
-      <ion-item class="un-tercio">
-        <ion-input [(ngModel)]="codArea" (ngModelChange)="validar_celular()" type="number" maxlength="2" placeholder="Cod.área"></ion-input>
+      <ion-item class="fijo" >
+        <p>+54</p>
       </ion-item>
-      <ion-item class="tres-tercios">
-        <ion-input [(ngModel)]="celular" maxlength=8 (ngModelChange)="validar_celular()" type="number" placeholder="Número" ></ion-input>
-        <ion-icon name="close-circle-sharp" *ngIf="celular &&  errorCel" slot="end" color="danger"></ion-icon>
+      <ion-item class="un-tercio">
+        <ion-input class="center" [(ngModel)]="codArea" placeholder="11" (ngModelChange)="validar_celular()" type="number" maxlength="2"></ion-input>
+      </ion-item>
+      <ion-item class="mitad">
+        <ion-input [(ngModel)]="celular" maxlength=8 (ngModelChange)="validar_celular()" type="number" placeholder="22334455" ></ion-input>
+        <ion-icon name="close-circle-sharp" *ngIf="celular &&  errorCel" slot="end" color="danger" class="center"></ion-icon>
         <ion-icon name="checkmark-circle-sharp" *ngIf="celular && !errorCel" slot="end" color="success"></ion-icon>
       </ion-item>
     </div>

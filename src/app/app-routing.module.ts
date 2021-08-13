@@ -15,10 +15,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
-  {
-    path: 'splash',
-    loadChildren: () => import('./splash/splash.module').then( m => m.SplashPageModule)
-  },
+  // {
+  //   path: 'splash',
+  //   loadChildren: () => import('./components/splash/splash.module').then( m => m.SplashPageModule)
+  // },
   {
     path: 'historial',
     loadChildren: () => import('./historial/historial.module').then( m => m.HistorialPageModule)

@@ -41,6 +41,7 @@ var httpOptions = {
         if (data.log != null && data.log != false) {
           reject(data.log);
         }
+        console.log(data);
         return resolve(data.extras[0].moves);
       });
     });

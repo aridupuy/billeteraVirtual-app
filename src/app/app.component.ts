@@ -33,10 +33,13 @@ export class AppComponent implements OnInit {
   public iniciales;
   public modalDataResponse: any;
   public static cargando = false;
+  public static splash=true;
   public static menu = Array();
   public static DIAS = 3;
   constructor(private platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen, private pago: Pago, public service: ServiceService, public modalCtrl: ModalController, public usuarioService: UsuarioService, public navCtrl: NavController) { }
   ngOnInit() {
+    console.log("SPLASH SHOW");
+    this.splashScreen.show();
     let nombre = localStorage.getItem("nombre");
     if (nombre && this.iniciales) {
       this.usuario = nombre;
@@ -62,6 +65,7 @@ export class AppComponent implements OnInit {
         console.log("aca");
         localStorage.setItem("nombre", this.usuario);
         localStorage.setItem("iniciales", this.iniciales);
+      
         console.log(this.usuario);
       }).catch(err=>{
         console.log(err);
@@ -69,11 +73,12 @@ export class AppComponent implements OnInit {
       });
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
+      // console.log("SPLASH_HIDE");
       this.splashScreen.hide();
       // AppComponent.cargando=false;
+      // document.addEventListener("resume", this.onDeviceresume, false);
+      // document.addEventListener("pause", this.onPause, false);
       document.addEventListener("resume", this.onDeviceresume, false);
-      document.addEventListener("pause", this.onPause, false);
-      document.addEventListener("stop", this.onPause, false);
       /*Esto es un test para mas adelante */
       Deeplinks.routeWithNavController(this.navCtrl, {
         '/': HomePage,
@@ -108,24 +113,32 @@ export class AppComponent implements OnInit {
     // console.log(AppComponent.cargando);
     return AppComponent.cargando;
   }
-  onPause = () => {
-    console.log("pause");
-    console.log(localStorage.getItem("onboarding"));
-    // if(localStorage.getItem("token") != null && localStorage.getItem("token")!="" && localStorage.getItem("onboarding")==null && localStorage.getItem("onboarding")!="1"){
-    // localStorage.setItem("inBackground", "1");
-    // this.mostrarModal("validar");
-    // }
+  getSplash(){
+    // if(AppComponent.splash)console.log("MUESTRO SPLASH");
+    return AppComponent.splash;
+
   }
-  onDeviceresume = async () => {
-    console.log("onDeviceresume");
+  onDeviceresume = () => {
+    console.log("ONRESUME");
     console.log(localStorage.getItem("onboarding"));
-    // localStorage.setItem("inBackground", "1");
-    if (localStorage.getItem("token") != null && localStorage.getItem("token") != "" && localStorage.getItem("onboarding") == null && localStorage.getItem("onboarding") != "1")
-      if (localStorage.getItem("inBackground") == "1") {
-        console.log("aca Modal patron");
-        // this.mostrarModal("validar");
+    if(localStorage.getItem("modalAbiero")=='0' ){
+      if(localStorage.getItem("token")!="false" && localStorage.getItem("token") != null && localStorage.getItem("token")!="" && localStorage.getItem("onboarding")==null && localStorage.getItem("onboarding")!="1"){
+        localStorage.setItem("inBackground", "1");
+        localStorage.setItem("modalValidado","0");
+        this.mostrarModal("validar");
       }
+    }
   }
+  // onDeviceresume = async () => {
+  //   console.log("onDeviceresume");
+  //   console.log(localStorage.getItem("onboarding"));
+  //   // localStorage.setItem("inBackground", "1");
+  //   if (localStorage.getItem("token")!="false" && localStorage.getItem("token") != null && localStorage.getItem("token") != "" && localStorage.getItem("onboarding") == null && localStorage.getItem("onboarding") != "1")
+  //     if (localStorage.getItem("inBackground") == "1") {
+  //       console.log("aca Modal patron");
+  //       // this.mostrarModal("validar");
+  //     }
+  // }
 
   validarClave(clave1, clave2): Boolean {
     console.log(clave1, clave2);
@@ -136,7 +149,7 @@ export class AppComponent implements OnInit {
 
   async mostrarModal(tipo) {
     console.log(localStorage.getItem("modal-abierto"));
-    if (this.modal_abierto == 1) {
+    if (AppComponent.modal_abierto == 1) {
       console.log("no abre");
       return false;
     }
@@ -153,49 +166,49 @@ export class AppComponent implements OnInit {
       // console.log(modalDataResponse);
       clave1 = modalDataResponse.data;
       localStorage.setItem("inBackground", "0");
-      this.modal_abierto = 0;
+      AppComponent.modal_abierto = 0;
       console.log("MODAL CERRADO setitem 0");
       return true;
     });
-    this.modal_abierto = 1;
+    AppComponent.modal_abierto = 1;
     console.log("MODAL ABIERTO setitem 1");
     await modal2.present();
 
 
   }
 
-  public modal_abierto = 0;
+  public static modal_abierto = 0;
   IrAtras() {
     this.navCtrl.back();
   }
-  MenuDatosCuenta() {
-    this.navCtrl.navigateForward("datos-cuenta");
-    menuController.close()
-  }
-  MenuHistorial() {
-    this.navCtrl.navigateForward("historial");
-    menuController.close()
-  }
-  MenuAmigos() {
-    this.navCtrl.navigateForward("amigos");
-    menuController.close()
-  }
-  MenuIngresoDinero() {
-    this.navCtrl.navigateForward("ingreso-dinero");
-    menuController.close()
-  }
-  MenuRetiroDinero() {
-    this.navCtrl.navigateForward("retirar-dinero");
-    menuController.close()
-  }
-  MenuTransferirDinero() {
-    this.navCtrl.navigateForward("retiro-transferencia");
-    menuController.close()
-  }
-  MenuCodigoQR() {
-    this.navCtrl.navigateForward("codigo-qr");
-    menuController.close()
-  }
+  // MenuDatosCuenta() {
+  //   this.navCtrl.navigateForward("datos-cuenta");
+  //   menuController.close()
+  // }
+  // MenuHistorial() {
+  //   this.navCtrl.navigateForward("historial");
+  //   menuController.close()
+  // }
+  // MenuAmigos() {
+  //   this.navCtrl.navigateForward("amigos");
+  //   menuController.close()
+  // }
+  // MenuIngresoDinero() {
+  //   this.navCtrl.navigateForward("ingreso-dinero");
+  //   menuController.close()
+  // }
+  // MenuRetiroDinero() {
+  //   this.navCtrl.navigateForward("retirar-dinero");
+  //   menuController.close()
+  // }
+  // MenuTransferirDinero() {
+  //   this.navCtrl.navigateForward("retiro-transferencia");
+  //   menuController.close()
+  // }
+  // MenuCodigoQR() {
+  //   this.navCtrl.navigateForward("codigo-qr");
+  //   menuController.close()
+  // }
   MenuAyuda() {
     this.navCtrl.navigateForward("ayuda");
     menuController.close()
@@ -206,35 +219,3 @@ export class AppComponent implements OnInit {
   }
 }
 
-
-// @Component({
-//   selector: 'welcome',
-//   template: `
-//     <ion-content>
-//       <ion-slides pager="true" [options]="slideOpts">
-//         <ion-slide>
-//           <h1>Slide 1</h1>
-//         </ion-slide>
-//         <ion-slide>
-//           <h1>Slide 2</h1>
-//         </ion-slide>
-//         <ion-slide>
-//           <h1>Slide 3</h1>
-//         </ion-slide>
-//       </ion-slides>
-//     </ion-content>
-//   `
-// })
-
-// export class SlideExample {
-//   // Optional parameters to pass to the swiper instance.
-//   // See http://idangero.us/swiper/api/ for valid options.
-//   slideOpts = {
-//     initialSlide: 1,
-//     speed: 400
-//   };
-//   constructor(private screenOrientation: ScreenOrientation) {
-//     this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
-//   }
-
-// }

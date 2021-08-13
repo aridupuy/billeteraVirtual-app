@@ -96,6 +96,7 @@ export class ServiceService extends HttpClient {
 
   public get<T>(url: string, options) {
     AppComponent.cargando=true;
+    console.log(url);
     let get= super.get<T>(this.URL + url, options)
     .pipe(
       catchError(error => {

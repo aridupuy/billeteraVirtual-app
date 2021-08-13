@@ -61,6 +61,7 @@
 
     </ion-content>
   </ion-menu>
+  <app-splash *ngIf="getSplash()"></app-splash>
   <ion-router-outlet id="main"></ion-router-outlet>
   <app-preloader *ngIf="getCargando()"></app-preloader>
 </ion-app>

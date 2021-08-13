@@ -70,6 +70,7 @@ export class LoginService extends ServiceService{
       }
       this.post<IcheckToken>(url, json, httpOption)
         .subscribe(async (data) => {
+          console.log("api/loginwithtoken");
           console.log(data);
           if (data != undefined  && (data.check == 1 || data.check =='true')){
             resolve(true);

@@ -1,0 +1,11 @@
+{
+  "name": "efectivoDigital",
+  "short_name": "ef",
+  "theme_color": "#21f36f",
+  "background_color": "#2196f3",
+  "display": "browser",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "gcm_sender_id": "103953800507"
+}

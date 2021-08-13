@@ -11,6 +11,7 @@ export class WelcomePage implements OnInit {
   constructor(private navCtrl : NavController) {}
 
   ngOnInit() {
+    console.log("aca");
   }
   Registrarse(){
     this.navCtrl.navigateForward(["registro",{}]);
