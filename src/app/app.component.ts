@@ -75,6 +75,7 @@ export class AppComponent implements OnInit {
       this.statusBar.styleDefault();
       // console.log("SPLASH_HIDE");
       this.splashScreen.hide();
+      AppComponent.splash=false;
       // AppComponent.cargando=false;
       // document.addEventListener("resume", this.onDeviceresume, false);
       // document.addEventListener("pause", this.onPause, false);

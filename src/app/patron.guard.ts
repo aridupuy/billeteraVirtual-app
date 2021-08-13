@@ -81,7 +81,7 @@ export class PatronGuard implements CanActivate {
     return (localStorage.getItem("modalAbiero") == "1")
   }
   is_validado() {
-    return (localStorage.getItem("modalvalidado") == "1");
+    return (localStorage.getItem("modalValidado") == "1");
   }
   existe_pin() {
     return !(localStorage.getItem("pin") == undefined || localStorage.getItem("pin") == null || localStorage.getItem("pin") == "false")
