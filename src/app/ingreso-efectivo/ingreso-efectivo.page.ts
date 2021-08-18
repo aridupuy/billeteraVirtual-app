@@ -18,12 +18,15 @@ export class IngresoEfectivoPage implements OnInit {
   public mostrar_pmc = true
   ngOnInit() {
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
+    console.log(p.monto);
     this.cargaEfectivo.obtener_barcode(p.monto).then((data: IBarcode) => {
       console.log(data);
       this.barcode = data.barcode1;
       this.pmc19 = data.pmc;
       if (this.pmc19 == "")
         this.mostrar_pmc = false;
+    }).catch(err=>{
+      console.log(err);
     })
   }
   copy(data) {

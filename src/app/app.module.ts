@@ -18,6 +18,8 @@ import {
     RespuestaResultadoComponent
 } from './components/respuesta-resultado/respuesta-resultado.component';
 import { Libs } from './classes/libs';
+import { FcmService } from './service/fcm.service';
+// import FCM from '../../plugins/cordova-plugin-fcm-with-dependecy-updated/www/FCMPlugin';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { registerLocaleData } from '@angular/common';
@@ -31,8 +33,12 @@ import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
 import { BackgroundMode } from '@ionic-native/background-mode/ngx';
-
-
+import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
+import { FCM } from '../../plugins/cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
+// import splash from '../../resources/splash.png';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { SplashComponent } from './components/splash/splash.component';
+// import { SplashComponent } from './components/splash/splash.component';
 
 declare var Hammer: any;
 export class MyHammerConfig extends HammerGestureConfig {
@@ -41,7 +47,7 @@ export class MyHammerConfig extends HammerGestureConfig {
   };
 }
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent,SplashComponent],
   entryComponents: [],
   imports: [ComponentsModule,BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule,
     IonicStorageModule.forRoot({
@@ -58,10 +64,14 @@ export class MyHammerConfig extends HammerGestureConfig {
     BackgroundMode,
     Cookie,
     ServiceService,
-    Geolocation,
+    
     UsuarioService,
     Libs,
     Pago,
+    UniqueDeviceID,
+    FcmService,
+    FCM,
+    LocalNotifications,
     {
       provide: HAMMER_GESTURE_CONFIG,
       useClass: MyHammerConfig

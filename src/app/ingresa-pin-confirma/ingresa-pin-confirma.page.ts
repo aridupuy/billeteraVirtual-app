@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 
 @Component({
   selector: 'app-ingresa-pin-confirma',
@@ -10,9 +11,9 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./ingresa-pin-confirma.page.scss'],
 })
 export class IngresaPinConfirmaPage implements OnInit {
-  @ViewChild('ingreso1')  passcode1;
-  @ViewChild('ingreso2') passcode2 ;
-  @ViewChild('ingreso3') passcode3 ;
+  @ViewChild('ingreso1') passcode1;
+  @ViewChild('ingreso2') passcode2;
+  @ViewChild('ingreso3') passcode3;
   // @ViewChild('ingreso4') passcode4:HTMLElement ;
   @ViewChild('ingreso4') passcode4;
   values: any = [];
@@ -24,7 +25,7 @@ export class IngresaPinConfirmaPage implements OnInit {
   iniciales
   proposito = 0;
   titulo = "";
-  constructor(public navCtl:NavController,public viewCtrl: ModalController, public route: ActivatedRoute) { }
+  constructor(private faio: FingerprintAIO, public navCtl: NavController, public viewCtrl: ModalController, public route: ActivatedRoute) { }
 
   ngOnInit() {
     this.iniciales = localStorage.getItem("iniciales");
@@ -42,19 +43,19 @@ export class IngresaPinConfirmaPage implements OnInit {
     // if (event.target.value.length != 1) {
     //   this.setFocus(index - 2);
     // } else {
-      this.values.push(index);
-      // event.target.type = "password";
-      if(index=="borrar"){
-        this.setFocus("borrar");
-        this.values = [];
-      }
-      else if(this.values.length==4){
-        this.setFocus(this.values.length);
-        this.validarCodigo();
-      }
-      else 
-        this.setFocus(this.values.length);
-      console.log(this.values);
+    this.values.push(index);
+    // event.target.type = "password";
+    if (index == "borrar") {
+      this.setFocus("borrar");
+      this.values = [];
+    }
+    else if (this.values.length == 4) {
+      this.setFocus(this.values.length);
+      this.validarCodigo();
+    }
+    else
+      this.setFocus(this.values.length);
+    console.log(this.values);
     event.stopPropagation();
   }
   setFocus(index) {
@@ -90,9 +91,9 @@ export class IngresaPinConfirmaPage implements OnInit {
         // this.passcode44.setFocus();
         // this.passcode4.nativeElement.setFocus();
         break;
-      
-        // this.passcode1.nativeElement.setFocus();
-        // this.passcode11.setFocus();
+
+      // this.passcode1.nativeElement.setFocus();
+      // this.passcode11.setFocus();
     }
     // console.log(this.clave1+""+this.clave2+""+this.clave3+""+this.clave4+"");
   }
@@ -105,11 +106,26 @@ export class IngresaPinConfirmaPage implements OnInit {
       case 0:
         let clave = "";
         this.values.forEach(valor => {
-          clave += ""+valor;
+          clave += "" + valor;
         });
-        
+
         // this.navCtrl.navigateForward("ingresa-pin-confirma", navigationExtras);
-        console.log("confirma "+clave);
+        console.log("confirma " + clave);
+        this.faio.show({
+          title:"Para la proxima",
+          description: "queres  acceder la proxima vez usando tu huella?",
+          fallbackButtonTitle: 'Atras',
+          cancelButtonTitle: 'cancelar',
+          disableBackup: true,
+          subtitle: "Usar la huella"
+        }).then(data => {
+          console.log("aca registerBiometricSecret success");
+          console.log(JSON.stringify(data));
+          localStorage.setItem("conDatoBiometrico","si");
+        }).catch(err => {
+          console.log("aca registerBiometricSecret error");
+          console.log(err);
+        });
         this.viewCtrl.dismiss(clave);
         break;
     }

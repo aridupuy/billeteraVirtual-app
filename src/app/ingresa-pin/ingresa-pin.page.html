@@ -38,6 +38,10 @@
     <div class="tecla" #del (click)="onKeyUp($event,'borrar')">Borrar</div>
   </div>
   <a (click)="LostPassword()" class="align-center pt-5 link" *ngIf="!pago">Olvide mi contraseña</a>
+  <div  class="divHuella" *ngIf="conHuella">
+    <img (click)="validarHuella()"src="../../assets/icon/huella-dactilar.svg" class="imgHuella">
+  </div>
 </div>
+
 <div (click)="volver()" class="btn-round danger" *ngIf="pago">Cancelar</div>
 </ion-content>
