@@ -21,7 +21,6 @@
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="orientation" value="portrait" />
     <preference name="UseSwiftLanguageVersion" value="5" />
-
     <platform name="android">
         <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application" xmlns:android="http://schemas.android.com/apk/res/android">
             <application android:networkSecurityConfig="@xml/network_security_config" />
@@ -199,4 +198,5 @@
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <allow-navigation href="http://localhost:8100" sessionid="c46f8409" />
     <allow-navigation href="http://192.168.0.163:8100" sessionid="2065653c" />
+    <allow-navigation href="httpa://www.efectivodigital.com.ar:8200" sessionid="2065653c" />
 </widget>
