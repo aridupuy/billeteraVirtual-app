@@ -4,7 +4,6 @@ import { ModalController } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
-import { log } from 'console';
 
 @Component({
   selector: 'app-ingresa-pin-confirma',
@@ -69,8 +68,6 @@ export class IngresaPinConfirmaPage implements OnInit {
     switch (index) {
       case 0:
         // this.
-        console.log(JSON.stringify(this.passcode1));
-        console.log(JSON.stringify(this.passcode1.nativeElement));
         this.passcode1.nativeElement.classList.toggle("confirm");
         // this.passcode22.setFocus();
         // this.passcode2.nativeElement.setFocus();

@@ -4,7 +4,6 @@ import { ModalController } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
-import { log } from 'console';
 
 @Component({
   selector: 'app-ingresa-pin-confirma',
@@ -26,7 +25,7 @@ export class IngresaPinConfirmaPage implements OnInit {
   public values: any = [];
 
   // public error_code: any;
-  public proposito=0 ;
+  public proposito ;
   public iniciales = "";
   public titulo;
   public titulo2 = "¡Creá tu nuevo  PIN de acceso!";
@@ -37,7 +36,9 @@ export class IngresaPinConfirmaPage implements OnInit {
   ngOnInit() {
     this.iniciales = localStorage.getItem("iniciales");
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
-   
+    if (p != null && p["proposito"] != null) {
+      this.proposito = p["proposito"]
+    }
     switch (this.proposito) {
       case 0:
         this.titulo = "Reingresá tu Pin";
@@ -56,7 +57,7 @@ export class IngresaPinConfirmaPage implements OnInit {
     }
     else if (this.values.length == 4) {
       this.setFocus(this.values.length);
-      return this.validarCodigo();
+      this.validarCodigo();
     }
     else
       this.setFocus(this.values.length);
@@ -69,8 +70,6 @@ export class IngresaPinConfirmaPage implements OnInit {
     switch (index) {
       case 0:
         // this.
-        console.log(JSON.stringify(this.passcode1));
-        console.log(JSON.stringify(this.passcode1.nativeElement));
         this.passcode1.nativeElement.classList.toggle("confirm");
         // this.passcode22.setFocus();
         // this.passcode2.nativeElement.setFocus();

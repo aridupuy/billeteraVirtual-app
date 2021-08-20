@@ -16,7 +16,7 @@
     {{titulo2}}
   </h1>
   
-  <div class="confirma-sms" >
+  <div class="confirma-sms" #shakeit>
     <div class="ingreso " #ingreso1></div>
     <div class="ingreso" #ingreso2></div>
     <div class="ingreso" #ingreso3></div>
@@ -37,5 +37,8 @@
     <div class="tecla" #0 (click)="onKeyUp($event,0)">0</div>
     <div class="tecla" #del (click)="onKeyUp($event,'borrar')">Borrar</div>
   </div>
+  <a (click)="LostPassword()" class="align-center pt-5 link" *ngIf="!pago">Olvide mi contraseña</a>
 </div>
+
+<div (click)="volver()" class="btn-round danger" *ngIf="pago">Cancelar</div>
 </ion-content>

@@ -4,7 +4,6 @@ import { ModalController } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
-import { log } from 'console';
 
 @Component({
   selector: 'app-ingresa-pin-confirma',
@@ -17,80 +16,93 @@ export class IngresaPinConfirmaPage implements OnInit {
   @ViewChild('ingreso3') passcode3;
   // @ViewChild('ingreso4') passcode4:HTMLElement ;
   @ViewChild('ingreso4') passcode4;
-
-  // @ViewChild('passcode1')  passcode11;
-  // @ViewChild('passcode2') passcode22 ;
-  // @ViewChild('passcode3') passcode33 ;
-  // @ViewChild('passcode4') passcode44;
-  @ViewChild('shakeit') shakeit;
-  public values: any = [];
-
-  // public error_code: any;
-  public proposito=0 ;
-  public iniciales = "";
-  public titulo;
-  public titulo2 = "¡Creá tu nuevo  PIN de acceso!";
-  public pago = false;
-  public conHuella = false;
+  values: any[] = [];
+  public titulo2 = "Reingresa tu nuevo  PIN de acceso!";
+  public clave1
+  public clave2
+  public clave3
+  public clave4
+  error_code;
+  iniciales
+  proposito = 0;
+  titulo = "";
   constructor(private faio: FingerprintAIO, public navCtl: NavController, public viewCtrl: ModalController, public route: ActivatedRoute) { }
 
   ngOnInit() {
     this.iniciales = localStorage.getItem("iniciales");
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
-   
+    if (p != null && p["proposito"] != null) {
+      this.proposito = p["proposito"]
+    }
     switch (this.proposito) {
       case 0:
         this.titulo = "Reingresá tu Pin";
         break;
     }
+    this.clave = p["clave"];
   }
   onKeyUp(event, index) {
     // if (event.target.value.length != 1) {
     //   this.setFocus(index - 2);
     // } else {
+    console.log("EVENT");
+    console.log(event);
+    console.log("INDEX");
+    console.log(index);
     this.values.push(index);
+    console.log(JSON.stringify(this.values));
     // event.target.type = "password";
     if (index == "borrar") {
       this.setFocus("borrar");
+      for( let value of this.values){
+          this.values.pop();
+      }
       this.values = [];
+      this.values.length=0;
     }
-    else if (this.values.length == 4) {
+    if (this.values.length == 4) {
+      console.log("valido codigo");
       this.setFocus(this.values.length);
-      return this.validarCodigo();
+      this.validarCodigo();
     }
-    else
+    else{
       this.setFocus(this.values.length);
-    // console.log(this.values);
+     // this.values.push(index);
+    }
+    console.log(this.values);
     event.stopPropagation();
   }
   setFocus(index) {
+    console.log("Set Focus"+index);
     index--;
-    // console.log(index);
     switch (index) {
       case 0:
+        console.log("PASSCODE 1");
         // this.
-        console.log(JSON.stringify(this.passcode1));
-        console.log(JSON.stringify(this.passcode1.nativeElement));
         this.passcode1.nativeElement.classList.toggle("confirm");
         // this.passcode22.setFocus();
         // this.passcode2.nativeElement.setFocus();
         break;
       case 1:
+        console.log("PASSCODE 2");
         this.passcode2.nativeElement.classList.toggle("confirm");
         // this.passcode33.setFocus();
         // this.passcode3.nativeElement.setFocus();
         break;
       case 2:
+        console.log("PASSCODE 3");
         this.passcode3.nativeElement.classList.toggle("confirm");
         // this.passcode44.setFocus();
         // this.passcode4.nativeElement.setFocus();
         break;
       case 3:
-        this.passcode4.nativeElement.classList.toggle("confirm");
+        console.log("PASSCODE 4");  
+      this.passcode4.nativeElement.classList.toggle("confirm");
         // this.passcode44.setFocus();
         // this.passcode4.nativeElement.setFocus();
         break;
       default:
+        console.log("default");
         this.passcode1.nativeElement.classList.remove("confirm");
         this.passcode2.nativeElement.classList.remove("confirm");
         this.passcode3.nativeElement.classList.remove("confirm");
@@ -102,7 +114,7 @@ export class IngresaPinConfirmaPage implements OnInit {
       // this.passcode1.nativeElement.setFocus();
       // this.passcode11.setFocus();
     }
-    // console.log(this.clave1+""+this.clave2+""+this.clave3+""+this.clave4+"");
+    console.log(this.clave1+""+this.clave2+""+this.clave3+""+this.clave4+"");
   }
   LostPassword() {
     this.navCtl.navigateForward(["lostpassword", {}]);
@@ -115,6 +127,7 @@ export class IngresaPinConfirmaPage implements OnInit {
         this.values.forEach(valor => {
           clave += "" + valor;
         });
+        if(clave==this.clave)
         // this.navCtrl.navigateForward("ingresa-pin-confirma", navigationExtras);
         console.log("confirma " + clave);
         this.faio.show({

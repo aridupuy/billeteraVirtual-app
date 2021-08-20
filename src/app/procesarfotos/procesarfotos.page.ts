@@ -40,7 +40,7 @@ export class ProcesarfotosPage implements OnInit {
     contentType = contentType || '';
     base64Data = base64Data.substr("data:image/jpeg;base64,".length, base64Data.length);
 
-    console.log(base64Data);
+    //console.log(base64Data);
     var sliceSize = 1024;
     var byteCharacters = atob(base64Data);
     var bytesLength = byteCharacters.length;
@@ -114,7 +114,7 @@ export class ProcesarfotosPage implements OnInit {
         var binaryData = this.base64toBlob(fotoDniFrente, 'image/jpeg');
         var nombre = this.calcular_nombre("dni");
         var img;
-        
+        console.log("Archivo guardado en "+documentsDirectory + '', nombre)
         await this.file.writeFile(documentsDirectory + '', nombre, binaryData, { replace: true }).then(data => {
           img = <HTMLImageElement>document.getElementById('img');
         }).catch(data => {
@@ -125,6 +125,7 @@ export class ProcesarfotosPage implements OnInit {
           this.imagePath = (<any>window).Ionic.WebView.convertFileSrc(documentsDirectory + nombre);
           var codeReader = new BrowserPDF417Reader();
           this.mensaje = "Estamos procesando tu Dni...";
+          console.log(this.imagePath);
           var result = await codeReader.decodeFromImageUrl(this.imagePath).then((data) => {
             console.log("QR_READER" + JSON.stringify(data));
             var datos = data.getText().split("@");

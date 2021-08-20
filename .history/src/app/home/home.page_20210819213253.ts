@@ -55,7 +55,7 @@ export class HomePage implements OnInit {
   ngOnInit(): void {
     // AppComponent.cargando=true;
     console.log("EN HOME");
-    //this.FcmService.getToken();
+    this.FcmService.getToken();
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
     console.log(p);
     if (this.route.snapshot.queryParamMap.has("param")) {

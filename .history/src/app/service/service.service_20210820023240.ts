@@ -111,7 +111,7 @@ export class ServiceService extends HttpClient {
           }
           return [];
         }))
-      .pipe(
+      .pipe<T>(
 
         map(data => {
           if (data['token'] != undefined) {

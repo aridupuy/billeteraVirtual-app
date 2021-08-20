@@ -70,7 +70,6 @@ export class IngresaPinConfirmaPage implements OnInit {
       case 0:
         // this.
         console.log(JSON.stringify(this.passcode1));
-        console.log(JSON.stringify(this.passcode1.nativeElement));
         this.passcode1.nativeElement.classList.toggle("confirm");
         // this.passcode22.setFocus();
         // this.passcode2.nativeElement.setFocus();

@@ -67,8 +67,7 @@ export class ServiceService extends HttpClient {
     AppComponent.cargando = true;
     console.log("URL POST" + url);
 
-    let post = super.post<T>(this.URL + url, this.encrypt(body, CLAVE_ENCRIPTACION), options).pipe(
-      //.pipe<T>(
+    let post = super.post<T>(this.URL + url, this.encrypt(body, CLAVE_ENCRIPTACION), options).pipe<T>(
       map((data) => {
         if (data['token'] != undefined || data['tokenError'] != undefined) {
           AppComponent.cargando = false;
@@ -77,17 +76,15 @@ export class ServiceService extends HttpClient {
         // tslint:disable-next-line: comment-format
         return JSON.parse(this.decrypt(JSON.stringify(data), CLAVE_ENCRIPTACION)) as T;
       }
-      ),
-      //)
-      //.pipe(
+      )
+    ).pipe(
       catchError(error => {
         if (error.error instanceof ErrorEvent) {
           console.log(error.error);
           AppComponent.cargando = false;
         }
         return [];
-      })
-    );
+      }));
     // post.subscribe(null,err=>{
     //   console.log(err);
     //   //aca podria levantar una vista general de error;
@@ -111,7 +108,7 @@ export class ServiceService extends HttpClient {
           }
           return [];
         }))
-      .pipe(
+      .pipe<T>(
 
         map(data => {
           if (data['token'] != undefined) {
@@ -121,15 +118,7 @@ export class ServiceService extends HttpClient {
           // console.log(data);
           return JSON.parse(this.decrypt(JSON.stringify(data), CLAVE_ENCRIPTACION)) as T;
         }
-        ),
-        catchError(error => {
-          if (error.error instanceof ErrorEvent) {
-            console.log(error.error);
-            AppComponent.cargando = false;
-          }
-          return [];
-        })
-
+        )
       );
     // get.subscribe(data=>{},err=>{
     //   console.log(err);

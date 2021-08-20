@@ -17,7 +17,7 @@ export class Validaridentidad1Page implements OnInit {
   smallPreview: boolean;
   IMAGE_PATH: any;
   colorEffect = 'none';
-  setZoom = 1;
+  setZoom = 2;
   flashMode = 'off';
   isToBack = true;
 
@@ -40,9 +40,9 @@ export class Validaridentidad1Page implements OnInit {
     console.log("aca1");
     if (!this.ACTIVAR_TEST)
       this.cameraPreview.takePicture({
-        width: 1280,
-        height: 640,
-        quality: 100
+        width: 1600,
+        height: 768,
+        quality: 80
       }).then((imageData) => {
         this.IMAGE_PATH = 'data:image/jpeg;base64,' + imageData;
         console.log(this.IMAGE_PATH);
