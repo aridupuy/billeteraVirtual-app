@@ -107,6 +107,13 @@ export class AppComponent implements OnInit {
     }
     return grupo;
   }
+  get_iniciales(){
+    return localStorage.setItem("iniciales", this.iniciales);
+  }
+  get_usuario(){
+      return localStorage.setItem("nombre", this.usuario);
+      
+  }
   get_menu(){
     return AppComponent.menu;
   }

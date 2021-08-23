@@ -55,7 +55,8 @@ export class HomePage implements OnInit {
   ngOnInit(): void {
     // AppComponent.cargando=true;
     console.log("EN HOME");
-    //this.FcmService.getToken();
+    this.FcmService.getToken();
+    
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
     console.log(p);
     if (this.route.snapshot.queryParamMap.has("param")) {
@@ -118,7 +119,19 @@ export class HomePage implements OnInit {
 
   // Formateador de Float a Currency
   // public saldoUsuario = 
+  myDateParser(dateStr : string) : string {
+    
 
+    let date = dateStr.substring(0, 10);
+    let time = dateStr.substring(11, 19);
+    let millisecond = dateStr.substring(20)
+    if(millisecond==""){
+      millisecond="00";
+    }
+    let validDate = date + 'T' + time + '.' + millisecond;
+    console.log(validDate)
+    return validDate
+  }
   cargar_transacciones() {
     const desde = '';
     const hasta = '';
@@ -126,10 +139,12 @@ export class HomePage implements OnInit {
     this.transaccionesService.obtener_transacciones(this.offset, this.limit).then((data: Transacciones[]) => {
       let i = 0;
       for (const dato of data) {
-        const fila = { titulo: dato.mp, precio: dato.monto_final, fecha: dato.fecha_gen, tipo: dato.concepto, id_tipo_trans: dato.id_tipo_trans, id_cuenta: dato.id_cuenta, fijo: dato.pri_fijo, variable: dato.pri_variable, monto_final: dato.monto_final, id_entidad: dato.id_entidad, id_referencia: dato.id_referencia, resumen: dato.resumen_op, click() { } };
+        let fila = { titulo: dato.mp, precio: dato.monto_final, fecha: dato.fecha_gen, tipo: dato.concepto, id_tipo_trans: dato.id_tipo_trans, id_cuenta: dato.id_cuenta, fijo: dato.pri_fijo, variable: dato.pri_variable, monto_final: dato.monto_final, id_entidad: dato.id_entidad, id_referencia: dato.id_referencia, resumen: dato.resumen_op, click() { } };
         if (this.items == undefined) {
           this.items = [fila];
         }
+        
+        fila.fecha = this.myDateParser(fila.fecha);
         this.items[i] = fila;
         i++;
       }
@@ -249,6 +264,8 @@ export class HomePage implements OnInit {
     }
     // alert("aca");
     let menu = Cookie.get("menu");
+    AppComponent.menu=[];
+    AppComponent.menu.length=0;
     if (!menu || menu.length == 0) {
       this.menuService.obtener_menu().then((data: []) => {
         console.log("Levanto desde api");
@@ -310,6 +327,9 @@ export class HomePage implements OnInit {
     }
   }
   puede(menu, item) {
+    if(menu==undefined)
+      return false;
+      console.log(item);
     let puede= menu.filter(menuElement=>{
       let submenu = menuElement.filter(submenuElmement=>{
         return submenuElmement.path == item
