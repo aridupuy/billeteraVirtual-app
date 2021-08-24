@@ -22,6 +22,20 @@ export class AmigosPage implements OnInit {
   // () {
 
   // }
+  myDateParser(dateStr : string) : string {
+    
+
+    let date = dateStr.substring(0, 10);
+    let time = dateStr.substring(11, 19);
+    let millisecond = dateStr.substring(20)
+    if(millisecond==""){
+      millisecond="00";
+    }
+    let validDate = date + 'T' + time + '.' + millisecond;
+    return validDate
+  }
+
+
   ngOnInit(){
     this.cargarData();
   }
@@ -36,6 +50,8 @@ export class AmigosPage implements OnInit {
                 .map( it => it.charAt(0) )
                 .slice(0,2)
                 .join('');
+        d.fecha = this.myDateParser(d.fecha);
+
         this.envios.push(d);
       });
     }).catch(err=>{
@@ -50,6 +66,7 @@ export class AmigosPage implements OnInit {
         .map( it => it.charAt(0) )
         .slice(0,2)
         .join('');
+        d.fecha = this.myDateParser(d.fecha);
         this.pedidos.push(d);
       });
     }).catch(err=>{
@@ -83,6 +100,7 @@ export class AmigosPage implements OnInit {
           .map( it => it.charAt(0) )
           .slice(0,2)
           .join('') : "";
+          d.fecha = this.myDateParser(d.fecha);
           this.historial_pedidos.push(d);
 
         // }

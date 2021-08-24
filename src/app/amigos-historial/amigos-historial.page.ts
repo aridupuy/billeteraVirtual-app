@@ -20,6 +20,18 @@ export class AmigosHistorialPage implements OnInit {
   ngOnInit() {
     this.cargar_movimientos();
   }
+  myDateParser(dateStr : string) : string {
+    
+
+    let date = dateStr.substring(0, 10);
+    let time = dateStr.substring(11, 19);
+    let millisecond = dateStr.substring(20)
+    if(millisecond==""){
+      millisecond="00";
+    }
+    let validDate = date + 'T' + time + '.' + millisecond;
+    return validDate
+  }
   fecha_espaniol(fecha){
   
     switch(fecha){
@@ -108,7 +120,9 @@ export class AmigosHistorialPage implements OnInit {
           .map( it => it.charAt(0) )
           .slice(0,2)
           .join('') : "";
+          d.fecha = this.myDateParser(d.fecha);
           this.historial_pedidos.push(d);
+          
 
         // }
         // else{

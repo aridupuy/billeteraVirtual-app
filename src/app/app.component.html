@@ -1,5 +1,5 @@
 <ion-app>
-  <!--<ion-menu side="start" menuId="menuPrincipal" contentId="main" class="menu-custom" type="overlay">
+  <ion-menu side="start" menuId="menuPrincipal" contentId="main" class="menu-custom" type="overlay">
     <ion-content class="menu">
       <div class="user-header">
         <div class="avatar">
@@ -26,8 +26,8 @@
         </a>
       </div>
     </ion-content>
-  </ion-menu>-->
-  <app-splash *ngIf="getSplash()"></app-splash>
+  </ion-menu>
+  <app-splash id="splash" *ngIf="getSplash()"></app-splash>
   <ion-router-outlet id="main"></ion-router-outlet>
   <app-preloader *ngIf="getCargando()"></app-preloader>
 </ion-app>

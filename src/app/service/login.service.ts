@@ -30,7 +30,8 @@ const httpOption = {
 @Injectable()
 export class LoginService extends ServiceService{
 
-  URL = environment.URL_LOGIN;
+  URL = environment.get_url_login();
+  
   public token;
   //public storage;
   //public URL = "http://192.168.0.163:358/";
@@ -63,15 +64,13 @@ export class LoginService extends ServiceService{
     });
   }
   checkToken(url, json) {
-    
+    console.log(this.URL);  
     return new Promise((resolve,rejects)=>{
       if(!localStorage.getItem("token")){
         rejects(false);
       }
       this.post<IcheckToken>(url, json, httpOption)
         .subscribe(async (data) => {
-          console.log("api/loginwithtoken");
-          console.log(data);
           if (data != undefined  && (data.check == 1 || data.check =='true')){
             resolve(true);
           }

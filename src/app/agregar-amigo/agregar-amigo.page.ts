@@ -30,10 +30,14 @@ export class AgregarAmigoPage implements OnInit {
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
     // this.p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
 
-    console.log(p);
+    if(!p){
+      p={envio:true};
+      
+    }
     if('envio' in p ){
       this.enviar = p.envio;
     }
+    
     if('pedir' in p ){
       this.pedido = p.pedir;
     }

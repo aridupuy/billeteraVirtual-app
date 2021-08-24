@@ -44,7 +44,7 @@ export const CryptoJSAesJson = {
   providedIn: 'root'
 })
 export class ServiceService extends HttpClient {
-  public URL = environment.URL;
+  public URL = environment.get_url();
 
 
   public encrypt(params: any, pass: string) {
@@ -65,7 +65,7 @@ export class ServiceService extends HttpClient {
   // tslint:disable-next-line: align
   public post<T>(url: string, body: any | null, options?): Observable<T> {
     AppComponent.cargando = true;
-    console.log("URL POST" + url);
+    console.log("URL POST" + this.URL+url);
 
     let post = super.post<T>(this.URL + url, this.encrypt(body, CLAVE_ENCRIPTACION), options).pipe(
       //.pipe<T>(

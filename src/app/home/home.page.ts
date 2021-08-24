@@ -56,9 +56,7 @@ export class HomePage implements OnInit {
     // AppComponent.cargando=true;
     console.log("EN HOME");
     this.FcmService.getToken();
-    
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
-    console.log(p);
     if (this.route.snapshot.queryParamMap.has("param")) {
       this.valida_ident = p.valida_ident;
       this.valida_mail = p.valida_mail;
@@ -75,6 +73,7 @@ export class HomePage implements OnInit {
       this.obtener_saldo();
       this.cargar_transacciones();
     }
+    
   }
   ir() {
     // const navigationExtras: NavigationExtras = {
@@ -206,13 +205,11 @@ export class HomePage implements OnInit {
       //console.log(data);
       let i = 0;
       for (const dato of data) {
-        console.log(data);
         const fila = { titulo: dato.mp, precio: dato.monto, fecha: dato.fecha_pago, tipo: dato.concepto, id_tipo_trans: dato.id_tipo_trans, id_cuenta: dato.id_cuenta, fijo: dato.pri_fijo, variable: dato.pri_variable, monto_final: dato.monto_final, id_entidad: dato.id_entidad, id_referencia: dato.id_referencia, resumen: dato.resumen_op, click() { } };
         // tslint:disable-next-line: triple-equals
         if (this.items == undefined) {
           this.items = [fila];
         }
-        console.log(fila);
         this.items.push(fila);
         i++;
       }
@@ -302,34 +299,20 @@ export class HomePage implements OnInit {
   }
 
   MenuIngresoDinero() {
-    let menu = JSON.parse(Cookie.get("menu"));
-    if (this.puede(menu, "ingreso-dinero")) {
-      this.navCtl.navigateForward(this.navigateMenu(menu, "ingreso-dinero"));
+      this.navCtl.navigateForward(this.navigateMenu(this.obtener_menu(), "ingreso-dinero"));
     }
-  }
   MenuTransferirDinero() {
-    let menu = JSON.parse(Cookie.get("menu"));
-    console.log(menu);
-    if (this.puede(menu,"retiro-transferencia")) {
-      this.navCtl.navigateForward(this.navigateMenu(menu, "ingreso-dinero"));
+      this.navCtl.navigateForward(this.navigateMenu(this.obtener_menu(), "retiro-transferencia"));
     }
-  }
   MenuRetiroDinero() {
-    let menu  = this.obtener_menu();
-    if (this.puede(menu,"retirar-dinero")) {
-      this.navCtl.navigateForward(this.navigateMenu(menu, "ingreso-dinero"));
-    }
+    this.navCtl.navigateForward(this.navigateMenu(this.obtener_menu(), "retirar-dinero"));
   }
   MenuCodigoQR() {
-    let menu  = this.obtener_menu();
-    if (this.puede(menu,"Qr-pago")) {
-      this.navCtl.navigateForward(this.navigateMenu(menu, "ingreso-dinero"));
-    }
+      this.navCtl.navigateForward(this.navigateMenu(this.obtener_menu(), "Qr-pago"));
   }
   puede(menu, item) {
     if(menu==undefined)
       return false;
-      console.log(item);
     let puede= menu.filter(menuElement=>{
       let submenu = menuElement.filter(submenuElmement=>{
         return submenuElmement.path == item
@@ -353,7 +336,7 @@ export class HomePage implements OnInit {
     return path;
   }
   obtener_menu(){
-    return JSON.parse(Cookie.get("menu"));
+    return AppComponent.menu;
   }
   irAHistorial() {
     this.navCtl.navigateForward("historial");

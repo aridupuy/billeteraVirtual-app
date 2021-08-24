@@ -99,7 +99,9 @@ ion-select {
     right: 20px;
   }
 }
-
+app-splash{
+  z-index: 2;
+}
 .action-sheet-group {
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;

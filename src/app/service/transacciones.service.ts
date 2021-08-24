@@ -25,7 +25,7 @@ var httpOptions = {
   providedIn: 'root'
 })export class TransaccionesService extends ServiceService {
 
-  URL = environment.URL;
+  URL = environment.get_url();
   //URL = "http://172.20.10.80:358/";
 
 

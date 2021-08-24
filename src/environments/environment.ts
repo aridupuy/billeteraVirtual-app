@@ -1,8 +1,8 @@
+import { Platform } from '@ionic/angular';
+import { AppComponent } from 'src/app/app.component';
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-
-
 export const environment = {
   production: false,
   //  URL:"http://localhost:358/" ,
@@ -10,6 +10,7 @@ export const environment = {
   // URL: "http://172.20.20.52:360/",
   // URL: "http://190.184.254.246:8200/",
    URL: "https://www.efectivodigital.com.ar:8200/",
+   URL_DESARROLLO: "https://www.efectivodigital.com.ar:8200/",
   //  URL:"http://172.20.10.36:358/" ,
   // URL: "http://172.20.20.53:360/",
   // URL_LOGIN:"http://192.168.0.163:360/",
@@ -18,7 +19,24 @@ export const environment = {
   //  URL_LOGIN:"http://172.20.10.36:358/" 
   // URL_LOGIN:"http://172.20.20.10:358/"
   // URL_LOGIN: "http://172.20.20.52:360/"
-  URL_LOGIN: "https://www.efectivodigital.com.ar:8200/"
+  URL_LOGIN: "https://www.efectivodigital.com.ar:8200/",
+  URL_LOGIN_DESARROLLO: "https://www.efectivodigital.com.ar:8200/",
+  mobile:false,
+  get_url: () =>{
+    if(!environment.mobile){
+          return environment.URL_DESARROLLO
+    }
+    return environment.URL
+    
+  },
+  get_url_login: () =>{
+    if(!environment.mobile){
+      return environment.URL_LOGIN_DESARROLLO
+    }
+    else{
+      return environment.URL_LOGIN
+    }
+  }
   // URL_LOGIN: "http://192.168.0.163:360/"
   // ionic cordova run browser --livereload  --consolelogs --serverlogs
 };

@@ -1,10 +1,7 @@
+import { environment } from './../environments/environment';
 import { UsuarioService } from './service/usuario.service';
-import { IngresopatronPage } from './ingresopatron/ingresopatron.page';
-import { async } from 'rxjs';
 import { IngresaPinPage } from './ingresa-pin/ingresa-pin.page';
-import { IngresaPinConfirmaPage } from './ingresa-pin-confirma/ingresa-pin-confirma.page';
 import { ServiceService } from './service/service.service';
-import { pass } from './patron.guard';
 import { Pago } from './classes/Pago';
 import { HomePage } from './home/home.page';
 import { AmigosPage } from './amigos/amigos.page';
@@ -12,16 +9,12 @@ import { IngresoDineroPage } from './ingreso-dinero/ingreso-dinero.page';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { Platform } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
-// import { NavController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
-import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { NavController } from '@ionic/angular';
 import { menuController } from "@ionic/core";
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Deeplinks, DeeplinksOriginal } from '@ionic-native/deeplinks'
-import { MenuserviceService } from './service/menuservice.service';
-import { Cookie } from 'ng2-cookies/ng2-cookies';
-import { ConfirmasmsPageModule } from './confirmasms/confirmasms.module';
+
 
 @Component({
   selector: 'app-root',
@@ -36,10 +29,17 @@ export class AppComponent implements OnInit {
   public static splash=true;
   public static menu = Array();
   public static DIAS = 3;
-  constructor(private platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen, private pago: Pago, public service: ServiceService, public modalCtrl: ModalController, public usuarioService: UsuarioService, public navCtrl: NavController) { }
+    constructor(private platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen, private pago: Pago, public service: ServiceService, public modalCtrl: ModalController, public usuarioService: UsuarioService, public navCtrl: NavController) {
+      console.log(platform.is("cordova"));
+      environment.mobile = platform.is("cordova");
+      
+    }
+  
   ngOnInit() {
     console.log("SPLASH SHOW");
     this.splashScreen.show();
+    localStorage.setItem("modalValidado","0");
+    localStorage.setItem("modalAbiero","0");
     let nombre = localStorage.getItem("nombre");
     if (nombre && this.iniciales) {
       this.usuario = nombre;
@@ -71,6 +71,12 @@ export class AppComponent implements OnInit {
         console.log(err);
         
       });
+      console.dir(this.platform);
+      console.log("PLATFORM");
+      this.platform.pause.subscribe(() => {
+        console.log('[INFO] App paused');
+        return this.onPause();
+      });
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       // console.log("SPLASH_HIDE");
@@ -78,8 +84,12 @@ export class AppComponent implements OnInit {
       AppComponent.splash=false;
       // AppComponent.cargando=false;
       // document.addEventListener("resume", this.onDeviceresume, false);
-      // document.addEventListener("pause", this.onPause, false);
+      document.onpause=this.onPause;
+      document.addEventListener("pause", this.onPause, false);
       document.addEventListener("resume", this.onDeviceresume, false);
+      document.addEventListener("freeze", this.onPause, false);
+    
+      
       /*Esto es un test para mas adelante */
       Deeplinks.routeWithNavController(this.navCtrl, {
         '/': HomePage,
@@ -108,11 +118,15 @@ export class AppComponent implements OnInit {
     return grupo;
   }
   get_iniciales(){
-    return localStorage.setItem("iniciales", this.iniciales);
+    if(!this.iniciales)
+      this.iniciales = localStorage.getItem("iniciales");
+
+    return this.iniciales;
   }
   get_usuario(){
-      return localStorage.setItem("nombre", this.usuario);
-      
+    if(!this.usuario)
+      this.usuario = localStorage.getItem("nombre");
+    return this.usuario;
   }
   get_menu(){
     return AppComponent.menu;
@@ -123,12 +137,24 @@ export class AppComponent implements OnInit {
   }
   getSplash(){
     // if(AppComponent.splash)console.log("MUESTRO SPLASH");
-    return AppComponent.splash;
+    //return AppComponent.splash;
+    if(document.getElementById("splash")==null){
+      return true;
+    }
+    if(AppComponent.splash==false){
+      document.getElementById("splash").setAttribute("class","noVisible");
+    }
+    else{
+      document.getElementById("splash").setAttribute("class","Visible");
+    }
+    return true;
 
   }
   onDeviceresume = () => {
-    console.log("ONRESUME");
-    console.log(localStorage.getItem("onboarding"));
+    
+    AppComponent.splash=false;
+    document.getElementById("splash").setAttribute("class","noVisible");
+    console.log(localStorage.getItem("modalAbiero"));
     if(localStorage.getItem("modalAbiero")=='0' ){
       if(localStorage.getItem("token")!="false" && localStorage.getItem("token") != null && localStorage.getItem("token")!="" && localStorage.getItem("onboarding")==null && localStorage.getItem("onboarding")!="1"){
         localStorage.setItem("inBackground", "1");
@@ -137,6 +163,15 @@ export class AppComponent implements OnInit {
       }
     }
   }
+  
+  onPause = () => {
+    console.log("ONPAUSE");
+    console.dir(AppComponent);
+    AppComponent.splash=true;
+    document.getElementById("splash").setAttribute("class","visible");
+    
+  }
+  
   // onDeviceresume = async () => {
   //   console.log("onDeviceresume");
   //   console.log(localStorage.getItem("onboarding"));
@@ -171,6 +206,7 @@ export class AppComponent implements OnInit {
 
     modal2.onDidDismiss().then(async (modalDataResponse) => {
       let clave1;
+      AppComponent.splash=false;
       // console.log(modalDataResponse);
       clave1 = modalDataResponse.data;
       localStorage.setItem("inBackground", "0");

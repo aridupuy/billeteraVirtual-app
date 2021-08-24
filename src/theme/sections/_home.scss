@@ -8,6 +8,7 @@
     align-content: center;
     justify-content: space-between;
     padding: 2%;
+    padding-left: 0;
     .menu-icon {
         width: 2em;
         height: 2em;
@@ -26,12 +27,12 @@
         display: flex;
         flex-wrap: wrap;
         padding-top: 20px;
-        padding-bottom: 40px;
+        padding-top: 40px;
         .user-header {
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
             align-content: center;
-            align-items: center;
+            align-items: self-start;
             justify-content: flex-start;
             width: 100%;
             padding-bottom: 40px;
@@ -50,27 +51,34 @@
                 font-size: 150%;
             
             }
-            .user-info {
-                width: 80%;
+            .line{
                 display: flex;
-                flex-wrap: wrap;
-                justify-content: flex-start;
-                font-weight: 800;
-                padding-left: 10px;
-                .bienvenida {
-                    font-size: 120%;
+                flex-direction: column;
+                justify-content: center;
+                align-items: start;
+                width: 100%;
+                .user-info {
+                    width: 80%;
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: flex-start;
                     font-weight: 800;
-                    width: 100%;
-                }
-                .username {
-                    font-weight: 600;
-                }
-                .cvu {
-                    width: 100%;
-                    color: $link-color;
-                    font-weight: 800;
-                    font-size: 80%;
-                    padding: 5px 0;
+                    padding: 2% 2% 2% 0%;
+                    .bienvenida {
+                        font-size: 120%;
+                        font-weight: 800;
+                        width: 100%;
+                    }
+                    .username {
+                        font-weight: 600;
+                    }
+                    .cvu {
+                        width: 100%;
+                        color: $link-color;
+                        font-weight: 800;
+                        font-size: 80%;
+                        padding: 5px 0;
+                    }
                 }
             }   
         }
