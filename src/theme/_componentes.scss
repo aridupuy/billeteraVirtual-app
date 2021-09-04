@@ -115,7 +115,7 @@ ion-list {
        
         .movimiento {
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
             align-content: center;
             align-items: center;
             width: 100%;
@@ -152,10 +152,10 @@ ion-list {
                 }
             }
             .monto {
-            width: 20%;
-            text-align: right;
-            font-weight: 800;
-            font-size: 80%;
+                width: 35%;
+                text-align: right;
+                font-weight: 800;
+                font-size: 80%;
             }
         }
     }

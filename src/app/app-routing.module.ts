@@ -334,7 +334,11 @@ const routes: Routes = [
   {
     path: 'lista-amigos-env',
     loadChildren: () => import('./lista-amigos-env/lista-amigos-env.module').then( m => m.ListaAmigosEnvPageModule)
+  },  {
+    path: 'filter',
+    loadChildren: () => import('./filter/filter.module').then( m => m.FilterPageModule)
   }
+
  ];
 
 @NgModule({

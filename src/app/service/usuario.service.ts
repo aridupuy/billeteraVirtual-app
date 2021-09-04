@@ -15,7 +15,7 @@ export class UsuarioService extends ServiceService{
     return new Promise((resolve, reject) => {
       console.log("api/usuario/obtener_mis_datos");
       this.get<any>('api/usuario/obtener_mis_datos',httpOptions).subscribe((data) => {
-        console.log(data);
+        // console.log(data);
         if (data.resultado != null && data.resultado == false) {
           reject(data.log);
         }

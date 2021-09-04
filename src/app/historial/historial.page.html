@@ -10,7 +10,10 @@
   <div class="contenedor-90">
     <h1>Historial de movimientos</h1>
     <p>Acá podes ver todos los movimientos de tu cuenta.</p>
-    <div class="lista-ultimos-movimientos mt-10" *ngIf="items">
+    <ion-button icon-only (click)="presentModal()">
+        <ion-icon name="options"></ion-icon>
+    </ion-button>
+    <div class="lista-ultimos-movimientos mt-10" *ngIf="items!=undefined && items.length > 0">
         <ion-refresher [class]="class_refresher" slot="fixed" (ionStart)="mostrar($event)"
           (ionRefresh)="refresh($event)">
           <ion-refresher-content refreshingText="Recargando..." refreshingSpinner="bubbles">
@@ -28,11 +31,16 @@
               <span>{{ item.fecha | date:'dd'}} de {{ fecha_espaniol(item.fecha | date:'M')}} - {{ item.fecha |
                 date:'hh:mma'}}</span>
             </div>
-            <div class="monto"> ${{item.precio}} </div>
+            <div class="monto"> ${{item.monto_final}} </div>
           </div>
           
         </div>
         
+      
+    </div>
+    <div class="mensaje-bienvenida" *ngIf="!items || items.length == 0">
+      <ion-icon name="wallet-outline"></ion-icon>
+      <h1>No hay Movimientos para ver</h1>
       
     </div>
     <ion-infinite-scroll threshold="100px" (ionInfinite)="cargarmas($event)">

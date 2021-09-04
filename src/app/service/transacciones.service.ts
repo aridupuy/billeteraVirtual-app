@@ -33,7 +33,7 @@ var httpOptions = {
   //  constructor(private http: HttpClient) { }
 
   public obtener_transacciones(offset:number,limit:number) {
-    console.log(limit,offset);
+    // console.log(limit,offset);
     httpOptions.headers.token=localStorage.getItem("token");
     return new Promise((resolve, reject) => {
       var postParams = ({ limit: limit, offset: offset });
@@ -41,7 +41,7 @@ var httpOptions = {
         if (data.log != null && data.log != false) {
           reject(data.log);
         }
-        console.log(data);
+        // console.log(data);
         return resolve(data.extras[0].moves);
       });
     });

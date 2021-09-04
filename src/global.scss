@@ -43,12 +43,11 @@ $btn-seleccion-bg: #09b59a;
 $btn-seleccion-text: #fff;
 
 $border: #707070;
-$border-rgba: rgba(112, 112, 112, 0.2);
 $error: #eb445a;
 $warning: rgba(255, 196, 9, 0.3);
 $success: #2fdf75;
 $white: #fff;
-
+$border-rgba: rgba(112, 112, 112, 0.2);
 $home-button-bg: #F7F7F7;
 // 1. Botones
 @import 'theme/botones.scss';

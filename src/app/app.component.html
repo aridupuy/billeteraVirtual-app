@@ -1,7 +1,7 @@
 <ion-app>
   <ion-menu side="start" menuId="menuPrincipal" contentId="main" class="menu-custom" type="overlay">
     <ion-content class="menu">
-      <div class="user-header">
+      <div class="user-header" [class]="addClass()">
         <div class="avatar">
           {{get_iniciales()}}
         </div>
@@ -9,8 +9,13 @@
           <span class="bienvenida">Hola,<span class="username"> {{get_usuario()}}</span></span>
         </div>
       </div>
-       <div class="menu-lista" *ngFor="let grupo of get_menu()">
-          <a (click)="Ir(item.path)" class="opcion-menu" *ngFor="let item of grupo">
+      
+       <div class="menu-lista" *ngFor="let grupo of get_menu() | keyvalue">
+        <a (click)="Ir('home')" class="opcion-menu" *ngIf="grupo.key=='0'">
+          <img src="assets/img/logo_home.png" alt=""  >
+          <p >Inicio</p>
+        </a>
+          <a (click)="Ir(item.path)" class="opcion-menu" *ngFor="let item of grupo.value ">
           <img [src]="item.icono" alt="">
           <p>{{item.nombre}}</p>
         </a>

@@ -1,4 +1,3 @@
-@import '../../global.scss';
 .user-header {
     display: flex;
     flex-wrap: wrap;
@@ -16,9 +15,9 @@
         width: 50px;
         height: 50px;
         border-radius: 50%;
-        background: $principal;
-        color: $white;
-        border: 4px solid $border-rgba;
+        background: var(--ion-color-primary);
+        color: var(--white);
+        border: 4px solid var(--border-rgba);
         font-size: 150%;
     
     }

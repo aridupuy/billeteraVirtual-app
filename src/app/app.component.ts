@@ -30,9 +30,10 @@ export class AppComponent implements OnInit {
   public static menu = Array();
   public static DIAS = 3;
     constructor(private platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen, private pago: Pago, public service: ServiceService, public modalCtrl: ModalController, public usuarioService: UsuarioService, public navCtrl: NavController) {
-      console.log(platform.is("cordova"));
+      // console.log(platform.is("cordova"));
       environment.mobile = platform.is("cordova");
-      
+      this.statusBar.overlaysWebView(true);
+      this.statusBar.backgroundColorByHexString('#000000');
     }
   
   ngOnInit() {
@@ -62,19 +63,19 @@ export class AppComponent implements OnInit {
             .map(it => it.charAt(0))
             .slice(2, 3)
             .join('');
-        console.log("aca");
+        // console.log("aca");
         localStorage.setItem("nombre", this.usuario);
         localStorage.setItem("iniciales", this.iniciales);
       
-        console.log(this.usuario);
+        // console.log(this.usuario);
       }).catch(err=>{
         console.log(err);
         
       });
-      console.dir(this.platform);
-      console.log("PLATFORM");
+      // console.dir(this.platform);
+      // console.log("PLATFORM");
       this.platform.pause.subscribe(() => {
-        console.log('[INFO] App paused');
+        // console.log('[INFO] App paused');
         return this.onPause();
       });
     this.platform.ready().then(() => {
@@ -129,7 +130,13 @@ export class AppComponent implements OnInit {
     return this.usuario;
   }
   get_menu(){
+    
     return AppComponent.menu;
+  }
+  addClass(){
+    if(this.platform.is("ios"))
+      return "bajarIos";
+    return "";
   }
   getCargando() {
     // console.log(AppComponent.cargando);
@@ -165,7 +172,7 @@ export class AppComponent implements OnInit {
   }
   
   onPause = () => {
-    console.log("ONPAUSE");
+    // console.log("ONPAUSE");
     console.dir(AppComponent);
     AppComponent.splash=true;
     document.getElementById("splash").setAttribute("class","visible");
@@ -193,11 +200,11 @@ export class AppComponent implements OnInit {
   async mostrarModal(tipo) {
     console.log(localStorage.getItem("modal-abierto"));
     if (AppComponent.modal_abierto == 1) {
-      console.log("no abre");
+      // console.log("no abre");
       return false;
     }
     else {
-      console.log("abre");
+      // console.log("abre");
     }
     const modal2 = await this.modalCtrl.create({
       component: IngresaPinPage,
@@ -211,11 +218,11 @@ export class AppComponent implements OnInit {
       clave1 = modalDataResponse.data;
       localStorage.setItem("inBackground", "0");
       AppComponent.modal_abierto = 0;
-      console.log("MODAL CERRADO setitem 0");
+      // console.log("MODAL CERRADO setitem 0");
       return true;
     });
     AppComponent.modal_abierto = 1;
-    console.log("MODAL ABIERTO setitem 1");
+    // console.log("MODAL ABIERTO setitem 1");
     await modal2.present();
 
 

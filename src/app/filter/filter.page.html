@@ -1,0 +1,63 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-button (click)="closeModal()" class="small">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Buscar Movimientos</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <div class="contenedor-90">
+    <h1>Buscar movimientos</h1>
+    <p>Acá podes elegir el filtro para buscar movimientos.</p>
+    <div class="form">
+
+      <form [formGroup]="form" class="form" formControllerName="FilterPage">
+        <ion-list>
+          <div class="input-container noWrap">
+            <ion-label text-left>Tipo de movimiento</ion-label>
+            <!--<label></label>-->
+            <ion-select text-wrap text-middle (ionChange)="changeFiltro()" formControlName="select" value="1"
+              interface="action-sheet" role="combobox" aria-expanded="false" aria-haspopup="dialog"
+              aria-labelledby="ion-sel-6-lbl" class="ios in-item hydrated" text-center>
+              <ion-select-option value="1" role="option" id="ion-selopt-45" class="ios ">Todo</ion-select-option>
+              <ion-select-option value="2" role="option" id="ion-selopt-48" class="ios ">Ingresos</ion-select-option>
+              <ion-select-option value="3" role="option" id="ion-selopt-47" class="ios ">Egresos</ion-select-option>
+              <!--<input type="hidden" class="aux-input" name="ion-sel-6" value="enable">-->
+            </ion-select>
+          </div>
+          <hr class="hrShow"/>
+          <ion-item>
+            <div class="input-container noWrap">
+              <ion-label>Fecha desde</ion-label>
+              <ion-datetime  color="primary" formControlName="desde" display-format="DD/MM/YYYY" placeholder="Fecha de inicio">
+              </ion-datetime>
+            </div>
+          </ion-item>
+          <ion-item>
+            <div class="input-container noWrap">
+              <ion-label>Fecha hasta</ion-label>
+              <ion-datetime formControlName="hasta" display-format="DD/MM/YYYY" placeholder="Fecha de inicio">
+              </ion-datetime>
+            </div>
+          </ion-item>
+
+        </ion-list>
+      </form>
+    </div>
+  </div>
+  <div class="onboarding-btn-group">
+    <div class="btn-round activo" (click)="ApliModal()">
+      Aplicar
+    </div>
+  </div>
+  <div class="onboarding-btn-group">
+    <a class="link" (click)="vaciar()">
+      Limpiar
+    </a>
+  </div> 
+
+
+</ion-content>

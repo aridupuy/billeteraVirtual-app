@@ -40,7 +40,25 @@
     align-content: center;
     align-items: center;
     width: 100%;
+    
 }
+.noWrap {
+    flex-wrap: nowrap ;  
+    justify-content: flex-end;
+    ion-datetime{
+        width: 100%;
+    }  
+}
+.hrShow{
+    border-width: 1px;
+    color: $principal;
+    box-sizing: border-box;
+    height: 1px;
+}
+ion-datetime {
+    color: $principal;
+}
+
 .input-container.with-label ion-icon {
     margin: 0 5px;
     position: relative;
