@@ -337,6 +337,14 @@ const routes: Routes = [
   },  {
     path: 'filter',
     loadChildren: () => import('./filter/filter.module').then( m => m.FilterPageModule)
+  },
+  {
+    path: 'detalle-transaccion',
+    loadChildren: () => import('./detalle-transaccion/detalle-transaccion.module').then( m => m.DetalleTransaccionPageModule)
+  },
+  {
+    path: 'comprobante',
+    loadChildren: () => import('./comprobante/comprobante.module').then( m => m.ComprobantePageModule)
   }
 
  ];

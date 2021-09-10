@@ -1,0 +1,48 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="IrAtras()" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Ultimos Movimientos </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content center>
+  <div class="contenedor-90 flex">
+    <h1 class="align-left">Detalle de la Actividad</h1>
+    <div class="container" #container>
+      <div class="imagen">
+        <img src="assets/img/mov-recibiste.svg" alt="Recibiste" *ngIf="item.id_tipo_trans=='2'">
+        <img src="assets/img/mov-retiro.svg" alt="Recibiste" *ngIf="item.id_tipo_trans=='1'">
+        <img src="assets/img/mov-pago.svg" alt="Pagaste" *ngIf="item.id_tipo_trans=='3'">
+      </div>
+      <div *ngIf="resumen.persona!=undefined && item.id_tipo_trans=='2'">Recibiste de <div class="monto">
+          <b>{{resumen.persona.nombre}}</b>
+        </div>
+      </div>
+      <div *ngIf="resumen.persona!=undefined && item.id_tipo_trans=='1'">Enviaste a <div class="monto">
+          <b>{{resumen.persona.nombre}}</b>
+        </div>
+      </div>
+      <div><span>{{ item.fecha | date:'dd'}} de {{ fecha_espaniol(item.fecha | date:'M')}} - {{ item.fecha |
+          date:'hh:mma'}}</span></div>
+      <div>
+        <div class="monto">${{resumen.cuanto.monto}} </div>
+      </div>
+      <div>Comisiones<div class="comision">${{obtener_comisiones()}} </div>
+      </div>
+      <div> Monto acreditado <div class="monto"><b>${{item.monto_final}}</b></div>
+      </div>
+      <div><span>Cod. Operacion <b>{{item.id_referencia}}</b></span></div>
+      <div class="row">
+        <span>Motivo</span>
+        <span> {{item.tipo}}</span>
+      </div>
+      <!-- <div></div> -->
+      <div class="onboarding-btn-group">
+        <a class="link" (click)="verComprobante()">
+          <b>Ver Comprobante</b>
+        </a>
+      </div>
+    </div>
+  </div>
+</ion-content>

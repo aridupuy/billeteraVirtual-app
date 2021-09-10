@@ -1,0 +1,43 @@
+.flex{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2px;
+    padding-top: 6%;
+    .container{
+        border: 1px solid #EAEAEA;
+        border-radius: 2%;
+        background-color: white;
+        width: 100%;
+    }
+    div{
+        width: 100%;
+        padding: 2px;
+        margin: 2%;
+        justify-items: center;
+        text-align: center;
+    }
+    span{
+        color:#707070 ;
+        width: 100%;
+    }
+    .row{
+        display: flex;
+        flex-direction: column;
+        span{
+            margin-top: 2%;
+        }
+    }
+    .align-left{
+        align-self:flex-start;
+    }
+  .link{
+    text-decoration: none;
+    font-weight: bold;
+    font-size: medium;
+    margin-top: 10%;
+    margin-bottom: 3%;
+  }
+}
+

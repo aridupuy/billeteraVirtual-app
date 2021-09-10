@@ -20,7 +20,7 @@
           </ion-refresher-content>
         </ion-refresher>
         <div class="movimientos-wrapper">
-          <div class="movimiento" *ngFor="let item of items">
+          <div (click)="verMas(item)" class="movimiento" *ngFor="let item of items">
             <div class="imagen">
               <img src="assets/img/mov-recibiste.svg" alt="Recibiste" *ngIf="item.id_tipo_trans=='2'">
               <img src="assets/img/mov-retiro.svg" alt="Recibiste" *ngIf="item.id_tipo_trans=='1'">
@@ -38,7 +38,7 @@
         
       
     </div>
-    <div class="mensaje-bienvenida" *ngIf="!items || items.length == 0">
+    <div   class="mensaje-bienvenida" *ngIf="!items || items.length == 0">
       <ion-icon name="wallet-outline"></ion-icon>
       <h1>No hay Movimientos para ver</h1>
       

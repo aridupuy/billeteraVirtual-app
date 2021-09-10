@@ -1,0 +1,114 @@
+<ion-content center>
+  <div class="contenedor-90 flex" #container_comp>
+    <div class="container-logo">
+      <img  class="logo" src="assets/img/logo-text-negro.svg">
+    </div>
+    <div class="container" >
+      <style>
+        .container-logo{
+          width: 100%;
+          text-align: center;
+          margin-bottom: 10%;
+        }
+        .logo{
+          width: 50%;
+          text-align: center;
+        }
+        .flex {
+         
+          border-radius: 2%;
+          background-color: white;
+          width: 100%;
+         
+          align-self: center;
+          vertical-align: middle;
+          display: flex;
+          flex-direction: column;
+          padding: 10%;
+
+
+        }
+
+        .flex>.container {
+          border: 1px solid #EAEAEA;
+          border-radius: 2%;
+          background-color: white;
+          width: 100%;
+        }
+
+        .container>div {
+          width: 100%;
+          padding: 8px;
+          margin: 0%;
+          justify-items: center;
+          text-align: center;
+        }
+
+        .container>span {
+          color: #707070;
+          width: 100%;
+        }
+
+        .container>.row {
+          display: flex;
+          flex-direction: column;
+
+
+        }
+
+        .container>.row>span {
+          margin-top: 2%;
+        }
+
+        .container>.align-left {
+          align-self: flex-start;
+        }
+
+        .container>.link {
+          text-decoration: none;
+          font-weight: bold;
+          font-size: medium;
+          margin-top: 10%;
+          margin-bottom: 3%;
+        }
+        .botonera{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      </style>
+      <div class="imagen">
+        <img src="assets/img/mov-recibiste.svg" alt="Recibiste" *ngIf="item.id_tipo_trans=='2'">
+        <img src="assets/img/mov-retiro.svg" alt="Recibiste" *ngIf="item.id_tipo_trans=='1'">
+        <img src="assets/img/mov-pago.svg" alt="Pagaste" *ngIf="item.id_tipo_trans=='3'">
+      </div>
+      <div *ngIf="resumen.persona!=undefined && item.id_tipo_trans=='2'">Recibiste de <div class="monto">
+          <b>{{resumen.persona.nombre}}</b>
+        </div>
+      </div>
+      <div *ngIf="resumen.persona!=undefined && item.id_tipo_trans=='1'">Enviaste a <div class="monto">
+          <b>{{resumen.persona.nombre}}</b>
+        </div>
+      </div>
+      <div><span>{{ item.fecha | date:'dd'}} de {{ fecha_espaniol(item.fecha | date:'M')}} - {{ item.fecha |
+          date:'hh:mma'}}</span></div>
+      <div>
+        <div class="monto">${{resumen.cuanto.monto}} </div>
+      </div>
+      <div>Comisiones<div class="comision">${{obtener_comisiones()}} </div>
+      </div>
+      <div> Monto acreditado <div class="monto"><b>${{item.monto_final}}</b></div>
+      </div>
+      <div><span>Cod. Operacion <b>{{item.id_referencia}}</b></span></div>
+      <div class="row">
+        <span>Motivo</span>
+        <span> {{item.tipo}}</span>
+      </div>
+      <!-- <div></div> -->
+
+    </div>
+  </div>
+  <div class="botonera">
+      <a class="btn-round activo" (click)="compartir()">Compartir</a>
+  </div>
+</ion-content>
