@@ -1,0 +1,25 @@
+:root {
+    --ion-safe-area-top: 20px;
+    --ion-safe-area-bottom: 22px;
+  }
+.avatar{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    background: var(--ion-color-primary);
+    color: var(--white);
+    border: 4px solid var(--border-rgba);
+    font-size: 115%;
+    margin: 1em;
+}
+hr {
+    height: 1px;
+    border-width: 0;
+    box-sizing: content-box;
+    background: #4f5d4f4f;
+}

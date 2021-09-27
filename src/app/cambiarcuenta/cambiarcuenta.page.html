@@ -1,0 +1,21 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Cambiar Cuenta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="fullscreen">
+<ion-list >
+  <ion-list-header>Cuentas</ion-list-header>
+  <ion-item *ngFor="let cuenta of cuentas" (click)="cambiar(cuenta)">
+    <ion-avatar slot="start" class="avatar">
+      {{get_iniciales(cuenta)}}
+    </ion-avatar>
+    <ion-label>
+      <h2>{{get_titular(cuenta)}}</h2>
+      <p>{{get_dato(cuenta)}}</p>
+      <hr/>
+    </ion-label>
+  </ion-item>
+</ion-list>
+</ion-content>

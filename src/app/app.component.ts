@@ -6,6 +6,7 @@ import { Pago } from './classes/Pago';
 import { HomePage } from './home/home.page';
 import { AmigosPage } from './amigos/amigos.page';
 import { IngresoDineroPage } from './ingreso-dinero/ingreso-dinero.page';
+import { CambiarcuentaPage } from './cambiarcuenta/cambiarcuenta.page';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { Platform } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
@@ -29,15 +30,18 @@ export class AppComponent implements OnInit {
   public static splash=true;
   public static menu = Array();
   public static DIAS = 3;
+  public static _this;
     constructor(private platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen, private pago: Pago, public service: ServiceService, public modalCtrl: ModalController, public usuarioService: UsuarioService, public navCtrl: NavController) {
       // console.log(platform.is("cordova"));
       environment.mobile = platform.is("cordova");
       this.statusBar.overlaysWebView(true);
       this.statusBar.backgroundColorByHexString('#000000');
+      AppComponent._this = this;
     }
   
   ngOnInit() {
-    console.log("SPLASH SHOW");
+    
+    console.log("ngOnInit");
     this.splashScreen.show();
     localStorage.setItem("modalValidado","0");
     localStorage.setItem("modalAbiero","0");
@@ -103,6 +107,7 @@ export class AppComponent implements OnInit {
       });
       this.pago.registrar_observer();
     });
+    console.log("Termina");
   }
   Ir(path) {
     this.navCtrl.navigateForward(path);
@@ -179,17 +184,6 @@ export class AppComponent implements OnInit {
     
   }
   
-  // onDeviceresume = async () => {
-  //   console.log("onDeviceresume");
-  //   console.log(localStorage.getItem("onboarding"));
-  //   // localStorage.setItem("inBackground", "1");
-  //   if (localStorage.getItem("token")!="false" && localStorage.getItem("token") != null && localStorage.getItem("token") != "" && localStorage.getItem("onboarding") == null && localStorage.getItem("onboarding") != "1")
-  //     if (localStorage.getItem("inBackground") == "1") {
-  //       console.log("aca Modal patron");
-  //       // this.mostrarModal("validar");
-  //     }
-  // }
-
   validarClave(clave1, clave2): Boolean {
     console.log(clave1, clave2);
     if (clave1 === clave2)
@@ -232,34 +226,7 @@ export class AppComponent implements OnInit {
   IrAtras() {
     this.navCtrl.back();
   }
-  // MenuDatosCuenta() {
-  //   this.navCtrl.navigateForward("datos-cuenta");
-  //   menuController.close()
-  // }
-  // MenuHistorial() {
-  //   this.navCtrl.navigateForward("historial");
-  //   menuController.close()
-  // }
-  // MenuAmigos() {
-  //   this.navCtrl.navigateForward("amigos");
-  //   menuController.close()
-  // }
-  // MenuIngresoDinero() {
-  //   this.navCtrl.navigateForward("ingreso-dinero");
-  //   menuController.close()
-  // }
-  // MenuRetiroDinero() {
-  //   this.navCtrl.navigateForward("retirar-dinero");
-  //   menuController.close()
-  // }
-  // MenuTransferirDinero() {
-  //   this.navCtrl.navigateForward("retiro-transferencia");
-  //   menuController.close()
-  // }
-  // MenuCodigoQR() {
-  //   this.navCtrl.navigateForward("codigo-qr");
-  //   menuController.close()
-  // }
+  
   MenuAyuda() {
     this.navCtrl.navigateForward("ayuda");
     menuController.close()
@@ -268,5 +235,22 @@ export class AppComponent implements OnInit {
     this.navCtrl.navigateForward("logout");
     menuController.close()
   }
+  async cambiar(){
+    const modal3 = await this.modalCtrl.create({
+      component: CambiarcuentaPage,
+    });
+    console.log("aca");
+    modal3.onDidDismiss().then(async (modalDataResponse) => {
+      console.log("ca RELOAD ")  ;
+      localStorage.removeItem("nombre");
+      localStorage.removeItem("iniciales");
+      this.iniciales=false;
+      this.usuario=false;
+      this.ngOnInit();
+      location.reload();
+    });
+    await modal3.present();
+  }
+
 }
 
