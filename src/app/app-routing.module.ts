@@ -334,13 +334,23 @@ const routes: Routes = [
   {
     path: 'lista-amigos-env',
     loadChildren: () => import('./lista-amigos-env/lista-amigos-env.module').then( m => m.ListaAmigosEnvPageModule)
-  },  {
+  },
+  {
     path: 'filter',
     loadChildren: () => import('./filter/filter.module').then( m => m.FilterPageModule)
   },
   {
+
     path: 'cambiarcuenta',
     loadChildren: () => import('./cambiarcuenta/cambiarcuenta.module').then( m => m.CambiarcuentaPageModule)
+  },
+  {
+    path: 'detalle-transaccion',
+    loadChildren: () => import('./detalle-transaccion/detalle-transaccion.module').then( m => m.DetalleTransaccionPageModule)
+  },
+  {
+    path: 'comprobante',
+    loadChildren: () => import('./comprobante/comprobante.module').then( m => m.ComprobantePageModule)
   }
 
  ];

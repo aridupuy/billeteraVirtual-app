@@ -1,7 +1,8 @@
+import { NavigationExtras } from '@angular/router';
 import { ItemsMoves } from './../interfaces/items-moves';
 import { TransaccionesService } from '../service/transacciones.service';
 import { Transacciones } from '../interfaces/transacciones';
-import { MenuController, ModalController } from '@ionic/angular';
+import { MenuController, ModalController, NavController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { IFilter } from '../interfaces/IFilter';
 import { FilterPage } from '../filter/filter.page';
@@ -22,7 +23,7 @@ export class HistorialPage implements OnInit {
   public itemback: any;
   public class_refresher = "";
 ;
-  constructor(private menu: MenuController, public transaccionesService: TransaccionesService,public modalController:ModalController) { }
+  constructor(private menu: MenuController, public transaccionesService: TransaccionesService,public modalController:ModalController,public navCtrl:NavController) { }
 
   ngOnInit() {
     this.cargar_transacciones();
@@ -185,6 +186,16 @@ export class HistorialPage implements OnInit {
     });
     modal.present();
 
+}
+verMas(item){
+  console.log(item);
+  const navigationExtras: NavigationExtras = {
+    queryParams: {
+      param: JSON.stringify({item:item})
+    }
+  }
+  this.navCtrl.navigateForward("detalle-transaccion",navigationExtras);
+  //this.navCtl.navigateForward("detalle-transaccion",);
 }
 filtrarTipo =  (element: ItemsMoves, index: any, array: any) =>{
     switch (HistorialPage.select) {

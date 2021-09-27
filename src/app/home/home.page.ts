@@ -341,4 +341,14 @@ export class HomePage implements OnInit {
   irAHistorial() {
     this.navCtl.navigateForward("historial");
   }
+  verMas(item){
+    console.log(item);
+    const navigationExtras: NavigationExtras = {
+      queryParams: {
+        param: JSON.stringify({item:item})
+      }
+    }
+    this.navCtl.navigateForward("detalle-transaccion",navigationExtras);
+    //this.navCtl.navigateForward("detalle-transaccion",);
+  }
 }
