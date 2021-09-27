@@ -56,6 +56,7 @@
     "ng2-cookies": "^1.0.12",
     "ngx-countdown": "^12.0.0",
     "ngx-swiper-wrapper": "^10.0.0",
+    "pdf-generator": "^1.0.4",
     "remove": "^0.1.5",
     "rxjs": "~6.6.0",
     "storage": "^0.2.0",
