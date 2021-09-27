@@ -246,8 +246,10 @@ export class AppComponent implements OnInit {
       localStorage.removeItem("iniciales");
       this.iniciales=false;
       this.usuario=false;
-      this.ngOnInit();
-      location.reload();
+      await localStorage.setItem("CambioCuenta","1");
+      //this.ngOnInit();
+      await location.reload();
+      
     });
     await modal3.present();
   }
