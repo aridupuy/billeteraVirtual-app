@@ -24,6 +24,7 @@ export class ListaAmigosPage implements OnInit {
   ngOnInit() {
 
     this.contacto.obtener_ultimos_contactos().then((data: Icontacto[]) => {
+      console.log(data);
       data.forEach(d => {
         d.iniciales = this.iniciales(d.nombre);
         d.marcado = 0;
@@ -38,8 +39,14 @@ export class ListaAmigosPage implements OnInit {
 
   }
   agregarAmigo() {
+    const navigationExtras: NavigationExtras = {
+      queryParams: {
+        param: JSON.stringify({ envio: false })
+      }
+    };
+    console.log(navigationExtras);
     console.log("agregar-amigo");
-    this.navCtrl.navigateRoot("agregar-amigo");
+    this.navCtrl.navigateRoot("agregar-amigo",navigationExtras);
   }
   buscar(event) {
     console.log(this.busqueda);

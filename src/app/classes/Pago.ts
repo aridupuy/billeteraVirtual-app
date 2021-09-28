@@ -18,7 +18,7 @@ export class Pago{
         /* todos los metodos de pago deberan emitir el evento pagar-result*/
         var result: any;
         if(data.saldo!=null){
-
+            console.log(data);
             await this.contacto.aceptar_pedido_saldo(data.deuda.id).then(d=>{
               console.log(d);
               result= data;

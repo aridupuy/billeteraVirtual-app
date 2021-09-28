@@ -105,7 +105,7 @@ export class LoginService extends ServiceService{
       }
       this.post<Ilogin>(url, json, httpOption)
         .subscribe(async (data) => {
-          // console.log(data);
+          console.log(data);
           if (data.resultado == false && data.log != false) {
             rejects(data.log);
           }
@@ -113,7 +113,8 @@ export class LoginService extends ServiceService{
           if(localStorage.getItem("token")){
             localStorage.removeItem("token");
           }
-          await localStorage.setItem("token", data.token);
+          
+          await localStorage.setItem("token", data[0].token);
           // console.log(localStorage.getItem("token"));
           if(!data.token)
             rejects(false)
