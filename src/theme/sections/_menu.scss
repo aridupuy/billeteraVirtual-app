@@ -49,12 +49,10 @@ ion-menu {
             .subboton{
                 background: white;
                 color: black;
-                padding: 0px;
-                font-size: 0.6em;
-                margin: 0px;
-                padding-inline-end: 0px;
-                width: 9em;
-                height: 2em;
+                font-size: 6px;
+                margin: 0rem;
+                max-width: 16em;
+                max-height: 4em;
               button{
                   background-color: white;
               }

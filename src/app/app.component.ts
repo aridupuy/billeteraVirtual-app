@@ -30,20 +30,20 @@ export class AppComponent implements OnInit {
   public static splash=true;
   public static menu = Array();
   public static DIAS = 3;
-  public static _this;
+  // public static _this;
     constructor(private platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen, private pago: Pago, public service: ServiceService, public modalCtrl: ModalController, public usuarioService: UsuarioService, public navCtrl: NavController) {
       // console.log(platform.is("cordova"));
       environment.mobile = platform.is("cordova");
-      this.statusBar.overlaysWebView(true);
+      this.statusBar.overlaysWebView(false);
       this.statusBar.backgroundColorByHexString('#000000');
-      AppComponent._this = this;
+      // AppComponent._this = this;
     }
   
   ngOnInit() {
     
     console.log("ngOnInit");
     this.splashScreen.show();
-    localStorage.setItem("modalValidado","0");
+    //localStorage.setItem("modalValidado","0");
     localStorage.setItem("modalAbiero","0");
     let nombre = localStorage.getItem("nombre");
     if (nombre && this.iniciales) {
@@ -247,6 +247,7 @@ export class AppComponent implements OnInit {
       this.iniciales=false;
       this.usuario=false;
       await localStorage.setItem("CambioCuenta","1");
+      
       //this.ngOnInit();
       await location.reload();
       

@@ -19,6 +19,7 @@ import {
 } from './components/respuesta-resultado/respuesta-resultado.component';
 import { Libs } from './classes/libs';
 import { FcmService } from './service/fcm.service';
+
 // import FCM from '../../plugins/cordova-plugin-fcm-with-dependecy-updated/www/FCMPlugin';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -34,12 +35,15 @@ import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
 import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
-import { FCM } from '../../plugins/cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
+import { FCM } from "cordova-plugin-fcm-with-dependecy-updated/ionic/ngx";
 // import splash from '../../resources/splash.png';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { SplashComponent } from './components/splash/splash.component';
+import { environment } from '../environments/environment.prod';
+import { firebaseConfig } from '../environments/firebaseconfig';
+import { AngularFireModule } from '@angular/fire/';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
 // import { SplashComponent } from './components/splash/splash.component';
-
 declare var Hammer: any;
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any> {
@@ -53,7 +57,11 @@ export class MyHammerConfig extends HammerGestureConfig {
     IonicStorageModule.forRoot({
       name: '__mydb',
       driverOrder: ['indexeddb', 'sqlite', 'websql']
-      })],
+      }),
+      AngularFireModule.initializeApp(firebaseConfig),
+      AngularFireMessagingModule,
+      // ServiceWorkerModule.register("firebase-messaging-sw.js",{enabled:true})
+    ],
   providers: [
     StatusBar,
     SplashScreen,

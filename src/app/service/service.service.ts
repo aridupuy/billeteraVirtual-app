@@ -65,7 +65,7 @@ export class ServiceService extends HttpClient {
   // tslint:disable-next-line: align
   public post<T>(url: string, body: any | null, options?): Observable<T> {
     AppComponent.cargando = true;
-    // console.log("URL POST" + this.URL+url);
+     console.log("URL POST" + this.URL+url);
 
     let post = super.post<T>(this.URL + url, this.encrypt(body, CLAVE_ENCRIPTACION), options).pipe(
       //.pipe<T>(
@@ -102,7 +102,7 @@ export class ServiceService extends HttpClient {
   public get<T>(url: string, options) {
     AppComponent.cargando = true;
     // console.log(url);
-    // console.log("URL GET " + url);
+    console.log("URL GET " + url);
 
     let get = super.get<T>(this.URL + url, options)
       .pipe(
