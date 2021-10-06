@@ -5,11 +5,11 @@ import { AppComponent } from 'src/app/app.component';
 // The list of file replacements can be found in `angular.json`.
 export const environment = {
   production: true,
-  URL: "http://192.168.0.40:8200/",
-  URL_DESARROLLO: "http://192.168.0.40:8200/",
+  URL: "http://192.168.90.139:8200/",
+  URL_DESARROLLO: "http://192.168.90.139:8200/",
   ACTIVAR_TEST: true,
-  URL_LOGIN: "http://192.168.0.40:8200/",
-  URL_LOGIN_DESARROLLO: "http://192.168.0.40:8200/",
+  URL_LOGIN: "http://192.168.90.139:8200/",
+  URL_LOGIN_DESARROLLO: "http://192.168.90.139:8200/",
   mobile:false,
   get_url: () =>{
     if(!environment.mobile){
@@ -26,7 +26,7 @@ export const environment = {
       return environment.URL_LOGIN
     }
   }
-  // URL_LOGIN: "http://172.20.10.36:360/"
+  // URL_LOGIN: "http://192.168.90.139:360/"
   // ionic cordova run browser --livereload  --consolelogs --serverlogs
 };
 

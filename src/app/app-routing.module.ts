@@ -351,7 +351,11 @@ const routes: Routes = [
   {
     path: 'comprobante',
     loadChildren: () => import('./comprobante/comprobante.module').then( m => m.ComprobantePageModule)
+  },  {
+    path: 'notificaciones',
+    loadChildren: () => import('./notificaciones/notificaciones.module').then( m => m.NotificacionesPageModule)
   }
+
 
  ];
 

@@ -3,6 +3,9 @@ import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { NavController, Platform } from '@ionic/angular';
 import { FCM } from "cordova-plugin-fcm-with-dependecy-updated/ionic/ngx";
+import {
+    notification
+} from '../../../plugins/cordova-plugin-local-notification/src/windows/LocalNotificationProxy';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { NavigationExtras } from '@angular/router';
@@ -40,27 +43,27 @@ export class FcmService {
     });
   }
   async getToken() {
-    this.localnotif.schedule({
-      id: 1,
-      title:"Efectivo Digital",
-      text: "Capture token aca",
-      icon: 'res://ic_notificacion.png',
-      smallIcon: 'res://ic_notificacion.png',
-      color:"e9434d",
-      priority: 0,
-      foreground: true,
-      vibrate:true,
-      wakeup:true,
-      lockscreen:true,
-      silent:false,
-      //color:"27b199",
+    // this.localnotif.schedule({
+    //   id: 1,
+    //   title:"Efectivo Digital",
+    //   text: "Capture token aca",
+    //   icon: 'res://ic_notificacion.png',
+    //   smallIcon: 'res://ic_notificacion.png',
+    //   color:"e9434d",
+    //   priority: 0,
+    //   foreground: true,
+    //   vibrate:true,
+    //   wakeup:true,
+    //   lockscreen:true,
+    //   silent:false,
+    //   //color:"27b199",
       
-      // 70706f
-      group:"efectivoDigital",
-      groupSummary:true,
-      launch:true,
+    //   // 70706f
+    //   group:"efectivoDigital",
+    //   groupSummary:true,
+    //   launch:true,
 
-    });
+    // });
    
     let token;
     console.log(this.fcm.hasOwnProperty("getToken"));
@@ -191,6 +194,20 @@ export class FcmService {
       return this.fcm.onNotification().subscribe(data => {
         console.log("ACA NOTIFICACION RECIBIDA");
         console.log(JSON.stringify(data));
+        let notifs =[];
+        let notif = {
+          data : data.body,
+          nuevo:true,
+          titulo:data.title
+        }
+        notifs= JSON.parse(localStorage.getItem("notification"));
+        if(!notifs){
+          notifs = [notif];
+        }
+        else{
+          notifs.push(notif);
+        }
+        localStorage.setItem("notification",JSON.stringify(notifs));
         // if (data.wasTapped) {
         //   console.log('Received in background');
         //   LocalNotifications.schedule({
@@ -216,8 +233,8 @@ export class FcmService {
             id: 1,
             title:"Efectivo Digital",
             text: data.title,
-            icon: 'res://mipmap/ic_launcher.png',
-            smallIcon: 'assets://www/assets/ic_notification2.png',
+            icon: 'res://ic_notificacion.png',
+            smallIcon: 'res://ic_notificacion.png',
             color:"e9434d",
             priority: 0,
             data: { body: data.body ,activity:data.activity,params:data.params},

@@ -5,5 +5,6 @@
         <domain includeSubdomains="true">192.168.0.163:8200</domain>
         <domain includeSubdomains="true">192.168.0.163</domain>
         <domain includeSubdomains="true">192.168.0.40</domain>
+        <domain includeSubdomains="true">172.20.10.36</domain>
     </domain-config>
 </network-security-config>

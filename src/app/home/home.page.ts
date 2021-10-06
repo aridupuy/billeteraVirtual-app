@@ -351,4 +351,22 @@ export class HomePage implements OnInit {
     this.navCtl.navigateForward("detalle-transaccion",navigationExtras);
     //this.navCtl.navigateForward("detalle-transaccion",);
   }
+
+  validarNotificaciones(){
+      var notifs = JSON.parse(localStorage.getItem("notification"));
+      if(!notifs){
+        return false;
+      }
+      notifs = Object.values(notifs);
+      let nuevo = false; 
+      notifs.forEach(element => {
+          if(element.nuevo){
+            nuevo = true
+          }
+      });
+      return nuevo;
+  }
+  VerNotificaciones(){
+    this.navCtl.navigateForward("notificaciones");
+  }
 }

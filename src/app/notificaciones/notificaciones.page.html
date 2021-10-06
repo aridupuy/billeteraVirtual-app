@@ -1,0 +1,33 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="IrAtras()" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Notificaciones</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <div class="contenedor-90">
+    <h1>Notificaciones</h1>
+    <p>Acá podes ver todas tus notificaciones.</p>
+    </div>
+    <div class="lista-ultimos-movimientos mt-10" *ngIf="items!=undefined && items.length > 0">
+      <ion-refresher [class]="class_refresher" slot="fixed" (ionStart)="mostrar($event)"
+          (ionRefresh)="refresh($event)">
+          <ion-refresher-content refreshingText="Recargando..." refreshingSpinner="bubbles">
+          </ion-refresher-content>
+        </ion-refresher>
+        <div class="movimientos-wrapper">
+          <div (click)="verMas(item)" class="movimiento" *ngFor="let item of items">
+            <div [class]="validar_class(item)"></div>
+            <div [class]="validar_class_texto(item)">
+              <h4>{{item.titulo}}</h4>
+              <span>{{item.data}} </span>
+            </div>
+            <span class="fecha" >{{item.fecha}} </span>
+          </div>
+          
+        </div>
+    </div>
+
+</ion-content>
