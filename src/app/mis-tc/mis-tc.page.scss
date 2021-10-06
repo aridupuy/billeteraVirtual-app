@@ -1,0 +1,75 @@
+ion-back-button{
+    border:  inherit !important;
+    line-height:  inherit !important;
+    text-align:  inherit !important;
+    display: inherit !important;
+    flex-direction:  inherit !important;
+    margin-left:  inherit !important;
+    margin-right:  inherit !important;
+    width:  inherit !important;
+    padding:  inherit !important;
+    border-radius:  inherit !important;
+    background-color: inherit !important;
+    font-size: 17px !important;
+    //color:  inherit !important;
+    margin: inherit !important;
+    margin-left:  inherit !important;
+    margin-right: inherit !important;
+}
+
+.tarjeta-peq{
+   
+    line-height: 2;
+    padding: 5%;
+    margin: 6% auto 0% auto !important;
+    border-radius: 3%;
+   
+    width: 90%;
+    border-radius: 7px 11px 10px 10px;
+    
+}
+.tarjeta-load{
+    
+    line-height: 2;
+    padding: 1%;
+    border-radius: 3%;
+    width: 100%;
+    border-radius: 7px 11px 10px 10px;
+    margin: auto;
+    height: 6em;
+}
+.nueva{
+    background: white;
+    border: 1px solid black;
+}
+.start {
+    padding: 4%;
+    width: 100%;
+}
+.tarjeta-peq >  ion-row{
+    margin: 2%;
+}
+.tarjeta-load > ion-row{
+    margin: 2%;
+    height: 10px;
+}
+
+
+.tarjeta-load > ion-row > ion-col:last-child{
+    text-align: right;
+    width: 10%;
+    margin-left: -100%;
+    height: 10px;
+}
+.tarjeta-load > ion-row > ion-col:first-child{
+    text-transform: capitalize;
+}
+
+.tarjeta-peq > ion-row > ion-col:last-child{
+    text-align: right;
+    width: 10%;
+    margin-left: -100%;
+}
+.tarjeta-peq > ion-row > ion-col:first-child{
+    text-transform: capitalize;
+}

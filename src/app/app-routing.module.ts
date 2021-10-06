@@ -334,7 +334,8 @@ const routes: Routes = [
   {
     path: 'lista-amigos-env',
     loadChildren: () => import('./lista-amigos-env/lista-amigos-env.module').then( m => m.ListaAmigosEnvPageModule)
-  },  {
+  },
+  {
     path: 'filter',
     loadChildren: () => import('./filter/filter.module').then( m => m.FilterPageModule)
   },
@@ -345,7 +346,20 @@ const routes: Routes = [
   {
     path: 'comprobante',
     loadChildren: () => import('./comprobante/comprobante.module').then( m => m.ComprobantePageModule)
+  },
+  {
+    path: 'scanner-pagos',
+    loadChildren: () => import('./scanner-pagos/scanner-pagos.module').then( m => m.ScannerPagosPageModule)
+  },
+  {
+    path: 'mis-tc',
+    loadChildren: () => import('./mis-tc/mis-tc.module').then( m => m.MisTcPageModule)
+  },
+  {
+    path: 'pago-qr',
+    loadChildren: () => import('./pago-qr/pago-qr.module').then( m => m.PagoQrPageModule)
   }
+
 
  ];
 

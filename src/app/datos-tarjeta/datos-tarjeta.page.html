@@ -1,0 +1,42 @@
+<link href="https://fonts.googleapis.com/css2?family=Capriola&display=swap" rel="stylesheet">
+<ion-toolbar>
+  <ion-buttons end>
+    <ion-icon md="arrow-back-outline" ios="arrow-back-outline"></ion-icon>
+    <ion-button color="primary" (click)="CerrarModal()">Volver</ion-button>
+  </ion-buttons>
+</ion-toolbar>
+<ion-content>
+  
+  <div class="margin">
+    <div [class]="obtener_class(item.bin)" onload="marcar()">
+
+    <div class="marca">
+      <img src="" [src]="obtener_marca_img(item)" alt="Visa Débito">
+    </div>
+    <div class="banco" *ngIf="obtener_banco_img(item)">
+      <img src="" [src]="obtener_banco_img(item)" alt="banco">
+    </div>
+    <div class="banco" *ngIf="!obtener_banco_img(item)">
+    </div>
+    <div class="numeracion"><span class="ocultos">**** </span><span class="ocultos">**** </span><span
+        class="ocultos">**** </span><span class="visibles">{{obtener_nroTarjeta(item.nroTarjeta)}}</span></div>
+    <div class="titular">{{item.titular}}</div>
+    <div class="vencimiento">{{item.mes}}/{{item.anio}}</div>
+  </div>
+  </div>
+  <div>
+    <section class="opciones">
+      <ion-list>
+        <ion-item>
+          <ion-label>{{accion}}</ion-label>
+          <ion-toggle (ngModel)="activo" [checked]="activo" (ionChange)="toggle()"></ion-toggle>
+        </ion-item>
+        <ion-item>
+          <ion-text color="primary" class="eliminar" (click)="eliminar()">Eliminar</ion-text>
+        </ion-item>
+        </ion-list>
+    </section>
+  </div>
+  <cargando [cargando]="cargando" mensaje="Procesando"></cargando>  
+</ion-content>
+

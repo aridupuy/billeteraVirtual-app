@@ -22,7 +22,7 @@ export const environment = {
   // URL_LOGIN: "http://172.20.20.52:360/",
   URL_LOGIN: "https://www.efectivodigital.com.ar:8200/",
   URL_LOGIN_DESARROLLO: "http://192.168.0.161:8200/",
-  //URL_LOGIN_DESARROLLO: "http://192.168.90.42:8200/",
+ // URL_LOGIN_DESARROLLO: "http://192.168.90.42:8200/",
   mobile:false,
   get_url: () =>{
     if(!environment.mobile){

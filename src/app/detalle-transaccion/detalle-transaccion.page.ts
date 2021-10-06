@@ -67,7 +67,7 @@ export class DetalleTransaccionPage implements OnInit {
     }
   }
   obtener_comisiones(){
-      return parseFloat(this.item.fijo)+parseFloat(this.item.variable);
+      return (parseFloat(this.item.fijo)+parseFloat(this.item.variable)).toFixed(2);
   }
   verComprobante(){
     const navigationExtras: NavigationExtras = {
@@ -77,5 +77,13 @@ export class DetalleTransaccionPage implements OnInit {
     }
     this.navCtrl.navigateForward("comprobante",navigationExtras);
     
+  }
+
+  obtener_persona(){
+    if(this.resumen.hasOwnProperty("destinatario") && this.resumen.destinatario.hasOwnProperty("nombre"))
+        return this.resumen.destinatario.nombre + " "+ this.resumen.destinatario.apellido;
+    if(this.resumen.hasOwnProperty("detinatario") && this.resumen.detinatario.hasOwnProperty("nombre"))
+        return this.resumen.detinatario.nombre + " "+ this.resumen.detinatario.apellido;
+    return this.resumen.persona.nombre ;
   }
 }

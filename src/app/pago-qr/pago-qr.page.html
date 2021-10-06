@@ -1,0 +1,55 @@
+<ion-toolbar>
+ <ion-title color="primary">Pagar con Qr</ion-title>
+</ion-toolbar>
+<ion-content class="contenedor-90">
+  <ion-segment (ionChange)="cambiaOpcion($event)">
+    <ion-segment-button value="Pagar" checked>
+      <ion-icon name="barcode"></ion-icon>
+      <ion-label>Cobrar</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="Cobrar">
+      <ion-icon name="camera"></ion-icon>
+      <ion-label>Pagar</ion-label>
+    </ion-segment-button>
+
+  </ion-segment>
+<div >
+    <form  *ngIf="pagar && !mostrar_qr" [formGroup]="form"  formControllerName="checked">
+    <ion-grid class="grid form" *ngIf="mostrar_monto"  >
+        <ion-item expand="full"  center class="centrado_texto">
+          <h4>¿Cuanto le querés Cobrar?</h4>
+        </ion-item>
+        <ion-item center>
+          <ion-label color="primary" position="floating">Monto</ion-label>
+          <ion-input class="input" formControlName="monto" type="number"></ion-input>
+        </ion-item>
+        <ion-item center>
+          <ion-label color="primary" position="floating" >Concepto</ion-label>
+          <ion-input class="input" formControlName="concepto" type="text"></ion-input>
+        </ion-item>
+        <ion-list >
+        </ion-list>
+        <div class="onboarding-btn-group">
+          <div  (click)="continuar()" class="btn-round activo">Agregar</div>
+      </div>
+      </ion-grid>
+    </form>
+</div>
+  <ion-grid *ngIf="pagar && mostrar_qr">
+    <ion-row center>
+      <ion-col>
+        <h3 class="centrado">Escaneá este código con la aplicación para pagarle a este Usuario</h3>
+      </ion-col>
+    </ion-row>
+    <ion-row center>
+      <ion-col>
+        <ngx-qrcode [qrc-element-type]="elementType" [qrc-value]="data_qr" [value]="data_qr" qrc-class="aclass" class="aclass">
+        </ngx-qrcode>
+      </ion-col>
+    </ion-row>
+    <div class="onboarding-btn-group">
+      <div  (click)="continuar()" class="btn-round activo">Agregar</div>
+  </div>
+  </ion-grid>
+</ion-content>
+<app-respuesta-resultado [url]="'pago-qr'" [mensaje]="log" [descripcion]="" [pedidook]="estado" ></app-respuesta-resultado>

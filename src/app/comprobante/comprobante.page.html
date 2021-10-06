@@ -1,25 +1,27 @@
 <ion-content center>
   <div class="contenedor-90 flex" #container_comp>
     <div class="container-logo">
-      <img  class="logo" src="assets/img/logo-text-negro.svg">
+      <img class="logo" src="assets/img/logo-text-negro.svg">
     </div>
-    <div class="container" >
+    <div class="container">
       <style>
-        .container-logo{
+        .container-logo {
           width: 100%;
           text-align: center;
           margin-bottom: 10%;
         }
-        .logo{
+
+        .logo {
           width: 50%;
           text-align: center;
         }
+
         .flex {
-         
+
           border-radius: 2%;
           background-color: white;
           width: 100%;
-         
+
           align-self: center;
           vertical-align: middle;
           display: flex;
@@ -71,7 +73,8 @@
           margin-top: 10%;
           margin-bottom: 3%;
         }
-        .botonera{
+
+        .botonera {
           display: flex;
           justify-content: center;
           align-items: center;
@@ -83,11 +86,11 @@
         <img src="assets/img/mov-pago.svg" alt="Pagaste" *ngIf="item.id_tipo_trans=='3'">
       </div>
       <div *ngIf="resumen.persona!=undefined && item.id_tipo_trans=='2'">Recibiste de <div class="monto">
-          <b>{{resumen.persona.nombre}}</b>
+          <b>{{obtener_persona()}}</b>
         </div>
       </div>
       <div *ngIf="resumen.persona!=undefined && item.id_tipo_trans=='1'">Enviaste a <div class="monto">
-          <b>{{resumen.persona.nombre}}</b>
+          <b>{{obtener_persona()}}</b>
         </div>
       </div>
       <div><span>{{ item.fecha | date:'dd'}} de {{ fecha_espaniol(item.fecha | date:'M')}} - {{ item.fecha |
@@ -97,8 +100,11 @@
       </div>
       <div>Comisiones<div class="comision">${{obtener_comisiones()}} </div>
       </div>
-      <div> Monto acreditado <div class="monto"><b>${{item.monto_final}}</b></div>
+      <div *ngIf="item.id_tipo_trans=='1'"> Monto descontado <div class="monto"><b>${{item.monto_final}}</b></div>
       </div>
+      <div *ngIf="item.id_tipo_trans=='2'"> Monto acreditado <div class="monto"><b>${{item.monto_final}}</b></div>
+      </div>
+
       <div><span>Cod. Operacion <b>{{item.id_referencia}}</b></span></div>
       <div class="row">
         <span>Motivo</span>
@@ -109,6 +115,6 @@
     </div>
   </div>
   <div class="botonera">
-      <a class="btn-round activo" (click)="compartir()">Compartir</a>
+    <a class="btn-round activo" (click)="compartir()">Compartir</a>
   </div>
 </ion-content>

@@ -92,4 +92,7 @@ export class DatosCuentaPage implements OnInit {
     }
     this.navCtrl.navigateRoot("lostpassword1",navigationExtras)
   }
+  ver_tc(){
+    this.navCtrl.navigateForward("mis-tc");
+  }
 }
