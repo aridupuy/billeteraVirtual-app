@@ -31,8 +31,8 @@
                 "output": "./svg"
               },
               "src/manifest.webmanifest",
-              "src/combined-sw.js",
-              "src/firebase-messaging-sw.js"
+              "src/firebase-messaging-sw.js",
+              "src/manifest.json"
             ],
             "styles": ["src/theme/variables.scss", "src/global.scss"],
             "scripts": [],
@@ -42,7 +42,8 @@
             "buildOptimizer": false,
             "sourceMap": true,
             "optimization": false,
-            "namedChunks": true
+            "namedChunks": true,
+            "serviceWorker": false
           },
           "configurations": {
             "production": {
@@ -115,7 +116,8 @@
               },
               "src/manifest.webmanifest",
               "src/combined-sw.js",
-              "src/firebase-messaging-sw.js"
+              "src/firebase-messaging-sw.js",
+              "src/manifest.webmanifest"
             ]
           },
           "configurations": {

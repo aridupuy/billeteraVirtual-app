@@ -42,11 +42,10 @@ export class PatronGuard implements CanActivate {
         console.log("esta validado");
         return resolve(true);
       }
-      // if (this.from_lastLogin()) {
-      //   console.log("esta ingresando recien");
-      //   localStorage.setItem("fromlastLogin","0");
-      //   return resolve(true);
-      // }
+      if(this.is_cambioCuenta()){
+        localStorage.setItem("CambioCuenta","0");
+        return resolve(true);
+      }
       if (this.is_login() && this.existe_pin()) {
         console.log("esta logueado y existe pin");
         await this.mostrarModal("validar").then(data => {
@@ -81,7 +80,11 @@ export class PatronGuard implements CanActivate {
     return (localStorage.getItem("modalAbiero") == "1")
   }
   is_validado() {
+    console.log(localStorage.getItem("modalValidado"));
     return (localStorage.getItem("modalValidado") == "1");
+  }
+  is_cambioCuenta(){
+    return (localStorage.getItem("CambioCuenta")=="1");
   }
   existe_pin() {
     return !(localStorage.getItem("pin") == undefined || localStorage.getItem("pin") == null || localStorage.getItem("pin") == "false")

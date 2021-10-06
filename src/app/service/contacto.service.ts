@@ -21,10 +21,12 @@ export class ContactoService extends ServiceService {
 
 
   obtener_pedidos_dinero() {
+    console.log(localStorage.getItem('token'));
     httpOptions.headers.token = localStorage.getItem('token');
     //var postParams = { nombre: nombre, apellido: apellido,cuit:cuit,referencia:referencia, email:email,cvu:cvu,cbu:cbu,alias:alias };
     return new Promise((resolve, reject) => {
       this.get<any>('api/contacto/obtener_pedidos_dinero', httpOptions).subscribe((data: resp) => {
+        console.log(data);
         if (data.resultado != null && data.resultado === false) {
           reject(data.log);
         }
@@ -44,8 +46,9 @@ export class ContactoService extends ServiceService {
     //var postParams = { nombre: nombre, apellido: apellido,cuit:cuit,referencia:referencia, email:email,cvu:cvu,cbu:cbu,alias:alias };
     return new Promise((resolve, reject) => {
       this.get<any>('api/contacto/obtener_pedidos_dinero_otros', httpOptions).subscribe((data: resp) => {
+        console.log(data);
         if (data.resultado != null && data.resultado === false) {
-          console.log(data.log);
+         
           reject(data.log);
         }
         if (data.extras.length > 0) {
@@ -99,7 +102,7 @@ export class ContactoService extends ServiceService {
 
   crear_pedido(id, monto, mensaje) {
     httpOptions.headers.token = localStorage.getItem('token');
-    var postParams = { id_usuario_contacto: id, monto: monto, mensaje: mensaje };
+    var postParams = { id_cuenta: id, monto: monto, mensaje: mensaje };
     return new Promise((resolve, reject) => {
       this.post<any>('api/contacto/crear_pedido', postParams, httpOptions).subscribe((data: resp) => {
         if (data.resultado != null && data.resultado === false) {

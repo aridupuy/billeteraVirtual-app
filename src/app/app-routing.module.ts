@@ -358,6 +358,12 @@ const routes: Routes = [
   {
     path: 'pago-qr',
     loadChildren: () => import('./pago-qr/pago-qr.module').then( m => m.PagoQrPageModule)
+  
+
+  },
+  {
+    path: 'notificaciones',
+    loadChildren: () => import('./notificaciones/notificaciones.module').then( m => m.NotificacionesPageModule)
   }
 
 

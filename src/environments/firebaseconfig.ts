@@ -1,5 +1,5 @@
 export const firebaseConfig = {
-apiKey: "AIzaSyAF4ON6ql_sMgpOJ17ZF9obkLiIqLLiiEw",
+    apiKey: "AIzaSyAF4ON6ql_sMgpOJ17ZF9obkLiIqLLiiEw",
     authDomain: "efectivo-digital.firebaseapp.com",
     projectId: "efectivo-digital",
     storageBucket: "efectivo-digital.appspot.com",

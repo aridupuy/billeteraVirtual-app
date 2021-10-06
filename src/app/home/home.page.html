@@ -4,7 +4,9 @@
       <div class="user-header">
         <div class="home-header">
           <ion-menu-button *ngIf="validado" color="primary" menu="menuPrincipal" type="reset"></ion-menu-button>
+          
         </div>
+        
         <div class="line">
           <div class="avatar">
             {{iniciales}}
@@ -14,6 +16,10 @@
             <a class="cvu" *ngIf="validado" (click)="VerCvu()">Mi CVU</a>
           </div>
         </div>
+        <div class="notify" (click)="VerNotificaciones()">
+          <div class="badge red" *ngIf="validarNotificaciones()"></div>
+          <ion-icon name="notifications-outline"></ion-icon>
+      </div>
       </div>
       <div class="button-container" *ngIf="validado">
         <div class="saldo">

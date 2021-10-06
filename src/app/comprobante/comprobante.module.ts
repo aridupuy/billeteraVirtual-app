@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ComprobantePageRoutingModule } from './comprobante-routing.module';
 
 import { ComprobantePage } from './comprobante.page';
+import { PDFGenerator } from '@ionic-native/pdf-generator/ngx';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { ComprobantePage } from './comprobante.page';
     IonicModule,
     ComprobantePageRoutingModule
   ],
-  declarations: [ComprobantePage]
+  declarations: [ComprobantePage],
+  providers:[PDFGenerator]
 })
 export class ComprobantePageModule {}

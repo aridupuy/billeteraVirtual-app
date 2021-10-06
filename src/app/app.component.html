@@ -2,13 +2,17 @@
   <ion-menu side="start" menuId="menuPrincipal" contentId="main" class="menu-custom" type="overlay">
     <ion-content class="menu">
       <div class="user-header" [class]="addClass()">
-        <div class="avatar">
+        <div class="avatar" >
           {{get_iniciales()}}
         </div>
         <div class="user-info">
           <span class="bienvenida">Hola,<span class="username"> {{get_usuario()}}</span></span>
         </div>
+        <div>
+          <ion-button shape="round" color="dark" fill="outline" class="subboton" (click)="cambiar()">Cambiar Cuenta</ion-button>
+        </div>
       </div>
+    
       
        <div class="menu-lista" *ngFor="let grupo of get_menu() | keyvalue">
         <a (click)="Ir('home')" class="opcion-menu" *ngIf="grupo.key=='0'">

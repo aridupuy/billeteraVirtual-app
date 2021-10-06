@@ -44,16 +44,20 @@ export class LoginService extends ServiceService{
     }
     console.log("aca");
     return new Promise((resolve, reject) => {
+      console.log("aca2");
       var postParams = ({ usuario: usuario, clave: clave })
       this.post<Ilogin>('api/login', postParams,httpOption).subscribe(async (data) => {
+        console.log(data);
         if (data.resultado == false && data.log != false) {
           reject(data.log);
         }
         if(localStorage.getItem("token")){
           localStorage.removeItem("token");
         }
-        await localStorage.setItem("token", data.token);
-        this.token = data.token;
+        
+        await localStorage.setItem("token", data[0].token);
+        await localStorage.setItem("cuentas", JSON.stringify(data));
+        this.token = data[0].token;
         return resolve(this.token);
       });
 
@@ -101,7 +105,7 @@ export class LoginService extends ServiceService{
       }
       this.post<Ilogin>(url, json, httpOption)
         .subscribe(async (data) => {
-          // console.log(data);
+          console.log(data);
           if (data.resultado == false && data.log != false) {
             rejects(data.log);
           }
@@ -109,7 +113,8 @@ export class LoginService extends ServiceService{
           if(localStorage.getItem("token")){
             localStorage.removeItem("token");
           }
-          await localStorage.setItem("token", data.token);
+          
+          await localStorage.setItem("token", data[0].token);
           // console.log(localStorage.getItem("token"));
           if(!data.token)
             rejects(false)

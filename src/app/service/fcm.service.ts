@@ -1,47 +1,85 @@
 import { FCMServerService } from './fcmserver.service';
-// import { FirebaseApp } from '@angular/fire';
+import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { NavController, Platform } from '@ionic/angular';
-// import { FCM } from "cordova-plugin-fcm-with-dependecy-updated/ionic";
-// import { FCM } from “cordova-plugin-fcm-with-dependecy-updated/ionic”;
-// import www from '../../../plugins/cordova-plugin-fcm-with-dependecy-updated/src/www/rollup.config';
-// import { FCM } from '@ionic-native/fcm/ngx';
-import { FCM } from '../../../plugins/cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
-import { CordovaCheck } from '@ionic-native/core';
+import { FCM } from "cordova-plugin-fcm-with-dependecy-updated/ionic/ngx";
+import {
+    notification
+} from '../../../plugins/cordova-plugin-local-notification/src/windows/LocalNotificationProxy';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
-// import * as firebase from 'firebase';
-// import { firebaseConfig } from 'src/environments/firebaseconfig';
-// import {
-    // notification
-// } from '../../../plugins/cordova-plugin-local-notification/src/windows/LocalNotificationProxy';
 import { NavigationExtras } from '@angular/router';
-
-
-
+import { AngularFireMessaging } from '@angular/fire/messaging';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FcmService {
 
-
+  currentMessage= new BehaviorSubject(null);
   constructor(
-    private platform: Platform,public navCtrl:NavController,private fcm:FCM,private localnotif:LocalNotifications, public FCMServerservice: FCMServerService, public UniqueDeviceID:UniqueDeviceID ) {
+    public angularFireMessaging: AngularFireMessaging,private platform: Platform,public navCtrl:NavController,private fcm:FCM,private localnotif:LocalNotifications, public FCMServerservice: FCMServerService, public UniqueDeviceID:UniqueDeviceID ) {
 
     console.log("levantando fcm");
   }
+  receiveMessage() {
+    this.angularFireMessaging.onMessage((payload) => {
+      console.log('Message received. ', payload);
+      this.localnotif.schedule({
+        id: 1,
+        text: payload.notification.title,
+        icon: 'file://assets/img/logo.svg',
+        smallIcon: 'file://assets/img/logo.svg',
+        priority: 2,
+        data: { body: payload.notification.body ,activity:payload.notification.activity},
+        foreground: true,
+        vibrate:true,
+        lockscreen:true,
+        group:"efectivoDigital",
+        launch:true,
 
+      });
+      this.currentMessage.next(payload);
+    });
+  }
   async getToken() {
-    
+    // this.localnotif.schedule({
+    //   id: 1,
+    //   title:"Efectivo Digital",
+    //   text: "Capture token aca",
+    //   icon: 'res://ic_notificacion.png',
+    //   smallIcon: 'res://ic_notificacion.png',
+    //   color:"e9434d",
+    //   priority: 0,
+    //   foreground: true,
+    //   vibrate:true,
+    //   wakeup:true,
+    //   lockscreen:true,
+    //   silent:false,
+    //   //color:"27b199",
+      
+    //   // 70706f
+    //   group:"efectivoDigital",
+    //   groupSummary:true,
+    //   launch:true,
+
+    // });
+   
     let token;
     console.log(this.fcm.hasOwnProperty("getToken"));
-    if (this.platform.is('android') && FCM.hasOwnProperty("getToken")) {
+    // if (this.platform.is('android') && FCM.hasOwnProperty("getToken")) {
+      if (this.platform.is('android') ) {
       console.log("es android");
       await this.fcm.getToken().then(tok => {
         token = tok;
+        console.log(tok);
       });
       this.registerToken(token);
+      if (this.fcm.hasOwnProperty("getToken"))
+      this.fcm.onTokenRefresh().subscribe((token) => {
+        this.registerToken(token);
+      });
+     this.onNotifications();
     }
     else if (this.platform.is('ios') && FCM.hasOwnProperty("getToken")) {
       console.log("es ios");
@@ -55,18 +93,63 @@ export class FcmService {
         }
       });
       this.registerToken(token);
+      if (this.fcm.hasOwnProperty("getToken"))
+      this.fcm.onTokenRefresh().subscribe((token) => {
+        this.registerToken(token);
+      });
+      this.onNotifications();
     }
     else {
       console.log("FCM WEB");
       let tok = await localStorage.getItem("tokenFCM");
       console.log("aca FCM");
+      console.log(tok);
       if (tok == null || tok == undefined) {
         console.log("aca TOKENFCM");
-        // token = Math.random() + Date.now().toString();
-        // token = token.replace("0.", "0");
-        // console.log(token.replace("0.","0"));
-        // const msj=firebase.default.initializeApp(firebaseConfig);
+        this.angularFireMessaging.requestPermission.toPromise().then(data=>{
+          this.angularFireMessaging.requestToken.subscribe(data=>{
+            console.log("requested Token");
+            this.angularFireMessaging.getToken.subscribe(data=>{
+              console.log("registrando Messages");
+              this.receiveMessage();
+              console.log(data);
+              this.registerToken(data);
+            })
+          });
+          // this.angularFireMessaging.onTokenRefresh((data)=>{
+          //   this.registerToken(data);
+          // })
+          // this.angularFireMessaging.onBackgroundMessage(data=>{
+          //   console.log("MENSAJE:");
+          //   console.log(data);
+          // })
+          console.log(this.angularFireMessaging);
+          // this.angularFireMessaging.onMessage((data)=>{
+        //     console.log("mensaje");
+        //     console.log(data);
+        //     this.localnotif.schedule({
+        //       id: 1,
+        //       text: data.title,
+        //       icon: 'res://assets/img/logo.svg',
+        //       smallIcon: 'res://assets/img/logo.svg',
+        //       priority: 2,
+        //       data: { body: data.body ,activity:data.activity,params:data.params},
+        //       foreground: true,
+        //       vibrate:true,
+        //       lockscreen:true,
+        //       group:"efectivoDigital",
+        //       launch:true,
+  
+        //     });
+        //   })
+        }).catch(err=>{
+          console.error(err);
+        })
         
+        
+        
+        
+
         // const messaging = msj.messaging();
         // const messaging = getMessaging();
 
@@ -75,7 +158,7 @@ export class FcmService {
         //   console.log("GetToken");
         //   console.log(token);
         //   this.registerToken(token);
-        // });
+        // // });
         // await localStorage.setItem("tokenFCM", token);
         // console.log(FCM);
         
@@ -85,15 +168,9 @@ export class FcmService {
         token = tok.toString().replace("0.", "0");
       }
     }
-    if (this.fcm.hasOwnProperty("getToken"))
-    // FCM.onTokenRefresh()
-    this.fcm.onTokenRefresh().subscribe((token) => {
-        this.registerToken(token);
-      });
-    this.onNotifications();
+    
     // console.log(token);
   }
-
   // private saveToken(token) {
   //   if (!token) return;
 
@@ -117,6 +194,20 @@ export class FcmService {
       return this.fcm.onNotification().subscribe(data => {
         console.log("ACA NOTIFICACION RECIBIDA");
         console.log(JSON.stringify(data));
+        let notifs =[];
+        let notif = {
+          data : data.body,
+          nuevo:true,
+          titulo:data.title
+        }
+        notifs= JSON.parse(localStorage.getItem("notification"));
+        if(!notifs){
+          notifs = [notif];
+        }
+        else{
+          notifs.push(notif);
+        }
+        localStorage.setItem("notification",JSON.stringify(notifs));
         // if (data.wasTapped) {
         //   console.log('Received in background');
         //   LocalNotifications.schedule({
@@ -137,17 +228,23 @@ export class FcmService {
         // } else 
         {
           console.log(JSON.stringify(data));
+          this.localnotif.getDefaults();
           this.localnotif.schedule({
             id: 1,
+            title:"Efectivo Digital",
             text: data.title,
-            icon: 'res://assets/img/logo.svg',
-            smallIcon: 'res://assets/img/logo.svg',
-            priority: 2,
+            icon: 'res://ic_notificacion.png',
+            smallIcon: 'res://ic_notificacion.png',
+            color:"e9434d",
+            priority: 0,
             data: { body: data.body ,activity:data.activity,params:data.params},
             foreground: true,
             vibrate:true,
+            wakeup:true,
             lockscreen:true,
+            silent:false,
             group:"efectivoDigital",
+            groupSummary:true,
             launch:true,
 
           });
@@ -174,7 +271,9 @@ export class FcmService {
     
   }
   async registerToken(token) {
-    localStorage.setItem("tokenFCM", token);
+    if(!token)
+      return false;
+    // localStorage.setItem("tokenFCM", token);
     var tipo = "navegador_" + this.platform.platforms()[0];
     if (this.platform.is("android")) {
       tipo = "android";
