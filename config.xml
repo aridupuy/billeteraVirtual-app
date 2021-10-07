@@ -74,6 +74,7 @@
         <config-file parent="NSContactsUsageDescription" target="*-Info.plist">
             <string>Acceso a contactos para buscar amigos</string>
         </config-file>
+        <preference name="UseSwiftLanguageVersion" value="5" />
         <icon height="57" src="resources/ios/icon/icon.png" width="57" />
         <icon height="114" src="resources/ios/icon/icon@2x.png" width="114" />
         <icon height="20" src="resources/ios/icon/icon-20.png" width="20" />
@@ -218,5 +219,6 @@
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <allow-navigation href="http://localhost:8200" sessionid="c46f8409" />
     <allow-navigation href="http://192.168.0.163:8200" sessionid="2065653c" />
-    <allow-navigation href="httpa://www.efectivodigital.com.ar:8200" sessionid="2065653c" />
+    <allow-navigation href="https://www.efectivodigital.com.ar:8200" sessionid="2065653c" />
+    <allow-navigation href="https://www.efectivodigital.com.ar" />
 </widget>

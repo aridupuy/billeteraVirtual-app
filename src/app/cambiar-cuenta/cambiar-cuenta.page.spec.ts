@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { CambiarcuentaPage } from './cambiarcuenta.page';
+import { CambiarCuentaPage } from './cambiar-cuenta.page';
 
-describe('CambiarcuentaPage', () => {
-  let component: CambiarcuentaPage;
-  let fixture: ComponentFixture<CambiarcuentaPage>;
+describe('CambiarCuentaPage', () => {
+  let component: CambiarCuentaPage;
+  let fixture: ComponentFixture<CambiarCuentaPage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CambiarcuentaPage ],
+      declarations: [ CambiarCuentaPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CambiarcuentaPage);
+    fixture = TestBed.createComponent(CambiarCuentaPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

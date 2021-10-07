@@ -46,7 +46,6 @@
     "@zxing/browser": "^0.0.9",
     "@zxing/library": "^0.18.6",
     "cordova-clipboard": "^1.3.0",
-    "cordova-ios": "6.2.0",
     "cordova-plugin-add-swift-support": "2.0.2",
     "cordova-plugin-background-mode": "^0.7.3",
     "cordova-plugin-contacts": "^3.0.1",
@@ -86,8 +85,8 @@
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "4.16.1",
     "@typescript-eslint/parser": "4.16.1",
-    "cordova-android": "^9.1.0",
     "cordova-browser": "^6.0.0",
+    "cordova-ios": "^6.2.0",
     "cordova-pdf-generator": "^2.1.1",
     "cordova-plugin-androidx": "^3.0.0",
     "cordova-plugin-androidx-adapter": "^1.1.3",
@@ -98,15 +97,16 @@
     "cordova-plugin-fcm-with-dependecy-updated": "^7.8.0",
     "cordova-plugin-file": "^6.0.2",
     "cordova-plugin-fingerprint-aio": "^4.0.2",
-    "cordova-plugin-firebase": "^2.0.5",
     "cordova-plugin-ionic-keyboard": "^2.2.0",
     "cordova-plugin-ionic-webview": "^4.2.1",
     "cordova-plugin-screen-orientation": "^3.0.2",
     "cordova-plugin-splashscreen": "^5.0.2",
     "cordova-plugin-statusbar": "^2.4.2",
     "cordova-plugin-touch-id": "^3.4.0",
+    "cordova-plugin-uniquedeviceid": "^1.3.2",
     "cordova-plugin-whitelist": "^1.3.5",
     "cordova-res": "^0.15.3",
+    "cordova-support-android-plugin": "~1.0.0",
     "crypto-js": "^3.1.9-1",
     "es6-promise-plugin": "^4.2.2",
     "eslint": "^7.6.0",
@@ -114,6 +114,7 @@
     "eslint-plugin-jsdoc": "30.7.6",
     "eslint-plugin-prefer-arrow": "1.2.2",
     "ionic-plugin-deeplinks": "^1.0.10",
+    "ios": "^0.0.1",
     "jasmine-core": "3.8",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~6.3.2",
@@ -167,27 +168,18 @@
       "cordova-plugin-console": {},
       "cordova-pdf-generator": {},
       "cordova-plugin-fcm-with-dependecy-updated": {
-        "ANDROID_DEFAULT_NOTIFICATION_ICON": "@mipmap/ic_launcher",
+        "ANDROID_DEFAULT_NOTIFICATION_ICON": "@mipmap/ic_notificacion",
         "ANDROID_FIREBASE_BOM_VERSION": "26.0.0",
         "ANDROID_GOOGLE_SERVICES_VERSION": "4.3.4",
-        "ANDROID_GRADLE_TOOLS_VERSION": "4.1.1",
-        "IOS_FIREBASE_MESSAGING_VERSION": "~> 7.4.0",
-        "ANDROID_FCM_VERSION": "21.0.0"
+        "ANDROID_GRADLE_TOOLS_VERSION": "4.1.0",
+        "IOS_FIREBASE_MESSAGING_VERSION": "~> 7.4.0"
       },
-<<<<<<< HEAD
-      "cordova-plugin-console": {},
-      "cordova-pdf-generator": {},
-      "phonegap-plugin-barcodescanner": {
-        "ANDROID_SUPPORT_V4_VERSION": "27.+"
-      }
-=======
-      "cordova-plugin-whitelist": {}
->>>>>>> f19ea6a7c0009bc5479374d0198969fbddba91fa
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-uniquedeviceid": {}
     },
     "platforms": [
       "browser",
-      "ios",
-      "android"
+      "ios"
     ]
   }
 }

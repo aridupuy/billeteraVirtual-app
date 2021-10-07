@@ -364,7 +364,11 @@ const routes: Routes = [
   {
     path: 'notificaciones',
     loadChildren: () => import('./notificaciones/notificaciones.module').then( m => m.NotificacionesPageModule)
+  },  {
+    path: 'cambiar-cuenta',
+    loadChildren: () => import('./cambiar-cuenta/cambiar-cuenta.module').then( m => m.CambiarCuentaPageModule)
   }
+
 
 
  ];
