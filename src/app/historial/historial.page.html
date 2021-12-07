@@ -8,11 +8,12 @@
 </ion-header>
 <ion-content [fullscreen]="true">
   <div class="contenedor-90">
-    <h1>Historial de movimientos</h1>
+    <div class="content-filtro">
+      <h1>Historial de movimientos</h1>
+      <ion-icon class="filtro" (click)="presentModal()" name="list"></ion-icon>
+    </div>
     <p>Acá podes ver todos los movimientos de tu cuenta.</p>
-    <ion-button icon-only (click)="presentModal()">
-        <ion-icon name="options"></ion-icon>
-    </ion-button>
+    
     <div class="lista-ultimos-movimientos mt-10" *ngIf="items!=undefined && items.length > 0">
         <ion-refresher [class]="class_refresher" slot="fixed" (ionStart)="mostrar($event)"
           (ionRefresh)="refresh($event)">

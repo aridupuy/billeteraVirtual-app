@@ -571,3 +571,17 @@ ion-list {
 .base{
     background-color: #0D0043;
 }
+.content-filtro{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: baseline;
+    align-items: center;
+    .filtro{
+        background-color: transparent;
+        color: var(--ion-color-medium);
+        padding: 2%;
+        font-size: 2rem;
+        align-self: flex-end;
+    }
+}

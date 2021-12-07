@@ -1,0 +1,141 @@
+<!--
+  Generated template for the FormTcPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<ion-content [fullscreen]="true">
+	<ion-header collapse="condense">
+		<ion-toolbar>
+			<ion-buttons end>
+				<ion-icon md="chevron-back-outline" ios="chevron-back-outline"></ion-icon>
+				<ion-button color="primary" (click)="CerrarModal()">Back</ion-button>
+			</ion-buttons>
+			<ion-title>Nueva Tarjeta</ion-title>
+		</ion-toolbar>
+	</ion-header>
+	<div class="contenedor">
+
+		<!-- Tarjeta -->
+		<section class="tarjeta" id="tarjeta" #tarjeta (click)="tarjetaClick()">
+			<div class="delantera">
+				<div class="logo-marca" id="logo-marca" #logoMarca>
+					<!-- <img src="img/logos/visa.png" alt=""> -->
+				</div>
+				<img src="../../assets/img/chip-tarjeta.png" class="chip" alt="">
+				<div class="datos">
+					<div class="grupo" id="numero" >
+						<p class="label">Número Tarjeta</p>
+						<p class="numero" #tarjetaNumero>#### #### #### ####</p>
+					</div>
+					<div class="flexbox">
+						<div class="grupo"  id="nombre">
+							<p class="label">Nombre Tarjeta</p>
+							<p class="nombre" #tarjetaNombre>Jhon Doe</p>
+						</div>
+
+						<div class="grupo" id="expiracion">
+							<p class="label">Expiracion</p>
+							<p class="expiracion"><span class="mes" #tarjetaExpiracionMes>MM</span> / <span class="year"
+									#tarjetaExpiracionAnio>AA</span></p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="trasera">
+				<div class="barra-magnetica"></div>
+				<div class="datos">
+					<div class="grupo" id="firma">
+						<p class="label">Firma</p>
+						<div class="firma">
+							<p #firma></p>
+						</div>
+					</div>
+					<div class="grupo" id="ccv">
+						<p class="label">CCV</p>
+						<p class="ccv" #CVV></p>
+					</div>
+				</div>
+				<p class="leyenda">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus exercitationem,
+					voluptates illo.</p>
+				<a href="#" class="link-banco">www.tubanco.com</a>
+			</div>
+		</section>
+
+		<!-- Contenedor Boton Abrir Formulario -->
+		<div class="contenedor-btn">
+			<button class="btn-abrir-formulario" #btnAbrirFormulario id="btn-abrir-formulario"
+				(click)="abrirFormularioClick()">
+				<ion-icon name="add"></ion-icon>
+			</button>
+		</div>
+
+		<!-- Formulario -->
+		<form action="" id="formulario-tarjeta" #formularioTarjeta >
+			<ion-item class="full ">
+				<ion-label for="inputNumero"  >Número Tarjeta</ion-label>
+				<ion-input type="text" data-decidir="card_number" id="inputNumero" maxlength="19" autocomplete="off"
+					(ngModel)="numero" (keyup)="inputNumeroKeyUp($event)"></ion-input>
+				<ion-input name="issued" id="issued" type="text" disabled="true" class="hidden"></ion-input>
+			</ion-item>
+			<ion-item class=" full ">
+				<ion-label for="inputNombre"  >Nombre</ion-label>
+				<ion-input type="text" id="inputNombre" data-decidir="card_holder_name" maxlength="19" autocomplete="off"
+					(ngModel)="nombre" (keyup)="nombreKeyUp($event)"></ion-input>
+			</ion-item>
+			<ion-item class=" select full ">
+				<ion-label for="dni" >Tipo de Documento</ion-label>
+				<ion-select interface="action-sheet" role="button" aria-haspopup="listbox" aria-label="Documento" data-decidir="card_holder_doc_type" name="dni" [value]="['seleccionar']">
+					<ion-select-option value="select" selected="selected">Seleccionar</ion-select-option>
+					<ion-select-option value="dni">DNI</ion-select-option>
+				</ion-select>
+				
+			</ion-item>
+			<ion-item class=" full ">
+				<ion-label for="inputDoc"  >Documento</ion-label>
+				<ion-input type="text" name="inputDoc" data-decidir="card_holder_doc_number" id="inputDoc" maxlength="19"
+					autocomplete="off" (keyup)="inputDocKeyUp($event)"></ion-input>
+			</ion-item>
+			<ion-item class="mesan full">
+				<div>
+					<ion-label for="mes_tc"  >Mes</ion-label>
+					<div>
+						<ion-select role="button" aria-haspopup="listbox" aria-label="mes" name="mes_tc" data-decidir="card_expiration_month" id="select-Mes" #selectMes
+								(ngModel)="mes" (ionChange)="mesChange($event)">
+							<ion-select-option disabled selected>Mes</ion-select-option>
+						</ion-select>
+						<i class="fas fa-angle-down"></i>
+					</div>
+				</div>
+				<div>
+					<ion-label for="año_tc"  >Año</ion-label>
+					<ion-select interface="action-sheet" role="button" aria-haspopup="listbox" aria-label="año" data-decidir="card_expiration_year" name="año_tc" id="selectYear" #selectAnio
+						(ngModel)="anio" (ionChange)="yearChange($event)">
+						<ion-select-option disabled selected>Año</ion-select-option>
+					</ion-select>
+					<i class="fas fa-angle-down"></i>
+				</div>
+			</ion-item>
+
+			<ion-item class="full">
+					<ion-label for="inputCCV">CCV</ion-label>
+					<ion-input type="text" id="inputCCV" data-decidir="security_code" name="cvv" maxlength="3" #inputCVV
+						(ngModel)="cvv" (keyup)="cvvKeyUp($event)"></ion-input>
+			</ion-item>
+
+			<ion-row expand="full" style="width: 100%;" (click)="enviar($event)">
+				<ion-col class="start">
+					<div _ngcontent-jli-c193="" class="onboarding-btn-group">
+						<div _ngcontent-jli-c193="" class="btn-round activo">Agregar</div>
+					</div>
+				</ion-col>
+			</ion-row>
+			<!-- <button type="submit" class="btn-enviar" (click)="enviar($event)">Enviar</button> -->
+		</form>
+	</div>
+
+	<script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
+	<script src="js/main.js"></script>
+</ion-content>

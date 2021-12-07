@@ -56,10 +56,10 @@ export class TarjetasService extends ServiceService{
       });
     });
   }
-  public cargar(numero,cvv,mes,anio,titular,documento,token,Decidir) {
+  public cargar(numero,cvv,mes,anio,titular,documento) {
     httpOptions.headers.token=localStorage.getItem("token");
     return new Promise((resolve, reject) => {
-      var postParams = ({numero:numero,cvv:cvv,mes:mes,anio:anio,titular:titular,documento:documento,token:token,response:Decidir});
+      var postParams = ({numero:numero,cvv:cvv,mes:mes,anio:anio,titular:titular,documento:documento});
       this.post<Itarjetas>('api/tarjeta/crear',postParams,httpOptions).subscribe((data) => {
         if (data.resultado != null && data.resultado == false) {
           reject(data.log);

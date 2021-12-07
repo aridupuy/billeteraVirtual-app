@@ -341,11 +341,6 @@ const routes: Routes = [
     loadChildren: () => import('./filter/filter.module').then( m => m.FilterPageModule)
   },
   {
-
-    path: 'cambiarcuenta',
-    loadChildren: () => import('./cambiarcuenta/cambiarcuenta.module').then( m => m.CambiarcuentaPageModule)
-  },
-  {
     path: 'detalle-transaccion',
     loadChildren: () => import('./detalle-transaccion/detalle-transaccion.module').then( m => m.DetalleTransaccionPageModule)
   },
@@ -364,6 +359,29 @@ const routes: Routes = [
   {
     path: 'confirmaciones',
     loadChildren: () => import('./confirmaciones/confirmaciones.module').then( m => m.ConfirmacionesPageModule)
+  },
+  {
+
+    path: 'scanner-pagos',
+    loadChildren: () => import('./scanner-pagos/scanner-pagos.module').then( m => m.ScannerPagosPageModule)
+  },
+  {
+    path: 'mis-tc',
+    loadChildren: () => import('./mis-tc/mis-tc.module').then( m => m.MisTcPageModule)
+  },
+  {
+    path: 'pago-qr',
+    loadChildren: () => import('./pago-qr/pago-qr.module').then( m => m.PagoQrPageModule)
+  
+
+  },
+  {
+    path: 'notificaciones',
+    loadChildren: () => import('./notificaciones/notificaciones.module').then( m => m.NotificacionesPageModule)
+  },
+  {
+    path: 'cambiar-cuenta',
+    loadChildren: () => import('./cambiar-cuenta/cambiar-cuenta.module').then( m => m.CambiarCuentaPageModule)
   }
 
 

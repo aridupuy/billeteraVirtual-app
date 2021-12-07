@@ -43,27 +43,7 @@ export class FcmService {
     });
   }
   async getToken() {
-    // this.localnotif.schedule({
-    //   id: 1,
-    //   title:"Efectivo Digital",
-    //   text: "Capture token aca",
-    //   icon: 'res://ic_notificacion.png',
-    //   smallIcon: 'res://ic_notificacion.png',
-    //   color:"e9434d",
-    //   priority: 0,
-    //   foreground: true,
-    //   vibrate:true,
-    //   wakeup:true,
-    //   lockscreen:true,
-    //   silent:false,
-    //   //color:"27b199",
-      
-    //   // 70706f
-    //   group:"efectivoDigital",
-    //   groupSummary:true,
-    //   launch:true,
-
-    // });
+    
    
     let token;
     console.log(this.fcm.hasOwnProperty("getToken"));
@@ -81,10 +61,11 @@ export class FcmService {
       });
      this.onNotifications();
     }
-    else if (this.platform.is('ios') && FCM.hasOwnProperty("getToken")) {
+    else if (this.platform.is('ios') ) {
       console.log("es ios");
       await this.fcm.getToken().then(tok => {
         token = tok;
+        console.log("TOKENFCM : "+tok);
       });
       await this.fcm.requestPushPermission({
         ios9Support: {
@@ -93,7 +74,6 @@ export class FcmService {
         }
       });
       this.registerToken(token);
-      if (this.fcm.hasOwnProperty("getToken"))
       this.fcm.onTokenRefresh().subscribe((token) => {
         this.registerToken(token);
       });
@@ -191,8 +171,14 @@ export class FcmService {
     console.log("ACA NOTIFICACION ONNOTIFICATION");
     // console.log(this.fcm);
     // if (this.fcm.hasOwnProperty("getToken"))
+    console.log(this.fcm.onNotification);
+    this.fcm.onNotification().toPromise().then(data=>{
+      console.log(data);
+    });
       return this.fcm.onNotification().subscribe(data => {
         console.log("ACA NOTIFICACION RECIBIDA");
+          
+        
         console.log(JSON.stringify(data));
         let notifs =[];
         let notif = {
@@ -200,6 +186,7 @@ export class FcmService {
           nuevo:true,
           titulo:data.title
         }
+        
         notifs= JSON.parse(localStorage.getItem("notification"));
         if(!notifs){
           notifs = [notif];
@@ -229,8 +216,9 @@ export class FcmService {
         {
           console.log(JSON.stringify(data));
           this.localnotif.getDefaults();
+          if (!this.platform.is("ios")) 
           this.localnotif.schedule({
-            id: 1,
+            id: Math.random(),
             title:"Efectivo Digital",
             text: data.title,
             icon: 'res://ic_notificacion.png',

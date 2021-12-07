@@ -16,11 +16,11 @@
         <img src="assets/img/mov-pago.svg" alt="Pagaste" *ngIf="item.id_tipo_trans=='3'">
       </div>
       <div *ngIf="resumen.persona!=undefined && item.id_tipo_trans=='2'">Recibiste de <div class="monto">
-          <b>{{resumen.persona.nombre}}</b>
+          <b>{{obtener_persona()}}</b>
         </div>
       </div>
       <div *ngIf="resumen.persona!=undefined && item.id_tipo_trans=='1'">Enviaste a <div class="monto">
-          <b>{{resumen.persona.nombre}}</b>
+          <b>{{obtener_persona()}}</b>
         </div>
       </div>
       <div><span>{{ item.fecha | date:'dd'}} de {{ fecha_espaniol(item.fecha | date:'M')}} - {{ item.fecha |
@@ -30,8 +30,9 @@
       </div>
       <div>Comisiones<div class="comision">${{obtener_comisiones()}} </div>
       </div>
-      <div> Monto acreditado <div class="monto"><b>${{item.monto_final}}</b></div>
-      </div>
+      <div *ngIf="item.id_tipo_trans=='1'" > Monto descontado <div class="monto"><b>${{item.monto_final}}</b></div></div>
+      <div *ngIf="item.id_tipo_trans=='2'"> Monto acreditado <div class="monto"><b>${{item.monto_final}}</b></div></div>
+      
       <div><span>Cod. Operacion <b>{{item.id_referencia}}</b></span></div>
       <div class="row">
         <span>Motivo</span>

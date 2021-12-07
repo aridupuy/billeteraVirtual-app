@@ -1,0 +1,92 @@
+<link href="https://fonts.googleapis.com/css2?family=Capriola&display=swap" rel="stylesheet">
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="IrAtras()" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title >Mis Tarjetas</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-list-header>
+        Tus tarjetas
+    </ion-list-header>
+    <ng-container *ngIf="!cargando">
+      <div [class]="obtener_class(item.bin)"  *ngFor="let item of tarjetas index as i" [id]="i" (click)="ver(item)"
+          onload="marcar()">
+          <div class="marca">
+            <img src="" [src]="obtener_marca_img(item)" alt="Visa Débito">
+          </div>
+          <div class="banco" *ngIf="obtener_banco_img(item)">
+            <img src="" [src]="obtener_banco_img(item)" alt="banco">
+          </div>
+          <div class="banco" *ngIf="!obtener_banco_img(item)">
+          </div>
+          <div class="numeracion"><span class="ocultos">**** </span><span class="ocultos">**** </span><span
+              class="ocultos">**** </span><span class="visibles">{{obtener_nroTarjeta(item.nroTarjeta)}}</span></div>
+          <div class="titular">{{item.nombre}}</div>
+          <div class="vencimiento">{{item.mes}}/{{item.anio}}</div>
+        </div>
+        <ion-row expand="full" style="width: 100%;" (click)="agregar()">
+          <ion-col class="start">
+            <div _ngcontent-jli-c193="" class="onboarding-btn-group"><div _ngcontent-jli-c193="" class="btn-round activo">Agregar</div></div>
+            </ion-col>
+          </ion-row>
+    </ng-container>
+    <ng-container *ngIf="cargando">
+      <ion-row expand="full" style="width: 100%;" *ngFor="let item of [1,2,3,4,5]"  >
+        <div class="start">
+          <ion-skeleton-text animated class="tarjeta-load">
+            <ion-row>
+              <ion-col>
+                
+              </ion-col>
+              <ion-col></ion-col>
+              <ion-col></ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col></ion-col>
+              <ion-col></ion-col>
+              <ion-col></ion-col>
+            </ion-row>
+          </ion-skeleton-text>
+        </div>
+        </ion-row>
+    </ng-container>
+    <!-- <ng-container *ngIf="!destinatarios">
+    <ion-item  class="ion-padding-bottom"  *ngFor="let a of [1,2,3,4]"   >
+      <ion-row expand="full" style="width: 100%;" >
+        <ion-col class="start">
+          <ion-avatar class="ion-avatar-none">
+            <ion-skeleton-text class="img-none imagen" animated></ion-skeleton-text>
+          </ion-avatar>
+        </ion-col>
+        <ion-col class="center">
+          <ion-label>
+            <h2>
+              <ion-skeleton-text animated style="width: 50%;"></ion-skeleton-text>
+            </h2>
+            <h3>
+              <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+            </h3>
+            <p class="p-none">
+              <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
+            </p>
+          </ion-label>
+        </ion-col>
+        <ion-col class="end">
+          <ion-skeleton-text animated class="icon-d"></ion-skeleton-text>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ng-container>
+  </ion-list>-->
+    <!--<ion-infinite-scroll>
+      <ion-infinite-scroll-content (ionInfinite)="loadMoreDestinatarios($event)" loadingSpinner="bubbles"
+        loadingText="Loading more data…">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  -->
+  </ion-list>
+</ion-content>

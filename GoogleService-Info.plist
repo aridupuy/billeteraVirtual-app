@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>394225840157-j173725i413hpeilnfjoid0sfvrt01nm.apps.googleusercontent.com</string>
+	<string>394225840157-p477nbn5bmrfuaabpsp2ums1hngrmrtp.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.394225840157-j173725i413hpeilnfjoid0sfvrt01nm</string>
+	<string>com.googleusercontent.apps.394225840157-p477nbn5bmrfuaabpsp2ums1hngrmrtp</string>
 	<key>API_KEY</key>
 	<string>AIzaSyBM0Iz1UzO15ky_mhnUsfSIPyy66J1S6RI</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.efectivodigital.com.ar</string>
+	<string>com.EfectivoDigital.com</string>
 	<key>PROJECT_ID</key>
 	<string>efectivo-digital</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:394225840157:ios:3fec6c7fd43e12e6db96f4</string>
+	<string>1:394225840157:ios:4761705d540dc3a9db96f4</string>
 </dict>
 </plist>

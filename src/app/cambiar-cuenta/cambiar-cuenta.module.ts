@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { CambiarcuentaPageRoutingModule } from './cambiarcuenta-routing.module';
+import { CambiarCuentaPageRoutingModule } from './cambiar-cuenta-routing.module';
 
-import { CambiarcuentaPage } from './cambiarcuenta.page';
+import { CambiarCuentaPage } from './cambiar-cuenta.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CambiarcuentaPageRoutingModule
+    CambiarCuentaPageRoutingModule
   ],
-  declarations: [CambiarcuentaPage]
+  declarations: [CambiarCuentaPage]
 })
-export class CambiarcuentaPageModule {}
+export class CambiarCuentaPageModule {}

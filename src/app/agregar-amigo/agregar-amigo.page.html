@@ -14,7 +14,8 @@
     <p>Elegí si querés añadirlos a través de su correo electrónico o su número de celular.
     </p>
     <div class="switch-container">
-      <div class="switch-button activo" id="metodo_mail" (click)="metodo_busqueda('mail')"  >Mail</div>
+      <div class="switch-button activo" id="metodo_nombre" (click)="metodo_busqueda('nombre')">Nombre</div>
+      <div class="switch-button inactivo" id="metodo_mail" (click)="metodo_busqueda('mail')"  >Mail</div>
       <div class="switch-button inactivo" id="metodo_cel" (click)="metodo_busqueda('celular')">Celular</div>
     </div> 
     <!-- Modulo Buscar por mail / celular cambia el h2 según el tipo -->
@@ -22,7 +23,7 @@
        <h2 class="full" *ngIf="tipo=='mail'">Escribí el mail de la persona que querés agregar</h2>
        <h2 class="full" *ngIf="tipo=='celular'">Escribí el celular de la persona que querés agregar</h2>
     <ion-item class="input-container full">
-      <ion-input [(ngModel)]="busqueda" type="text"><ion-icon name="search-outline"></ion-icon></ion-input>
+      <ion-input [(ngModel)]="busqueda" (keyup)="busquedaAutomatica($event)"  type="text"><ion-icon name="search-outline"></ion-icon></ion-input>
     </ion-item>
     </div>
     <div class="validationMsg">
@@ -44,26 +45,30 @@
     <ion-list class="lista-amigos" *ngIf="!buscando">
       <!-- <ion-item *ngFor="let resultado of resultados"  (click)="pedir(resultado)"> -->
       <ion-item class="amigo-wrapper" *ngFor="let resultado of resultados" (click)="marcar(resultado)">
-        <div class="amigo">
+        <div class="amigo" (click)="marcar(resultado)">
           <div class="avatar-wrapper">
             <div class="avatar">
               {{iniciales(resultado.nombre)}}
             </div>
           </div>
           <div class="info-amigo">
-            <h2 class="nombre">{{ resultado.nombre}}</h2>
+            <h2 class="nombre">{{resultado.nombre}}</h2>
             <!-- <span class="alias">Trabajo</span> -->
           </div>
-          <div class="icon">
-            <ion-icon name="checkmark-circle" color="secondary" *ngIf="resultado.marcado"></ion-icon>
-            <ion-icon name="add-circle-outline" color="secondary" *ngIf="!resultado.marcado"></ion-icon>
+          <div class="icon" *ngIf="resultado.invitar==false" >
+            <ion-icon name="checkmark-circle" color="secondary" *ngIf="resultado.marcado" (click)="marcar(resultado)"></ion-icon>
+            <ion-icon name="add-circle-outline" color="secondary" *ngIf="!resultado.marcado" (click)="marcar(resultado)"></ion-icon>
+          </div>
+          <div class="icon" *ngIf="resultado.invitar">
+            <a color="secondary" *ngIf="!resultado.invitado" (click)="invitar(resultado)" class="invitar">Invitar</a>
+            <a color="secondary" *ngIf="resultado.invitado"  class="invitar">Invitado</a>
           </div>
         </div>
       </ion-item>
     </ion-list>
     <ion-list class="lista-amigos">
-      <ion-item class="amigo-wrapper" *ngFor="let item of allContacts" (click)="marcar(item)">
-        <div class="amigo">
+      <ion-item class="amigo-wrapper" *ngFor="let item of allContactsVista" >
+        <div class="amigo" (click)="marcar(item)">
           <div class="avatar-wrapper">
             <div class="avatar">
               {{iniciales(item.nombre)}}
@@ -73,9 +78,13 @@
             <h2 class="nombre">{{item.nombre}}</h2>
             <!-- <span class="alias">Trabajo</span> -->
           </div>
-          <div class="icon">
+          <div class="icon" *ngIf="item.invitar==false" >
             <ion-icon name="checkmark-circle" color="secondary" *ngIf="item.marcado" (click)="marcar(item)"></ion-icon>
             <ion-icon name="add-circle-outline" color="secondary" *ngIf="!item.marcado" (click)="marcar(item)"></ion-icon>
+          </div>
+          <div class="icon" *ngIf="item.invitar">
+            <a color="secondary" *ngIf="!item.invitado" (click)="invitar(item)" class="invitar">Invitar</a>
+            <a color="secondary" *ngIf="item.invitado"  class="invitar">Invitado</a>
           </div>
         </div>
       </ion-item>

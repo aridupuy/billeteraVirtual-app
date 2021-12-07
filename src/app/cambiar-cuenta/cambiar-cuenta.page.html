@@ -7,7 +7,7 @@
 <ion-content class="fullscreen">
 <ion-list >
   <ion-list-header>Cuentas</ion-list-header>
-  <ion-item *ngFor="let cuenta of cuentas" (click)="cambiar(cuenta)">
+  <ion-item *ngFor="let cuenta of cuentas " (click)="cambiar(cuenta)">
     <ion-avatar slot="start" class="avatar">
       {{get_iniciales(cuenta)}}
     </ion-avatar>

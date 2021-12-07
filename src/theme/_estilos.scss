@@ -130,4 +130,33 @@ app-splash{
   position: absolute !important;
   right: 20px !important;
 }
+.visa{
+  background-color: #888894;
+}
+.gold , .Gold{
+  background: rgb(173,111,60);
+  background: linear-gradient(90deg, rgba(173,111,60,1) 0%, rgba(212,182,118,1) 32%, rgba(234,224,153,1) 76%);
+}
+.platinum, .Platinum, .silver{
+  background: rgb(118,126,129);
+  background: linear-gradient(90deg, rgba(118,126,129,1) 0%, rgba(163,167,168,1) 32%, rgba(205,206,208,1) 76%);
+}
+.Signature, .signature, .black{
+  background: rgb(6,6,6);
+  background: linear-gradient(90deg, rgba(6,6,6,1) 0%, rgba(8,8,8,1) 32%, rgba(13,13,13,1) 76%);
+  color:white;
+}
+.tradicional, .Traditional , .traditional{
+  background: radial-gradient(circle, rgba(16,149,230,1) 0%, rgba(28,137,203,1) 35%, rgba(2,98,156,1) 100%);
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+.santander{
+  background: rgb(207,61,61);
+  background: linear-gradient(90deg, rgba(207,61,61,1) 0%, rgba(207,61,61,1) 32%, rgba(233,83,82,1) 76%);
+}
+.mastercard{
+  background: rgb(173,111,60);
+  background: linear-gradient(90deg, rgba(173,111,60,1) 0%, rgba(212,182,118,1) 32%, rgba(234,224,153,1) 76%);
+}
 

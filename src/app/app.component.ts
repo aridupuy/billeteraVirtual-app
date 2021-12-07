@@ -6,7 +6,7 @@ import { Pago } from './classes/Pago';
 import { HomePage } from './home/home.page';
 import { AmigosPage } from './amigos/amigos.page';
 import { IngresoDineroPage } from './ingreso-dinero/ingreso-dinero.page';
-import { CambiarcuentaPage } from './cambiarcuenta/cambiarcuenta.page';
+import { CambiarCuentaPage } from './cambiar-cuenta/cambiar-cuenta.page';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { Platform } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
@@ -237,7 +237,7 @@ export class AppComponent implements OnInit {
   }
   async cambiar(){
     const modal3 = await this.modalCtrl.create({
-      component: CambiarcuentaPage,
+      component: CambiarCuentaPage,
     });
     console.log("aca");
     modal3.onDidDismiss().then(async (modalDataResponse) => {
