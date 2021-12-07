@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router, NavigationExtras } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Validaridentidad1Page } from './validaridentidad1/validaridentidad1.page';
-interface datosProceso {
+export interface datosProceso {
   valida_mail: Boolean | any,
   valida_ident: Boolean | any,
   valida_cel: Boolean | any,
@@ -28,6 +28,7 @@ export class ProcesoAltaGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Promise<boolean> {
     var resp;
+    console.log(state);
     let val = Cookie.get("validador");
     if (!next.queryParamMap.has("param")) {
       console.log("aca2");

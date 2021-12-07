@@ -59,6 +59,12 @@ domicilio actual?
           <ion-input [(ngModel)]="depto_mod" type="text"  clear-on-edit="true" placeholder="B"></ion-input>
         </ion-item>
       </div>
+      <div class="input-container" *ngIf="!act_cod_postal">
+        <ion-item class="mitad">
+          <ion-label position="stacked">Código Postal</ion-label>
+          <ion-input [(ngModel)]="cod_postal" type="text"  clear-on-edit="true" placeholder="1431"></ion-input>
+        </ion-item>
+      </div>
     </div>
   </div>
   <div class="onboarding-btn-group">

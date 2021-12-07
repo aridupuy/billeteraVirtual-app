@@ -11,28 +11,66 @@
 necesitamos algo más
 
     </h1>
-    <p class="align-left">Tenemos que validar tu identidad para continuar. Por favor, confirmanos si esta info que te mostramos es correcta.
+    <p class="align-left" *ngIf="pfpj=='pf'">Tenemos que validar tu identidad para continuar. Por favor, confirmanos si esta info que te mostramos es correcta.
     </p>
+    <p class="align-left" *ngIf="pfpj=='pj'">Por favor, Completa estos datos para continuar    </p>
+
     <div class="form datospersonales">
-      <div class="dato full">
+      <div class="dato full" *ngIf="pfpj=='pf'">
         <h2>Nombre y apellido</h2>
         <p #nombrecompleto>{{nombre_completo}}</p>
       </div>
-      <div class="dato mitad">
+      <div class="dato full" *ngIf="pfpj=='pj'">
+        <h2 class="align-left full">Razon Social</h2>
+        <ion-item class="full">
+            <ion-input type="text" [(ngModel)]="nombre_completo" ></ion-input>
+        </ion-item>
+      </div>
+      <div class="dato mitad" *ngIf="pfpj=='pf'">
         <h2>Dni</h2>
         <p>{{dni}}</p>
       </div>
-      <div class="dato mitad">
+      <div class="dato mitad" *ngIf="pfpj=='pj'">
+        <h2 class="align-left full">CUIT</h2>
+        <ion-item class="full">
+            <ion-input type="tel" maxlength="8" [(ngModel)]="dni" disabled="true" ></ion-input>
+        </ion-item>
+      </div>
+      <div class="dato mitad" *ngIf="pfpj=='pf'">
         <h2>Sexo</h2>
         <p >{{sexo}}</p>
       </div>
-      <div class="dato mitad">
+      <div class="dato mitad" *ngIf="pfpj=='pf'">
         <h2>Nacionalidad</h2>
         <p >{{nacionalidad}}</p>
       </div>
-      <div class="dato mitad">
+      <div class="dato mitad" *ngIf="pfpj=='pf'">
         <h2>Fecha de nacimiento</h2>
         <p >{{fec_nac}}</p>
+      </div>
+      <div class="dato mitad" *ngIf="pfpj=='pj'">
+        <h2>Fecha de contitucion</h2>
+        <ion-item class="full">
+            <ion-input type="date" [(ngModel)]="fec_nac"></ion-input>
+        </ion-item>
+      </div>
+      <div class="dato mitad" *ngIf="pfpj=='pj'">
+        <h2>Nacionalidad</h2>
+        <ion-item class="full">
+            <ion-input type="text" [(ngModel)]="nacionalidad"></ion-input>
+        </ion-item>
+      </div>
+      <div class="dato mitad" *ngIf="pfpj=='pj'">
+        <h2>Provincia</h2>
+        <ion-item class="full">
+            <ion-input type="text" [(ngModel)]="provincia"></ion-input>
+        </ion-item>
+      </div>
+      <div class="dato mitad" *ngIf="pfpj=='pj'">
+        <h2>Ciudad</h2>
+        <ion-item class="full">
+            <ion-input type="text" [(ngModel)]="ciudad"></ion-input>
+        </ion-item>
       </div>
       
     </div>

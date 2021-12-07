@@ -20,6 +20,7 @@ import { AppComponent } from '../app.component';
 import { Libs } from '../classes/libs';
 import { MenuserviceService } from '../service/menuservice.service';
 import { FcmService } from '../service/fcm.service';
+import { ValidacionMailService } from '../service/validacion-mail.service';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -50,7 +51,8 @@ export class HomePage implements OnInit {
   modalDataResponse: any;
   public valida_mail;
   public valida_ident;
-  constructor(public modalCtrl: ModalController, public navCtl: NavController, private menu: MenuController, public saldoService: SaldoService, public transaccionesService: TransaccionesService, public route: ActivatedRoute, public router: Router, public usuarioService: UsuarioService, public libs: Libs, public menuService: MenuserviceService, public FcmService: FcmService) { }
+  public valida_empresa
+  constructor(public modalCtrl: ModalController, public navCtl: NavController, private menu: MenuController,public validaMail:ValidacionMailService, public saldoService: SaldoService, public transaccionesService: TransaccionesService, public route: ActivatedRoute, public router: Router, public usuarioService: UsuarioService, public libs: Libs, public menuService: MenuserviceService, public FcmService: FcmService) { }
 
   ngOnInit(): void {
     // AppComponent.cargando=true;
@@ -60,8 +62,8 @@ export class HomePage implements OnInit {
     if (this.route.snapshot.queryParamMap.has("param")) {
       this.valida_ident = p.valida_ident;
       this.valida_mail = p.valida_mail;
-
-      this.mensaje = p.Mensaje;
+      this.valida_empresa = p.valida_empresa;
+      this.mensaje = p.Mensaje?this.mensaje = p.Mensaje:this.mensaje = p.mensaje;
       this.validado = false;
       this.obtener_datos_usuario();
       return;
@@ -81,6 +83,44 @@ export class HomePage implements OnInit {
     //     param: JSON.stringify({rvalidar:true, ira:"/",})
     //   }
     // }
+    if (this.valida_mail) {
+      /*SERVICIO DE REENVIO DE MAIL */
+        this.validaMail.reenviar().then(()=>{
+          const navigationExtras: NavigationExtras = {
+            queryParams: {
+              param: JSON.stringify({ mensaje: "Revisá tu cuenta de mail y segui los pasos para confirmar que sos el dueño de la cuenta." })
+            }
+          }
+          this.navCtl.navigateForward("confirmaciones", navigationExtras);
+        }).catch(()=>{
+          const navigationExtras: NavigationExtras = {
+            queryParams: {
+              param: JSON.stringify({ mensaje: "No te pudimos enviar el email, comunicate con atencion al cliente."})
+            }
+          }
+          this.navCtl.navigateForward("confirmaciones", navigationExtras);
+        });
+    }
+    if (this.valida_empresa) {
+      /*SERVICIO DE REENVIO DE MAIL */
+      
+      this.validaMail.reenviar_empresa().then(()=>{
+        const navigationExtras: NavigationExtras = {
+          queryParams: {
+            param: JSON.stringify({ mensaje: "Revisá tu casilla de mail, te enviamos uno para que podas seguir." })
+          }
+        }
+        this.navCtl.navigateForward("confirmaciones", navigationExtras);
+      }).catch(()=>{
+        const navigationExtras: NavigationExtras = {
+          queryParams: {
+            param: JSON.stringify({ mensaje: "No te pudimos enviar el email, comunicate con atencion al cliente."})
+          }
+        }
+        this.navCtl.navigateForward("confirmaciones", navigationExtras);
+      });
+      return true;
+    }
     if (this.valida_ident) {
       const navigationExtras: NavigationExtras = {
         queryParams: {
@@ -88,10 +128,10 @@ export class HomePage implements OnInit {
         }
       }
       this.navCtl.navigateForward("validaridentidad3", navigationExtras);
+      return true;
     }
-    if (this.valida_mail) {
-
-    }
+    
+    
 
   }
   async obtener_saldo() {

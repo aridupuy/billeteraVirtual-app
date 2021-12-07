@@ -52,7 +52,11 @@ export class PreguntaslegalesPage implements OnInit {
         param: JSON.stringify(p)
       }
     };
-    this.navCtrl.navigateForward("validaridentidad", navigationExtras);
+    if(p.pfpj=="pj"){
+      this.navCtrl.navigateForward("datospersonales", navigationExtras);
+    }
+    else
+      this.navCtrl.navigateForward("validaridentidad", navigationExtras);
   }
   async Popup() {
     const modal = await this.modalCtrl.create({

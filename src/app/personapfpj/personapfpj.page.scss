@@ -1,0 +1,41 @@
+
+
+.contenedor{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 1em;
+}
+
+.cuadrado{
+    width: 33%;
+    height: 33vh;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: end;
+    border: 1px solid  #007c68;
+}
+.active, .cuadrado:hover{
+    border: 2px solid  #0f0043;
+}
+
+.cuadrado>ion-radio{
+    display: none;
+}
+.cuadrado>ion-label{
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    text-align: center;
+    height: 33vh;
+    // bottom: 0;
+}
+.cuadrado>ion-label:hover{
+    background-color: inherit;
+}
+.cuadrado>ion-img{
+    width: 50%;
+    text-align: center;
+    margin: auto;
+}

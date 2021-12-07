@@ -19,7 +19,7 @@
     <div class="input-container">
       <h2 class="align-left full">¿Cuál es tu número de celular?</h2>
       <ion-item class="fijo" >
-        <p>+54</p>
+        <p #cod_pais>+54</p>
       </ion-item>
       <ion-item class="un-tercio">
         <ion-input class="center" [(ngModel)]="codArea" placeholder="11" (ngModelChange)="validar_celular()" type="number" maxlength="2"></ion-input>
@@ -37,14 +37,21 @@
     </div>
   </div>
   <div class="input-container">
-    <h2 class="align-left full">¿Cuál es tu número de DNI?</h2>
-    <ion-item class="full">
+    <h2 class="align-left full" *ngIf="pfpj=='pf'">¿Cuál es tu número de DNI?</h2>
+    <h2 class="align-left full" *ngIf="pfpj=='pj'">¿Cuál el número de CUIT?</h2>
+    <ion-item class="full" *ngIf="pfpj=='pf'">
       <ion-input type="tel" maxlength="8" [(ngModel)]="dni"></ion-input>
+    </ion-item>
+    <ion-item class="full" *ngIf="pfpj=='pj'">
+      <ion-input type="tel" maxlength="11" [(ngModel)]="dni"></ion-input>
     </ion-item>
   </div>
   <div class="validationMsg" *ngIf="!dni">
-    <div class="msg full danger">
+    <div class="msg full danger" *ngIf="pfpj=='pf'">
       El número de dni que ingresaste no es válido. Intentá otra vez.
+    </div>
+    <div class="msg full danger" *ngIf="pfpj=='pj'">
+      El número de CUIT que ingresaste no es válido. Intentá otra vez.
     </div>
   </div>
 </div>

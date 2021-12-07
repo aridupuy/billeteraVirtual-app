@@ -9,6 +9,7 @@ import { LoginService } from '../service/login.service';
 import { ServiceService } from '../service/service.service';
 import { UsuarioService } from '../service/usuario.service';
 import { TransaccionesService } from '../service/transacciones.service';
+import { ValidacionMailService } from '../service/validacion-mail.service';
 
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 
@@ -19,7 +20,7 @@ import { Clipboard } from '@ionic-native/clipboard/ngx';
     IonicModule,
     HomePageRoutingModule
   ],
-  providers:[LoginService,UsuarioService,TransaccionesService,Clipboard],
+  providers:[LoginService,UsuarioService,TransaccionesService,Clipboard,ValidacionMailService],
   declarations: [HomePage]
 })
 export class HomePageModule {}

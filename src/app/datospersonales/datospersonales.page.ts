@@ -30,11 +30,14 @@ export class DatospersonalesPage implements OnInit {
   public nombre_completo;
   public dni;
   public cargando = true;
+  public pfpj;
   ngOnInit() {
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
     if (p != null) {
       this.dni = p.dni;
       this.sexo = p.sexo;
+      this.pfpj=p.pfpj;
+      if(this.pfpj=="pf")
       this.renaper.validar_dni(p.dni, p.sexo).then(data => {
         console.log(data);
         this.apellido = data.apellido;
@@ -51,8 +54,13 @@ export class DatospersonalesPage implements OnInit {
         this.piso = data.piso;
         this.depto = data.departamento;
         this.cuit = data.cuil;
+        this.pfpj=data.pfpj;
         this.cargando=false;
       });
+      else{
+        this.cuit=this.dni;
+        this.cargando=false;
+      }
     }
   }
   Continuar() {
@@ -73,13 +81,19 @@ export class DatospersonalesPage implements OnInit {
     p["piso"] = this.piso;
     p["depto"] = this.depto;
     p["cuit"] = this.cuit;
+    p["pfpj"]=this.pfpj;
     const navigationExtras: NavigationExtras = {
       queryParams: {
         param: JSON.stringify(p)
       },
       replaceUrl: true
     };
-    this.navCtrl.navigateForward("datospersonales1", navigationExtras);
+    if(this.pfpj=="pf")
+      this.navCtrl.navigateForward("datospersonales1", navigationExtras);
+    else if(this.pfpj=='pj'){
+      this.navCtrl.navigateForward("datospersonales2",navigationExtras);
+    }
+    
   }
   Editar() {
     this.readonly = "false";

@@ -108,7 +108,7 @@ export class RegistroPage implements OnInit {
       await this.loginBo.login().then(async token => {
         console.log("logueado");
         this.cargando = true;
-        await this.iniciaProceso.iniciar(token).then(async (id_proceso_alta: string) => {
+        await this.iniciaProceso.iniciar(token,this.email).then(async (id_proceso_alta: string) => {
           // console.log(id_proceso_alta);
           localStorage.setItem("proceso_alta", id_proceso_alta);
           // antes que esto va un endṕoint para validar la preexistencia del mail
@@ -128,12 +128,12 @@ export class RegistroPage implements OnInit {
                 this.navCtrl.navigateForward(["registro1", {}]);
                 const navigationExtras: NavigationExtras = {
                   queryParams: {
-                    param: JSON.stringify({ email: this.email, password: this.password, acepta: this.checkterms })
+                    param: JSON.stringify({ email: this.email, password: this.password, acepta: this.checkterms,proceso_alta:id_proceso_alta })
                   }
                 };
                 console.log(navigationExtras);
                 this.cargando = false;
-                this.navCtrl.navigateForward("registro1", navigationExtras);
+                this.navCtrl.navigateForward("personapfpj", navigationExtras);
                 // })
                 // .catch(err=>{console.log(err); return;});
               }).catch(err => { console.log(err); return; })
@@ -141,6 +141,8 @@ export class RegistroPage implements OnInit {
             else{
               return false;
             }
+        }).catch(log=>{
+          this.navCtrl.navigateForward("registro-cuentaexistente");
         });
       });
     }

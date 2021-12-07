@@ -41,7 +41,7 @@ export class ConfirmasmsPage implements OnInit {
   async ngOnInit() {
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
     console.log(p);
-    this.telefono = p.cod_area.toString() + p.celular.toString();
+    this.telefono = p.cod_pais.toString()+p.cod_area.toString() + p.celular.toString();
     this.revalidar = p.revalidar;
     let detener = false;
     console.log("Envia Codigo");
@@ -123,7 +123,7 @@ export class ConfirmasmsPage implements OnInit {
             console.log(p);
             p["valida_sms"] = false;
             p["intentos"]=this.intentos;
-            p["proceso_alta"] = localStorage.getItem("id_proceso_alta");
+            p["proceso_alta"] = p.proceso_alta;
             const navigationExtras: NavigationExtras = {
               queryParams: {
 
@@ -172,7 +172,7 @@ export class ConfirmasmsPage implements OnInit {
             await this.loginBo.login().then(async token => {
               console.log("logueado");
               // console.log(p);
-              await this.validCel.obtener_codigo(p.cod_area.toString() + p.celular.toString(), token).then(data => {
+              await this.validCel.obtener_codigo(p.cod_pais.toString()+p.cod_area.toString() + p.celular.toString(), token).then(data => {
                 console.log("codigo enviado");
                 this.clave1 = this.clave2 = this.clave3 = this.clave4 = this.clave5 = this.clave6 = null;
                 this.countdown.restart();
@@ -196,7 +196,7 @@ export class ConfirmasmsPage implements OnInit {
     if (p.login) {
       console.log("REVALIDAR CODIGO");
       console.log(p);
-      await this.validCel.validar_codigo_reenviado(p.cod_area.toString()+p.celular.toString(), codigo,this.intentos).then(data => {
+      await this.validCel.validar_codigo_reenviado(p.cod_pais.toString()+p.cod_area.toString()+p.celular.toString(), codigo,this.intentos).then(data => {
         this.values=[];
         console.log("Valida");
         this.retornar_exito_reenviado();
@@ -209,7 +209,7 @@ export class ConfirmasmsPage implements OnInit {
       })
     }
     else {
-      await this.validCel.validar_codigo(p.cod_area+""+p.celular, codigo, proceso_alta,this.intentos).then(data => {
+      await this.validCel.validar_codigo(p.cod_pais.toString()+p.cod_area.toString()+p.celular.toString(), codigo, proceso_alta,this.intentos).then(data => {
         this.values=[];
         this.retornar_exito();
       }).catch(err => {
@@ -232,7 +232,7 @@ export class ConfirmasmsPage implements OnInit {
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
     console.log(p);
     p["valida_sms"] = true;
-    p["proceso_alta"] = localStorage.getItem("id_proceso_alta");
+    p["proceso_alta"] = p.proceso_alta;
     const navigationExtras: NavigationExtras = {
       queryParams: {
 

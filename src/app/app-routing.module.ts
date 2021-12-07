@@ -3,11 +3,12 @@ import { PatronGuard } from './patron.guard';
 import { ProcesoAltaGuard } from './proceso-alta.guard';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { ValidacionEmpresaGuard } from './validacion-empresa.guard';
 
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),canActivate: [AuthGuardGuard,PatronGuard,ProcesoAltaGuard]
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),canActivate: [AuthGuardGuard,PatronGuard,/*ProcesoAltaGuard,*/ValidacionEmpresaGuard]
   },
   {
     path: '',
@@ -351,10 +352,20 @@ const routes: Routes = [
   {
     path: 'comprobante',
     loadChildren: () => import('./comprobante/comprobante.module').then( m => m.ComprobantePageModule)
-  },  {
+  },
+  {
     path: 'notificaciones',
     loadChildren: () => import('./notificaciones/notificaciones.module').then( m => m.NotificacionesPageModule)
+  },
+  {
+    path: 'personapfpj',
+    loadChildren: () => import('./personapfpj/personapfpj.module').then( m => m.PersonapfpjPageModule)
+  },
+  {
+    path: 'confirmaciones',
+    loadChildren: () => import('./confirmaciones/confirmaciones.module').then( m => m.ConfirmacionesPageModule)
   }
+
 
 
  ];

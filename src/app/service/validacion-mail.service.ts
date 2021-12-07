@@ -43,6 +43,17 @@ export class ValidacionMailService extends ServiceService{
       });
     });
   }
+  reenviar(){
+    httpOptions.headers.token=localStorage.getItem("token");
+    return new Promise((resolve, reject) => {
+      this.get<respuesta>('api/validamail/reenviar',httpOptions).subscribe((data) => {
+        if(data.resultado==false){
+          reject("error interno al enviar email.");
+        }
+        return resolve(data.extras[0].data.url);
+      });
+    });
+  }
   existe(mail,token){
     httpOptions.headers.token=token;
     return new Promise((resolve, reject) => {
@@ -56,5 +67,16 @@ export class ValidacionMailService extends ServiceService{
       });
     });
   }
-  
+  reenviar_empresa(){
+    httpOptions.headers.token=localStorage.getItem("token");
+    return new Promise((resolve, reject) => {
+      var postParams = ({});
+      this.post<respuesta>('api/validamailreenvio/reenvio_empresa',postParams,httpOptions).subscribe((data) => {
+        if(data.resultado==false){
+          reject("error interno al enviar email.");
+        }
+        return resolve(data.extras[0].data.url);
+      });
+    });
+  }
 }

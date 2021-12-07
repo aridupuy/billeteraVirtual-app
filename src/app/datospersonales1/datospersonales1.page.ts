@@ -32,7 +32,7 @@ export class Datospersonales1Page implements OnInit {
   public numero;
   public piso;
   public depto;
-  
+  public pfpj;
 
   
 
@@ -43,6 +43,7 @@ export class Datospersonales1Page implements OnInit {
     if (p != null) {
       this.dni = p.dni;
       this.sexo = p.sexo;
+      this.pfpj=p.pfpj;
       this.renaper.validar_dni(p.dni, p.sexo).then(data => {
         console.log(JSON.stringify(data));
         this.apellido = data.apellido;
@@ -58,6 +59,7 @@ export class Datospersonales1Page implements OnInit {
         this.numero = data.numero;
         this.piso = data.piso;
         this.depto = data.departamento;
+        
         let cuit;
         if(data["cuit"]!=undefined){
           cuit = data.cuit; 
@@ -149,6 +151,7 @@ export class Datospersonales1Page implements OnInit {
     p["nombre_completo"] = this.nombre_completo
     p["nombre"] = this.nombre
     p["apellido"] = this.apellido
+    p["pfpj"] = this.pfpj
     // let r =  p;
     // r["foto_frente_dni"]="";
     // r["foto_dorso_dni"]="";
@@ -165,6 +168,7 @@ export class Datospersonales1Page implements OnInit {
       replaceUrl: true
     };
     this.navCtrl.navigateForward("datospersonales2",navigationExtras);
+    
   }
 
 }

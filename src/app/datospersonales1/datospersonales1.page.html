@@ -15,14 +15,18 @@
     <div class="form">
       <div class="input-container">
         <h2 class="full">CUIL/CUIT</h2>
-        <ion-item class="cuil-1">     
+        <ion-item class="cuil-1" *ngIf="pfpj=='pf'">     
           <ion-input type="tel" pattern="[0-9]*" maxlength="2" readonly="false" class="align-center" placeholder="" #cuil1 [(ngModel)]="cuit1" (keyup)="onKeyUp($event,1)"></ion-input>
         </ion-item>
   
-        <ion-item class="cuil-2" >
-          <ion-input maxlength="8" readonly="true" type="text" class="align-center" placeholder="12345678" [(ngModel)]="dni"></ion-input>
+        <ion-item class="cuil-2" *ngIf="pfpj=='pf'">
+          <ion-input   maxlength="8"  readonly="true" type="text" class="align-center" placeholder="12345678" [(ngModel)]="dni"></ion-input>
         </ion-item>
-        <ion-item class="cuil-3" >
+
+        <ion-item class="cuil-2" *ngIf="pfpj=='pj'">
+          <ion-input   maxlength="11"  readonly="true" type="text" class="align-center" placeholder="12345678" [(ngModel)]="dni"></ion-input>
+        </ion-item>
+        <ion-item class="cuil-3" *ngIf="pfpj=='pf'">
           <ion-input maxlength="1" readonly="false" type="tel" pattern="[0-9]*" class="align-center" placeholder="" #cuil2 (keyup)="onKeyUp($event,2)" [(ngModel)]="cuit2"></ion-input>
         </ion-item>      
       </div>
@@ -46,10 +50,10 @@
     </div>
   </div>
   <div class="onboarding-btn-group">
-    <div class="btn-round inactivo" *ngIf="!cuit1 || !cuit2 || !estadoCivil || !ocupacion">
+    <div class="btn-round inactivo" *ngIf="(!cuit1 || !cuit2 || !estadoCivil || !ocupacion) && pfpj!=='pj'">
       Continuar
     </div>
-    <div class="btn-round activo" *ngIf="cuit1 && cuit2 && estadoCivil && ocupacion" (click)="Continuar()">
+    <div class="btn-round activo" *ngIf="(cuit1 && cuit2 && estadoCivil && ocupacion) || pfpj=='pj'" (click)="Continuar()">
       Continuar
     </div>
   </div>

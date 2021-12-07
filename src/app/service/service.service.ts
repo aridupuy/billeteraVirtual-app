@@ -71,7 +71,7 @@ export class ServiceService extends HttpClient {
       //.pipe<T>(
       map((data) => {
         AppComponent.cargando = false;
-        if (data.hasOwnProperty(0) && data[0].hasOwnProperty('token') || data.hasOwnProperty('tokenError') ) {
+        if ((data.hasOwnProperty(0) && data[0].hasOwnProperty('token')) || data.hasOwnProperty('token') || data.hasOwnProperty('tokenError') ) {
           return data as unknown as T;
         }
         // tslint:disable-next-line: comment-format

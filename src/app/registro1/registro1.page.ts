@@ -1,8 +1,9 @@
 import { ValidacionCelService } from '../service/validacion-cel.service';
 import { LoginBoService } from '../service/login-bo.service';
+import { ElementRef } from '@angular/core';
 import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavController } from '@ionic/angular';
 
 @Component({
@@ -11,6 +12,7 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./registro1.page.scss'],
 })
 export class Registro1Page implements OnInit {
+  @ViewChild("cod_pais") cod_pais:ElementRef;
   public params;
   public codigo;
   public cargando=false;
@@ -19,24 +21,29 @@ export class Registro1Page implements OnInit {
   public codArea;
   public celular;
   public dni;
+  public pfpj;
   constructor(public route: ActivatedRoute, public router: Router,private navCtrl : NavController,public validCel:ValidacionCelService,public loginBo:LoginBoService) {}
 
   ngOnInit() {
+    let  p  = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
+    console.log(p);
+    this.pfpj=p.pfpj;
   }
   async ConfirmaSms(){
     let  p  = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
     console.log(p);
+    this.pfpj=p.pfpj;
     let proceso_alta = localStorage.getItem("proceso_alta");
       await this.loginBo.login().then(async token=>{
         console.log("logueado");
-        console.log(this.codArea+this.celular);
+        console.log(this.obtener_codigo_pais()+this.codArea+this.celular);
         console.log(this.codArea);
         this.cargando=true;
-          await this.validCel.obtener_codigo("54"+this.codArea.toString()+this.celular.toString(),token).then( data=>{
+          await this.validCel.obtener_codigo(this.obtener_codigo_pais()+this.codArea.toString()+this.celular.toString(),token).then( data=>{
           //   console.log("codigo enviado");
             const navigationExtras: NavigationExtras = {
               queryParams: {
-                param: JSON.stringify({email:p.email,password:p.password,acepta:p.acepta,cod_area:this.codArea,celular:this.celular,dni:this.dni})
+                param: JSON.stringify({email:p.email,password:p.password,acepta:p.acepta,cod_pais:this.obtener_codigo_pais(),cod_area:this.codArea,celular:this.celular,dni:this.dni,pfpj:p.pfpj,proceso_alta:p.proceso_alta})
               }
             };
             // console.log(navigationExtras);
@@ -47,9 +54,14 @@ export class Registro1Page implements OnInit {
         });
     // this.navCtrl.navigateForward(["confirmasms",{}]);
   }
+
+  obtener_codigo_pais(){
+    console.log(this.cod_pais.nativeElement.innerHTML);
+    return this.cod_pais.nativeElement.innerHTML.replace("+","");
+  }
   validar_celular(){
     
-    let result = ("54"+this.codArea+this.celular).match(/^[+]?[0-9]{2}([0-9]{2}[0-9]{8})$/);
+    let result = (this.obtener_codigo_pais()+this.codArea+this.celular).match(/^[+]?[0-9]{2}([0-9]{2}[0-9]{8})$/);
     if(result!==null){
         this.errorCel=false;
     }

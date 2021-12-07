@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="IrAtras()" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Persona Fisica o juridica</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content center>
+<div class="contenedor-90">
+  <h1 class="align-left">
+    Hola, que bueno que estás acá
+  </h1>
+  <p class="align-left"> Necesitamos saber si va a dar de alta una Persona o una Empresa.</p>
+  <ion-grid>
+    <ion-radio-group>
+      <ion-list-header>
+        <ion-label>
+          Seleccioná una opcion
+        </ion-label>
+      </ion-list-header>
+      <div class="contenedor" >
+        <ion-item class="cuadrado" (click)="validar('pf',pf)" #pf>
+          <ion-img src="assets/img/fabrica.svg"></ion-img>
+          <ion-label>Persona Fisica</ion-label>
+          <ion-radio value="pf"></ion-radio>
+        </ion-item>
+    
+        <ion-item class="cuadrado" (click)="validar('pj',pj)" #pj>
+          <ion-img src="assets/img/fabrica.svg"></ion-img>
+          <ion-label>Empresa</ion-label>
+          <ion-radio value="pj"></ion-radio>
+        </ion-item>
+      </div>
+    </ion-radio-group>
+  </ion-grid>
+
+  
+</div>
+<div class="onboarding-btn-group">
+  <div class="btn-round inactivo" *ngIf="!valid">
+    Continuar
+  </div>
+  <div class="btn-round activo" *ngIf="valid" (click)="Continuar()">
+    Continuar
+  </div>
+</div>
+</ion-content>
+<ion-footer>
+  <ion-progress-bar color="primary" value="0"></ion-progress-bar>
+</ion-footer>
+<!-- <div class="arriba" *ngIf="cargando">
+  <ion-spinner name="crescent"></ion-spinner>
+  <div  >
+      <ion-label>Validando Datos espere...</ion-label>
+  </div>
+  
+</div> -->
