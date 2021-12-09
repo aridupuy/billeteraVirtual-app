@@ -72,14 +72,13 @@ export class MyHammerConfig extends HammerGestureConfig {
     BackgroundMode,
     Cookie,
     ServiceService,
-    
+    LocalNotifications,
     UsuarioService,
     Libs,
     Pago,
     UniqueDeviceID,
     FcmService,
     FCM,
-    LocalNotifications,
     {
       provide: HAMMER_GESTURE_CONFIG,
       useClass: MyHammerConfig

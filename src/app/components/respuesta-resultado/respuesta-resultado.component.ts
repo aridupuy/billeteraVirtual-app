@@ -1,4 +1,4 @@
-import { Observable } from './../../classes/observable';
+import { Observable } from '../../classes/observable';
 import { NavController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, Input, Inject } from '@angular/core';

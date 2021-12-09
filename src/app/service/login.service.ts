@@ -57,6 +57,9 @@ export class LoginService extends ServiceService{
         
         await localStorage.setItem("token", data[0].token);
         await localStorage.setItem("cuentas", JSON.stringify(data));
+        await localStorage.setItem("nombreEmpresa", data[0].titular[0]);
+        await localStorage.setItem("inicialesEmpresa", data[0].iniciales);
+        
         this.token = data[0].token;
         return resolve(this.token);
       });

@@ -4,8 +4,6 @@ import { NavController } from '@ionic/angular';
 import { ProcesoEstadoService } from './service/proceso-estado.service';
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router, NavigationExtras } from '@angular/router';
-import { Observable } from 'rxjs';
-import { Validaridentidad1Page } from './validaridentidad1/validaridentidad1.page';
 export interface datosProceso {
   valida_mail: Boolean | any,
   valida_ident: Boolean | any,
@@ -45,7 +43,7 @@ export class ProcesoAltaGuard implements CanActivate {
         if(data.estado_cuenta==4){
           const navigationExtras: NavigationExtras = {
             queryParams: {
-              param: JSON.stringify({ login: true, Mensaje: "Tu cuenta ha sido bloqueada, por favor ponete en contacto con nosotros." })
+              param: JSON.stringify({ login: true, valido:true,Mensaje: "Tu cuenta ha sido bloqueada, por favor ponete en contacto con nosotros." })
             }
           };
           this.navCtrl.navigateForward("home", navigationExtras);
@@ -54,13 +52,13 @@ export class ProcesoAltaGuard implements CanActivate {
         else if(data.estado_cuenta==6){
           const navigationExtras: NavigationExtras = {
             queryParams: {
-              param: JSON.stringify({ login: true, Mensaje: "Tu cuenta se encuentra en validacion manual, en 72hs tus datos seran procesados." })
+              param: JSON.stringify({ login: true,valido:true, Mensaje: "Tu cuenta se encuentra en validacion manual, en 72hs tus datos seran procesados." })
             }
           };
           this.navCtrl.navigateForward("home", navigationExtras);
           resp = true
         }
-        else if (data.estado_cuenta!=1 &&(data.valida_ident == null || data.valida_ident == undefined)) {
+        else if ((data.valida_ident == null || data.valida_ident == undefined)) {
           const navigationExtras: NavigationExtras = {
             queryParams: {
               param: JSON.stringify({ login: true,valida_ident:true, Mensaje: "Tienes que validar tu Identidad para operar" })

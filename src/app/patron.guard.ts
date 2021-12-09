@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { IngresaPinPage } from './ingresa-pin/ingresa-pin.page';
-import { IngresaPinConfirmaPage } from './ingresa-pin-confirma/ingresa-pin-confirma.page';
+import { IngresaPinConfirmaPage } from './pages/seguridad/ingresa-pin-confirma/ingresa-pin-confirma.page';
 import { ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { ServiceService } from './service/service.service';
 import * as CryptoJS from 'crypto-js';
 import { Platform } from '@ionic/angular';
+import { IngresaPinPage } from './pages/seguridad/ingresa-pin/ingresa-pin.page';
 
 export const pass = "TeganamosCon9";
 @Injectable({

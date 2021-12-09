@@ -1,19 +1,17 @@
 <ion-app>
-  <ion-menu side="start" menuId="menuPrincipal" contentId="main" class="menu-custom" type="overlay">
+  <ion-menu side="start" menuId="menuPrincipal" contentId="main" class="menu-custom" type="overlay" *ngIf="mostrar_menu() && es_valido()">
     <ion-content class="menu">
       <div class="user-header" [class]="addClass()">
         <div class="avatar" >
-          {{get_iniciales()}}
+          {{get_iniciales_empresa()}}
         </div>
         <div class="user-info">
-          <span class="bienvenida">Hola,<span class="username"> {{get_usuario()}}</span></span>
+          <span class="bienvenida"><span class="username"> {{get_empresa()}}</span></span>
         </div>
         <div>
           <ion-button shape="round" color="dark" fill="outline" class="subboton" (click)="cambiar()">Cambiar Cuenta</ion-button>
         </div>
       </div>
-    
-      
        <div class="menu-lista" *ngFor="let grupo of get_menu() | keyvalue">
         <a (click)="Ir('home')" class="opcion-menu" *ngIf="grupo.key=='0'">
           <img src="assets/img/logo_home.png" alt=""  >
@@ -29,10 +27,8 @@
           <img src="assets/img/menu/ayuda.svg" alt="">
           <p>Ayuda</p>
         </a>
-        <a (click)="MenuLogout()" class="opcion-menu">
-          <img src="assets/img/menu/logout.svg" alt="">
-          <p>Cerrar Sesión</p>
-        </a>
+        <app-logout></app-logout>
+        
       </div>
     </ion-content>
   </ion-menu>

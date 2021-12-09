@@ -35,10 +35,10 @@ export class ValidacionCelService extends ServiceService{
 
   //URL = "http://localhost:358/";
 
-  obtener_codigo(cel,token){
+  obtener_codigo(cel,token,proceso_alta){
     httpOptions.headers.token=token;
     console.log("aca service: "+cel);
-    var postParams = ({ cel: cel, id_proceso_alta: localStorage.getItem("proceso_alta") });
+    var postParams = ({ cel: cel, id_proceso_alta: proceso_alta });
     return new Promise((resolve, reject) => {
       this.post<result>('api/validasms/validar',postParams, httpOptions).subscribe((data) => {
         if (data.resultado != null && data.resultado == false) {
@@ -48,12 +48,13 @@ export class ValidacionCelService extends ServiceService{
       });
     });
   }
-  validar_codigo(cel,codigo,procesoAlta,intento){
-    httpOptions.headers.token=localStorage.getItem("proceso_alta");
+  validar_codigo(cel,codigo,token,procesoAlta,intento){
+    httpOptions.headers.token=token;
     return new Promise((resolve, reject) => {
-      var postParams = ({ cel: cel, codigo:codigo,id_proceso_alta: localStorage.getItem("proceso_alta"),intentos:intento});
+      var postParams = ({ cel: cel, codigo:codigo,id_proceso_alta: procesoAlta,intentos:intento});
       console.log(postParams);
       this.post<result>( 'api/validasms/validar_codigo',postParams,httpOptions).subscribe((data) => {
+        console.log(data);
         if (data.resultado != null && data.resultado == false) {
           console.log(data);
           reject({log:data.log,intentos:data.extras[0].intentos});

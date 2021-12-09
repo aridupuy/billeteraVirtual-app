@@ -1,12 +1,13 @@
 import { environment } from './../environments/environment';
 import { UsuarioService } from './service/usuario.service';
-import { IngresaPinPage } from './ingresa-pin/ingresa-pin.page';
 import { ServiceService } from './service/service.service';
 import { Pago } from './classes/Pago';
-import { HomePage } from './home/home.page';
-import { AmigosPage } from './amigos/amigos.page';
-import { IngresoDineroPage } from './ingreso-dinero/ingreso-dinero.page';
-import { CambiarCuentaPage } from './cambiar-cuenta/cambiar-cuenta.page';
+import { HomePage } from './pages/modulos/home/home.page';
+
+import { CambiarCuentaPage } from './components/cambiar-cuenta/cambiar-cuenta.page';
+import {
+    IngresaPinPage
+} from './pages/seguridad/ingresa-pin/ingresa-pin.page';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { Platform } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
@@ -15,6 +16,8 @@ import { NavController } from '@ionic/angular';
 import { menuController } from "@ionic/core";
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Deeplinks, DeeplinksOriginal } from '@ionic-native/deeplinks'
+import { AmigosPage } from './pages/modulos/amigos/amigos.page';
+import { IngresoDineroPage } from './pages/modulos/ingreso-dinero/ingreso-dinero.page';
 
 
 @Component({
@@ -24,12 +27,17 @@ import { Deeplinks, DeeplinksOriginal } from '@ionic-native/deeplinks'
 })
 export class AppComponent implements OnInit {
   public usuario;
+  public empresa;
   public iniciales;
+  public iniciales_empresa;
   public modalDataResponse: any;
   public static cargando = false;
   public static splash=true;
   public static menu = Array();
   public static DIAS = 3;
+  public static login=false;
+  public static token;
+  public static validado=true;
   // public static _this;
     constructor(private platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen, private pago: Pago, public service: ServiceService, public modalCtrl: ModalController, public usuarioService: UsuarioService, public navCtrl: NavController) {
       // console.log(platform.is("cordova"));
@@ -38,7 +46,12 @@ export class AppComponent implements OnInit {
       this.statusBar.backgroundColorByHexString('#000000');
       // AppComponent._this = this;
     }
-  
+  mostrar_menu(){
+    return AppComponent.login;
+  }
+  es_valido(){
+    return AppComponent.validado;
+  }
   ngOnInit() {
     
     console.log("ngOnInit");
@@ -70,7 +83,7 @@ export class AppComponent implements OnInit {
         // console.log("aca");
         localStorage.setItem("nombre", this.usuario);
         localStorage.setItem("iniciales", this.iniciales);
-      
+        AppComponent.login=true;
         // console.log(this.usuario);
       }).catch(err=>{
         console.log(err);
@@ -129,14 +142,19 @@ export class AppComponent implements OnInit {
 
     return this.iniciales;
   }
-  get_usuario(){
-    if(!this.usuario)
-      this.usuario = localStorage.getItem("nombre");
-    return this.usuario;
+  get_iniciales_empresa(){
+    if(!this.iniciales_empresa)
+    this.iniciales_empresa = localStorage.getItem("inicialesEmpresa");
+
+  return this.iniciales_empresa;
+  }
+  get_empresa(){
+    if(!this.empresa)
+      this.empresa= localStorage.getItem("nombreEmpresa");
+    return this.empresa;
   }
   get_menu(){
-    
-    return AppComponent.menu;
+      return AppComponent.menu;
   }
   addClass(){
     if(this.platform.is("ios"))
@@ -231,10 +249,7 @@ export class AppComponent implements OnInit {
     this.navCtrl.navigateForward("ayuda");
     menuController.close()
   }
-  MenuLogout() {
-    this.navCtrl.navigateForward("logout");
-    menuController.close()
-  }
+  
   async cambiar(){
     const modal3 = await this.modalCtrl.create({
       component: CambiarCuentaPage,

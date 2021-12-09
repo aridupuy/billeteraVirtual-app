@@ -46,7 +46,7 @@ export class ValidacionMailService extends ServiceService{
   reenviar(){
     httpOptions.headers.token=localStorage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.get<respuesta>('api/validamail/reenviar',httpOptions).subscribe((data) => {
+      this.get<respuesta>('api/validamailreenvio/reenviar',httpOptions).subscribe((data) => {
         if(data.resultado==false){
           reject("error interno al enviar email.");
         }
