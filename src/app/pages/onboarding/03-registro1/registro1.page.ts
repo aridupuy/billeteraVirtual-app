@@ -12,64 +12,68 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./registro1.page.scss'],
 })
 export class Registro1Page implements OnInit {
-  @ViewChild("cod_pais") cod_pais:ElementRef;
+  @ViewChild("cod_pais") cod_pais: ElementRef;
   public params;
   public codigo;
-  public cargando=false;
-  public errorCod=false;
-  public errorCel=false;
+  public cargando = false;
+  public errorCod = false;
+  public errorCel = false;
   public codArea;
   public celular;
   public dni;
   public pfpj;
-  constructor(public route: ActivatedRoute, public router: Router,private navCtrl : NavController,public validCel:ValidacionCelService,public loginBo:LoginBoService) {}
+  constructor(public route: ActivatedRoute, public router: Router, private navCtrl: NavController, public validCel: ValidacionCelService, public loginBo: LoginBoService) { }
 
   ngOnInit() {
-    let  p  = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
-    console.log(p);
-    this.pfpj=p.pfpj;
+    let p = JSON.parse(localStorage.getItem("varsOnboarding"));
+    this.pfpj = p.pfpj;
+    localStorage.setItem("onboardingLastPage","registro1");
   }
-  async ConfirmaSms(){
-    let  p  = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
-    console.log(p);
-    this.pfpj=p.pfpj;
-    let proceso_alta = localStorage.getItem("proceso_alta")!=null?localStorage.getItem("proceso_alta"):p.proceso_alta;
-      await this.loginBo.login().then(async token=>{
-        console.log("logueado");
-        console.log(this.obtener_codigo_pais()+this.codArea+this.celular);
-        console.log(this.codArea);
-        this.cargando=true;
-          await this.validCel.obtener_codigo(this.obtener_codigo_pais()+this.codArea.toString()+this.celular.toString(),token,proceso_alta).then( data=>{
+  async ConfirmaSms() {
+    let p = JSON.parse(localStorage.getItem("varsOnboarding"));
+    this.pfpj = p.pfpj;
+    let proceso_alta = localStorage.getItem("proceso_alta") != null ? localStorage.getItem("proceso_alta") : p.proceso_alta;
+    await this.loginBo.login().then(async token => {
+      console.log("logueado");
+      console.log(this.obtener_codigo_pais() + this.codArea + this.celular);
+      console.log(this.codArea);
+      this.cargando = true;
+      if (JSON.parse(localStorage.getItem("validaciones")).cel == false)
+        await this.validCel.obtener_codigo(this.obtener_codigo_pais() + this.codArea.toString() + this.celular.toString(), token, proceso_alta).then(data => {
           //   console.log("codigo enviado");
-            const navigationExtras: NavigationExtras = {
-              queryParams: {
-                param: JSON.stringify({email:p.email,password:p.password,acepta:p.acepta,cod_pais:this.obtener_codigo_pais(),cod_area:this.codArea,celular:this.celular,dni:this.dni,pfpj:p.pfpj,proceso_alta:p.proceso_alta})
-              }
-            };
-            // console.log(navigationExtras);
-            this.cargando=false;
-            this.navCtrl.navigateForward("confirmasms", navigationExtras);
-          })
-          .catch(err=>{console.log(err); return;});
+          p["cod_pais"] = this.obtener_codigo_pais();
+          p["cod_area"] = this.codArea;
+          p["celular"] = this.celular;
+          p["dni"] = this.dni;
+          p["dni"] = this.dni;
+          localStorage.setItem("varsOnboarding", JSON.stringify(p));
+          // console.log(navigationExtras);
+          this.cargando = false;
+          this.navCtrl.navigateForward("confirmasms");
+        })
+          .catch(err => { console.log(err); return; });
+      else{
+        this.navCtrl.navigateForward("cuentacreada");
+      }
         });
     // this.navCtrl.navigateForward(["confirmasms",{}]);
   }
 
-  obtener_codigo_pais(){
+  obtener_codigo_pais() {
     console.log(this.cod_pais.nativeElement.innerHTML);
-    return this.cod_pais.nativeElement.innerHTML.replace("+","");
+    return this.cod_pais.nativeElement.innerHTML.replace("+", "");
   }
-  validar_celular(){
-    
-    let result = (this.obtener_codigo_pais()+this.codArea+this.celular).match(/^[+]?[0-9]{2}([0-9]{2}[0-9]{8})$/);
-    if(result!==null){
-        this.errorCel=false;
+  validar_celular() {
+
+    let result = (this.obtener_codigo_pais() + this.codArea + this.celular).match(/^[+]?[0-9]{2}([0-9]{2}[0-9]{8})$/);
+    if (result !== null) {
+      this.errorCel = false;
     }
-    else{
-      this.errorCel=true;
+    else {
+      this.errorCel = true;
     }
-    }
-  ionViewDidLeave(){
-   this.codigo=null;
+  }
+  ionViewDidLeave() {
+    this.codigo = null;
   }
 }

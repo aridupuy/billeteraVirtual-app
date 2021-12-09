@@ -32,7 +32,14 @@ export class DatospersonalesPage implements OnInit {
   public cargando = true;
   public pfpj;
   ngOnInit() {
-    let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
+    localStorage.setItem("onboardingLastPage","datospersonales");
+
+    let  p  = JSON.parse(localStorage.getItem("varsOnboarding"));
+    // p["politico_expuesto"]= (this.form.pe_no)? !this.form.pe_no : this.form.pe_si;
+    // p["sujeto_obligado"]=(this.form.so_no)? !this.form.so_no : this.form.so_si
+    // p["fatca"]=(this.form.fat_no)? !this.form.fat_no : this.form.fat_si
+    // localStorage.setItem("varsOnboarding",JSON.stringify(p));
+    // let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
     if (p != null) {
       this.dni = p.dni;
       this.sexo = p.sexo;
@@ -64,9 +71,9 @@ export class DatospersonalesPage implements OnInit {
     }
   }
   Continuar() {
-    let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
+    let  p  = JSON.parse(localStorage.getItem("varsOnboarding"));
     if (p == null)
-      p = {};
+     p = {};
     p["apellido"] = this.apellido;
     p["sexo"] = this.sexo;
     p["nombre"] = this.nombre;
@@ -81,17 +88,13 @@ export class DatospersonalesPage implements OnInit {
     p["piso"] = this.piso;
     p["depto"] = this.depto;
     p["cuit"] = this.cuit;
-    p["pfpj"]=this.pfpj;
-    const navigationExtras: NavigationExtras = {
-      queryParams: {
-        param: JSON.stringify(p)
-      },
-      replaceUrl: true
-    };
+    
+    localStorage.setItem("varsOnboarding",JSON.stringify(p));
+    
     if(this.pfpj=="pf")
-      this.navCtrl.navigateForward("datospersonales1", navigationExtras);
+      this.navCtrl.navigateForward("datospersonales1");
     else if(this.pfpj=='pj'){
-      this.navCtrl.navigateForward("datospersonales2",navigationExtras);
+      this.navCtrl.navigateForward("datospersonales2");
     }
     
   }

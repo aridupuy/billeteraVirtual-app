@@ -20,30 +20,19 @@ export class ValidaridentidadPage implements OnInit {
   public imagen;
 
   ngOnInit() {
-
+    localStorage.setItem("onboardingLastPage","validaridentidad");
   }
   Continuar(){
-    let  p  = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
+    let p = JSON.parse(localStorage.getItem("varsOnboarding"));
     
-    const navigationExtras: NavigationExtras = {
-      queryParams: {
-        
-        param: JSON.stringify(p)
-      }
-    };
+    
 
-    this.navCtrl.navigateForward("validaridentidad1",navigationExtras);
+    this.navCtrl.navigateForward("validaridentidad1");
   }
   NoPuedo(){
-    let  p  = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
+    let json = JSON.parse(localStorage.getItem("varsOnboarding"));
     
-    const navigationExtras: NavigationExtras = {
-      queryParams: {
-        
-        param: JSON.stringify(p)
-      }
-    };
-    this.navCtrl.navigateForward("validaridentidad-mastarde",navigationExtras);
+    this.navCtrl.navigateForward("validaridentidad-mastarde");
   }
   
 }

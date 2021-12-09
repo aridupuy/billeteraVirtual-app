@@ -12,8 +12,10 @@ export class ValidaridentidadProblemaConfirmPage implements OnInit {
 
 
   ngOnInit() {
+    localStorage.setItem("onboardingLastPage","validaridentidadproblemaconfirm");
   }
   Registro(){
+    
     this.navCtrl.navigateForward(["registro-enespera",{}]);
   }
 }

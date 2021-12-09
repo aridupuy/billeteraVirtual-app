@@ -44,15 +44,20 @@ export class RegistroPage implements OnInit {
   constructor(private navCtrl: NavController, public modalCtrl: ModalController, public route: ActivatedRoute, public router: Router,
     public validMail: ValidacionMailService,
     public iniciaProceso: InicioProcesoService, public loginBo: LoginBoService) {
-      if(localStorage.getItem("onboarding")!="1"){
-        localStorage.setItem("onboarding","1");
-      }
-      
+    if (localStorage.getItem("onboarding") != "1") {
+      localStorage.setItem("onboarding", "1");
+    }
+
 
 
   }
 
   ngOnInit() {
+    let pagina = localStorage.getItem("onboardingLastPage");
+    if(pagina!=null)
+      this.navCtrl.navigateForward(pagina);
+    
+ 
   }
   validar_mail() {
     console.log(this.email);
@@ -109,9 +114,10 @@ export class RegistroPage implements OnInit {
       await this.loginBo.login().then(async token => {
         console.log("logueado");
         this.cargando = true;
-        await this.iniciaProceso.iniciar(token,this.email).then(async (id_proceso_alta: string) => {
+        await this.iniciaProceso.iniciar(token, this.email).then(async (data: any) => {
           // console.log(id_proceso_alta);
-          localStorage.setItem("proceso_alta", id_proceso_alta);
+          localStorage.setItem("proceso_alta", data.id_proceso_alta);
+          localStorage.setItem("validaciones", JSON.stringify(data.validaciones));
           // antes que esto va un endṕoint para validar la preexistencia del mail
           let mailNoExiste = true;
           await this.validMail.existe(this.email, token).then((data) => {
@@ -120,29 +126,23 @@ export class RegistroPage implements OnInit {
             mailNoExiste = false;
             this.navCtrl.navigateForward("registro-cuentaexistente");
             return false;
-            
+
           })
-          if (mailNoExiste){
-            await this.validMail.validar(this.email, token)
-              .then(async url => {
-                console.log("mail enviado");
-                this.navCtrl.navigateForward(["registro1", {}]);
-                const navigationExtras: NavigationExtras = {
-                  queryParams: {
-                    param: JSON.stringify({ email: this.email, password: this.password, acepta: this.checkterms,proceso_alta:id_proceso_alta })
-                  }
-                };
-                console.log(navigationExtras);
-                this.cargando = false;
-                this.navCtrl.navigateForward("personapfpj", navigationExtras);
-                // })
-                // .catch(err=>{console.log(err); return;});
-              }).catch(err => { console.log(err); return; })
-            }
-            else{
-              return false;
-            }
-        }).catch(log=>{
+          if (mailNoExiste) {
+            if(JSON.parse(localStorage.getItem("validaciones")).mail==false)
+                await this.validMail.validar(this.email, token)
+                  .then(async url => {
+                    console.log("mail enviado");
+                    this.navCtrl.navigateForward(["registro1", {}]);
+                    localStorage.setItem("varsOnboarding", JSON.stringify({ email: this.email, password: this.password, acepta: this.checkterms, proceso_alta: data.id_proceso_alta }));
+                    this.cargando = false;
+                    this.navCtrl.navigateForward("personapfpj");
+                  }).catch(err => { console.log(err); return; })
+          }
+          else {
+            return false;
+          }
+        }).catch(log => {
           this.navCtrl.navigateForward("registro-cuentaexistente");
         });
       });

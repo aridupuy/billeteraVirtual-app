@@ -15,15 +15,9 @@ export class CuentacreadaPage implements OnInit {
   constructor(private navCtrl : NavController,public route: ActivatedRoute, public router: Router) {}
 
   ngOnInit() {
+    localStorage.setItem("onboardingLastPage","cuentacreada");
   }
   Legales(){
-    let  p  = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
-    const navigationExtras: NavigationExtras = {
-      queryParams: {
-        
-        param: JSON.stringify(p)
-      }
-    };
-    this.navCtrl.navigateForward("preguntaslegales",navigationExtras);
+    this.navCtrl.navigateForward("preguntaslegales");
   }
 }

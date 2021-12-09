@@ -10,6 +10,7 @@ export class RegistroEnesperaPage implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    localStorage.setItem("onboardingLastPage","registro-enespera");
   }
 
 }

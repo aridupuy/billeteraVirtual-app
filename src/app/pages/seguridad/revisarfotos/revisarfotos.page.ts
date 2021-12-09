@@ -24,6 +24,7 @@ export class RevisarfotosPage implements OnInit, AfterViewInit {
   public caraDni;
   ngOnInit() {
     this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+    localStorage.setItem("onboardingLastPage","revisarfotos");
   }
   ngAfterViewInit(): void {
 

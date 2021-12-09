@@ -43,7 +43,20 @@ export class AuthGuardGuard implements CanActivate {
     }).catch(data => {
       localStorage.removeItem("token");
       this.router.navigateByUrl("welcome");
+      let varsOnboarding = localStorage.getItem("varsOnboarding");
+      let onboardingLastPage = localStorage.getItem("onboardingLastPage");
+      let validaciones = localStorage.getItem("validaciones");
+      let onboarding= localStorage.getItem("onboarding");
+      let proceso_alta= localStorage.getItem("proceso_alta");
+
       localStorage.clear();
+
+      localStorage.setItem("varsOnboarding",varsOnboarding);
+      localStorage.setItem("onboardingLastPage",onboardingLastPage);
+      localStorage.setItem("validaciones",validaciones);
+      localStorage.setItem("onboarding",onboarding);
+      localStorage.setItem("proceso_alta",proceso_alta);
+      
       AppComponent.login=false;
       resp = false;
       return false

@@ -31,7 +31,7 @@ export class InicioProcesoService extends ServiceService{
           reject(data.log);
         }
         
-        return resolve(data.extras[0].data.id_proceso_alta);
+        return resolve(data.extras[0].data);
       });
     });
   }

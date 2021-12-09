@@ -39,7 +39,8 @@ export class Datospersonales1Page implements OnInit {
   constructor(private navCtrl : NavController,public route: ActivatedRoute, public Router: Router,public renaper:RenaperService) {}
 
   ngOnInit() {
-    let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
+    localStorage.setItem("onboardingLastPage","datospersonales1");
+    let  p  = JSON.parse(localStorage.getItem("varsOnboarding"));
     if (p != null) {
       this.dni = p.dni;
       this.sexo = p.sexo;
@@ -67,21 +68,10 @@ export class Datospersonales1Page implements OnInit {
         else{
           cuit = data.cuil; 
         }
-        // this.dni = data.dni;
         this.cuit1 = cuit.substr(0,2);
-        // this.dni = 
         this.cuit2 = cuit.substr(cuit.length-1,1);
-        // console.log(this.dni);
-        // console.log(this.cuit1);
-        // console.log(this.cuit2);
       }).catch((err)=>{
           console.log(err);
-          // this.dni = "35362389";
-          // this.cuit1 = "20353623894".substr(0,2);
-          // this.cuit2 = "20353623894".substr("20353623894".length-1,1);
-          // console.log(this.dni);
-          // console.log(this.cuit1);
-          // console.log(this.cuit2);
         });
     }
   }
@@ -131,8 +121,9 @@ export class Datospersonales1Page implements OnInit {
   }
   Continuar(){
 
-    let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
-    
+    let  p  = JSON.parse(localStorage.getItem("varsOnboarding"));
+    // localStorage.setItem("varsOnboarding",JSON.stringify(p));
+
     p["ocupacion"] = this.ocupacion;
     p["estado_civil"] = this.estadoCivil;
     p["cuil_modificado"] = this.cuit2 + p.dni + this.cuit2
@@ -146,28 +137,18 @@ export class Datospersonales1Page implements OnInit {
     p["provincia"] = this.provincia
     p["ciudad"] = this.ciudad
     p["dni"] = this.dni
-    // p["cuit1"] = this.cuit1
     p["fec_nac"] = this.fec_nac
     p["nombre_completo"] = this.nombre_completo
     p["nombre"] = this.nombre
     p["apellido"] = this.apellido
-    p["pfpj"] = this.pfpj
-    // let r =  p;
-    // r["foto_frente_dni"]="";
-    // r["foto_dorso_dni"]="";
-    // r["foto_frente"]="";
-    // r["foto_frente_con_dni"]="";
-    // console.log(JSON.stringify(r));
+    
     if(p.cuil_modificado ==null){
       p.cuit_modificado = p.cuit;
     }
-    const navigationExtras: NavigationExtras = {
-      queryParams: {
-        param: JSON.stringify(p)
-      },
-      replaceUrl: true
-    };
-    this.navCtrl.navigateForward("datospersonales2",navigationExtras);
+    
+    localStorage.setItem("varsOnboarding",JSON.stringify(p));
+    
+    this.navCtrl.navigateForward("datospersonales2");
     
   }
 

@@ -28,6 +28,7 @@ export class Datospersonales2Page implements OnInit {
   public cod_postal=false;
   public act_cod_postal=true;
   ngOnInit() {
+    localStorage.setItem("onboardingLastPage","datospersonales2");
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
     console.log(JSON.stringify(p));
     this.calle = p.direccion;
@@ -43,7 +44,9 @@ export class Datospersonales2Page implements OnInit {
     }
   }
   Continuar() {
-    let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
+    let  p  = JSON.parse(localStorage.getItem("varsOnboarding"));
+    // localStorage.setItem("varsOnboarding",JSON.stringify(p));
+
     // console.log(p);
     let calle=this.calle==undefined?this.calle_mod:this.calle;
     let altura=this.altura==undefined?this.altura_mod:this.altura;
@@ -52,7 +55,7 @@ export class Datospersonales2Page implements OnInit {
     
     
 
-    this.registroService.registrar(p.email,p.nombre_completo,p.password,p.valido_sms,p.acepta,p.cod_area,p.celular,p.foto_frente,p.foto_frente_con_dni,p.foto_dorso_dni,p.foto_frente_dni,p.cuit,p.fecha_nac,p.nacionalidad,p.sexo,p.estado_civil,p.ocupacion,p.provincia,p.ciudad,this.cod_postal,calle,altura,piso,depto,p.fatca,p.politico_expuesto,p.sujeto_obligado,p.cuit,p.cuit_modificado,p.pfpj).then(data=>{
+    this.registroService.registrar(p.email,p.nombre_completo,p.password,p.valido_sms,p.acepta,p.cod_area,p.celular,p.foto_frente,p.foto_frente_con_dni,p.foto_dorso_dni,p.foto_frente_dni,p.cuit,p.fecha_nac,p.nacionalidad,p.sexo,p.estado_civil,p.ocupacion,p.provincia,p.ciudad,this.cod_postal,calle,altura,piso,depto,p.fatca,p.politico_expuesto,p.sujeto_obligado,p.cuit,p.cuit_modificado,p.pfpj,p.proceso_alta).then(data=>{
     let mensaje_titulo = "¡Todo un éxito!";
     let mensaje = "Ahora podés iniciar sesión y comenzar a disfrutar de todos los beneficios de llevar tu billetera en el celular."
     let mensaje2 = "Ya completaste tu registro";  

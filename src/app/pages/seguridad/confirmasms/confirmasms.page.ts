@@ -39,23 +39,14 @@ export class ConfirmasmsPage implements OnInit {
   }
 
   async ngOnInit() {
-    let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
+    let  p  = JSON.parse(localStorage.getItem("varsOnboarding"));
     console.log(p);
     this.telefono = p.cod_pais.toString()+p.cod_area.toString() + p.celular.toString();
     this.revalidar = p.revalidar;
     let detener = false;
     console.log("Envia Codigo");
     console.log(p);
-    let proceso_alta = localStorage.getItem("proceso_alta");
-    // await this.loginBo.login().then(async token => {
-    //   console.log("logueado");
-    //   await this.validCel.obtener_codigo(p.codArea + p.celular, token).then(data => {
-    //     console.log("codigo enviado");
-    //     this.clave1 = this.clave2 = this.clave3 = this.clave4 = this.clave5 = this.clave6 = null;
-    //     this.countdown.restart();
-    //   })
-    //     .catch(err => { console.log(err); return; });
-    // });
+    let proceso_alta = p.proceso_alta;
   }
   onKeyUp(event, index) {
       console.log(event);
@@ -191,9 +182,9 @@ export class ConfirmasmsPage implements OnInit {
     let codigo = this.clave1.toString() + this.clave2 + this.clave3.toString() + this.clave4 + this.clave5.toString() + this.clave6;
     console.log(codigo);
     console.log(this.intentos);
-    let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
+    let  p  = JSON.parse(localStorage.getItem("varsOnboarding"));
     console.log(p);
-    let proceso_alta = localStorage.getItem("proceso_alta")!=null?localStorage.getItem("proceso_alta"):p.proceso_alta;
+    let proceso_alta = p.proceso_alta;
     if (p.login) {
       console.log("REVALIDAR CODIGO");
       console.log(p);
@@ -237,19 +228,13 @@ export class ConfirmasmsPage implements OnInit {
   }
   retornar_exito() {
     this.error_code = false;
-    let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
-    console.log(p);
+    let  p  = JSON.parse(localStorage.getItem("varsOnboarding"));
     p["valida_sms"] = true;
     p["proceso_alta"] = p.proceso_alta;
-    const navigationExtras: NavigationExtras = {
-      queryParams: {
+    localStorage.setItem("varsOnboarding",JSON.stringify(p));
 
-        param: JSON.stringify(p)
-      }
-    };
-    console.log(navigationExtras);
     this.countdown.stop();
-    this.navCtrl.navigateForward("cuentacreada", navigationExtras);
+    this.navCtrl.navigateForward("cuentacreada");
   }
   retornar_error() {
     if(this.intentos>=3){

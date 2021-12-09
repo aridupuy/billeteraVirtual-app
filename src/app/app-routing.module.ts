@@ -42,11 +42,11 @@ const routes: Routes = [
   },
   {
     path: 'cuentacreada',
-    loadChildren: () => import('./pages/onboarding/cuentacreada/cuentacreada.module').then( m => m.CuentacreadaPageModule)
+    loadChildren: () => import('./pages/onboarding/04-cuentacreada/cuentacreada.module').then( m => m.CuentacreadaPageModule)
   },
   {
     path: 'preguntaslegales',
-    loadChildren: () => import('./pages/onboarding/preguntaslegales/preguntaslegales.module').then( m => m.PreguntaslegalesPageModule)
+    loadChildren: () => import('./pages/onboarding/05-preguntaslegales/preguntaslegales.module').then( m => m.PreguntaslegalesPageModule)
   },
   {
     path: 'validaridentidad',
@@ -74,19 +74,19 @@ const routes: Routes = [
   },
   {
     path: 'datospersonales',
-    loadChildren: () => import('./pages/onboarding/datospersonales/datospersonales.module').then( m => m.DatospersonalesPageModule)
+    loadChildren: () => import('./pages/onboarding/06-datospersonales/datospersonales.module').then( m => m.DatospersonalesPageModule)
   },
   {
     path: 'datospersonales1',
-    loadChildren: () => import('./pages/onboarding/datospersonales1/datospersonales1.module').then( m => m.Datospersonales1PageModule)
+    loadChildren: () => import('./pages/onboarding/07-datospersonales1/datospersonales1.module').then( m => m.Datospersonales1PageModule)
   },
   {
     path: 'datospersonales2',
-    loadChildren: () => import('./pages/onboarding/datospersonales2/datospersonales2.module').then( m => m.Datospersonales2PageModule)
+    loadChildren: () => import('./pages/onboarding/08-datospersonales2/datospersonales2.module').then( m => m.Datospersonales2PageModule)
   },
   {
     path: 'registrofinalizado',
-    loadChildren: () => import('./pages/onboarding/registrofinalizado/registrofinalizado.module').then( m => m.RegistrofinalizadoPageModule)
+    loadChildren: () => import('./pages/onboarding/09-registrofinalizado/registrofinalizado.module').then( m => m.RegistrofinalizadoPageModule)
   },
   {
     path: 'ingreso',

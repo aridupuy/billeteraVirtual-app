@@ -66,7 +66,15 @@ export class ProcesarfotosPage implements OnInit {
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
     let fotoDniFrente = p.foto_frente_dni;
     let fotoRostro = p.foto_frente
+    let dniD = p.foto_dorso_dni;
+    let caraDni = p.foto_frente_con_dni;
     let data = { imagen: fotoDniFrente, x: 0, y: 0, width: 1280, height: 640 };
+    let json = JSON.parse(localStorage.getItem("varsOnboarding"));
+    json["fotoRostro"]=fotoRostro;
+    json["fotoDniFrente"]=fotoDniFrente;
+    json["foto_dorso_dni"]=dniD;
+    json["foto_frente_con_dni"]=caraDni;
+    localStorage.setItem("varsOnboarding",JSON.stringify(json));
     console.log(environment.ACTIVAR_TEST);
     console.log(JSON.stringify(p));
     if(p.revalidar==true){
@@ -185,7 +193,7 @@ export class ProcesarfotosPage implements OnInit {
   }
   Continuar() {
     localStorage.setItem("reintentos", null);
-    let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
+    let p = JSON.parse(localStorage.getItem("varsOnboarding"));
     if(p.revalidar==true){
       this.navCtrl.navigateRoot(""); 
       return ;
@@ -195,14 +203,8 @@ export class ProcesarfotosPage implements OnInit {
     p["sexo"] = this.sexo;
     p["nombre"] = this.nombre;
     p["valida_identidad"] = true;
-    const navigationExtras: NavigationExtras = {
-      queryParams: {
-        param: JSON.stringify(p)
-      },
-      replaceUrl: true
-    };
-    
-    this.navCtrl.navigateForward("datospersonales", navigationExtras);
+    localStorage.setItem("varsOnboarding",JSON.stringify(p));
+    this.navCtrl.navigateForward("datospersonales");
   }
   calcular_nombre(tipo) {
     var f = new Date();

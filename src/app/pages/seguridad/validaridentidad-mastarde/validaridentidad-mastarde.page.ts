@@ -12,6 +12,7 @@ export class ValidaridentidadMastardePage implements OnInit {
 
 
   ngOnInit() {
+    localStorage.setItem("onboardingLastPage","validaridentidad-mastarde");
   }
   FotosExistentes(){
     this.navCtrl.navigateForward(["validaridentidad-fotosexistentes",{}]);

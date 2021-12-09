@@ -23,6 +23,7 @@ export class PersonapfpjPage implements OnInit {
   ngOnInit() {
     this.params  = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
     console.log(this.params);
+    localStorage.setItem("onboardingLastPage","personapfpj");
   }
   validar(pfpj,element){
     if(pfpj!=null){
@@ -36,13 +37,10 @@ export class PersonapfpjPage implements OnInit {
   }
   Continuar(){
     
-    const navigationExtras: NavigationExtras = {
-      queryParams: {
-        param: JSON.stringify({ email: this.params.email, password: this.params.password, acepta: this.params.acepta,pfpj:this.pfpj,proceso_alta:this.params.proceso_alta })
-      }
-    };
-    console.log(navigationExtras);
-    this.navCtrl.navigateForward("registro1", navigationExtras);
+    let json = JSON.parse(localStorage.getItem("varsOnboarding"));
+    json["pfpj"]=this.pfpj;
+    localStorage.setItem("varsOnboarding",JSON.stringify(json));
+    this.navCtrl.navigateForward("registro1");
   }
 
 }
