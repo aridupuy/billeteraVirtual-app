@@ -15,15 +15,15 @@
   <p class="align-left"> Vamos a crear tu cuenta y para eso te pedimos que completes estos datos.</p>
   <div class="form">
     <ion-item class="input-container with-label">
-      <ion-label position="floating">Ingresá tu email</ion-label>
-      <ion-input [(ngModel)]="email" type="mail" (change)="validar_mail()"></ion-input>
-      <ion-icon slot="end" name="checkmark-sharp" color="success" *ngIf="email && errorMail!=null && !errorMail"></ion-icon >
-        <ion-icon slot="end" name="close-sharp" color="danger" *ngIf="email && errorMail!=null && errorMail"></ion-icon >
+      <ion-label position="floating">Ingresá tu Usuario</ion-label>
+      <ion-input [(ngModel)]="usuario" type="text" (change)="validar_usuario()"></ion-input>
+      <ion-icon slot="end" name="checkmark-sharp" color="success" *ngIf="usuario && errorusuario!=null && !errorusuario"></ion-icon >
+        <ion-icon slot="end" name="close-sharp" color="danger" *ngIf="usuario && errorusuario!=null && errorusuario"></ion-icon >
     </ion-item>
-    <div class="validationMsg" *ngIf="email && errorMail">
+    <div class="validationMsg" *ngIf="usuario && errorusuario">
       <div class="msg full danger" color="danger">
         <!-- Te ganaron de mano, ese email ya existe. -->
-        Ingresá un mail válido.
+        Ingresá un documento válido.
       </div>
     </div>
     <ion-item class="input-container with-label">
@@ -72,10 +72,10 @@
   
 </div>
 <div class="onboarding-btn-group">
-  <div class="btn-round inactivo" *ngIf="!checkterms || !password || !repassword || !email">
+  <div class="btn-round inactivo" *ngIf="!checkterms || !password || !repassword || !usuario">
     Continuar
   </div>
-  <div class="btn-round activo" *ngIf="checkterms && password && repassword  && email && !error_password && !errorMail" (click)="Continuar()">
+  <div class="btn-round activo" *ngIf="checkterms && password && repassword  && usuario && !error_password && !errorusuario" (click)="Continuar()">
     Continuar
   </div>
 </div>

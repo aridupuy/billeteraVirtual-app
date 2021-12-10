@@ -1,19 +1,23 @@
-import { LoginBoService } from '../../../service/login-bo.service';
 import { ValidacionCelService } from '../../../service/validacion-cel.service';
-import { NavigationExtras, Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
-import { Component, ViewChild, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
-import { NavController } from '@ionic/angular';
+import { LoginBoService, proceso } from '../../../service/login-bo.service';
 import { CountdownComponent } from 'ngx-countdown';
+import { Onboarding_vars } from '../../../classes/onboarding-vars';
+import { ValidacionMailService } from '../../../service/validacion-mail.service';
+import { ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { NavController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { NavigationExtras } from '@angular/router';
 
 @Component({
-  selector: 'app-confirmasms',
-  templateUrl: './confirmasms.page.html',
-  styleUrls: ['./confirmasms.page.scss'],
+  selector: 'app-confirma-email',
+  templateUrl: './confirma-email.page.html',
+  styleUrls: ['./confirma-email.page.scss'],
 })
+export class ConfirmaEmailPage implements OnInit {
 
-export class ConfirmasmsPage implements OnInit {
   @ViewChild('passcode1') passcode1;
   @ViewChild('passcode2') passcode2;
   @ViewChild('passcode3') passcode3;
@@ -29,19 +33,19 @@ export class ConfirmasmsPage implements OnInit {
   public clave5
   public clave4
   public clave6
-  public telefono
+  public mail
   public error_code;
-  public intentos=1;
-  public revalidar=false;
+  public intentos = 1;
+  public revalidar = false;
 
-  constructor(public AlertController: AlertController, private navCtrl: NavController, public route: ActivatedRoute, public router: Router, public validCel: ValidacionCelService, public loginBo: LoginBoService) {
+  constructor(public AlertController: AlertController, private navCtrl: NavController, public route: ActivatedRoute, public router: Router, public validMail: ValidacionMailService, public validCel: ValidacionCelService, public loginBo: LoginBoService) {
 
   }
 
   async ngOnInit() {
-    let  p  = JSON.parse(localStorage.getItem("varsOnboarding"));
+    let p = Onboarding_vars.get();
     console.log(p);
-    this.telefono = p.cod_pais.toString()+p.cod_area.toString() + p.celular.toString();
+    this.mail = p.mail.toString();
     this.revalidar = p.revalidar;
     let detener = false;
     console.log("Envia Codigo");
@@ -49,11 +53,11 @@ export class ConfirmasmsPage implements OnInit {
     let proceso_alta = p.proceso_alta;
   }
   onKeyUp(event, index) {
-      console.log(event);
-      if(event.target.value.length != 1) {
+    console.log(event);
+    if (event.target.value.length != 1) {
       this.setFocus(index - 2);
     } else {
-      this.values[index-1]=(event.target.value);
+      this.values[index - 1] = (event.target.value);
       this.setFocus(index);
     }
     event.stopPropagation();
@@ -104,7 +108,7 @@ export class ConfirmasmsPage implements OnInit {
     const alert = await this.AlertController.create({
       header: mensaje,
       subHeader: 'Intentaremos mas adelante',
-      message: 'El número que ingresaste es +' + this.telefono + '. No pudimos validarlo ahora.',
+      message: 'El E-mail que ingresaste es +' + this.mail + '. No pudimos validarlo ahora.',
       buttons: [
         {
           text: 'Continuar',
@@ -113,7 +117,7 @@ export class ConfirmasmsPage implements OnInit {
             let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
             console.log(p);
             p["valida_sms"] = false;
-            p["intentos"]=this.intentos;
+            p["intentos"] = this.intentos;
             p["proceso_alta"] = p.proceso_alta;
             const navigationExtras: NavigationExtras = {
               queryParams: {
@@ -123,13 +127,13 @@ export class ConfirmasmsPage implements OnInit {
             };
             console.log(navigationExtras);
             this.countdown.stop();
-            if(!this.revalidar){
+            if (!this.revalidar) {
               this.navCtrl.navigateForward("cuentacreada", navigationExtras);
               return true;
             }
             else
               this.navCtrl.navigateForward("home");
-            
+
           }
         },]
     });
@@ -144,10 +148,10 @@ export class ConfirmasmsPage implements OnInit {
     const alert = await this.AlertController.create({
       header: mensaje,
       subHeader: 'Vamos a enviarte otro',
-      message: 'El número que ingresaste es +' + this.telefono + '. Si necesitás modificarlo, podés hacerlo en este paso.',
+      message: 'El E-mail que ingresaste es +' + this.mail + '. Si necesitás modificarlo, podés hacerlo en este paso.',
       buttons: [
         {
-          text: 'Modificar celular',
+          text: 'Modificar Email',
           handler: () => {
             this.navCtrl.back();
           }
@@ -159,12 +163,11 @@ export class ConfirmasmsPage implements OnInit {
             console.log("Envia Codigo");
             let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
             console.log(p);
-            let proceso_alta = localStorage.getItem("proceso_alta");
             await this.loginBo.login().then(async token => {
               console.log("logueado");
               // console.log(p);
-              let proceso_alta = localStorage.getItem("proceso_alta")!=null?localStorage.getItem("proceso_alta"):p.proceso_alta;
-              await this.validCel.obtener_codigo(p.cod_pais.toString()+p.cod_area.toString() + p.celular.toString(), token,proceso_alta).then(data => {
+              let proceso_alta = localStorage.getItem("proceso_alta") != null ? localStorage.getItem("proceso_alta") : p.proceso_alta;
+              await this.validMail.reenviar().then(data => {
                 console.log("codigo enviado");
                 this.clave1 = this.clave2 = this.clave3 = this.clave4 = this.clave5 = this.clave6 = null;
                 this.countdown.restart();
@@ -182,39 +185,39 @@ export class ConfirmasmsPage implements OnInit {
     let codigo = this.clave1.toString() + this.clave2 + this.clave3.toString() + this.clave4 + this.clave5.toString() + this.clave6;
     console.log(codigo);
     console.log(this.intentos);
-    let  p  = JSON.parse(localStorage.getItem("varsOnboarding"));
+    let p = Onboarding_vars.get();
     console.log(p);
-    let proceso_alta = p.proceso_alta!=null?p.proceso_alta:localStorage.getItem("proceso_alta");
+    let proceso_alta = p.proceso_alta;
     if (p.login) {
       console.log("REVALIDAR CODIGO");
       console.log(p);
-      await this.validCel.validar_codigo_reenviado(p.cod_pais.toString()+p.cod_area.toString()+p.celular.toString(), codigo,this.intentos).then(data => {
-        this.values=[];
+      await this.validMail.validar_codigo_reenviado(p.mail.toString(), codigo).then(data => {
+        this.values = [];
         console.log("Valida");
         this.retornar_exito_reenviado();
-        
+
       }).catch(err => {
-        console.log("Error",err);
+        console.log("Error", err);
         this.intentos = err.intentos;
-        this.values=[];
+        this.values = [];
         this.retornar_error();
       })
     }
     else {
       this.loginBo.login().then(async token => {
-        await this.validCel.validar_codigo(p.cod_pais.toString()+p.cod_area.toString()+p.celular.toString(), codigo, token,proceso_alta,this.intentos).then(data => {
-          this.values=[];
+        await this.validMail.validar_codigo(p.mail.toString(), codigo, token, localStorage.getItem("proceso_alta"), this.intentos).then(data => {
+          this.values = [];
           this.retornar_exito();
         }).catch(err => {
           console.log(err);
           this.intentos = err.intentos;
-          this.values=[];
+          this.values = [];
           this.retornar_error();
         })
       }).catch(err => {
         console.log(err);
         this.intentos = err.intentos;
-        this.values=[];
+        this.values = [];
         this.retornar_error();
       });
       // this.navCtrl.navigateForward(["cuentacreada",{}]);
@@ -226,19 +229,27 @@ export class ConfirmasmsPage implements OnInit {
     this.countdown.stop();
     this.navCtrl.navigateForward("/");
   }
-  retornar_exito() {
+  async retornar_exito() {
     this.error_code = false;
-    let  p  = JSON.parse(localStorage.getItem("varsOnboarding"));
-    p["valida_sms"] = true;
-    p["proceso_alta"] = p.proceso_alta;
-    localStorage.setItem("varsOnboarding",JSON.stringify(p));
-
     this.countdown.stop();
-    this.navCtrl.navigateForward("cuentacreada");
+    let p = Onboarding_vars.get();
+    let proceso_alta = localStorage.getItem("proceso_alta") != null ? localStorage.getItem("proceso_alta") : p.proceso_alta;
+    await this.loginBo.login().then(async token => {
+      await this.validCel.obtener_codigo(p.cod_pais.toString()+p.cod_area.toString()+p.celular.toString(), token, proceso_alta).then(data => {
+        
+        Onboarding_vars.add({valida_mail:true,proceso_alta:proceso_alta});
+        this.navCtrl.navigateForward("confirmasms");
+        return true;
+      })
+        .catch(err => { console.log(err); return; });
+    });
+    
+    // this.navCtrl.navigateForward("validaridentidad");
+    return true;
   }
   retornar_error() {
-    if(this.intentos>=3){
-      this.cdEvents({action:"saltear"});
+    if (this.intentos >= 3) {
+      this.cdEvents({ action: "saltear" });
     }
     this.error_code = true;
   }

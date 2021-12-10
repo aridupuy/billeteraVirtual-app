@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="IrAtras()" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content center>
+<div class="contenedor-90">
+  <h1 class="align-left">
+    ¡Listo! Empecemos con la validación
+  </h1>
+  <p class="align-left">Mantené tu celu a mano. Te enviamos un código por Email al <span class="semi-bold">{{mail}}</span> para confirmar tu identidad. Queremos chequear que todo esté bien.
+  </p>
+  <div class="form">
+    <h2 class="align-center">Escribí tu código de confirmación</h2>
+    <div class="input-container confirma-sms">
+      <ion-item class="number-code">
+        <ion-input type="number" pattern="[0-9]{1}" maxlength="1" class="align-center" #passcode1 (keyup)="onKeyUp($event,1)" [(ngModel)]="clave1"></ion-input>
+      </ion-item>
+      <ion-item class="number-code">
+        <ion-input type="number" pattern="[0-9]{1}" maxlength="1" class="align-center" #passcode2 (keyup)="onKeyUp($event,2)" [(ngModel)]="clave2"></ion-input>
+      </ion-item>
+      <ion-item class="number-code">
+        <ion-input type="number" pattern="[0-9]{1}" maxlength="1" class="align-center" #passcode3 (keyup)="onKeyUp($event,3)" [(ngModel)]="clave3"></ion-input>
+      </ion-item>
+      <ion-item class="number-code">
+        <ion-input type="number" pattern="[0-9]{1}" maxlength="1" class="align-center" #passcode4 (keyup)="onKeyUp($event,4)" [(ngModel)]="clave4"></ion-input>
+      </ion-item>
+      <ion-item class="number-code">
+        <ion-input type="number" pattern="[0-9]{1}" maxlength="1" class="align-center" #passcode5 (keyup)="onKeyUp($event,5)" [(ngModel)]="clave5"></ion-input>
+      </ion-item>
+      <ion-item class="number-code">
+        <ion-input type="number" pattern="[0-9]{1}" maxlength="1" class="align-center" #passcode6 (keyup)="onKeyUp($event,6)" [(ngModel)]="clave6"></ion-input>
+      </ion-item>
+    </div>
+    <p class="timer">Tiempo restante <span class="semi-bold"><countdown #cd  (event)="cdEvents($event)" [config]="{ leftTime: 90, format: 'm:s' }"></countdown></span></p>
+  </div>
+  <div class="msg full danger" color="danger" *ngIf="error_code">
+    El codigo ingresado es incorrecto
+  </div>
+</div>
+<div class="onboarding-btn-group">
+  <a (click)="PopupCode(null)" class="link">No me llegó el código</a>
+  <div class="btn-round inactivo" *ngIf="!values || values.length <6">
+    
+    Continuar
+  </div>
+  <div class="btn-round activo" *ngIf="values && values.length == 6 " (click)="validarCodigo()">
+    
+    Continuar
+  </div>
+</div>
+</ion-content>
+<ion-footer>
+  <ion-progress-bar color="primary" value="0.2"></ion-progress-bar>
+</ion-footer>

@@ -3,6 +3,7 @@ import { NavigationExtras } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { PreguntasPopupPage } from '../preguntas-popup/preguntas-popup.page';
+import { Onboarding_vars } from '../../../classes/onboarding-vars';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 
@@ -43,13 +44,15 @@ export class PreguntaslegalesPage implements OnInit {
   }
 
   Continuar() {
-    let p = JSON.parse(localStorage.getItem("varsOnboarding"));
-    p["politico_expuesto"] = (this.form.pe_no) ? !this.form.pe_no : this.form.pe_si;
-    p["sujeto_obligado"] = (this.form.so_no) ? !this.form.so_no : this.form.so_si
-    p["fatca"] = (this.form.fat_no) ? !this.form.fat_no : this.form.fat_si
-    localStorage.setItem("varsOnboarding", JSON.stringify(p));
-    console.log(p.pfpj);
-    if (JSON.parse(localStorage.getItem("validaciones")).ident == true) {
+    let p = Onboarding_vars.get();
+    
+    Onboarding_vars.add({
+      politico_expuesto:(this.form.pe_no) ? !this.form.pe_no : this.form.pe_si,
+      sujeto_obligado:(this.form.so_no) ? !this.form.so_no : this.form.so_si,
+      fatca:(this.form.fat_no) ? !this.form.fat_no : this.form.fat_si
+    });
+    let validaciones = JSON.parse(localStorage.getItem("validaciones"));
+    if ( validaciones!= null && validaciones.ident!=false && validaciones.ident!=null) {
       this.navCtrl.navigateForward("datospersonales");
     }
     else

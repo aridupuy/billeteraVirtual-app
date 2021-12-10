@@ -4,21 +4,21 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { RegistroPageRoutingModule } from './registro-routing.module';
+import { ValidaDniPageRoutingModule } from './valida-dni-routing.module';
 
-import { RegistroPage } from './registro.page';
+import { ValidaDniPage } from './valida-dni.page';
 import { LoginBoService } from '../../../service/login-bo.service';
 import { InicioProcesoService } from '../../../service/inicio-proceso.service';
-import { ValidacionMailService } from '../../../service/validacion-mail.service';
+import { ValidausuarioService } from '../../../service/validausuario.service';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RegistroPageRoutingModule
+    ValidaDniPageRoutingModule
   ],
-  declarations: [RegistroPage],
-  providers:[LoginBoService,InicioProcesoService,ValidacionMailService]
+  declarations: [ValidaDniPage],
+  providers:[LoginBoService,InicioProcesoService,ValidausuarioService]
 })
-export class RegistroPageModule {}
+export class ValidaDniPageModule {}

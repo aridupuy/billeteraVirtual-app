@@ -27,6 +27,7 @@ export class InicioProcesoService extends ServiceService{
     httpOptions.headers.token=token;
     return new Promise((resolve, reject) => {
       this.post<proceso>('api/procesoalta/iniciar',{email:email},httpOptions).subscribe((data) => {
+        console.log(data);
         if (data.resultado != null && data.resultado == false) {
           reject(data.log);
         }

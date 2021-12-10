@@ -1,3 +1,5 @@
+import { InicioProcesoService } from '../../../service/inicio-proceso.service';
+import { Onboarding_vars } from '../../../classes/onboarding-vars';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
@@ -18,12 +20,20 @@ export class PersonapfpjPage implements OnInit {
   pfpj;
   active=0;
   params;
-  constructor(public route: ActivatedRoute, public router: Router,private navCtrl : NavController,private renderer: Renderer2) { }
+  constructor(public route: ActivatedRoute, public router: Router,private navCtrl : NavController,private renderer: Renderer2) { 
+
+    if (localStorage.getItem("onboarding") != "1") {
+      localStorage.setItem("onboarding", "1");
+    }
+  }
 
   ngOnInit() {
-    this.params  = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
+    this.params  = Onboarding_vars.get();
     console.log(this.params);
-    localStorage.setItem("onboardingLastPage","personapfpj");
+    
+    let pagina = localStorage.getItem("onboardingLastPage");
+    if(pagina!=null)
+      this.navCtrl.navigateForward(pagina);
   }
   validar(pfpj,element){
     if(pfpj!=null){
@@ -36,11 +46,8 @@ export class PersonapfpjPage implements OnInit {
     this.pfpj=pfpj;
   }
   Continuar(){
-    
-    let json = JSON.parse(localStorage.getItem("varsOnboarding"));
-    json["pfpj"]=this.pfpj;
-    localStorage.setItem("varsOnboarding",JSON.stringify(json));
-    this.navCtrl.navigateForward("registro1");
+    Onboarding_vars.add({"pfpj":this.pfpj})
+    this.navCtrl.navigateForward("valida-dni");
   }
 
 }

@@ -14,7 +14,7 @@ export class WelcomePage implements OnInit {
     console.log("aca");
   }
   Registrarse(){
-    this.navCtrl.navigateForward(["registro",{}]);
+    this.navCtrl.navigateForward(["personapfpj",{}]);
   }
   Ingreso() {
     this.navCtrl.navigateForward(["ingreso",{}]);

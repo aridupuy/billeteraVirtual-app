@@ -1,5 +1,7 @@
 import { LoginBoService } from '../../../service/login-bo.service';
 import { ValidacionCelService } from '../../../service/validacion-cel.service';
+import { Onboarding_vars } from '../../../classes/onboarding-vars';
+import { ValidacionMailService } from '../../../service/validacion-mail.service';
 import { ElementRef } from '@angular/core';
 import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Router } from '@angular/router';
@@ -18,42 +20,36 @@ export class Registro1Page implements OnInit {
   public cargando = false;
   public errorCod = false;
   public errorCel = false;
+  public errorMail=false;
+  public mail;
   public codArea;
   public celular;
-  public dni;
-  public pfpj;
-  constructor(public route: ActivatedRoute, public router: Router, private navCtrl: NavController, public validCel: ValidacionCelService, public loginBo: LoginBoService) { }
+  constructor(public route: ActivatedRoute, public router: Router, private navCtrl: NavController, public validMail: ValidacionMailService, public loginBo: LoginBoService) { }
 
   ngOnInit() {
-    let p = JSON.parse(localStorage.getItem("varsOnboarding"));
-    this.pfpj = p.pfpj;
     localStorage.setItem("onboardingLastPage","registro1");
   }
   async ConfirmaSms() {
-    let p = JSON.parse(localStorage.getItem("varsOnboarding"));
-    this.pfpj = p.pfpj;
+    let p = Onboarding_vars.get();
     let proceso_alta = localStorage.getItem("proceso_alta") != null ? localStorage.getItem("proceso_alta") : p.proceso_alta;
     await this.loginBo.login().then(async token => {
       console.log("logueado");
       console.log(this.obtener_codigo_pais() + this.codArea + this.celular);
       console.log(this.codArea);
       this.cargando = true;
-      if (JSON.parse(localStorage.getItem("validaciones")).cel == false)
-        await this.validCel.obtener_codigo(this.obtener_codigo_pais() + this.codArea.toString() + this.celular.toString(), token, proceso_alta).then(data => {
-          //   console.log("codigo enviado");
-          p["cod_pais"] = this.obtener_codigo_pais();
-          p["cod_area"] = this.codArea;
-          p["celular"] = this.celular;
-          p["dni"] = this.dni;
-          p["dni"] = this.dni;
-          localStorage.setItem("varsOnboarding", JSON.stringify(p));
-          // console.log(navigationExtras);
+      let validaciones = JSON.parse(localStorage.getItem("validaciones"));
+      if (validaciones==null || validaciones.mail == false || validaciones.mail == null)
+        await this.validMail.validar(this.mail.toString(), token, proceso_alta).then(data => {
+          Onboarding_vars.add({cod_pais:this.obtener_codigo_pais(),cod_area:this.codArea,celular:this.celular,mail:this.mail})
           this.cargando = false;
-          this.navCtrl.navigateForward("confirmasms");
+          this.navCtrl.navigateForward("confirma-email");
         })
           .catch(err => { console.log(err); return; });
       else{
-        this.navCtrl.navigateForward("cuentacreada");
+        if (validaciones==null || validaciones.cel == false || validaciones.cel == null)
+            this.navCtrl.navigateForward("confirmasms");  
+        else 
+            this.navCtrl.navigateForward("validaridentidad");  
       }
         });
     // this.navCtrl.navigateForward(["confirmasms",{}]);
@@ -71,6 +67,13 @@ export class Registro1Page implements OnInit {
     }
     else {
       this.errorCel = true;
+    }
+  }
+  validar_mail(){
+    if (!this.mail.toString().match(/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/)) {
+      this.errorMail = true;
+    } else {
+      this.errorMail = false;
     }
   }
   ionViewDidLeave() {

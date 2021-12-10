@@ -37,29 +37,23 @@
     </div>
   </div>
   <div class="input-container">
-    <h2 class="align-left full" *ngIf="pfpj=='pf'">¿Cuál es tu número de DNI?</h2>
-    <h2 class="align-left full" *ngIf="pfpj=='pj'">¿Cuál el número de CUIT?</h2>
-    <ion-item class="full" *ngIf="pfpj=='pf'">
-      <ion-input type="tel" maxlength="8" [(ngModel)]="dni"></ion-input>
-    </ion-item>
-    <ion-item class="full" *ngIf="pfpj=='pj'">
-      <ion-input type="tel" maxlength="11" [(ngModel)]="dni"></ion-input>
+    <h2 class="align-left full" >¿Cuál es tu Email?</h2>
+    
+    <ion-item class="full">
+      <ion-input type="email"  [(ngModel)]="mail" (ngModelChange)="validar_mail()"></ion-input>
     </ion-item>
   </div>
-  <div class="validationMsg" *ngIf="!dni">
-    <div class="msg full danger" *ngIf="pfpj=='pf'">
-      El número de dni que ingresaste no es válido. Intentá otra vez.
-    </div>
-    <div class="msg full danger" *ngIf="pfpj=='pj'">
-      El número de CUIT que ingresaste no es válido. Intentá otra vez.
+  <div class="validationMsg" *ngIf="errorMail">
+    <div class="msg full danger" >
+      Ingresaste un mail que no es válido, Tal vez Tipeaste algo erróneo. Intenta de nuevo.
     </div>
   </div>
 </div>
 <div class="onboarding-btn-group">
-  <div class="btn-round inactivo" *ngIf="!celular || !codArea || errorCel || !dni" >
+  <div class="btn-round inactivo" *ngIf="!celular || !codArea || errorCel || !mail" >
     Continuar
   </div>
-  <div class="btn-round activo" *ngIf="celular && codArea && !errorCel && dni" (click)="ConfirmaSms()">
+  <div class="btn-round activo" *ngIf="celular && codArea && !errorCel && mail" (click)="ConfirmaSms()">
     Continuar
   </div>
 </div>
