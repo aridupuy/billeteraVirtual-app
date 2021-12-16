@@ -1,3 +1,5 @@
+image: marcoturi/ionic:latest
+
 .deploy: &deploy
     stage: deploy
     cache:
