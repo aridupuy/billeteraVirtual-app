@@ -30,8 +30,9 @@ deploy:android:debug:
         FILE_TYPE: apk
         OUTPUT_PATH: platforms/android/app/build/outputs/apk/debug/app-debug
     script:
-        - npm ci
+        - npm i
         - ionic cordova build android --debug
+        - curl --request POST -F token="${SLACK_CHANNEL_ACCESS_TOKEN}" -F channels="${SLACK_CHANNEL_ID}" -F initial_comment="Hola equipo! dejo el ultimo APK 🚀 (compilacion de test)" -F "file=@/builds/equipo-de-desarrollo-efectivo-digital/efectivofront/platforms/android/app/build/outputs/apk/debug/app-debug.apk" https://slack.com/api/files.upload
 deploy:android:release:
     <<: *deploy
     environment:
@@ -41,7 +42,7 @@ deploy:android:release:
         FILE_TYPE: apk
         OUTPUT_PATH: platforms/android/app/build/outputs/apk/release/app-release
     script:
-        - npm ci
+        - npm i
         - ionic cordova build android --release
 deploy:ios:debug:
     <<: *deploy
@@ -52,7 +53,7 @@ deploy:ios:debug:
         FILE_TYPE: ipa
         OUTPUT_PATH: platforms/ios/build/device/my-app
     script:
-        - npm ci
+        - npm i
         - ionic cordova build ios --debug
 deploy:ios:release:
     <<: *deploy
@@ -63,6 +64,6 @@ deploy:ios:release:
         FILE_TYPE: ipa
         OUTPUT_PATH: platforms/ios/build/device/my-app
     script:
-        - npm ci
+        - npm i
         - ionic cordova build ios --release
-        - curl --request POST -F token="${SLACK_CHANNEL_ACCESS_TOKEN}" -F channels="${SLACK_CHANNEL_ID}" -F initial_comment="Hola equipo! dejo el ultimo APK 🚀 (compilacion de test)" -F "file=@/builds/equipo-de-desarrollo-efectivo-digital/efectivofront/platforms/android/app/build/outputs/apk/debug/app-debug.apk" https://slack.com/api/files.upload
+        
