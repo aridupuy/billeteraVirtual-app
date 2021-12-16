@@ -1,5 +1,4 @@
 .deploy: &deploy
-    image: marcoturi/ionic:latest
     stage: deploy
     cache:
         # speed up packaging by sharing cache amongst multiple deploy jobs of the same commit
@@ -21,6 +20,8 @@
         expire_in: 7 days
     tags:
         - ionic
+        
+image: marcoturi/ionic:latest
 
 deploy:android:debug:
     <<: *deploy 
