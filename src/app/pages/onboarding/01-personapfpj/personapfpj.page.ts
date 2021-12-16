@@ -13,12 +13,6 @@ import { NavigationExtras } from '@angular/router';
   styleUrls: ['./personapfpj.page.scss'],
 })
 export class PersonapfpjPage implements OnInit {
-  @ViewChild('pf', {read: ElementRef}) viewpf : ElementRef;
-  @ViewChild('pj', {read: ElementRef}) viewpj : ElementRef;
-
-  valid=false;
-  pfpj;
-  active=0;
   params;
   constructor(public route: ActivatedRoute, public router: Router,private navCtrl : NavController,private renderer: Renderer2) { 
 
@@ -35,19 +29,11 @@ export class PersonapfpjPage implements OnInit {
     if(pagina!=null)
       this.navCtrl.navigateForward(pagina);
   }
-  validar(pfpj,element){
-    if(pfpj!=null){
-      this.valid=true;
-    }
-    // 
-    this.renderer.removeClass(this.viewpf.nativeElement,"active");
-    this.renderer.removeClass(this.viewpj.nativeElement,"active");
-    this.renderer.addClass(element.el,"active");
-    this.pfpj=pfpj;
-  }
-  Continuar(){
-    Onboarding_vars.add({"pfpj":this.pfpj})
+  validar(pfpj){
+    Onboarding_vars.add({"pfpj":pfpj})
     this.navCtrl.navigateForward("valida-dni");
   }
-
+  Ingreso() {
+    this.navCtrl.navigateForward(["ingreso",{}]);
+  }
 }

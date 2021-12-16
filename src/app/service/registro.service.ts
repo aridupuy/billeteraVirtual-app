@@ -19,7 +19,7 @@ var httpOptions = {
 })
 export class RegistroService extends LoginBoService {
 
-  async registrar(email, titular, password, valido_sms, terminos_acepta, cod_area, celular, selfie, selfie_doc, fotoDorso, fotoFrente, documento, fecha_nac, id_pais, genero, estado_civil, ocupacion, id_prov, id_loc, cod_postal, calle, numero, piso, depto, fatca, politico_expuesto, sujeto_obligado, cuit, cuit_modificado,pfpj,proceso_alta) {
+  async registrar(email, titular, password, valido_sms, terminos_acepta, cod_area, celular, selfie, selfie_doc, fotoDorso, fotoFrente, documento, fecha_nac, id_pais, genero, estado_civil, ocupacion, id_prov, id_loc, cod_postal, calle, numero, piso, depto, fatca, politico_expuesto, sujeto_obligado, cuit, cuit_modificado,pfpj,proceso_alta,usuario) {
     var resp;
     await this.login().then((data: any) => {
       resp = new Promise((resolve, reject) => {
@@ -53,9 +53,9 @@ export class RegistroService extends LoginBoService {
           fatca: fatca,
           politico_expuesto: politico_expuesto,
           sujeto_obligado: sujeto_obligado,
-          cuit: cuit,
-          cuit_modificado: cuit_modificado,
-          pfpj:pfpj
+          cuit: cuit || cuit_modificado ,
+          pfpj:pfpj,
+          usuario:usuario,
         });
         console.log(postParams);
         this.post<res>('api/alta/crear', postParams, httpOptions).subscribe((data) => {

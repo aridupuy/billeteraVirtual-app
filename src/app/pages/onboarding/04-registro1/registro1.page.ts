@@ -2,6 +2,8 @@ import { LoginBoService } from '../../../service/login-bo.service';
 import { ValidacionCelService } from '../../../service/validacion-cel.service';
 import { Onboarding_vars } from '../../../classes/onboarding-vars';
 import { ValidacionMailService } from '../../../service/validacion-mail.service';
+import { InicioProcesoService } from '../../../service/inicio-proceso.service';
+import { Ivalidaciones } from '../../../interfaces/Ivalidaciones';
 import { ElementRef } from '@angular/core';
 import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Router } from '@angular/router';
@@ -24,32 +26,51 @@ export class Registro1Page implements OnInit {
   public mail;
   public codArea;
   public celular;
-  constructor(public route: ActivatedRoute, public router: Router, private navCtrl: NavController, public validMail: ValidacionMailService, public loginBo: LoginBoService) { }
+  constructor(public route: ActivatedRoute, public router: Router, private navCtrl: NavController, public validMail: ValidacionMailService, public loginBo: LoginBoService,public procesoaltaservice:InicioProcesoService) { }
 
   ngOnInit() {
     localStorage.setItem("onboardingLastPage","registro1");
+    let p = Onboarding_vars.get();
+    this.mail = p.mail;
+    this.codArea=p.cod_area;
+    this.cod_pais=p.cod_pais;
+    this.celular=p.celular;
+
+    this.loginBo.login().then(token=>{
+      this.procesoaltaservice.validar_estado(token,localStorage.getItem("proceso_alta")).then((validaciones:Ivalidaciones)=>{
+        localStorage.setItem("validaciones",JSON.stringify(validaciones));
+        console.log(validaciones);
+        if((validaciones.mail==true || validaciones.mail=='t') && (validaciones.cel==true || validaciones.cel=='t')){
+          this.navCtrl.navigateForward("confirmasms");    
+        }
+        else{
+          alert("no valida");
+        }
+      })
+    })
   }
   async ConfirmaSms() {
     let p = Onboarding_vars.get();
     let proceso_alta = localStorage.getItem("proceso_alta") != null ? localStorage.getItem("proceso_alta") : p.proceso_alta;
     await this.loginBo.login().then(async token => {
-      console.log("logueado");
-      console.log(this.obtener_codigo_pais() + this.codArea + this.celular);
-      console.log(this.codArea);
       this.cargando = true;
       let validaciones = JSON.parse(localStorage.getItem("validaciones"));
-      if (validaciones==null || validaciones.mail == false || validaciones.mail == null)
+      console.log(validaciones);
+      if (validaciones==null || validaciones.mail == 'f' || validaciones.mail == null){
+        console.log(validaciones);
         await this.validMail.validar(this.mail.toString(), token, proceso_alta).then(data => {
           Onboarding_vars.add({cod_pais:this.obtener_codigo_pais(),cod_area:this.codArea,celular:this.celular,mail:this.mail})
           this.cargando = false;
-          this.navCtrl.navigateForward("confirma-email");
+          return this.navCtrl.navigateForward("confirma-email");
         })
           .catch(err => { console.log(err); return; });
+      }
       else{
-        if (validaciones==null || validaciones.cel == false || validaciones.cel == null)
-            this.navCtrl.navigateForward("confirmasms");  
+        console.log(validaciones);
+        if (validaciones==null || validaciones.cel == 'f' || validaciones.cel == null)
+          return this.navCtrl.navigateForward("confirmasms");  
         else 
-            this.navCtrl.navigateForward("validaridentidad");  
+          return this.navCtrl.navigateForward("validaridentidad");  
       }
         });
     // this.navCtrl.navigateForward(["confirmasms",{}]);

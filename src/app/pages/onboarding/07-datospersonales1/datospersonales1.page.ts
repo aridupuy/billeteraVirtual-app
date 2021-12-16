@@ -3,6 +3,7 @@ import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Router } from '@angular/router';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { Onboarding_vars } from 'src/app/classes/onboarding-vars';
 
 @Component({
   selector: 'app-datospersonales1',
@@ -40,9 +41,9 @@ export class Datospersonales1Page implements OnInit {
 
   ngOnInit() {
     localStorage.setItem("onboardingLastPage","datospersonales1");
-    let  p  = JSON.parse(localStorage.getItem("varsOnboarding"));
+    let  p  = Onboarding_vars.get();
     if (p != null) {
-      this.dni = p.dni;
+      this.dni = p.documento;
       this.sexo = p.sexo;
       this.pfpj=p.pfpj;
       this.renaper.validar_dni(p.dni, p.sexo).then(data => {
@@ -71,6 +72,8 @@ export class Datospersonales1Page implements OnInit {
         this.cuit1 = cuit.substr(0,2);
         this.cuit2 = cuit.substr(cuit.length-1,1);
       }).catch((err)=>{
+        this.cuit1 = p.cuit.substr(0,2);
+        this.cuit2 = p.cuit.substr(p.cuit.length-1,1);
           console.log(err);
         });
     }
@@ -121,33 +124,15 @@ export class Datospersonales1Page implements OnInit {
   }
   Continuar(){
 
-    let  p  = JSON.parse(localStorage.getItem("varsOnboarding"));
+    let  vars  = Onboarding_vars.get();
     // localStorage.setItem("varsOnboarding",JSON.stringify(p));
-
+    let p = {};
+    
     p["ocupacion"] = this.ocupacion;
     p["estado_civil"] = this.estadoCivil;
-    p["cuil_modificado"] = this.cuit2 + p.dni + this.cuit2
-    p["direccion"] = this.direccion;
-    p["numero"] = this.numero
-    p["piso"] = this.piso
-    p["depto"] = this.depto
-    p["piso"] = this.piso
-    p["sexo"] = this.sexo
-    p["nacionalidad"] = this.nacionalidad
-    p["provincia"] = this.provincia
-    p["ciudad"] = this.ciudad
-    p["dni"] = this.dni
-    p["fec_nac"] = this.fec_nac
-    p["nombre_completo"] = this.nombre_completo
-    p["nombre"] = this.nombre
-    p["apellido"] = this.apellido
+    p["cuit_modificado"] = this.cuit1 + vars.documento + this.cuit2
     
-    if(p.cuil_modificado ==null){
-      p.cuit_modificado = p.cuit;
-    }
-    
-    localStorage.setItem("varsOnboarding",JSON.stringify(p));
-    
+    Onboarding_vars.add(p);
     this.navCtrl.navigateForward("datospersonales2");
     
   }

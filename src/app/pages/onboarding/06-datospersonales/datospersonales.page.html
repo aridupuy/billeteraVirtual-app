@@ -16,9 +16,10 @@ necesitamos algo más
     <p class="align-left" *ngIf="pfpj=='pj'">Por favor, Completa estos datos para continuar    </p>
 
     <div class="form datospersonales">
-      <div class="dato full" *ngIf="pfpj=='pf'">
+      <div class="dato full" *ngIf="pfpj=='pf' ">
         <h2>Nombre y apellido</h2>
-        <p #nombrecompleto>{{nombre_completo}}</p>
+        <p *ngIf="!nombre_completo_pedir" #nombrecompleto>{{nombre_completo}}</p>
+        <ion-input type="text" *ngIf="nombre_completo_pedir" [(ngModel)]="nombre_completo" ></ion-input>
       </div>
       <div class="dato full" *ngIf="pfpj=='pj'">
         <h2 class="align-left full">Razon Social</h2>
@@ -28,31 +29,30 @@ necesitamos algo más
       </div>
       <div class="dato mitad" *ngIf="pfpj=='pf'">
         <h2>Dni</h2>
-        <p>{{dni}}</p>
+        <p *ngIf="dni!==undefined" >{{dni||cuit}}</p>
+        <ion-input *ngIf="dni_pedir" type="tel" maxlength="8" [(ngModel)]="dni||cuit" disabled="true" ></ion-input>
       </div>
       <div class="dato mitad" *ngIf="pfpj=='pj'">
         <h2 class="align-left full">CUIT</h2>
         <ion-item class="full">
-            <ion-input type="tel" maxlength="8" [(ngModel)]="dni" disabled="true" ></ion-input>
+            <ion-input type="tel" maxlength="8" [(ngModel)]="dni||cuit" disabled="true" ></ion-input>
         </ion-item>
       </div>
       <div class="dato mitad" *ngIf="pfpj=='pf'">
         <h2>Sexo</h2>
-        <p >{{sexo}}</p>
+        <p *ngIf="!sexo_pedir">{{sexo}}</p>
+        <ion-item *ngIf="sexo_pedir">
+          <!-- <ion-label>Sexo</ion-label> -->
+          <ion-select [(ngModel)]="sexo">
+            <ion-select-option value="f">Femenino</ion-select-option>
+            <ion-select-option value="m">Masculino</ion-select-option>
+          </ion-select>
+        </ion-item>
       </div>
       <div class="dato mitad" *ngIf="pfpj=='pf'">
         <h2>Nacionalidad</h2>
-        <p >{{nacionalidad}}</p>
-      </div>
-      <div class="dato mitad" *ngIf="pfpj=='pf'">
-        <h2>Fecha de nacimiento</h2>
-        <p >{{fec_nac}}</p>
-      </div>
-      <div class="dato mitad" *ngIf="pfpj=='pj'">
-        <h2>Fecha de contitucion</h2>
-        <ion-item class="full">
-            <ion-input type="date" [(ngModel)]="fec_nac"></ion-input>
-        </ion-item>
+        <p *ngIf="!nacionalidad_pedir">{{nacionalidad}}</p>
+        <ion-input type="text"  [(ngModel)]="nacionalidad" *ngIf="nacionalidad_pedir"></ion-input>
       </div>
       <div class="dato mitad" *ngIf="pfpj=='pj'">
         <h2>Nacionalidad</h2>
@@ -60,6 +60,20 @@ necesitamos algo más
             <ion-input type="text" [(ngModel)]="nacionalidad"></ion-input>
         </ion-item>
       </div>
+      <div class="dato mitad" *ngIf="pfpj=='pf'">
+        <h2>Fecha de nacimiento</h2>
+        <p *ngIf="!fec_nac_pedir">{{fec_nac}}</p>
+        <ion-item class="full" *ngIf="fec_nac_pedir">
+          <ion-input type="date" [(ngModel)]="fec_nac"></ion-input>
+      </ion-item>
+      </div>
+      <div class="dato mitad" *ngIf="pfpj=='pj'">
+        <h2>Fecha de contitucion</h2>
+        <ion-item class="full">
+            <ion-input type="date" [(ngModel)]="fec_nac"></ion-input>
+        </ion-item>
+      </div>
+      
       <div class="dato mitad" *ngIf="pfpj=='pj'">
         <h2>Provincia</h2>
         <ion-item class="full">
@@ -86,5 +100,5 @@ necesitamos algo más
   
 </ion-content>
 <ion-footer>
-  <ion-progress-bar color="primary" value="0.5"></ion-progress-bar>
+  <ion-progress-bar color="primary" value="0.4"></ion-progress-bar>
 </ion-footer>

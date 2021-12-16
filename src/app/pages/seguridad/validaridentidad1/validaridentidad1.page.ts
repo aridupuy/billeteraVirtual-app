@@ -105,5 +105,7 @@ export class Validaridentidad1Page implements OnInit {
     // this.cameraPreview.stopCamera();
     console.log("identidad1 camara apagada");
   }
-  noPuedo() { }
+  noPuedo() { 
+    this.navCtrl.navigateRoot("datospersonales");
+  }
 }

@@ -46,7 +46,7 @@ const routes: Routes = [
   },
   {
     path: 'preguntaslegales',
-    loadChildren: () => import('./pages/onboarding/07-preguntaslegales/preguntaslegales.module').then( m => m.PreguntaslegalesPageModule)
+    loadChildren: () => import('./pages/onboarding/08-preguntaslegales/preguntaslegales.module').then( m => m.PreguntaslegalesPageModule)
   },
   {
     path: 'validaridentidad',
@@ -78,7 +78,7 @@ const routes: Routes = [
   },
   {
     path: 'datospersonales1',
-    loadChildren: () => import('./pages/onboarding/08-datospersonales1/datospersonales1.module').then( m => m.Datospersonales1PageModule)
+    loadChildren: () => import('./pages/onboarding/07-datospersonales1/datospersonales1.module').then( m => m.Datospersonales1PageModule)
   },
   {
     path: 'datospersonales2',
@@ -386,7 +386,8 @@ const routes: Routes = [
   {
     path: 'valida-dni',
     loadChildren: () => import('./pages/onboarding/02-valida-dni/valida-dni.module').then( m => m.ValidaDniPageModule)
-  },  {
+  },
+  {
     path: 'confirma-email',
     loadChildren: () => import('./pages/seguridad/confirma-email/confirma-email.module').then( m => m.ConfirmaEmailPageModule)
   }

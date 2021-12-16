@@ -6,6 +6,10 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { CountdownComponent } from 'ngx-countdown';
+import { Onboarding_vars } from '../../../classes/onboarding-vars';
+import { Validaridentidad1Page } from '../validaridentidad1/validaridentidad1.page';
+import { InicioProcesoService } from '../../../service/inicio-proceso.service';
+import { Ivalidaciones } from 'src/app/interfaces/Ivalidaciones';
 
 @Component({
   selector: 'app-confirmasms',
@@ -34,19 +38,35 @@ export class ConfirmasmsPage implements OnInit {
   public intentos=1;
   public revalidar=false;
 
-  constructor(public AlertController: AlertController, private navCtrl: NavController, public route: ActivatedRoute, public router: Router, public validCel: ValidacionCelService, public loginBo: LoginBoService) {
+  constructor(public AlertController: AlertController, private navCtrl: NavController, public route: ActivatedRoute, public router: Router, public validCel: ValidacionCelService, public loginBo: LoginBoService,public procesoaltaservice: InicioProcesoService) {
 
   }
 
   async ngOnInit() {
-    let  p  = JSON.parse(localStorage.getItem("varsOnboarding"));
+    let  p  = Onboarding_vars.get();
+    this.validar_cel();
     console.log(p);
     this.telefono = p.cod_pais.toString()+p.cod_area.toString() + p.celular.toString();
     this.revalidar = p.revalidar;
     let detener = false;
-    console.log("Envia Codigo");
-    console.log(p);
-    let proceso_alta = p.proceso_alta;
+    let proceso_alta = localStorage.getItem("proceso_alta");
+    this.loginBo.login().then(token=>{
+      this.procesoaltaservice.validar_estado(token,proceso_alta).then((validaciones:Ivalidaciones)=>{
+        localStorage.setItem("validaciones",JSON.stringify(validaciones));
+        if(validaciones.cel==true || validaciones.cel=='t'){
+          this.navCtrl.navigateForward("validaridentidad");    
+          this.countdown.stop();
+        }
+      })
+    })
+    
+  }
+  validar_cel(){
+    let p= Onboarding_vars.get();
+    
+    if(p.valido_sms==true){
+      this.navCtrl.navigateForward("validaridentidad");
+    }
   }
   onKeyUp(event, index) {
       console.log(event);
@@ -228,10 +248,11 @@ export class ConfirmasmsPage implements OnInit {
   }
   retornar_exito() {
     this.error_code = false;
-    let  p  = JSON.parse(localStorage.getItem("varsOnboarding"));
+    let vars  = Onboarding_vars.get();
+    let  p = {};
     p["valida_sms"] = true;
-    p["proceso_alta"] = p.proceso_alta;
-    localStorage.setItem("varsOnboarding",JSON.stringify(p));
+    p["proceso_alta"] = vars.proceso_alta;
+    Onboarding_vars.add(p);
 
     this.countdown.stop();
     this.navCtrl.navigateForward("cuentacreada");

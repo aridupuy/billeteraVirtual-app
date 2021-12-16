@@ -3,6 +3,7 @@ import { LoginBoService, proceso } from '../../../service/login-bo.service';
 import { CountdownComponent } from 'ngx-countdown';
 import { Onboarding_vars } from '../../../classes/onboarding-vars';
 import { ValidacionMailService } from '../../../service/validacion-mail.service';
+import { InicioProcesoService } from '../../../service/inicio-proceso.service';
 import { ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
@@ -10,6 +11,7 @@ import { NavController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras } from '@angular/router';
+import { Ivalidaciones } from 'src/app/interfaces/Ivalidaciones';
 
 @Component({
   selector: 'app-confirma-email',
@@ -38,7 +40,7 @@ export class ConfirmaEmailPage implements OnInit {
   public intentos = 1;
   public revalidar = false;
 
-  constructor(public AlertController: AlertController, private navCtrl: NavController, public route: ActivatedRoute, public router: Router, public validMail: ValidacionMailService, public validCel: ValidacionCelService, public loginBo: LoginBoService) {
+  constructor(public AlertController: AlertController, private navCtrl: NavController, public route: ActivatedRoute, public router: Router, public validMail: ValidacionMailService, public validCel: ValidacionCelService, public loginBo: LoginBoService,public procesoaltaservice:InicioProcesoService) {
 
   }
 
@@ -50,7 +52,16 @@ export class ConfirmaEmailPage implements OnInit {
     let detener = false;
     console.log("Envia Codigo");
     console.log(p);
-    let proceso_alta = p.proceso_alta;
+    let proceso_alta =localStorage.getItem("proceso_alta");
+    this.loginBo.login().then(token=>{
+      this.procesoaltaservice.validar_estado(token,proceso_alta).then((validaciones:Ivalidaciones)=>{
+        localStorage.setItem("validaciones",JSON.stringify(validaciones));
+        if(validaciones.mail==true || validaciones.mail=='t'){
+          this.navCtrl.navigateForward("confirmasms");    
+          this.countdown.stop();
+        }
+      })
+    })
   }
   onKeyUp(event, index) {
     console.log(event);
@@ -183,14 +194,10 @@ export class ConfirmaEmailPage implements OnInit {
   }
   async validarCodigo() {
     let codigo = this.clave1.toString() + this.clave2 + this.clave3.toString() + this.clave4 + this.clave5.toString() + this.clave6;
-    console.log(codigo);
-    console.log(this.intentos);
+    
     let p = Onboarding_vars.get();
-    console.log(p);
     let proceso_alta = p.proceso_alta;
     if (p.login) {
-      console.log("REVALIDAR CODIGO");
-      console.log(p);
       await this.validMail.validar_codigo_reenviado(p.mail.toString(), codigo).then(data => {
         this.values = [];
         console.log("Valida");
@@ -204,18 +211,17 @@ export class ConfirmaEmailPage implements OnInit {
       })
     }
     else {
+      console.log("aca confirma email-");
       this.loginBo.login().then(async token => {
         await this.validMail.validar_codigo(p.mail.toString(), codigo, token, localStorage.getItem("proceso_alta"), this.intentos).then(data => {
           this.values = [];
           this.retornar_exito();
         }).catch(err => {
-          console.log(err);
           this.intentos = err.intentos;
           this.values = [];
           this.retornar_error();
         })
       }).catch(err => {
-        console.log(err);
         this.intentos = err.intentos;
         this.values = [];
         this.retornar_error();
@@ -236,7 +242,6 @@ export class ConfirmaEmailPage implements OnInit {
     let proceso_alta = localStorage.getItem("proceso_alta") != null ? localStorage.getItem("proceso_alta") : p.proceso_alta;
     await this.loginBo.login().then(async token => {
       await this.validCel.obtener_codigo(p.cod_pais.toString()+p.cod_area.toString()+p.celular.toString(), token, proceso_alta).then(data => {
-        
         Onboarding_vars.add({valida_mail:true,proceso_alta:proceso_alta});
         this.navCtrl.navigateForward("confirmasms");
         return true;

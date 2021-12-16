@@ -1,4 +1,5 @@
 import { RegistroService } from '../../../service/registro.service';
+import { PersonapfpjPage } from '../01-personapfpj/personapfpj.page';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -20,15 +21,17 @@ export class RegistrofinalizadoPage implements OnInit {
   public valido = false;
   ngOnInit() {
     localStorage.setItem("onboardingLastPage","registrofinalizado");
-    let p = JSON.parse(localStorage.getItem("varsOnboarding"));
+    let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
     console.log(p);
-    this.valido = p.valido;
-    console.log(this.valido);
-    if (!p.valido) {
-      this.mensaje = p.mensaje;
-      this.mensaje_titulo = p.mensaje_titulo
-      if (this.mensaje != null) {
-        this.mensaje2 = "";
+    if(p!=null){
+      this.valido = p.valido;
+      console.log(this.valido);
+      if (!p.valido) {
+        this.mensaje = p.mensaje;
+        this.mensaje_titulo = p.mensaje_titulo
+        if (this.mensaje != null) {
+          this.mensaje2 = "";
+        }
       }
     }
   }
@@ -39,5 +42,11 @@ export class RegistrofinalizadoPage implements OnInit {
   reintentar() {
     this.navCtrl.navigateBack("datospersonales2");
   }
-
+  reiniciar() {
+    localStorage.removeItem("onboarding");
+    localStorage.removeItem("proceso_alta");
+    localStorage.removeItem("varsOnboarding");
+    localStorage.removeItem("onboardingLastPage");
+    this.navCtrl.navigateBack("personapfpj");
+  }
 }

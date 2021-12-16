@@ -7,6 +7,7 @@ import { InicioProcesoService } from '../../../service/inicio-proceso.service';
 import { ValidausuarioService } from '../../../service/validausuario.service';
 import { Onboarding_vars } from '../../../classes/onboarding-vars';
 import { pass } from '../../../patron.guard';
+import { UsuarioService } from '../../../service/usuario.service';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 
@@ -31,7 +32,7 @@ export class RegistroPage implements OnInit {
   public pass_has_upper = false;;
   public pass_has_number = false;;
   public pass_has_simbol = false;
-
+  public pfpj = false;
   togglePassword(): void {
     this.showPassword = !this.showPassword;
     if (this.showPassword == true)
@@ -42,26 +43,48 @@ export class RegistroPage implements OnInit {
 
   modalDataResponse: any;
 
-  constructor(private navCtrl: NavController, public modalCtrl: ModalController, public route: ActivatedRoute, public router: Router) {}
+  constructor(private navCtrl: NavController, public modalCtrl: ModalController, public route: ActivatedRoute, public router: Router, public ValidausuarioService: ValidausuarioService, public loginBo: LoginBoService, public iniciaProceso: InicioProcesoService) { }
 
   ngOnInit() {
-    localStorage.setItem("onboardingLastPage","registro");
-    
- 
+    localStorage.setItem("onboardingLastPage", "registro");
+    let vars = Onboarding_vars.get();
+    this.pfpj = vars.pfpj;
+
   }
-  validar_usuario() {
+  async validar_usuario() {
     console.log(this.usuario);
     /* por ahora no valido usuarios*/
+    await this.loginBo.login().then(async token => {
+      await this.iniciaProceso.iniciar(token, this.usuario,this.pfpj).then(async (data: any) => {
+        localStorage.setItem("proceso_alta", data.id_proceso_alta);
+        localStorage.setItem("validaciones", JSON.stringify(data.validaciones));
+        // antes que esto va un endṕoint para validar la preexistencia del mail
+        await this.ValidausuarioService.validar_usuario(this.usuario, this.pfpj, token).then(data => {
+          this.errorusuario = false;
+          let validaciones = JSON.parse(localStorage.getItem("validaciones"));
+          this.despachar(validaciones.mail) || this.despachar(validaciones.cel) || this.despachar(validaciones.ident,"validaridentidad");
+          // this.navCtrl.navigateForward("registro-cuentaexistente");
+        })
+          .catch(err => {
+            this.errorusuario = true;
+          });
+      });
+    }).catch(log => {
+      this.navCtrl.navigateForward("registro-cuentaexistente");
+    });
     return true;
-    
 
+
+  }
+  despachar(valid,pagina?){
+    return valid? pagina!=undefined?this.navCtrl.navigateForward(pagina) :this.navCtrl.navigateForward("registro1"):false;
   }
   validar_regex() {
     this.pass_minim = false;
     this.pass_has_upper = false;;
     this.pass_has_number = false;;
     this.pass_has_simbol = false;
-    if(this.password!=null){
+    if (this.password != null) {
       if (this.password.toString().length >= 6) {
         this.pass_minim = true;
       }
@@ -102,16 +125,16 @@ export class RegistroPage implements OnInit {
     if (!this.errorusuario && !this.error_password) {
       /*aca pasa a la siguiente pantalla */
       let validaciones = JSON.parse(localStorage.getItem("validaciones"));
-      if(validaciones==null || validaciones.mail==null || validaciones.mail==false){
+      if (validaciones == null || validaciones.mail == null || validaciones.mail == false) {
 
-        Onboarding_vars.add({usuario:this.usuario,password:this.password})
+        Onboarding_vars.add({ usuario: this.usuario, password: this.password, terminos_acepta: this.checkterms })
 
         this.navCtrl.navigateForward("registro1");
       }
       else {
         return false;
       }
-      
+
     }
   }
   async tycModal() {

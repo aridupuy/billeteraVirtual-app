@@ -23,7 +23,7 @@
     <div class="validationMsg" *ngIf="usuario && errorusuario">
       <div class="msg full danger" color="danger">
         <!-- Te ganaron de mano, ese email ya existe. -->
-        Ingresá un documento válido.
+        El usuario elegido no esta disponible.
       </div>
     </div>
     <ion-item class="input-container with-label">
@@ -81,7 +81,7 @@
 </div>
 </ion-content>
 <ion-footer>
-  <ion-progress-bar color="primary" value="0"></ion-progress-bar>
+  <ion-progress-bar color="primary" value="0.2"></ion-progress-bar>
 </ion-footer>
 <!-- <div class="arriba" *ngIf="cargando">
   <ion-spinner name="crescent"></ion-spinner>

@@ -37,3 +37,27 @@
     text-align: center;
     margin: auto;
 }
+// .image{
+//     width: 561%;
+//     position: absolute;
+//     left: -438%;
+//     top: -236%;
+//     max-width: initial !important;
+// }
+
+
+// .contenedor-90{
+//     background: url(../../../../assets/Onboarding_pfpj.svg) no-repeat 100%;
+//     background-position-x: -86em;
+//     background-position-y: -49em;
+//     height: 100%;
+    
+// }
+.contenido{
+    position: absolute;
+    top: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}

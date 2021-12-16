@@ -5,13 +5,13 @@ import { AppComponent } from 'src/app/app.component';
 // The list of file replacements can be found in `angular.json`.
 export const environment = {
   production: false,
-  // URL: "http://192.168.90.139:8200/",
-  URL: "http://localhost:8200/",
-  URL_DESARROLLO: "http://localhost:8200/",
+  URL: "https://efectivodigital.com.ar/",
+  // URL: "http://localhost:8200/",
+  URL_DESARROLLO: "http://192.168.0.163:8200/",
   ACTIVAR_TEST: true,
-  // URL_LOGIN: "http://192.168.90.139:8200/",
-  URL_LOGIN: "http://localhost:8200/",
-  URL_LOGIN_DESARROLLO: "http://localhost:8200/",
+  URL_LOGIN: "https://efectivodigital.com.ar/",
+  // URL_LOGIN: "http://192.168.0.163:8200/",
+  URL_LOGIN_DESARROLLO: "http://192.168.0.163:8200/",
   mobile:false,
   get_url: () =>{
     if(!environment.mobile){

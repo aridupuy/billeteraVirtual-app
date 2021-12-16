@@ -1,8 +1,10 @@
 import { RenaperService } from '../../../service/renaper.service';
+import { Onboarding_vars } from '../../../classes/onboarding-vars';
 import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-datospersonales',
@@ -31,10 +33,19 @@ export class DatospersonalesPage implements OnInit {
   public dni;
   public cargando = true;
   public pfpj;
+
+  /*Control */
+  public nombre_completo_pedir;
+  public sexo_pedir;
+  public fec_nac_pedir;
+  public nacionalidad_pedir;
+  public dni_pedir;
+
+  /*fin variables de control */
   ngOnInit() {
     localStorage.setItem("onboardingLastPage","datospersonales");
 
-    let  p  = JSON.parse(localStorage.getItem("varsOnboarding"));
+    let  p  = Onboarding_vars.get();
     // p["politico_expuesto"]= (this.form.pe_no)? !this.form.pe_no : this.form.pe_si;
     // p["sujeto_obligado"]=(this.form.so_no)? !this.form.so_no : this.form.so_si
     // p["fatca"]=(this.form.fat_no)? !this.form.fat_no : this.form.fat_si
@@ -44,8 +55,23 @@ export class DatospersonalesPage implements OnInit {
       this.dni = p.dni;
       this.sexo = p.sexo;
       this.pfpj=p.pfpj;
+      this.apellido=p.apellido
+      this.sexo=p.sexo
+      this.nombre=p.nombre
+      this.nombre_completo=p.nombre_completo
+      this.fec_nac=p.fecha_nac;
+      this.nacionalidad=p.nacionalidad;
+      this.provincia=p.provincia
+      this.ciudad=p.ciudad
+      this.cod_postal=p.cod_postal
+      this.direccion=p.direccion
+      this.numero=p.numero
+      this.piso=p.piso
+      this.depto=p.depto
+      this.cuit=p.cuit;
+      this.dni=p.documento;
       if(this.pfpj=="pf")
-      this.renaper.validar_dni(p.dni, p.sexo).then(data => {
+      this.renaper.validar_dni(p.documento||p.dni, p.sexo || "f" ).then(data => {
         console.log(data);
         this.apellido = data.apellido;
         this.nombre = data.nombres;
@@ -63,17 +89,53 @@ export class DatospersonalesPage implements OnInit {
         this.cuit = data.cuil;
         this.pfpj=data.pfpj;
         this.cargando=false;
+        this.pedir();
+      }).catch(err=>{
+        this.renaper.validar_dni(p.documento||p.dni, p.sexo||"m").then(data => {
+          console.log(data);
+          this.apellido = data.apellido;
+          this.nombre = data.nombres;
+          this.nombre_completo = data.nombres + " " + data.apellido;
+          this.fec_nac = data.fecha_nacimiento;
+          this.sexo = data.sexo;
+          this.nacionalidad = data.nacionalidad;
+          this.provincia = data.provincia;
+          this.ciudad = data.ciudad;
+          this.cod_postal = data.codigo_postal;
+          this.direccion = data.calle;
+          this.numero = data.numero;
+          this.piso = data.piso;
+          this.depto = data.departamento;
+          this.cuit = data.cuil;
+          this.pfpj=data.pfpj;
+          this.cargando=false;
+          this.pedir();
+        })
+        .catch(err=>{
+          this.cargando=false;
+          this.pedir();
+        });
       });
       else{
-        this.cuit=this.dni;
         this.cargando=false;
+        this.pedir();
       }
     }
+    
+
   }
+
+pedir(){
+    this.nombre_completo_pedir = this.nombre_completo==undefined;
+    this.dni_pedir=this.dni==undefined;
+    this.sexo_pedir = this.sexo==undefined;
+    this.fec_nac_pedir = this.fec_nac==undefined;
+    this.nacionalidad_pedir = this.nacionalidad==undefined;
+}
+
   Continuar() {
-    let  p  = JSON.parse(localStorage.getItem("varsOnboarding"));
-    if (p == null)
-     p = {};
+    let  vars  = Onboarding_vars.get();
+    let  p = {};
     p["apellido"] = this.apellido;
     p["sexo"] = this.sexo;
     p["nombre"] = this.nombre;
@@ -89,8 +151,7 @@ export class DatospersonalesPage implements OnInit {
     p["depto"] = this.depto;
     p["cuit"] = this.cuit;
     
-    localStorage.setItem("varsOnboarding",JSON.stringify(p));
-    
+    Onboarding_vars.add(p);
     if(this.pfpj=="pf")
       this.navCtrl.navigateForward("datospersonales1");
     else if(this.pfpj=='pj'){

@@ -19,7 +19,12 @@ export class ValidaDniPage implements OnInit {
   public datos;
   public longitud;
   constructor(private navCtrl: NavController, public validUser: ValidausuarioService,
-    public loginBo: LoginBoService,public iniciaProceso: InicioProcesoService) { }
+    public loginBo: LoginBoService) { 
+
+
+      let vars = Onboarding_vars.get();
+      this.documento=vars.documento;
+    }
 
   ngOnInit() {
     this.datos=Onboarding_vars.get();
@@ -42,12 +47,13 @@ export class ValidaDniPage implements OnInit {
   }
   async Continuar(){
     console.log("aca");
-    Onboarding_vars.add({documento:this.documento});
+    let vars = Onboarding_vars.get();
+    if(vars.pfpj=="pj")
+      Onboarding_vars.add({cuit:this.documento});
+    else 
+      Onboarding_vars.add({documento:this.documento});
     await this.loginBo.login().then(async token => {
       console.log("logueado");
-      await this.iniciaProceso.iniciar(token, this.documento).then(async (data: any) => {
-        localStorage.setItem("proceso_alta", data.id_proceso_alta);
-        localStorage.setItem("validaciones", JSON.stringify(data.validaciones));
         // antes que esto va un endṕoint para validar la preexistencia del mail
         let mailNoExiste = true;
         await this.validUser.validar(this.documento,token).then((data) => {
@@ -66,9 +72,7 @@ export class ValidaDniPage implements OnInit {
         else {
           return false;
         }
-      }).catch(log => {
-        this.navCtrl.navigateForward("registro-cuentaexistente");
-      });
+      
     });
     
   }
