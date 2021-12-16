@@ -21,7 +21,7 @@
     tags:
         - ionic
         
-image: marcoturi/ionic:latest
+image: beevelop/ionic:latest
 
 deploy:android:debug:
     <<: *deploy 
