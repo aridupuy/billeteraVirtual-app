@@ -1,4 +1,4 @@
-image: marcoturi/ionic:latest
+image: postor/ionic-android-build
 
 stages:
   - test
