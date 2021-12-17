@@ -1,34 +1,71 @@
-image: marcoturi/ionic:latest
+.deploy: &deploy
+    stage: deploy
+    cache:
+        # speed up packaging by sharing cache amongst multiple deploy jobs of the same commit
+        key: "deploy-$CI_COMMIT_SHORT_SHA"
+        paths:
+          - platforms/
+          - plugins/
+    before_script:
+    # workaround Xcode not downloading updated profiles
+        - rm -fr ~/Library/MobileDevice/Provisioning\ Profiles/
+        - echo "$BUILD_CONFIG" | tr -d '\r' > build.json
+    after_script:
+        - rm build.json
+        #- cp $OUTPUT_PATH.$FILE_TYPE $CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG.$FILE_TYPE
+    artifacts:
+        name:
+        paths:
+            - $CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG.$FILE_TYPE
+        expire_in: 7 days
+    tags:
+        - ionic
+        
+image: beevelop/ionic:latest
 
-stages:
-  - test
-  - deploy
-
-before_script:
-    - npm update
-    - npm install
-  
-cache:
-  untracked: true
-  key: "$CI_PROJECT_ID"
-  paths:
-    - node_modules/
-    
-build_web:
-  stage: test
-  only:
-      - master
-  script:
-    - ionic build 
-
-build_android:
-  stage: deploy
-  only:
-    - master
-  script:
-    - ls
-    - ionic cordova platform rm android
-    - ionic cordova platform add android
-    - ionic cordova build android
-    - curl --request POST -F token="${SLACK_CHANNEL_ACCESS_TOKEN}" -F channels="${SLACK_CHANNEL_ID}" -F initial_comment="Hola equipo! dejo el ultimo APK (compilacion de test)" -F "file=@/builds/equipo-de-desarrollo-efectivo-digital/efectivofront/platforms/android/app/build/outputs/apk/debug/app-debug.apk" https://slack.com/api/files.upload
-
+deploy:android:debug:
+    <<: *deploy 
+    environment:
+        name: production
+    variables:
+        PLATFORM: android
+        FILE_TYPE: apk
+        OUTPUT_PATH: platforms/android/app/build/outputs/apk/debug/app-debug
+    script:
+        - npm i --force
+        - ionic cordova build android --debug
+        - curl --request POST -F token="${SLACK_CHANNEL_ACCESS_TOKEN}" -F channels="${SLACK_CHANNEL_ID}" -F initial_comment="Hola equipo! dejo el ultimo APK 🚀 (compilacion de test)" -F "file=@/builds/equipo-de-desarrollo-efectivo-digital/efectivofront/platforms/android/app/build/outputs/apk/debug/app-debug.apk" https://slack.com/api/files.upload
+deploy:android:release:
+    <<: *deploy
+    environment:
+        name: production
+    variables:
+        PLATFORM: android
+        FILE_TYPE: apk
+        OUTPUT_PATH: platforms/android/app/build/outputs/apk/release/app-release
+    script:
+        - npm i --force
+        - ionic cordova build android --release
+deploy:ios:debug:
+    <<: *deploy
+    environment:
+        name: production
+    variables:
+        PLATFORM: iOS
+        FILE_TYPE: ipa
+        OUTPUT_PATH: platforms/ios/build/device/my-app
+    script:
+        - npm i --force
+        - ionic cordova build ios --debug
+deploy:ios:release:
+    <<: *deploy
+    environment:
+        name: production
+    variables:
+        PLATFORM: iOS
+        FILE_TYPE: ipa
+        OUTPUT_PATH: platforms/ios/build/device/my-app
+    script:
+        - npm i --force
+        - ionic cordova build ios --release
+        
