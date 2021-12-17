@@ -12,6 +12,7 @@ export interface Ilogin {
 interface IcheckToken {
   data: any;
   check: any;
+  cuentas:any[];
 }
 //@NgModule({providers: [forwardRef(() => LoginService)]}) 
 
@@ -79,6 +80,7 @@ export class LoginService extends ServiceService{
       this.post<IcheckToken>(url, json, httpOption)
         .subscribe(async (data) => {
           if (data != undefined  && (data.check == 1 || data.check =='true')){
+            localStorage.setItem("cuentas",JSON.stringify(data.cuentas))
             resolve(true);
           }
           else{

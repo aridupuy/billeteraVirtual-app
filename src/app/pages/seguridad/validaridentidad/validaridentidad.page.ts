@@ -31,7 +31,7 @@ export class ValidaridentidadPage implements OnInit {
       this.procesoaltaservice.validar_estado(token,localStorage.getItem("proceso_alta")).then((validaciones:Ivalidaciones)=>{
         localStorage.setItem("validaciones",JSON.stringify(validaciones));
         if(validaciones.ident==true || validaciones.ident=='t'){
-          this.navCtrl.navigateForward("datospersonales");    
+          this.navCtrl.navigateForward("preguntaslegales");    
         }
       })
     })

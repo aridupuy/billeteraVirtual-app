@@ -18,4 +18,7 @@ export class RegistroCuentaexistenteSiPage implements OnInit {
   Ingreso(){
     this.navCtrl.navigateForward(["ingreso",{}]);
   }
+  Reintentar(){
+    this.navCtrl.navigateForward(["registro",{}]);
+  }
 }

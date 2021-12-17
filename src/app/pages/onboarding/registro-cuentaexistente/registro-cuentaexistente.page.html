@@ -11,12 +11,14 @@
     <img src="assets/img/registro-cuentaexistente.svg" alt="">
   </div>
   <div class="contenedor-90">
-    <h1 class="align-center">Ya existe una cuenta con
+    <h1 class="align-center" *ngIf="!error">Ya existe una cuenta con
 los mismos datos</h1>
-    <p class="align-center">El mail o número de celular que estás ingresando ya está 
+<h1 class="align-center" *ngIf="error">No se puede generar con el usaurio</h1>
+    <p class="align-center" *ngIf="!error">El usaurio que estás ingresando ya está 
 en nuestra base de datos.
 Queremos ayudarte a resolverlo, así que te pedimos que 
 nos respondas esto.</p>
+<p class="align-center" *ngIf="error">{{error}}</p>
       <h2 class="align-center">
         ¿Vos creaste esta cuenta?
       </h2>

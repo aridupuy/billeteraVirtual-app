@@ -27,6 +27,7 @@ export class ProcesarfotosPage implements OnInit {
   //   // imagen cuando el proceso es fallido (tiene que cambiar la clase a procesandofotos-error)
   // this.imagen = 'assets/img/procesando-error.svg';
   procesando = "true";
+  public static REINTENTOS=3;
   public imagePath = "../../assets/img/foto1dni.jpg"
   public dni;
   public nombre;
@@ -35,7 +36,7 @@ export class ProcesarfotosPage implements OnInit {
   public validado = false
   public mensaje_reintento = "Reintentar";
   public omitir = false;
-
+  
   base64toBlob(base64Data, contentType) {
     contentType = contentType || '';
     base64Data = base64Data.substr("data:image/jpeg;base64,".length, base64Data.length);
@@ -220,7 +221,7 @@ export class ProcesarfotosPage implements OnInit {
 
     }
     else {
-      if (parseInt(reintentos) < 3 || !this.valida_dni) {
+      if (parseInt(reintentos) < ProcesarfotosPage.REINTENTOS || !this.valida_dni) {
         localStorage.setItem("reintentos", (parseInt(reintentos) + 1).toString());
         console.log(reintentos);
       }

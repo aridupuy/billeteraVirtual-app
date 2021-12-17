@@ -41,10 +41,10 @@ export class Registro1Page implements OnInit {
         localStorage.setItem("validaciones",JSON.stringify(validaciones));
         console.log(validaciones);
         if((validaciones.mail==true || validaciones.mail=='t') && (validaciones.cel==true || validaciones.cel=='t')){
-          this.navCtrl.navigateForward("confirmasms");    
+          this.navCtrl.navigateForward("validaridentidad");   
         }
         else{
-          alert("no valida");
+          // alert(JSON.stringify(validaciones));
         }
       })
     })
@@ -56,9 +56,10 @@ export class Registro1Page implements OnInit {
       this.cargando = true;
       let validaciones = JSON.parse(localStorage.getItem("validaciones"));
       console.log(validaciones);
-      if (validaciones==null || validaciones.mail == 'f' || validaciones.mail == null){
+      if (validaciones==null || validaciones.mail == 'f' || validaciones.mail == null || validaciones.mail==false){
         console.log(validaciones);
         await this.validMail.validar(this.mail.toString(), token, proceso_alta).then(data => {
+          console.log(data);
           Onboarding_vars.add({cod_pais:this.obtener_codigo_pais(),cod_area:this.codArea,celular:this.celular,mail:this.mail})
           this.cargando = false;
           return this.navCtrl.navigateForward("confirma-email");
@@ -67,7 +68,7 @@ export class Registro1Page implements OnInit {
       }
       else{
         console.log(validaciones);
-        if (validaciones==null || validaciones.cel == 'f' || validaciones.cel == null)
+        if (validaciones==null || validaciones.cel == 'f' || validaciones.cel == null || validaciones.cel == false)
           return this.navCtrl.navigateForward("confirmasms");  
         else 
           return this.navCtrl.navigateForward("validaridentidad");  

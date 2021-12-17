@@ -1,5 +1,6 @@
 <ion-app>
-  <ion-menu side="start" menuId="menuPrincipal" contentId="main" class="menu-custom" type="overlay" *ngIf="mostrar_menu() && es_valido()">
+  <ion-menu side="start" menuId="menuPrincipal" contentId="main" class="menu-custom" type="overlay" *ngIf="mostrar_menu() || es_valido()">
+    <!-- <ion-menu side="start" menuId="menuPrincipal" contentId="main" class="menu-custom" type="overlay"> -->
     <ion-content class="menu">
       <div class="user-header" [class]="addClass()">
         <div class="avatar" >

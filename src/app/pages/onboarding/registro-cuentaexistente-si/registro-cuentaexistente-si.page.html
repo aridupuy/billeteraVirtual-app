@@ -16,9 +16,13 @@ no puedo ingresar
 </div>
 <div class="onboarding-btn-group">
   <a (click)="LostPassword()" class="link">Olvidé la contraseña</a>
-  <div class="btn-round activo" (click)="Ingreso()">
+  <div class="btn-round activo" (click)="Reintentar()">
+    Reintentar registro
+  </div>
+  <div class="btn-round inactivo" (click)="Ingreso()">
     Ingresar de nuevo
   </div>
+  
 </div>
 </ion-content>
 <ion-footer>

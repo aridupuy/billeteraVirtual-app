@@ -45,7 +45,6 @@ export class ConfirmasmsPage implements OnInit {
   async ngOnInit() {
     let  p  = Onboarding_vars.get();
     this.validar_cel();
-    console.log(p);
     this.telefono = p.cod_pais.toString()+p.cod_area.toString() + p.celular.toString();
     this.revalidar = p.revalidar;
     let detener = false;
@@ -57,6 +56,7 @@ export class ConfirmasmsPage implements OnInit {
           this.navCtrl.navigateForward("validaridentidad");    
           this.countdown.stop();
         }
+        
       })
     })
     

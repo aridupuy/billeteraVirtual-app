@@ -66,5 +66,9 @@ export class  Onboarding_vars {
         return json;
     }
 
+    static destroy(){
+        localStorage.removeItem("varsOnboarding");
+    }
+
 
 }

@@ -1,3 +1,4 @@
+import { Onboarding_vars } from '../../../classes/onboarding-vars';
 import { ElementRef } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { AfterViewInit, ViewChild } from '@angular/core';
@@ -26,9 +27,12 @@ export class RevisarfotosPage implements OnInit, AfterViewInit {
     this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
     localStorage.setItem("onboardingLastPage","revisarfotos");
   }
+  ionViewDidEnter(){
+    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+  }
   ngAfterViewInit(): void {
 
-
+    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
     console.log(p);
     this.cara = p.foto_frente;
@@ -49,6 +53,7 @@ export class RevisarfotosPage implements OnInit, AfterViewInit {
         param: JSON.stringify(p)
       }
     };
+    Onboarding_vars.add({foto_frente:p.foto_frente,foto_frente_dni:p.foto_frente,foto_dorso_dni:p.foto_dorso_dni,foto_frente_con_dni:p.foto_frente_con_dni});
 
     this.navCtrl.navigateRoot("procesarfotos", navigationExtras);
 

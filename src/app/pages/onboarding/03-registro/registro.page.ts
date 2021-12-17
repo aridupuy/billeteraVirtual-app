@@ -8,7 +8,8 @@ import { ValidausuarioService } from '../../../service/validausuario.service';
 import { Onboarding_vars } from '../../../classes/onboarding-vars';
 import { pass } from '../../../patron.guard';
 import { UsuarioService } from '../../../service/usuario.service';
-import { ActivatedRoute } from '@angular/router';
+import { Navigation } from 'swiper';
+import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Router } from '@angular/router';
 
 @Component({
@@ -55,30 +56,48 @@ export class RegistroPage implements OnInit {
     console.log(this.usuario);
     /* por ahora no valido usuarios*/
     await this.loginBo.login().then(async token => {
-      await this.iniciaProceso.iniciar(token, this.usuario,this.pfpj).then(async (data: any) => {
+      await this.iniciaProceso.iniciar(token, this.usuario, this.pfpj).then(async (data: any) => {
         localStorage.setItem("proceso_alta", data.id_proceso_alta);
+        Onboarding_vars.add({ proceso_alta: data.id_proceso_alta });
         localStorage.setItem("validaciones", JSON.stringify(data.validaciones));
+        console.log(data);
         // antes que esto va un endṕoint para validar la preexistencia del mail
         await this.ValidausuarioService.validar_usuario(this.usuario, this.pfpj, token).then(data => {
           this.errorusuario = false;
-          let validaciones = JSON.parse(localStorage.getItem("validaciones"));
-          this.despachar(validaciones.mail) || this.despachar(validaciones.cel) || this.despachar(validaciones.ident,"validaridentidad");
-          // this.navCtrl.navigateForward("registro-cuentaexistente");
+          console.log(data);
+          const navigationExtras: NavigationExtras = {
+            queryParams: {
+              param: JSON.stringify({ pfpj: this.pfpj })
+            }
+          };
+          this.navCtrl.navigateForward("registro-cuentaexistente", navigationExtras);
+
+
         })
           .catch(err => {
-            this.errorusuario = true;
+            this.errorusuario = false;
           });
+      }).catch(err => {
+        const navigationExtras: NavigationExtras = {
+          queryParams: {
+            param: JSON.stringify({ pfpj: this.pfpj,error:err })
+          }
+        };
+        this.navCtrl.navigateForward("registro-cuentaexistente", navigationExtras);
       });
     }).catch(log => {
-      this.navCtrl.navigateForward("registro-cuentaexistente");
+      const navigationExtras: NavigationExtras = {
+        queryParams: {
+          param: JSON.stringify({ pfpj: this.pfpj })
+        }
+      };
+      this.navCtrl.navigateForward("registro-cuentaexistente", navigationExtras);
     });
     return true;
 
 
   }
-  despachar(valid,pagina?){
-    return valid? pagina!=undefined?this.navCtrl.navigateForward(pagina) :this.navCtrl.navigateForward("registro1"):false;
-  }
+
   validar_regex() {
     this.pass_minim = false;
     this.pass_has_upper = false;;

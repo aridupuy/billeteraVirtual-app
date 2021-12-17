@@ -20,9 +20,6 @@ import { Libs } from '../../../classes/libs';
 import { MenuserviceService } from '../../../service/menuservice.service';
 import { FcmService } from '../../../service/fcm.service';
 import { ValidacionMailService } from '../../../service/validacion-mail.service';
-import {
-    Validaridentidad1Page
-} from '../../../pages/seguridad/validaridentidad1/validaridentidad1.page';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -68,8 +65,11 @@ export class HomePage implements OnInit {
       this.valida_empresa = p.valida_empresa;
       this.mensaje = p.Mensaje?this.mensaje = p.Mensaje:this.mensaje = p.mensaje;
       AppComponent.validado=p.valido?p.valido:false;
-      
-      this.muestro_menu = AppComponent.validado;
+      let cuentas = JSON.parse(localStorage.getItem("cuentas"));
+
+      if(cuentas.length==1){
+        this.muestro_menu = AppComponent.validado;
+      }
       this.validado = false;
       this.obtener_datos_usuario();
       return;

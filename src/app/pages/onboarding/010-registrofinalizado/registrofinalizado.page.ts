@@ -1,5 +1,6 @@
 import { RegistroService } from '../../../service/registro.service';
 import { PersonapfpjPage } from '../01-personapfpj/personapfpj.page';
+import { Onboarding_vars } from '../../../classes/onboarding-vars';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -37,6 +38,8 @@ export class RegistrofinalizadoPage implements OnInit {
   }
   Ingresar() {
     localStorage.setItem("onboarding", "0");
+    Onboarding_vars.destroy();
+    localStorage.removeItem("onboardingLastPage");
     this.navCtrl.navigateForward("ingreso");
   }
   reintentar() {
@@ -45,7 +48,7 @@ export class RegistrofinalizadoPage implements OnInit {
   reiniciar() {
     localStorage.removeItem("onboarding");
     localStorage.removeItem("proceso_alta");
-    localStorage.removeItem("varsOnboarding");
+    Onboarding_vars.destroy();
     localStorage.removeItem("onboardingLastPage");
     this.navCtrl.navigateBack("personapfpj");
   }

@@ -16,7 +16,7 @@
   <div class="form">
     <ion-item class="input-container with-label">
       <ion-label position="floating">Ingresá tu Usuario</ion-label>
-      <ion-input [(ngModel)]="usuario" type="text" (change)="validar_usuario()"></ion-input>
+      <ion-input [(ngModel)]="usuario" type="text" (focusout)="validar_usuario()"></ion-input>
       <ion-icon slot="end" name="checkmark-sharp" color="success" *ngIf="usuario && errorusuario!=null && !errorusuario"></ion-icon >
         <ion-icon slot="end" name="close-sharp" color="danger" *ngIf="usuario && errorusuario!=null && errorusuario"></ion-icon >
     </ion-item>
