@@ -48,16 +48,25 @@ export class ConfirmasmsPage implements OnInit {
     this.telefono = p.cod_pais.toString()+p.cod_area.toString() + p.celular.toString();
     this.revalidar = p.revalidar;
     let detener = false;
-    let proceso_alta = localStorage.getItem("proceso_alta");
-    this.loginBo.login().then(token=>{
-      this.procesoaltaservice.validar_estado(token,proceso_alta).then((validaciones:Ivalidaciones)=>{
+    let proceso_alta = localStorage.getItem("proceso_alta") != null ? localStorage.getItem("proceso_alta") : p.proceso_alta;
+    await this.loginBo.login().then(async token=>{
+      await this.procesoaltaservice.validar_estado(token,proceso_alta).then((validaciones:Ivalidaciones)=>{
         localStorage.setItem("validaciones",JSON.stringify(validaciones));
         if(validaciones.cel==true || validaciones.cel=='t'){
           this.navCtrl.navigateForward("validaridentidad");    
           this.countdown.stop();
         }
         
+      });
+      
+    await this.loginBo.login().then(async token => {
+      await this.validCel.obtener_codigo(p.cod_pais.toString()+p.cod_area.toString()+p.celular.toString(), token, proceso_alta).then(data => {
+        Onboarding_vars.add({valida_mail:true,proceso_alta:proceso_alta});
+        
+        return true;
       })
+        .catch(err => { console.log(err); return; });
+      });
     })
     
   }

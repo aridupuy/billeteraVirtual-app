@@ -58,13 +58,7 @@ export class Registro1Page implements OnInit {
       console.log(validaciones);
       if (validaciones==null || validaciones.mail == 'f' || validaciones.mail == null || validaciones.mail==false){
         console.log(validaciones);
-        await this.validMail.validar(this.mail.toString(), token, proceso_alta).then(data => {
-          console.log(data);
-          Onboarding_vars.add({cod_pais:this.obtener_codigo_pais(),cod_area:this.codArea,celular:this.celular,mail:this.mail})
-          this.cargando = false;
-          return this.navCtrl.navigateForward("confirma-email");
-        })
-          .catch(err => { console.log(err); return; });
+       
       }
       else{
         console.log(validaciones);

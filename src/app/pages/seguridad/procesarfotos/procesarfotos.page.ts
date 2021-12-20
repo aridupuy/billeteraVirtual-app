@@ -18,7 +18,7 @@ import { int } from '@zxing/library/esm/customTypings';
 })
 export class ProcesarfotosPage implements OnInit {
   public claseProcesando = 'procesandofotos-progress';
-  constructor(private screenOrientation: ScreenOrientation, public route: ActivatedRoute, public Router: Router, private navCtrl: NavController, private file: File, public toastController: ToastController, public renaper: RenaperService,public revalidar_renaper: RevalidarRenaperService) { }
+  constructor(private screenOrientation: ScreenOrientation, public route: ActivatedRoute, public Router: Router, private navCtrl: NavController, private file: File, public toastController: ToastController, public renaper: RenaperService, public revalidar_renaper: RevalidarRenaperService) { }
   public mensaje = "Estamos procesando tus fotos ...";
   // // imagen cuando esta procesando (default) (mantiene clase default procesandofotos-progress)
   public imagen = 'assets/img/procesando.svg';
@@ -27,7 +27,7 @@ export class ProcesarfotosPage implements OnInit {
   //   // imagen cuando el proceso es fallido (tiene que cambiar la clase a procesandofotos-error)
   // this.imagen = 'assets/img/procesando-error.svg';
   procesando = "true";
-  public static REINTENTOS=3;
+  public static REINTENTOS = 3;
   public imagePath = "../../assets/img/foto1dni.jpg"
   public dni;
   public nombre;
@@ -36,7 +36,7 @@ export class ProcesarfotosPage implements OnInit {
   public validado = false
   public mensaje_reintento = "Reintentar";
   public omitir = false;
-  
+
   base64toBlob(base64Data, contentType) {
     contentType = contentType || '';
     base64Data = base64Data.substr("data:image/jpeg;base64,".length, base64Data.length);
@@ -71,14 +71,14 @@ export class ProcesarfotosPage implements OnInit {
     let caraDni = p.foto_frente_con_dni;
     let data = { imagen: fotoDniFrente, x: 0, y: 0, width: 1280, height: 640 };
     let json = JSON.parse(localStorage.getItem("varsOnboarding"));
-    json["fotoRostro"]=fotoRostro;
-    json["fotoDniFrente"]=fotoDniFrente;
-    json["foto_dorso_dni"]=dniD;
-    json["foto_frente_con_dni"]=caraDni;
-    localStorage.setItem("varsOnboarding",JSON.stringify(json));
+    json["fotoRostro"] = fotoRostro;
+    json["fotoDniFrente"] = fotoDniFrente;
+    json["foto_dorso_dni"] = dniD;
+    json["foto_frente_con_dni"] = caraDni;
+    localStorage.setItem("varsOnboarding", JSON.stringify(json));
     console.log(environment.ACTIVAR_TEST);
     console.log(JSON.stringify(p));
-    if(p.revalidar==true){
+    if (p.revalidar == true) {
       this.mensaje = "Estamos revalidando tu identidad.";
       this.revalidar_renaper.revalidar_rostro(fotoRostro).then(data => {
         console.log("se valida el rostro correctamente.");
@@ -118,12 +118,12 @@ export class ProcesarfotosPage implements OnInit {
       // console.log(this.file.dataDirectory);
       // console.log(this.file.sharedDirectory);
       // console.log(this.file.tempDirectory);
-        // console.log(nombre);
+      // console.log(nombre);
       this.file.checkDir(documentsDirectory, '').then(async _ => {
         var binaryData = this.base64toBlob(fotoDniFrente, 'image/jpeg');
         var nombre = this.calcular_nombre("dni");
         var img;
-        console.log("Archivo guardado en "+documentsDirectory + '', nombre)
+        console.log("Archivo guardado en " + documentsDirectory + '', nombre)
         await this.file.writeFile(documentsDirectory + '', nombre, binaryData, { replace: true }).then(data => {
           img = <HTMLImageElement>document.getElementById('img');
         }).catch(data => {
@@ -144,9 +144,9 @@ export class ProcesarfotosPage implements OnInit {
             this.valida_dni = true;
             this.file.removeFile(documentsDirectory, nombre).then(data => {
               console.log("Archivo Eliminado");
-             }).catch(()=>{
-               console.error("No se pudo eliminar el archivo");
-             });
+            }).catch(() => {
+              console.error("No se pudo eliminar el archivo");
+            });
             if (!localStorage.getItem("proceso_alta"))
               localStorage.setItem("proceso_alta", "89296");
             this.mensaje = "Estamos Validando tu identidad...";
@@ -195,16 +195,16 @@ export class ProcesarfotosPage implements OnInit {
   Continuar() {
     localStorage.setItem("reintentos", null);
     let p = JSON.parse(localStorage.getItem("varsOnboarding"));
-    if(p.revalidar==true){
-      this.navCtrl.navigateRoot(""); 
-      return ;
+    if (p.revalidar == true) {
+      this.navCtrl.navigateRoot("");
+      return;
     }
     if (this.dni)
       p["dni"] = this.dni;
     p["sexo"] = this.sexo;
     p["nombre"] = this.nombre;
     p["valida_identidad"] = true;
-    localStorage.setItem("varsOnboarding",JSON.stringify(p));
+    localStorage.setItem("varsOnboarding", JSON.stringify(p));
     this.navCtrl.navigateForward("datospersonales");
   }
   calcular_nombre(tipo) {
@@ -226,7 +226,7 @@ export class ProcesarfotosPage implements OnInit {
         console.log(reintentos);
       }
       else {
-        console.log("INTENTOS: "+reintentos);
+        console.log("INTENTOS: " + reintentos);
         this.omitir = true;
         this.mensaje = "No pudimos validar tu identidad, Reintenta mas tarde ";
         this.imagen = 'assets/img/procesando-error.svg';

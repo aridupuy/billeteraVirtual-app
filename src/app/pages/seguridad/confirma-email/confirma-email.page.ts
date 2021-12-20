@@ -52,8 +52,8 @@ export class ConfirmaEmailPage implements OnInit {
     let detener = false;
     console.log("Envia Codigo");
     console.log(p);
-    let proceso_alta =localStorage.getItem("proceso_alta");
-    this.loginBo.login().then(token=>{
+    let proceso_alta = localStorage.getItem("proceso_alta") != null ? localStorage.getItem("proceso_alta") : p.proceso_alta;
+    await  this.loginBo.login().then(async token=>{
       this.procesoaltaservice.validar_estado(token,proceso_alta).then((validaciones:Ivalidaciones)=>{
         localStorage.setItem("validaciones",JSON.stringify(validaciones));
         if(validaciones.mail==true || validaciones.mail=='t'){
@@ -61,7 +61,12 @@ export class ConfirmaEmailPage implements OnInit {
           this.countdown.stop();
         }
       })
+      await this.validMail.validar(this.mail.toString(), token, proceso_alta).then(data => {
+        console.log(data);
+      })
+        .catch(err => { console.log(err); return; });
     })
+    
   }
   onKeyUp(event, index) {
     console.log(event);
@@ -239,15 +244,8 @@ export class ConfirmaEmailPage implements OnInit {
     this.error_code = false;
     this.countdown.stop();
     let p = Onboarding_vars.get();
-    let proceso_alta = localStorage.getItem("proceso_alta") != null ? localStorage.getItem("proceso_alta") : p.proceso_alta;
-    await this.loginBo.login().then(async token => {
-      await this.validCel.obtener_codigo(p.cod_pais.toString()+p.cod_area.toString()+p.celular.toString(), token, proceso_alta).then(data => {
-        Onboarding_vars.add({valida_mail:true,proceso_alta:proceso_alta});
-        this.navCtrl.navigateForward("confirmasms");
-        return true;
-      })
-        .catch(err => { console.log(err); return; });
-    });
+    this.navCtrl.navigateForward("confirmasms");
+    
     
     // this.navCtrl.navigateForward("validaridentidad");
     return true;

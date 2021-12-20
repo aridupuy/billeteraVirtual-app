@@ -6,7 +6,8 @@ import { NavController } from '@ionic/angular';
 import { CameraPreview } from '@ionic-native/camera-preview/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { NavigationExtras } from '@angular/router';
-
+import Rx, { Observable, observable } from 'rxjs';
+import { repeatWhen, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-validaridentidad1',
@@ -33,9 +34,13 @@ export class Validaridentidad1Page implements OnInit {
   }
   ionViewDidEnter() {
 
-    this.cameraPreview.show();
+    this.cameraPreview.show().then(data=>{
+      alert(data);
+    });
   }
   public ACTIVAR_TEST = false;
+
+
   takePicture() {
     console.log("aca1");
     if (!this.ACTIVAR_TEST)
