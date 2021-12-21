@@ -48,5 +48,7 @@ export class NotificacionesPage implements OnInit,OnDestroy {
     })
     localStorage.setItem("notification",JSON.stringify(items));
   }
-  
+  IrAtras(){
+    history.back();
+  }
 }

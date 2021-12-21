@@ -6,8 +6,7 @@ import { NavController } from '@ionic/angular';
 import { CameraPreview } from '@ionic-native/camera-preview/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { NavigationExtras } from '@angular/router';
-import Rx, { Observable, observable } from 'rxjs';
-import { repeatWhen, take } from 'rxjs/operators';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-validaridentidad1',
@@ -22,21 +21,30 @@ export class Validaridentidad1Page implements OnInit {
   flashMode = 'off';
   isToBack = true;
 
-  constructor(private navCtrl: NavController, private cameraPreview: CameraPreview, private screenOrientation: ScreenOrientation, public route: ActivatedRoute, public router: Router) { }
+  constructor(private navCtrl: NavController, private cameraPreview: CameraPreview, private screenOrientation: ScreenOrientation, public route: ActivatedRoute, public router: Router,protected platform: Platform) { }
 
-  ngOnInit() {
-    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE).then(
-      () => {
-        this.cameraPreview.startCamera({ x: 0, y: 0, width: window.screen.height, height: window.screen.width, previewDrag: true, camera: "rear", toBack: true });
-      }
-    );
+  async ngOnInit() {
+    let width;
+    let heigth; 
+    if (this.platform.isLandscape()) {
+      heigth = window.screen.height;
+      width = window.screen.width;
+    }
+    else if (this.platform.isPortrait()) {
+      width = window.screen.height;
+      heigth = window.screen.width;
+    }
+    await this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE_PRIMARY).then(
+      async () => {
+      //  await  this.cameraPreview.startCamera({ x: 0, y: 0,width: this.platform.height(), height: this.platform.width(), previewDrag: true, camera: "rear", toBack: true });
+          await  this.cameraPreview.startCamera({ x: 0, y: 0,width: width, height: heigth, previewDrag: true, camera: "rear", toBack: true })
+        }
+      );
 
   }
   ionViewDidEnter() {
 
-    this.cameraPreview.show().then(data=>{
-      alert(data);
-    });
+    this.cameraPreview.show();
   }
   public ACTIVAR_TEST = false;
 
@@ -105,9 +113,9 @@ export class Validaridentidad1Page implements OnInit {
     // this.cameraPreview.stopCamera();
   }
   ionViewWillLeave() {
-
-    // this.cameraPreview.hide();
-    // this.cameraPreview.stopCamera();
+    this.cameraPreview.hide();
+    this.cameraPreview.stopCamera();
+    // this.screenOrientation.unlock();
     console.log("identidad1 camara apagada");
   }
   noPuedo() { 

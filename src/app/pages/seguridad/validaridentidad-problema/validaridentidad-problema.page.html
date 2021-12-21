@@ -15,21 +15,21 @@ finalices el proceso</h1>
     <div class="form">
       <ion-item class="full">
          <h2 class="full" style="padding-left:5px;">Tengo impedimentos de visión temporal o crónica</h2> 
-         <ion-checkbox slot="start"  value="No"></ion-checkbox>
+         <ion-checkbox slot="start" [(ngModel)]="check" value="No"></ion-checkbox>
             
       </ion-item>
       <ion-item class="full">
-        <ion-checkbox slot="start"  value="No"></ion-checkbox>
+        <ion-checkbox slot="start"  [(ngModel)]="check" value="No"></ion-checkbox>
         <h2 class="full" style="padding-left:5px;">No puedo sostener de manera correcta el celular</h2> 
      </ion-item>
      <ion-item class="full">
-      <ion-checkbox slot="start"  value="No"></ion-checkbox>
+      <ion-checkbox slot="start" [(ngModel)]="check"  value="No"></ion-checkbox>
          <ion-label>Otra razón. 
           </ion-label>   
       </ion-item>
       <h2>Escribí acá el motivo que te impide sacar las fotos: </h2>
     <ion-item class="full ">
-      <ion-textarea rows="4" cols="15" style="padding-left: 5px;"></ion-textarea>
+      <ion-textarea rows="4" [(ngModel)]="mensaje" cols="15" style="padding-left: 5px;"></ion-textarea>
     </ion-item>
            
     </div>

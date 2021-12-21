@@ -1,10 +1,12 @@
-import { ProcesarfotosPage } from '../procesarfotos/procesarfotos.page';
 import { NavigationExtras, Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { CameraPreview } from '@ionic-native/camera-preview/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { Platform } from '@ionic/angular';
+
+
 
 @Component({
   selector: 'app-validaridentidad3',
@@ -18,7 +20,7 @@ export class Validaridentidad3Page implements OnInit {
   setZoom = 1;
   flashMode = 'off';
   isToBack = true;
-  constructor(private navCtrl: NavController, private cameraPreview: CameraPreview, private screenOrientation: ScreenOrientation, public route: ActivatedRoute, public router: Router) { }
+  constructor(private navCtrl: NavController, private cameraPreview: CameraPreview, private screenOrientation: ScreenOrientation, public route: ActivatedRoute, public router: Router, protected platform: Platform) { }
 
 
   ngOnInit() {
@@ -27,21 +29,23 @@ export class Validaridentidad3Page implements OnInit {
     //   view.setAttribute("style","display:none");
     // });
   }
-  ionViewDidEnter() {
-    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT).then(() => {
-      let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
-      console.log(JSON.stringify(p));
-      if (p.editar == true || p.revalidar == true) {
-        this.cameraPreview.startCamera({ x: 0, y: 0, width: window.screen.width, height: window.screen.height, previewDrag: true, camera: "front", toBack: true });
-      }else{
-        this.cameraPreview.stopCamera();
-        this.cameraPreview.startCamera({ x: 0, y: 0, width: window.screen.height, height: window.screen.width, previewDrag: true, camera: "front", toBack: true });
-      }
-      // this.cameraPreview.startCamera({x: 0, y: 0, width: window.screen.width, height: window.screen.height, previewDrag: true, camera: "front",toBack: true});
-      this.cameraPreview.switchCamera();
-      this.cameraPreview.show();
+  async ionViewDidEnter() {
+    let width;
+    let heigth;
+    if (this.platform.isLandscape()) {
+      width = window.screen.height;
+      heigth = window.screen.width;
+    }
+    else if (this.platform.isPortrait()) {
+      heigth = window.screen.height;
+      width = window.screen.width;
+    }
+    console.log("enter view 3");
+    await this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT).then(async () => {
+      await this.cameraPreview.startCamera({ x: 0, y: 0, width: width, height: heigth, previewDrag: true, camera: "front", toBack: true });
+      // this.cameraPreview.switchCamera();
+      await this.cameraPreview.show();
     });
-
   }
   public ACTIVAR_TEST = false;
   public mostrar = true;
@@ -50,9 +54,9 @@ export class Validaridentidad3Page implements OnInit {
     if (!this.ACTIVAR_TEST) {
       console.log("aca3Camara");
       this.cameraPreview.takePicture({
-        width: 1280,
-        height: 640,
-        quality: 100,
+        width: 1600,
+        height: 768,
+        quality: 80
       }).then((imageData) => {
         this.IMAGE_PATH = 'data:image/jpeg;base64,' + imageData;
         let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
@@ -88,7 +92,7 @@ export class Validaridentidad3Page implements OnInit {
       let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
       if (p == null)
         p = { foto_frente: false };
-     
+
       const navigationExtras: NavigationExtras = {
         queryParams: {
           param: JSON.stringify(p)
@@ -104,16 +108,16 @@ export class Validaridentidad3Page implements OnInit {
       }
     }
     //esto va!
-    
+
   }
   // public mostrar = true;
   // ngOnDestroy() {
   //   this.cameraPreview.stopCamera();
   // }
   ionViewWillLeave() {
-    // this.mostrar = false;
-    // this.cameraPreview.hide();
-    // this.cameraPreview.stopCamera();
+    this.cameraPreview.hide();
+    this.cameraPreview.stopCamera();
+    this.screenOrientation.unlock();
     console.log("identidad3 camara apagada");
   }
 }

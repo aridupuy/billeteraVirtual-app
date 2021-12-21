@@ -3,7 +3,7 @@
     <name>EfectivoDigital</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework.com" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://localhost:8100" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -14,11 +14,11 @@
     <preference name="ScrollEnabled" value="false" />
     <preference name="android-minSdkVersion" value="26" />
     <preference name="BackupWebStorage" value="none" />
+    <preference name="ShowSplashScreenSpinner" value="false" />
     <preference name="SplashMaintainAspectRatio" value="true" />
-    <preference name="FadeSplashScreenDuration" value="300" />
     <preference name="SplashShowOnlyFirstTime" value="false" />
     <preference name="SplashScreen" value="screen" />
-    <preference name="SplashScreenDelay" value="3000" />
+    <preference name="SplashScreenDelay" value="7000" />
     <preference name="orientation" value="portrait" />
     <preference name="UseSwiftLanguageVersion" value="3" />
     <feature name="CDVWKWebViewEngine">
@@ -221,4 +221,5 @@
     <allow-navigation href="http://192.168.0.163:8200" sessionid="2065653c" />
     <allow-navigation href="https://www.efectivodigital.com.ar:8200" sessionid="2065653c" />
     <allow-navigation href="https://www.efectivodigital.com.ar" />
+    <allow-navigation href="http://localhost:8100" sessionid="4149243a" />
 </widget>

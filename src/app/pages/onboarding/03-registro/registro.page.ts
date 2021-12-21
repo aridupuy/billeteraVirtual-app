@@ -127,10 +127,8 @@ export class RegistroPage implements OnInit {
     if (!(this.password.toString().match(/^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$/))) {
       this.error_password = true;
     }
-    if (this.password != this.repassword)
-      this.error_password = true;
-    else
-      this.error_password = false;
+    if (this.password == this.repassword && this.error_password==true)
+        this.error_password = false;
   }
   private tokenBo;
   async Continuar() {

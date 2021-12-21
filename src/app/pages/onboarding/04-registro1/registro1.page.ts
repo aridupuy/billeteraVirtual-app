@@ -51,6 +51,8 @@ export class Registro1Page implements OnInit {
   }
   async ConfirmaSms() {
     let p = Onboarding_vars.get();
+    Onboarding_vars.add({mail:this.mail,cod_pais:this.obtener_codigo_pais(),cod_area:this.codArea,celular:this.celular});
+    
     let proceso_alta = localStorage.getItem("proceso_alta") != null ? localStorage.getItem("proceso_alta") : p.proceso_alta;
     await this.loginBo.login().then(async token => {
       this.cargando = true;
@@ -58,7 +60,7 @@ export class Registro1Page implements OnInit {
       console.log(validaciones);
       if (validaciones==null || validaciones.mail == 'f' || validaciones.mail == null || validaciones.mail==false){
         console.log(validaciones);
-       
+        return this.navCtrl.navigateForward("confirma-email");
       }
       else{
         console.log(validaciones);

@@ -178,7 +178,7 @@ export class ConfirmasmsPage implements OnInit {
         {
           text: 'Modificar celular',
           handler: () => {
-            this.navCtrl.back();
+            this.navCtrl.navigateBack("registro1");
           }
         },
         {
@@ -271,5 +271,11 @@ export class ConfirmasmsPage implements OnInit {
       this.cdEvents({action:"saltear"});
     }
     this.error_code = true;
+  }
+  IrAtras(){
+    let onboarding = localStorage.getItem("onboarding");
+    if(onboarding=="1")
+      this.navCtrl.navigateBack("registro1");
+    else history.back();
   }
 }

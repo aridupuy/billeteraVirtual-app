@@ -1,3 +1,4 @@
+import { Platform } from '@ionic/angular';
 import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -18,7 +19,7 @@ export class Validaridentidad2Page implements OnInit {
   setZoom = 1;
   flashMode = 'off';
   isToBack = true;
-  constructor(private navCtrl: NavController, private cameraPreview: CameraPreview, private screenOrientation: ScreenOrientation, public route: ActivatedRoute, public router: Router) { }
+  constructor(private navCtrl: NavController, private cameraPreview: CameraPreview, private screenOrientation: ScreenOrientation, public route: ActivatedRoute, public router: Router,protected platform: Platform) { }
 
 
   ngOnInit() {
@@ -26,18 +27,28 @@ export class Validaridentidad2Page implements OnInit {
     // this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
 
   }
-  ionViewDidEnter() {
+  async ionViewDidEnter() {
 
     // document.querySelectorAll("#fot1").forEach((view)=>{
     //   view.setAttribute("style","display:none");
     // });
-    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE).then(
-      () => {
+    let width;
+    let heigth; 
+    if (this.platform.isLandscape()) {
+      heigth = window.screen.height;
+      width = window.screen.width;
+    }
+    else if (this.platform.isPortrait()) {
+      width = window.screen.height;
+      heigth = window.screen.width;
+    }
+    await this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE).then(
+      async () => {
         console.log("identidad 2 ViewDidEnter");
         let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
-        if (p.editar == true) {
-          this.cameraPreview.startCamera({ x: 0, y: 0, width: window.screen.height, height: window.screen.width, previewDrag: true, camera: "rear", toBack: true });
-        }
+        // if (p.editar == true) {
+          this.cameraPreview.startCamera({ x: 0, y: 0,width: width, height: heigth, previewDrag: true, camera: "rear", toBack: true });
+        // }
         this.cameraPreview.show();
       }
     );
@@ -49,9 +60,9 @@ export class Validaridentidad2Page implements OnInit {
     console.log("aca2");
     if (!this.ACTIVAR_TEST){
       this.cameraPreview.takePicture({
-        width: 1280,
-        height: 640,
-        quality: 100
+        width: 1600,
+        height: 768,
+        quality: 80
       }).then((imageData) => {
         this.cameraPreview.stopCamera();
         this.IMAGE_PATH = 'data:image/jpeg;base64,' + imageData;
@@ -107,12 +118,10 @@ export class Validaridentidad2Page implements OnInit {
     // this.cameraPreview.stopCamera();
   }
   ionViewWillLeave() {
-
-
-    // this.cameraPreview.hide();
-    // this.cameraPreview.stopCamera();
+    this.cameraPreview.hide();
+    this.cameraPreview.stopCamera();
+    this.screenOrientation.unlock();
     console.log("identidad2 camara apagada");
-
   }
   noPuedo() { }
 }
