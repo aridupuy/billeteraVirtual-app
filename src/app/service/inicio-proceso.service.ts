@@ -50,4 +50,23 @@ export class InicioProcesoService extends ServiceService{
       });
     });
   }
+  obtener_datos(usuario,token) {
+    httpOptions.headers.token=token;
+    return new Promise((resolve, reject) => {
+      let params = {usuario:usuario};
+      this.post<any>( 'api/procesoalta/obtener_datos', params,httpOptions).subscribe((data) => {
+        if (data.resultado != null && data.resultado == false) {
+          reject(data.log);
+        }
+        let dataReturn={};
+        if('data' in data.extras[0]){
+          dataReturn = {cel:data.extras[0].data.validaciones.cel,mail:data.extras[0].data.validaciones.mail};
+          return resolve(dataReturn);
+        }
+        else{
+          reject(false);
+        }
+      });
+    });
+}
 }

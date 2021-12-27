@@ -14,29 +14,32 @@ finalices el proceso</h1>
       Elegí una de las opciones.</p>
     <div class="form">
       <ion-item class="full">
-         <h2 class="full" style="padding-left:5px;">Tengo impedimentos de visión temporal o crónica</h2> 
-         <ion-checkbox slot="start" [(ngModel)]="check" value="No"></ion-checkbox>
+         <h2 class="full" style="padding-left:5px;">{{form[0].val}}</h2> 
+         <ion-checkbox slot="start" name="check" [(ngModel)]="form[0].isChecked" value="No"></ion-checkbox>
             
       </ion-item>
       <ion-item class="full">
-        <ion-checkbox slot="start"  [(ngModel)]="check" value="No"></ion-checkbox>
-        <h2 class="full" style="padding-left:5px;">No puedo sostener de manera correcta el celular</h2> 
+        <ion-checkbox slot="start"  name="check" [(ngModel)]="form[1].isChecked" value="No"></ion-checkbox>
+        <h2 class="full" style="padding-left:5px;">{{form[1].val}}</h2> 
      </ion-item>
      <ion-item class="full">
-      <ion-checkbox slot="start" [(ngModel)]="check"  value="No"></ion-checkbox>
-         <ion-label>Otra razón. 
+      <ion-checkbox slot="start" name="check" [(ngModel)]="form[2].isChecked"  value="No"></ion-checkbox>
+         <ion-label>{{form[2].val}}
           </ion-label>   
       </ion-item>
       <h2>Escribí acá el motivo que te impide sacar las fotos: </h2>
     <ion-item class="full ">
-      <ion-textarea rows="4" [(ngModel)]="mensaje" cols="15" style="padding-left: 5px;"></ion-textarea>
+      <ion-textarea rows="4"  [(ngModel)]="mensaje" cols="15" style="padding-left: 5px;"></ion-textarea>
     </ion-item>
            
     </div>
    
   </div>
   <div class="onboarding-btn-group">
-    <div class="btn-round inactivo" (click)="Continuar()">
+    <div class="btn-round inactivo" *ngIf="!mensaje || !validate_form()" (click)="Continuar()">
+      Enviar Respuesta
+    </div>
+    <div class="btn-round activo" *ngIf="mensaje && validate_form()" (click)="Continuar()">
       Enviar Respuesta
     </div>
   </div> 

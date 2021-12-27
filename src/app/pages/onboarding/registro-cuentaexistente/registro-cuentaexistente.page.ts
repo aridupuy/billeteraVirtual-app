@@ -1,5 +1,5 @@
 import { Onboarding_vars } from '../../../classes/onboarding-vars';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 
@@ -12,10 +12,12 @@ export class RegistroCuentaexistentePage implements OnInit {
 
   private pfpj;
   public error;
+  protected usuario;
   constructor(private navCtrl : NavController,public route: ActivatedRoute) { }
 
   ngOnInit() {
     this.pfpj = (JSON.parse(this.route.snapshot.queryParamMap.get("param"))).pfpj;
+    this.usuario=(JSON.parse(this.route.snapshot.queryParamMap.get("param"))).usuario;
     this.error = (JSON.parse(this.route.snapshot.queryParamMap.get("param"))).error?(JSON.parse(this.route.snapshot.queryParamMap.get("param"))).error:false;
   }
   
@@ -26,7 +28,12 @@ export class RegistroCuentaexistentePage implements OnInit {
       this.despachar(validaciones.mail) || this.despachar(validaciones.cel) || this.despachar(validaciones.ident,"validaridentidad");
     }
     else{
-      this.navCtrl.navigateForward(["registro-cuentaexistente-si",{}]);  
+      const navigationExtras: NavigationExtras = {
+        queryParams: {
+          param: JSON.stringify({ pfpj: this.pfpj,usuario:this.usuario })
+        }
+      };
+      this.navCtrl.navigateForward("registro-cuentaexistente-si",navigationExtras);  
     }
   }
   despachar(valid,pagina?){

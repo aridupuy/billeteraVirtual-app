@@ -25,4 +25,25 @@ export class Libs {
                 .join('');
         return this.capitalize(iniciales1).toString()+this.capitalize(iniciales2);
     }
+
+
+    public validar_mail(mail){
+        if (!mail.toString().match(/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/)) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+
+
+      validar_celular(cod_pais,cod_area,celular) {
+
+        let result = (cod_pais +cod_area + celular).match(/^[+]?[0-9]{2}([0-9]{2}[0-9]{8})$/);
+        if (result !== null) {
+          return true;
+        }
+        else {
+          return false;
+        }
+      }
 }

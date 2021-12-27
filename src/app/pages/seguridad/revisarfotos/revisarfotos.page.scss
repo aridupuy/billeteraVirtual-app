@@ -13,6 +13,12 @@ img{
     // left: 50%;
      transform: translatey(-25%)
 }
+.file{
+    position: relative;
+    opacity: 0;
+    width: 100%;
+    height: 6em;
+}
 .editar {
     width: 150px;
     height: 75px;

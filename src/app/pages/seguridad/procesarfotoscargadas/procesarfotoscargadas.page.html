@@ -1,0 +1,44 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+ 
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="centrado">
+  
+  <div class="contenedor-90 align-center">
+    <div class="wrapper">
+      <div class="imagen procesandofotos-bg">
+          <img src="{{imagen}}" class="{{claseProcesando}}" alt="">
+       </div>
+    <h1 class="align-center">{{mensaje}}</h1>
+    </div>
+  
+  <img class="imageSoporte" style="display: none;" id="imageFrente" #imageFrente>
+  <img class="imageSoporte" style="display: none;" id="imageDorso" #imageDorso>
+  <img class="imageSoporte" style="display: none;" id="selfie" #selfie>
+  <img class="imageSoporte" style="display: none;" id="selfiedoc" #selfieDoc>
+
+  
+</div>
+<div class="onboarding-btn-group">
+  <div class="btn-round inactivo"  *ngIf="!reintento && !validado" (click)="Continuar()">
+    Continuar
+  </div>
+  <div class="btn-round activo" *ngIf="!reintento && validado" (click)="Continuar()">
+    Continuar
+  </div>
+  <div class="btn-round activo" *ngIf="reintento && !omitir" (click)="reintentar()">
+    {{mensaje_reintento}}
+  </div>
+  <div class="btn-round activo" *ngIf="omitir" (click)="omitir_validacion()">
+    Omitir
+  </div>
+  
+</div>
+
+</ion-content>
+<ion-footer>
+  <ion-progress-bar color="primary" value="0.4"></ion-progress-bar>
+</ion-footer>

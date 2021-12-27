@@ -71,7 +71,7 @@ export class DatospersonalesPage implements OnInit {
       this.cuit=p.cuit;
       this.dni=p.documento;
       if(this.pfpj=="pf")
-      this.renaper.validar_dni(p.documento||p.dni, p.sexo || "f" ).then(data => {
+      this.renaper.validar_dni(p.documento||p.dni, p.sexo).then(data => {
         console.log(data);
         this.apellido = data.apellido;
         this.nombre = data.nombres;
@@ -90,31 +90,14 @@ export class DatospersonalesPage implements OnInit {
         this.pfpj=data.pfpj;
         this.cargando=false;
         this.pedir();
-      }).catch(err=>{
-        this.renaper.validar_dni(p.documento||p.dni, p.sexo||"m").then(data => {
-          console.log(data);
-          this.apellido = data.apellido;
-          this.nombre = data.nombres;
-          this.nombre_completo = data.nombres + " " + data.apellido;
-          this.fec_nac = data.fecha_nacimiento;
-          this.sexo = data.sexo;
-          this.nacionalidad = data.nacionalidad;
-          this.provincia = data.provincia;
-          this.ciudad = data.ciudad;
-          this.cod_postal = data.codigo_postal;
-          this.direccion = data.calle;
-          this.numero = data.numero;
-          this.piso = data.piso;
-          this.depto = data.departamento;
-          this.cuit = data.cuil;
-          this.pfpj=data.pfpj;
-          this.cargando=false;
-          this.pedir();
-        })
+      })
         .catch(err=>{
-          this.cargando=false;
+          this.nombre_completo=p.nombre;
+          this.sexo=p.sexo;
+          this.fec_nac=p.fecha_nac;
+          console.log(p.fecha_nac);
           this.pedir();
-        });
+          this.cargando=false;
       });
       else{
         this.cargando=false;

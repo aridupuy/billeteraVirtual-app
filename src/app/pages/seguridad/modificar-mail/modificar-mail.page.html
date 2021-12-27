@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="IrAtras()" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content center>
+  <div class="contenedor-90">
+    <h1 class="align-left">
+      Modificá tu mail
+    </h1>
+    <p class="align-left"> Acá vas a poder cambiarlo para recibir tu código de verificación.</p>
+
+    <div class="form">
+      <div class="input-container">
+        <h2 class="align-left full">Escribí tu nuevo email</h2>
+        <ion-item class="full">
+          <ion-input type="email" [(ngModel)]="mail" (ngModelChange)="valida_mail()"></ion-input>
+          <ion-icon name="close-circle-sharp" *ngIf="mail &&  errorMail" slot="end" color="danger" class="center"></ion-icon>
+          <ion-icon name="checkmark-circle-sharp" *ngIf="mail && !errorMail" slot="end" color="success"></ion-icon>
+        </ion-item>
+      </div>
+      <div class="validationMsg" *ngIf="errorMail">
+        <div class="msg full danger">
+          Ingresaste un mail que no es válido, Tal vez Tipeaste algo erróneo. Intenta de nuevo.
+        </div>
+      </div>
+    </div>
+    <div class="onboarding-btn-group">
+      <div class="btn-round inactivo" *ngIf="!mail">
+        Continuar
+      </div>
+      <div class="btn-round activo" *ngIf="mail" (click)="Confirma()">
+        Continuar
+      </div>
+    </div>
+</div>
+</ion-content>
+<ion-footer>
+  <ion-progress-bar color="primary" value="0.3"></ion-progress-bar>
+</ion-footer>

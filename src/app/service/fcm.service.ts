@@ -48,7 +48,7 @@ export class FcmService {
     let token;
     console.log(this.fcm.hasOwnProperty("getToken"));
     // if (this.platform.is('android') && FCM.hasOwnProperty("getToken")) {
-      if (this.platform.is('android') ) {
+      if (this.platform.is('android') && this.platform.is('cordova')) {
       console.log("es android");
       await this.fcm.getToken().then(tok => {
         token = tok;
@@ -61,7 +61,7 @@ export class FcmService {
       });
      this.onNotifications();
     }
-    else if (this.platform.is('ios') ) {
+    else if (this.platform.is('ios') && this.platform.is('cordova')) {
       console.log("es ios");
       await this.fcm.getToken().then(tok => {
         token = tok;

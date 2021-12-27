@@ -1,3 +1,4 @@
+import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 
@@ -8,12 +9,20 @@ import { NavController } from '@ionic/angular';
 })
 export class RegistroCuentaexistenteSiPage implements OnInit {
 
-  constructor(private navCtrl : NavController) { }
+  protected usuario;
+  constructor(private navCtrl : NavController,public route: ActivatedRoute) { }
 
   ngOnInit() {
+    let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
+    this.usuario=p.usuario;
   }
   LostPassword(){
-    this.navCtrl.navigateForward(["lostpassword",{}]);
+    const navigationExtras: NavigationExtras = {
+      queryParams: {
+        param: JSON.stringify({ usuario:this.usuario })
+      }
+    };
+    this.navCtrl.navigateForward("lostpassword",navigationExtras);
   }
   Ingreso(){
     this.navCtrl.navigateForward(["ingreso",{}]);

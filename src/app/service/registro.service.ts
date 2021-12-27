@@ -74,11 +74,12 @@ export class RegistroService extends LoginBoService {
       resp = new Promise((resolve, reject) => {
         httpOptions["headers"]["token"] = data;
         var postParams = ({
-          email: usuario,
+          usuario: usuario,
 
         });
         console.log(postParams);
         this.post<res>('api/alta/obtener_datos_usuario', postParams, httpOptions).subscribe((data) => {
+          console.log(data);
           if (data.resultado != null && data.resultado == false) {
             reject(data.log);
           }
@@ -88,17 +89,19 @@ export class RegistroService extends LoginBoService {
     });
     return resp
   }
-  async enviar_codigo(porMail, porTel, usuario,changemail?,changetel?) {
+  async enviar_codigo(porMail, porTel, mail,changemail?,changetel?,cel?) {
+    console.log(porMail, porTel, mail,changemail,changetel,cel);
     var resp;
     await this.login().then((data: any) => {
       resp = new Promise((resolve, reject) => {
         httpOptions["headers"]["token"] = data;
         var postParams = ({
-          email: usuario,
+          email: mail,
           porMail: porMail,
           porTel: porTel,
           change_mail:changemail,
-          change_cel:changetel
+          change_cel:changetel,
+          cel:cel
         });
         console.log(postParams);
         this.post<res>('api/alta/enviar_codigo', postParams, httpOptions).subscribe((data) => {

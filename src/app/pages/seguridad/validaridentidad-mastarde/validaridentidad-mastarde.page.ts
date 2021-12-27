@@ -1,3 +1,4 @@
+import { Onboarding_vars } from '../../../classes/onboarding-vars';
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 
@@ -22,5 +23,9 @@ export class ValidaridentidadMastardePage implements OnInit {
   }
   Problema(){
     this.navCtrl.navigateForward(["validaridentidad-problema",{}]);
+  }
+  subir(){
+    Onboarding_vars.add({platform:"manual"});
+    this.navCtrl.navigateForward("revisarfotos");
   }
 }

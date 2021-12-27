@@ -18,10 +18,11 @@ export class NotificacionesPage implements OnInit,OnDestroy {
 
   ngOnInit() {
     this.items= JSON.parse(localStorage.getItem("notification"));
-    this.items.reverse();
+    if(this.items!=null && this.items.length>0)
+      this.items.reverse();
   }
   verMas(item){
-    console.log(item);
+    // console.log(item);
 
   }
   refresh(e){
@@ -42,10 +43,11 @@ export class NotificacionesPage implements OnInit,OnDestroy {
   }
   ngOnDestroy(){
     let items= JSON.parse(localStorage.getItem("notification"));
-    items.map((item)=>{
-      console.log(item);
-      item.nuevo=false;
-    })
+    if(this.items!=null && this.items.length>0)
+      items.map((item)=>{
+        console.log(item);
+        item.nuevo=false;
+      })
     localStorage.setItem("notification",JSON.stringify(items));
   }
   IrAtras(){

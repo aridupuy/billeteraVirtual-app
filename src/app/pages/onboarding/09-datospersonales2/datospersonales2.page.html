@@ -19,19 +19,27 @@ domicilio actual?
     <div class="form datospersonales" *ngIf="condatos">
       <div class="dato mitad">
         <h2>Calle</h2>
-        <p >{{calle}}</p>
+        <ion-item>
+          <p >{{calle}}</p>
+        </ion-item>
       </div>
       <div class="dato mitad">
         <h2>Altura</h2>
-        <p >{{altura}}</p>
+        <ion-item>
+          <p >{{altura}}</p>
+        </ion-item>
       </div>
       <div class="dato mitad">
         <h2>Piso</h2>
+      <ion-item>
         <p >{{piso}}</p>
+      </ion-item>
       </div>
       <div class="dato mitad">
         <h2>Dpto</h2>
-        <p >{{depto}}</p>
+        <ion-item>
+          <p >{{depto}}</p>
+        </ion-item>
       </div>
       <div class="checkbox full">
         <ion-checkbox [(ngModel)]="modificar"></ion-checkbox> <p>No es correcto mi domicilio</p>

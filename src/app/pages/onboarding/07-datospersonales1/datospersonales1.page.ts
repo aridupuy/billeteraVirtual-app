@@ -71,9 +71,14 @@ export class Datospersonales1Page implements OnInit {
         }
         this.cuit1 = cuit.substr(0,2);
         this.cuit2 = cuit.substr(cuit.length-1,1);
-      }).catch((err)=>{
+      }).catch(err=>{
+        
         this.cuit1 = p.cuit.substr(0,2);
         this.cuit2 = p.cuit.substr(p.cuit.length-1,1);
+        this.nombre=p.nombre;
+        this.fec_nac=p.fecha_nac;
+        this.sexo=p.sexo;
+        this.nacionalidad=p.nacionalidad;
           console.log(err);
         });
     }

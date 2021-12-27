@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, ViewDidLeave } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { TerminosCondicionesPage } from '../terminos-condiciones/terminos-condiciones.page';
 import { LoginBoService } from '../../../service/login-bo.service';
@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
   templateUrl: './registro.page.html',
   styleUrls: ['./registro.page.scss'],
 })
-export class RegistroPage implements OnInit {
+export class RegistroPage implements OnInit,ViewDidLeave {
 
 
   showPassword = false;
@@ -33,7 +33,7 @@ export class RegistroPage implements OnInit {
   public pass_has_upper = false;;
   public pass_has_number = false;;
   public pass_has_simbol = false;
-  public pfpj = false;
+  public pfpj = "";
   togglePassword(): void {
     this.showPassword = !this.showPassword;
     if (this.showPassword == true)
@@ -52,6 +52,9 @@ export class RegistroPage implements OnInit {
     this.pfpj = vars.pfpj;
 
   }
+  ionViewDidLeave(): void {
+    this.usuario="";
+  }
   async validar_usuario() {
     console.log(this.usuario);
     /* por ahora no valido usuarios*/
@@ -67,7 +70,7 @@ export class RegistroPage implements OnInit {
           console.log(data);
           const navigationExtras: NavigationExtras = {
             queryParams: {
-              param: JSON.stringify({ pfpj: this.pfpj })
+              param: JSON.stringify({ pfpj: this.pfpj,usuario:this.usuario })
             }
           };
           this.navCtrl.navigateForward("registro-cuentaexistente", navigationExtras);
@@ -75,12 +78,20 @@ export class RegistroPage implements OnInit {
 
         })
           .catch(err => {
+            if(this.pfpj=="pj"){
+                const navigationExtras: NavigationExtras = {
+                queryParams: {
+                  param: JSON.stringify({ pfpj: this.pfpj,error:err,usuario:this.usuario })
+                }
+              };
+              this.navCtrl.navigateForward("registro-cuentaexistente", navigationExtras);
+            }
             this.errorusuario = false;
           });
       }).catch(err => {
         const navigationExtras: NavigationExtras = {
           queryParams: {
-            param: JSON.stringify({ pfpj: this.pfpj,error:err })
+            param: JSON.stringify({ pfpj: this.pfpj,error:err,usuario:this.usuario })
           }
         };
         this.navCtrl.navigateForward("registro-cuentaexistente", navigationExtras);
@@ -88,7 +99,7 @@ export class RegistroPage implements OnInit {
     }).catch(log => {
       const navigationExtras: NavigationExtras = {
         queryParams: {
-          param: JSON.stringify({ pfpj: this.pfpj })
+          param: JSON.stringify({ pfpj: this.pfpj ,usuario:this.usuario})
         }
       };
       this.navCtrl.navigateForward("registro-cuentaexistente", navigationExtras);
@@ -97,7 +108,7 @@ export class RegistroPage implements OnInit {
 
 
   }
-
+  vire
   validar_regex() {
     this.pass_minim = false;
     this.pass_has_upper = false;;

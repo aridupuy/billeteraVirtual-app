@@ -40,7 +40,8 @@ export interface Vars{
     sujeto_obligado?,
     cuil?,
     cuit_modificado?,
-    
+    logued?,
+    platform?,
     
 }
 

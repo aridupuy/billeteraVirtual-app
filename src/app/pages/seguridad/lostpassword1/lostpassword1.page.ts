@@ -20,28 +20,31 @@ export class Lostpassword1Page implements OnInit {
   public selectMail;
   public selectTel;
   public usuario;
+  public mail;
   public ofus;
   public ofustel;
   public enviado;
   public changeMail;
   public changeTel;
+  public cel;
   constructor(public AlertController: AlertController, private navCtrl: NavController, public route: ActivatedRoute, public register: RegistroService) { }
 
   ngOnInit() {
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
-    this.usuario = p.usuario;
+    console.log(p);
+    this.mail = p.email;
     this.selectMail = p.selectmail;
     this.selectTel = p.selectTel;
     this.ofus = p.ofus;
     this.ofustel = p.ofustel;
     this.changeMail = p.change_mail;
-    this.changeTel = p.change_cel;
+    this.changeTel = p.changeTel;
+    this.cel = p.cel;
     console.log("aca1");
-    console.log(p);
     this.enviado = this.selectMail ? this.ofus : this.ofustel;
     if (this.selectTel || this.selectMail) {
       console.log("aca2");
-      this.register.enviar_codigo(this.selectMail, this.selectTel, this.usuario, this.changeMail, this.changeTel).then(data => {
+      this.register.enviar_codigo(this.selectMail, this.selectTel, this.mail, this.changeMail, this.changeTel,this.cel).then(data => {
 
       });
     }
@@ -139,7 +142,7 @@ export class Lostpassword1Page implements OnInit {
   }
   Confirmar() {
     let codigo = this.values[0].toString() + this.values[1] + this.values[2].toString() + this.values[3];
-    this.register.validar_codigo(codigo, this.usuario).then((data: any) => {
+    this.register.validar_codigo(codigo, this.mail).then((data: any) => {
 
       this.retornar_exito(data.data.id_usuario);
     }).catch(err => {

@@ -75,31 +75,6 @@ export class Datospersonales2Page implements OnInit {
     };
       this.navCtrl.navigateForward("registrofinalizado",navigationExtras);
     })
-
-
-
-
-    // let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
-    // if(this.calle_mod && this.calle!=this.calle_mod){
-    //   p["direccion_mod"] = this.calle;  
-    // }
-    // if(this.piso!=this.piso_mod){
-    //   p["piso_mod"] = this.piso_mod;  
-    // }
-    // if(this.altura!=this.altura_mod){
-    //   p["numero_mod"] = this.altura_mod;  
-    // }
-    // if(this.depto!=this.depto_mod){
-    //   p["depto_mod"] = this.depto_mod;  
-    // }
-    
-    // const navigationExtras: NavigationExtras = {
-    //   queryParams: {
-    //     param: JSON.stringify(p)
-    //   },
-    //   replaceUrl: true
-    // };
-    // this.navCtrl.navigateForward("registrofinalizado", navigationExtras);
   }
   Editar() {
     this.readonly = "false";

@@ -7,7 +7,7 @@ import { InicioProcesoService } from '../../../service/inicio-proceso.service';
 import { ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { NavController, ViewDidEnter } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras } from '@angular/router';
@@ -18,7 +18,7 @@ import { Ivalidaciones } from 'src/app/interfaces/Ivalidaciones';
   templateUrl: './confirma-email.page.html',
   styleUrls: ['./confirma-email.page.scss'],
 })
-export class ConfirmaEmailPage implements OnInit {
+export class ConfirmaEmailPage implements OnInit,ViewDidEnter {
 
   @ViewChild('passcode1') passcode1;
   @ViewChild('passcode2') passcode2;
@@ -43,7 +43,11 @@ export class ConfirmaEmailPage implements OnInit {
   constructor(public AlertController: AlertController, private navCtrl: NavController, public route: ActivatedRoute, public router: Router, public validMail: ValidacionMailService, public validCel: ValidacionCelService, public loginBo: LoginBoService,public procesoaltaservice:InicioProcesoService) {
 
   }
-
+  ionViewDidEnter(): void {
+    let p = Onboarding_vars.get();
+    console.log(p);
+    this.mail = p.mail.toString();
+  }
   async ngOnInit() {
     let p = Onboarding_vars.get();
     console.log(p);
@@ -62,7 +66,7 @@ export class ConfirmaEmailPage implements OnInit {
         }
       })
       await this.validMail.validar(this.mail.toString(), token, proceso_alta).then(data => {
-        console.log(data);
+        
       })
         .catch(err => { console.log(err); return; });
     })
@@ -169,7 +173,7 @@ export class ConfirmaEmailPage implements OnInit {
         {
           text: 'Modificar Email',
           handler: () => {
-            this.navCtrl.navigateBack("registro1");
+            this.navCtrl.navigateForward("modificar-mail");
           }
         },
         {

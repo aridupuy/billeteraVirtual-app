@@ -3,7 +3,7 @@ import { ValidacionCelService } from '../../../service/validacion-cel.service';
 import { NavigationExtras, Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ViewDidEnter } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { CountdownComponent } from 'ngx-countdown';
 import { Onboarding_vars } from '../../../classes/onboarding-vars';
@@ -17,7 +17,7 @@ import { Ivalidaciones } from 'src/app/interfaces/Ivalidaciones';
   styleUrls: ['./confirmasms.page.scss'],
 })
 
-export class ConfirmasmsPage implements OnInit {
+export class ConfirmasmsPage implements OnInit,ViewDidEnter {
   @ViewChild('passcode1') passcode1;
   @ViewChild('passcode2') passcode2;
   @ViewChild('passcode3') passcode3;
@@ -41,8 +41,13 @@ export class ConfirmasmsPage implements OnInit {
   constructor(public AlertController: AlertController, private navCtrl: NavController, public route: ActivatedRoute, public router: Router, public validCel: ValidacionCelService, public loginBo: LoginBoService,public procesoaltaservice: InicioProcesoService) {
 
   }
-
+  async ionViewDidEnter() {
+    console.log("ViewDidEnter");
+    return this.ngOnInit();
+  }
+  
   async ngOnInit() {
+    
     let  p  = Onboarding_vars.get();
     this.validar_cel();
     this.telefono = p.cod_pais.toString()+p.cod_area.toString() + p.celular.toString();
@@ -68,7 +73,6 @@ export class ConfirmasmsPage implements OnInit {
         .catch(err => { console.log(err); return; });
       });
     })
-    
   }
   validar_cel(){
     let p= Onboarding_vars.get();
@@ -178,7 +182,7 @@ export class ConfirmasmsPage implements OnInit {
         {
           text: 'Modificar celular',
           handler: () => {
-            this.navCtrl.navigateBack("registro1");
+            this.navCtrl.navigateBack("modificar-cel");
           }
         },
         {
@@ -187,6 +191,8 @@ export class ConfirmasmsPage implements OnInit {
             this.intentos++;
             console.log("Envia Codigo");
             let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
+            if(p==undefined)
+              p = Onboarding_vars.get();
             console.log(p);
             let proceso_alta = localStorage.getItem("proceso_alta");
             await this.loginBo.login().then(async token => {

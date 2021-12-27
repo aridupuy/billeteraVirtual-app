@@ -17,12 +17,12 @@ var httpOptions = {
 })
 
 export class SoporteService extends ServiceService {
-  enviarsoporte(mensaje,pantalla,proceso_alta) {
-    httpOptions.headers.token = localStorage.getItem("token");
+  enviarsoporte(mensaje,pantalla,proceso_alta,token) {
+    httpOptions.headers.token =token;
     var postParams = ({ mensaje: mensaje,proceso_alta:proceso_alta,pantalla:pantalla });
     return new Promise((resolve, reject) => {
-
-      this.post<Isopote>('api/soporte/enviar', httpOptions).subscribe((data) => {
+      console.log(postParams);
+      this.post<Isopote>('api/soporte/enviar',postParams, httpOptions).subscribe((data) => {
         if (data.resultado != null && data.resultado == false) {
           reject(data.log);
         }

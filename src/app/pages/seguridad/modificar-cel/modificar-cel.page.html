@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="IrAtras()" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content center>
+  <div class="contenedor-90">
+    <h1 class="align-left">
+      Modificá tu número de celular
+    </h1>
+    <p class="align-left"> Acá vas a poder cambiarlo para recibir tu código de verificación.</p>
+   
+    <div class="form"> 
+      
+      <div class="input-container">
+        <h2 class="align-left full">Ingresá tu numero de celular</h2>
+        <ion-item class="fijo" >
+          <p #cod_pais>+54</p>
+        </ion-item>
+        <ion-item class="un-tercio">
+          <ion-input class="center" [(ngModel)]="codArea" placeholder="11" (ngModelChange)="validar_celular()" type="number" maxlength="2"></ion-input>
+        </ion-item>
+        <ion-item class="mitad">
+          <ion-input [(ngModel)]="celular" maxlength=8 (ngModelChange)="validar_celular()" type="number" placeholder="22334455" ></ion-input>
+          <ion-icon name="close-circle-sharp" *ngIf="celular &&  errorCel" slot="end" color="danger" class="center"></ion-icon>
+          <ion-icon name="checkmark-circle-sharp" *ngIf="celular && !errorCel" slot="end" color="success"></ion-icon>
+        </ion-item>
+      </div>
+      <div class="validationMsg" *ngIf="celular &&  errorCel">
+        <div class="msg full danger">
+          El número de celular que ingresaste no es válido. Intentá otra vez.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="onboarding-btn-group">
+    <div class="btn-round inactivo" *ngIf="!celular || !codArea || errorCel " >
+      Continuar y reenviar codigo
+    </div>
+    <div class="btn-round activo" *ngIf="celular && codArea && !errorCel" (click)="Confirma()">
+      Continuar y reenviar codigo
+    </div>
+  </div>
+  
+  </ion-content>
+<ion-footer>
+  <ion-progress-bar color="primary" value="0.3"></ion-progress-bar>
+</ion-footer>

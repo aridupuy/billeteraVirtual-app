@@ -390,7 +390,19 @@ const routes: Routes = [
   {
     path: 'confirma-email',
     loadChildren: () => import('./pages/seguridad/confirma-email/confirma-email.module').then( m => m.ConfirmaEmailPageModule)
+  },  {
+    path: 'modificar-mail',
+    loadChildren: () => import('./pages/seguridad/modificar-mail/modificar-mail.module').then( m => m.ModificarMailPageModule)
+  },
+  {
+    path: 'modificar-cel',
+    loadChildren: () => import('./pages/seguridad/modificar-cel/modificar-cel.module').then( m => m.ModificarCelPageModule)
+  },
+  {
+    path: 'procesarfotoscargadas',
+    loadChildren: () => import('./pages/seguridad/procesarfotoscargadas/procesarfotoscargadas.module').then( m => m.ProcesarfotoscargadasPageModule)
   }
+
 
 
 

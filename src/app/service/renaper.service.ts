@@ -56,21 +56,21 @@ export class RenaperService extends LoginBoService {
   public async validar_dni(dni1: any, sexo1: any) {
     var resp  ;
     await this.login().then((data:any)=>{
-      console.log(data);
       resp = new Promise((resolve, reject) => {
         httpOptions["headers"]["token"] = data;
         var postParams = { dni: dni1, sexo: sexo1 };
         try {
           this.post<any>( 'api/validaidentidad/buscar', postParams, httpOptions)
             .subscribe(data => {
-              //console.log(data);
-              if (data.resultado != null && data.resultado == false) {
-                reject(data.log);
+              if (data.resultado != null && data.resultado== false) {
+                console.log(data.log);
+                return reject(data.log);
               }
               return resolve(data.extras[0]);
             });
         } catch (e) {
-          console.log(e);
+          console.log(e+"ACA");
+          reject(e);
         }
       });
     })

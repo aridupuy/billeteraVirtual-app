@@ -4,6 +4,8 @@ import { Onboarding_vars } from '../../../classes/onboarding-vars';
 import { ValidacionMailService } from '../../../service/validacion-mail.service';
 import { InicioProcesoService } from '../../../service/inicio-proceso.service';
 import { Ivalidaciones } from '../../../interfaces/Ivalidaciones';
+import { Libs } from '../../../classes/libs';
+import { list } from '../../../../../platforms/android/cordova/lib/target';
 import { ElementRef } from '@angular/core';
 import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Router } from '@angular/router';
@@ -78,9 +80,8 @@ export class Registro1Page implements OnInit {
     return this.cod_pais.nativeElement.innerHTML.replace("+", "");
   }
   validar_celular() {
-
-    let result = (this.obtener_codigo_pais() + this.codArea + this.celular).match(/^[+]?[0-9]{2}([0-9]{2}[0-9]{8})$/);
-    if (result !== null) {
+    let libs = new Libs();
+    if (libs.validar_celular(this.obtener_codigo_pais() , this.codArea , this.celular)) {
       this.errorCel = false;
     }
     else {
@@ -88,11 +89,20 @@ export class Registro1Page implements OnInit {
     }
   }
   validar_mail(){
-    if (!this.mail.toString().match(/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/)) {
+
+    let libs = new Libs();
+    if(libs.validar_mail(this.mail.toString())){
       this.errorMail = true;
-    } else {
+    }
+    else{
       this.errorMail = false;
     }
+
+    // if (!this.mail.toString().match(/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/)) {
+    //   this.errorMail = true;
+    // } else {
+      
+    // }
   }
   ionViewDidLeave() {
     this.codigo = null;
