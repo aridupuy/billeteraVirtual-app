@@ -3,14 +3,14 @@ import { InicioProcesoService } from '../../../service/inicio-proceso.service';
 import { ValidausuarioService } from '../../../service/validausuario.service';
 import { LoginBoService } from '../../../service/login-bo.service';
 import { NavController } from '@ionic/angular';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-valida-dni',
   templateUrl: './valida-dni.page.html',
   styleUrls: ['./valida-dni.page.scss'],
 })
-export class ValidaDniPage implements OnInit {
+export class ValidaDniPage implements OnInit,AfterViewInit {
 
   public tipodoc;
   public documento;
@@ -25,7 +25,15 @@ export class ValidaDniPage implements OnInit {
     let vars = Onboarding_vars.get();
     this.documento = vars.documento;
   }
-
+  ngAfterViewInit(): void {
+    this.datos = Onboarding_vars.get();
+    this.tipodoc = this.datos.pfpj == "pf" ? "DNI" : "CUIT";
+    this.longitud = this.datos.pfpj == "pf" ? 8 : 11;
+    if(this.documento!=null && this.documento.length != this.longitud){
+      this.documento=null;
+    }
+    localStorage.setItem("onboardingLastPage", "valida-dni");
+  }
   ngOnInit() {
     this.datos = Onboarding_vars.get();
     this.tipodoc = this.datos.pfpj == "pf" ? "DNI" : "CUIT";

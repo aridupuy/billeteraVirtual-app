@@ -22,10 +22,12 @@ export class RegistroCuentaexistentePage implements OnInit {
   }
   
   Si(){
-    Onboarding_vars.add({terminos_acepta:true});
+    // Onboarding_vars.add({terminos_acepta:true});
     if(this.pfpj=="pj"){
-      let validaciones = JSON.parse(localStorage.getItem("validaciones"));
-      this.despachar(validaciones.mail) || this.despachar(validaciones.cel) || this.despachar(validaciones.ident,"validaridentidad");
+      // let validaciones = JSON.parse(localStorage.getItem("validaciones"));
+      // this.despachar(validaciones.mail) || this.despachar(validaciones.cel) || this.despachar(validaciones.ident,"validaridentidad");
+      Onboarding_vars.add({usuario:this.usuario});
+      this.navCtrl.navigateForward("confirmapaswword");  
     }
     else{
       const navigationExtras: NavigationExtras = {
@@ -36,9 +38,7 @@ export class RegistroCuentaexistentePage implements OnInit {
       this.navCtrl.navigateForward("registro-cuentaexistente-si",navigationExtras);  
     }
   }
-  despachar(valid,pagina?){
-    return valid? pagina!=undefined?this.navCtrl.navigateForward(pagina) :this.navCtrl.navigateForward("registro1"):false;
-  }
+ 
   No(){
     this.navCtrl.navigateForward(["registro-cuentaexistente-no",{}]);
   }

@@ -86,7 +86,9 @@ export class RevisarfotosPage implements OnInit, AfterViewInit {
         param: JSON.stringify({ foto_frente: this.cara.toString(), foto_frente_dni: this.dniF.toString(), foto_dorso_dni: this.dniD.toString(), foto_frente_con_dni: this.caraDni.toString() })
       }
     };
-    console.log(this.platform);
+    
+    console.log(JSON.stringify(this.platform));
+
     if(this.platform){
       this.navCtrl.navigateRoot("procesarfotoscargadas",navigationExtras);
     }

@@ -36,7 +36,7 @@
         <ion-input type="number" pattern="[0-9]{1}" maxlength="1" class="align-center" #passcode6 (keyup)="onKeyUp($event,6)" [(ngModel)]="clave6"></ion-input>
       </ion-item>
     </div>
-    <p class="timer">Tiempo restante <span class="semi-bold"><countdown #cd  (event)="cdEvents($event)" [config]="{ leftTime: 90, format: 'm:s' }"></countdown></span></p>
+    <p class="timer">Tiempo restante <span class="semi-bold"><countdown #cd  (event)="cdEvents($event)" [config]="{ leftTime: 90, format: 'mm:ss' }"></countdown></span></p>
   </div>
   <div class="msg full danger" color="danger" *ngIf="error_code">
     El codigo ingresado es incorrecto

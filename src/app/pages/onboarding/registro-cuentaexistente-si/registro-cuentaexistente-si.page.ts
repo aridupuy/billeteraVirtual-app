@@ -28,6 +28,7 @@ export class RegistroCuentaexistenteSiPage implements OnInit {
     this.navCtrl.navigateForward(["ingreso",{}]);
   }
   Reintentar(){
-    this.navCtrl.navigateForward(["registro",{}]);
+    localStorage.removeItem("onboardingLastPage");
+    this.navCtrl.navigateForward(["personapfpj",{}]);
   }
 }

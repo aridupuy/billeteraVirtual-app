@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button (click)="IrAtras()" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content center>
+<div class="contenedor-90">
+  <h1 class="align-left">
+    ¡OK! Necesitamos saber si sos {{usuario}}
+  </h1>
+  <p class="align-left">Para validar que sos el dueño del usuario <b>{{usuario}}</b> te vamos a pedir tu contraseña.</p>
+  <div class="form">
+    <div class="form">
+        <!-- <ion-input type="password"   class="align-center" #passcode1  [(ngModel)]="clave1"></ion-input> -->
+        <ion-item class="input-container with-label">
+          <ion-label position="floating">Ingresá una contraseña</ion-label>
+          <ion-input [(ngModel)]="clave1" [type]="showPassword ? 'text' : 'password'"></ion-input>
+          <ion-icon slot="end" [name]="passwordToggleIcon" (click)="togglePassword()"></ion-icon>
+          <ion-icon slot="end" name="close-sharp" color="danger" *ngIf="clave1 && error_code"></ion-icon>
+          <ion-icon slot="end" name="checkmark-sharp" color="success" *ngIf="clave1&& !error_code"></ion-icon>
+        </ion-item>
+    </div>
+    <p class="timer">Tiempo restante <span class="semi-bold"><countdown #cd  (event)="cdEvents($event)" [config]="{ leftTime: 20, format: 'mm:ss' }"></countdown></span></p>
+  </div>
+  <div class="msg full danger" color="danger" *ngIf="error_code">
+    El codigo ingresado es incorrecto
+  </div>
+</div>
+<div class="onboarding-btn-group">
+  <a (click)="PopupCode(null)" class="link">Olvide mi contraseña</a>
+  <div class="btn-round inactivo" *ngIf="!clave1">
+    
+    Continuar
+  </div>
+  <div class="btn-round activo" *ngIf="clave1" (click)="validar_password()">
+    
+    Continuar
+  </div>
+</div>
+</ion-content>
+<ion-footer>
+  <ion-progress-bar color="primary" value="0.2"></ion-progress-bar>
+</ion-footer>

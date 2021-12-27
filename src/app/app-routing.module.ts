@@ -401,6 +401,10 @@ const routes: Routes = [
   {
     path: 'procesarfotoscargadas',
     loadChildren: () => import('./pages/seguridad/procesarfotoscargadas/procesarfotoscargadas.module').then( m => m.ProcesarfotoscargadasPageModule)
+  },
+  {
+    path: 'confirmapaswword',
+    loadChildren: () => import('./pages/seguridad/confirmapaswword/confirmapaswword.module').then( m => m.ConfirmapaswwordPageModule)
   }
 
 

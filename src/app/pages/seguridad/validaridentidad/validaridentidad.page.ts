@@ -40,13 +40,14 @@ export class ValidaridentidadPage implements OnInit {
 
   }
   Continuar(){
-    if (!(this.plt.is("desktop") || this.plt.is("mobile") || this.plt.is("mobileweb"))) {
+    if (this.plt.is("cordova")){
       this.navCtrl.navigateForward("validaridentidad1");
     }
     else{
       this.navCtrl.navigateForward("revisarfotos");
     }
   }
+  
   NoPuedo(){
     this.navCtrl.navigateForward("validaridentidad-mastarde");
   }
