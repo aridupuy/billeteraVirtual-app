@@ -56,6 +56,8 @@ export class Datospersonales2Page implements OnInit {
     
     Onboarding_vars.add({direccion:calle,numero:altura,depto:depto,piso:piso,cod_postal:this.cod_postal});
      p  = Onboarding_vars.get();
+     if(!p.cuit_modificado)
+      p.cuit_modificado=p.cuit || p.cuil;
     this.registroService.registrar(p.mail,p.nombre_completo,p.password,p.valido_sms,p.terminos_acepta,p.cod_area,p.celular,p.foto_frente,p.foto_frente_con_dni,p.foto_dorso_dni,p.foto_frente_dni,p.documento,p.fecha_nac,p.nacionalidad,p.sexo,p.estado_civil,p.ocupacion,p.provincia,p.ciudad,this.cod_postal,calle,altura,piso,depto,p.fatca,p.politico_expuesto,p.sujeto_obligado,p.cuit || p.cuil ,p.cuit_modificado,p.pfpj,p.proceso_alta,p.usuario).then(data=>{
     let mensaje_titulo = "¡Todo un éxito!";
     let mensaje = "Ahora podés iniciar sesión y comenzar a disfrutar de todos los beneficios de llevar tu billetera en el celular."

@@ -89,6 +89,7 @@ export class DatospersonalesPage implements OnInit {
         this.cuit = data.cuil;
         this.pfpj=data.pfpj;
         this.cargando=false;
+        this.cuit=null;
         this.pedir();
       })
         .catch(err=>{
@@ -101,6 +102,7 @@ export class DatospersonalesPage implements OnInit {
       });
       else{
         this.cargando=false;
+        this.dni=null;
         this.pedir();
       }
     }

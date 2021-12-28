@@ -102,10 +102,10 @@ necesitamos algo más
     </div>
   </div>
   <div class="onboarding-btn-group">
-    <div class="btn-round inactivo" *ngIf="cargando">
+    <div class="btn-round inactivo" *ngIf="!cargando && (!fec_nac || !nacionalidad)">
       Confirmar
     </div>
-    <div class="btn-round activo" (click)="Continuar()" *ngIf="!cargando">
+    <div class="btn-round activo" (click)="Continuar()" *ngIf="!cargando && fec_nac && nacionalidad">
       Confirmar
     </div>
   </div> 

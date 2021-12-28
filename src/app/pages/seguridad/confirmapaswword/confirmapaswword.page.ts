@@ -81,8 +81,11 @@ export class ConfirmapaswwordPage implements OnInit {
      localStorage.removeItem("iniciales");
     // this.navCtrl.navigateForward(["home",{}]);
      let validaciones = JSON.parse(localStorage.getItem("validaciones"));
+     Onboarding_vars.add({terminos_acepta:true});
       this.despachar(validaciones.mail) || this.despachar(validaciones.cel) || this.despachar(validaciones.ident,"validaridentidad");
+      this.countdown.stop();
   }).catch(err=>{
+    console.log(err);
     this.error_code=true;
   });
   }

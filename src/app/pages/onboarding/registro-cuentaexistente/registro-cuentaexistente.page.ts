@@ -22,7 +22,7 @@ export class RegistroCuentaexistentePage implements OnInit {
   }
   
   Si(){
-    // Onboarding_vars.add({terminos_acepta:true});
+    
     if(this.pfpj=="pj"){
       // let validaciones = JSON.parse(localStorage.getItem("validaciones"));
       // this.despachar(validaciones.mail) || this.despachar(validaciones.cel) || this.despachar(validaciones.ident,"validaridentidad");
