@@ -65,7 +65,7 @@ export class RegistroPage implements OnInit,ViewDidLeave {
         localStorage.setItem("validaciones", JSON.stringify(data.validaciones));
         console.log(data);
         // antes que esto va un endṕoint para validar la preexistencia del mail
-        await this.ValidausuarioService.validar_usuario(this.usuario, this.pfpj, token).then(data => {
+        await this.ValidausuarioService.validar_usuario(this.usuario.toLowerCase(), this.pfpj, token).then(data => {
           this.errorusuario = false;
           console.log(data);
           const navigationExtras: NavigationExtras = {
@@ -74,18 +74,17 @@ export class RegistroPage implements OnInit,ViewDidLeave {
             }
           };
           this.navCtrl.navigateForward("registro-cuentaexistente", navigationExtras);
-
-
         })
           .catch(err => {
-            if(this.pfpj=="pj"){
-                const navigationExtras: NavigationExtras = {
-                queryParams: {
-                  param: JSON.stringify({ pfpj: this.pfpj,error:err,usuario:this.usuario })
-                }
-              };
-              this.navCtrl.navigateForward("registro-cuentaexistente", navigationExtras);
-            }
+            // alert(err);
+            // if(this.pfpj=="pj"){
+            //     const navigationExtras: NavigationExtras = {
+            //     queryParams: {
+            //       param: JSON.stringify({ pfpj: this.pfpj,error:err,usuario:this.usuario })
+            //     }
+            //   };
+            //   this.navCtrl.navigateForward("registro-cuentaexistente", navigationExtras);
+            // }
             this.errorusuario = false;
           });
       }).catch(err => {

@@ -44,7 +44,7 @@ export class ValidaDniPage implements OnInit,AfterViewInit {
 
   validar_documento() {
     // if (!this.documento.toString().match(/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/)) {
-    let match = this.datos.pfpj == "pf" ? /^[0-9]{7}$/ : /^[0-9]{10}$/;
+    let match = this.datos.pfpj == "pf" ? /^[0-9]{8}$/ : /^[0-9]{11}$/;
     if (this.documento && !this.documento.toString().match(match)) {
       this.error_documento = true;
       this.pass_documento = false;

@@ -36,8 +36,8 @@ export class ValidausuarioService extends ServiceService{
       this.post<respuesta>( 'api/validausuario/existe_usuario',postParams,httpOptions).subscribe((data) => {
         console.log(data);
         console.log(data.extras[0].data.match);
-        if(data.resultado==true && data.extras[0].data.match)
-          return resolve(true);
+        if(data.extras[0].data.match==true)
+            return resolve(true);
         return reject(false);
       });
     });

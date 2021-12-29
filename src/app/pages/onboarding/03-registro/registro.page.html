@@ -28,7 +28,7 @@
     </div>
     <ion-item class="input-container with-label">
       <ion-label position="floating">Ingresá una contraseña</ion-label>
-      <ion-input [(ngModel)]="password" [type]="showPassword ? 'text' : 'password'" (keypress)="validar_regex()"></ion-input>
+      <ion-input [(ngModel)]="password" [type]="showPassword ? 'text' : 'password'" (ngModelChange)="validar_regex()"></ion-input>
       <ion-icon slot="end" [name]="passwordToggleIcon"    (click)="togglePassword()"></ion-icon>
       <ion-icon slot="end" name="checkmark-sharp" color="success" *ngIf="password && !error_password && error_password!=null" ></ion-icon>
       <ion-icon slot="end" name="close-sharp" color="danger" *ngIf="password && error_password!=null && error_password==true " ></ion-icon>

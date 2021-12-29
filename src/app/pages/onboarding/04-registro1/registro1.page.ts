@@ -19,6 +19,7 @@ import { NavController } from '@ionic/angular';
 })
 export class Registro1Page implements OnInit {
   @ViewChild("cod_pais") cod_pais: ElementRef;
+  @ViewChild("celular") celularView: ElementRef;
   public params;
   public codigo;
   public cargando = false;
@@ -80,12 +81,19 @@ export class Registro1Page implements OnInit {
     return this.cod_pais.nativeElement.innerHTML.replace("+", "");
   }
   validar_celular() {
+    
     let libs = new Libs();
     if (libs.validar_celular(this.obtener_codigo_pais() , this.codArea , this.celular)) {
       this.errorCel = false;
     }
     else {
       this.errorCel = true;
+    }
+  }
+  chageFocus(target){
+    console.log(target);
+    if(this.codArea.length==2){
+      this.celularView.nativeElement.setFocus();
     }
   }
   validar_mail(){

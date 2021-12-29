@@ -20,7 +20,7 @@
     </ion-item>
     <ion-item class="input-container with-label">
       <ion-label position="floating">Ingresá número de documento</ion-label>
-      <ion-input [(ngModel)]="documento"  (keypress)="validar_documento()"></ion-input>
+      <ion-input [(ngModel)]="documento"  (ngModelChange)="validar_documento()"></ion-input>
       <ion-icon slot="end" name="checkmark-sharp" color="success" *ngIf="documento && !error_documento && error_documento!=null" ></ion-icon>
       <ion-icon slot="end" name="close-sharp" color="danger" *ngIf="documento && error_documento!=null && error_documento " ></ion-icon>
     </ion-item>
