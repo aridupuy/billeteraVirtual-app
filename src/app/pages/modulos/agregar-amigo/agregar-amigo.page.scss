@@ -4,3 +4,30 @@ ion-input {
 .invitar{
     font-size: 10px !important;
 }
+.info-amigo{
+    .avatar{
+        text-transform: capitalize;
+    }
+    .nombre{
+        text-transform: capitalize;
+    }
+}
+
+.lista-amigos {
+    .amigo-wrapper{
+        .amigo{
+            .avatar-wrapper{
+                .avatar{
+                    text-transform: capitalize;
+                }
+            }
+        }
+    }
+}
+.onboarding-btn-group{
+    position: fixed;
+    margin-top: 3em;
+    background: white;
+    padding: 1em;
+    bottom: 0;
+}

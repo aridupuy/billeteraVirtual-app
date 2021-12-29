@@ -27,6 +27,9 @@ export class ListaDestinatariosPage implements OnInit {
 
     this.destiService.obtener_destinatarios().then((data:IDestinatario) => {
       console.log(data);
+      if(data.data.length==0){
+        this.sinResutados=true;
+      }
       data.data.forEach(d => {
         console.log(d);
         d.iniciales = this.iniciales(d.nombre);

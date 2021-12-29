@@ -64,7 +64,7 @@
         </div>
       </ion-col>
     </ion-list>
-    <ion-list class="lista-destinatarios" *ngIf="!ultimos || ultimos.length==0 && this.sinResutados==false ">
+    <ion-list class="lista-destinatarios" *ngIf="(!ultimos || ultimos.length==0) && this.sinResutados==false ">
       <ion-item class="destinatario-wrapper" *ngFor="let i of [1,2,3,4,5]">
         <div class="destinatario">
           <div class="avatar-wrapper">
