@@ -6,6 +6,7 @@ import { InicioProcesoService } from '../../../service/inicio-proceso.service';
 import { Ivalidaciones } from '../../../interfaces/Ivalidaciones';
 import { Libs } from '../../../classes/libs';
 import { list } from '../../../../../platforms/android/cordova/lib/target';
+import { IonInput } from '@ionic/angular';
 import { ElementRef } from '@angular/core';
 import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Router } from '@angular/router';
@@ -19,7 +20,7 @@ import { NavController } from '@ionic/angular';
 })
 export class Registro1Page implements OnInit {
   @ViewChild("cod_pais") cod_pais: ElementRef;
-  @ViewChild("celular") celularView: ElementRef;
+  @ViewChild("celular_view") celularView:IonInput;
   public params;
   public codigo;
   public cargando = false;
@@ -90,12 +91,13 @@ export class Registro1Page implements OnInit {
       this.errorCel = true;
     }
   }
-  chageFocus(target){
-    console.log(target);
-    if(this.codArea.length==2){
-      this.celularView.nativeElement.setFocus();
-    }
-  }
+  // chageFocus(event){
+  //   // console.log(event.target.value);
+  //   // if(event.target.value.length==1){
+  //         this.celularView.setFocus();
+  //   // }
+  //   // return true;
+  // }
   validar_mail(){
 
     let libs = new Libs();

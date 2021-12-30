@@ -81,13 +81,39 @@ export class ConfirmasmsPage implements OnInit,ViewDidEnter {
       this.navCtrl.navigateForward("validaridentidad");
     }
   }
+  click(event){
+    console.log(event.target.name.substr("ion-input-".length,1));
+    let number = event.target.name.substr("ion-input-".length,1);
+    console.log(this.passcode6.value=="");
+      if(this.passcode6.value==""){
+          this.passcode6.setFocus()
+      }
+      if(this.passcode5.value==""){
+          this.passcode5.setFocus()
+      }
+      if(this.passcode4.value==""){
+          this.passcode4.setFocus()
+      }
+      if(this.passcode3.value==""){
+          this.passcode3.setFocus()
+      }
+      if(this.passcode2.value==""){
+        this.passcode2.setFocus()
+      }
+      if(this.passcode1.value==""){
+        this.passcode1.setFocus()
+      }
+  }
   onKeyUp(event, index) {
-      console.log(event);
-      if(event.target.value.length != 1) {
-      this.setFocus(index - 2);
+    console.log(event.key);
+    if (event.target.value.length != 1) {
+      // this.setFocus(index - 2);
     } else {
-      this.values[index-1]=(event.target.value);
+      this.values[index - 1] = (event.target.value);
       this.setFocus(index);
+    }
+    if(event.key=="Backspace"){
+      this.setFocus(index-2);
     }
     event.stopPropagation();
     console.log(this.values);
@@ -113,13 +139,8 @@ export class ConfirmasmsPage implements OnInit,ViewDidEnter {
       case 5:
         this.passcode6.setFocus();
         break;
-
-        break;
-      default:
-        this.passcode1.setFocus();
     }
   }
-
   cdEvents(event) {
     // console.log(event);
     switch (event.action) {
