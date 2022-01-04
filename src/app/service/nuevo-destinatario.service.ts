@@ -31,7 +31,7 @@ export class NuevoDestinatarioService extends ServiceService {
         postParams= { cvu: dato };
         break;
       case "cbu":
-        postParams = { cvu: dato };
+        postParams = { cbu: dato };
         break;
       case "alias":
         postParams = { alias: dato };

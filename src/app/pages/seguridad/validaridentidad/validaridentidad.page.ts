@@ -40,12 +40,7 @@ export class ValidaridentidadPage implements OnInit {
 
   }
   Continuar(){
-    if (this.plt.is("cordova")){
       this.navCtrl.navigateForward("validaridentidad1");
-    }
-    else{
-      this.navCtrl.navigateForward("revisarfotos");
-    }
   }
   
   NoPuedo(){

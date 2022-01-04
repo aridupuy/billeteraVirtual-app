@@ -24,7 +24,7 @@ export class RevisarfotosPage implements OnInit, AfterViewInit {
   public dniF;
   public cara;
   public caraDni;
-  public platform;
+  // public platform;
   ngOnInit() {
     if (!(this.plt.is("desktop") || this.plt.is("mobile") || this.plt.is("mobileweb"))) {
       this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
@@ -54,11 +54,11 @@ export class RevisarfotosPage implements OnInit, AfterViewInit {
         this.caraDni = p.foto_frente_con_dni;
     }
     let vars = Onboarding_vars.get();
-    this.platform=vars.platform == "manual";
-    console.log(this.plt.platforms());
-    if(this.plt.is("desktop") || this.plt.is("mobile") || this.plt.is("mobileweb")){
-      this.platform=true;
-    }
+    // this.platform=vars.platform == "manual";
+    // console.log(this.plt.platforms());
+    // if(this.plt.is("desktop") || this.plt.is("mobile") || this.plt.is("mobileweb")){
+    //   this.platform=true;
+    // }
     // vars.platform == "manual" ? this.editar() : false;
 
 
@@ -87,13 +87,7 @@ export class RevisarfotosPage implements OnInit, AfterViewInit {
       }
     };
     
-    console.log(JSON.stringify(this.platform));
-
-    if(this.platform){
-      this.navCtrl.navigateRoot("procesarfotoscargadas",navigationExtras);
-    }
-    else
-      this.navCtrl.navigateRoot("procesarfotos", navigationExtras);
+    this.navCtrl.navigateRoot("procesarfotos", navigationExtras);
 
   }
   editar() {
@@ -135,38 +129,38 @@ export class RevisarfotosPage implements OnInit, AfterViewInit {
     this.navCtrl.navigateRoot(page, navigationExtras);
   }
 
-  cargar_image(numero,event){
-    var reader  = new FileReader();
-    const file = event.target.files[0];
-    switch (numero){
-      case 1:
-        reader.readAsDataURL(file);
-        reader.onload=()=>{
-          this.dniF=reader.result;
-        }   
-        break;
-      case 2:
-        reader.readAsDataURL(file);
-        reader.onload=()=>{
-          this.dniD=reader.result;
-        }   
-        break;
-      case 3:
-        reader.readAsDataURL(file);
-        reader.onload=()=>{
-          this.cara=reader.result;
-        }   
-        break;
-      case 4:
-        reader.readAsDataURL(file);
-        reader.onload=()=>{
-          this.caraDni=reader.result;
-        } 
-        break;
-    }
-     this.editable=false;
+  // cargar_image(numero,event){
+  //   var reader  = new FileReader();
+  //   const file = event.target.files[0];
+  //   switch (numero){
+  //     case 1:
+  //       reader.readAsDataURL(file);
+  //       reader.onload=()=>{
+  //         this.dniF=reader.result;
+  //       }   
+  //       break;
+  //     case 2:
+  //       reader.readAsDataURL(file);
+  //       reader.onload=()=>{
+  //         this.dniD=reader.result;
+  //       }   
+  //       break;
+  //     case 3:
+  //       reader.readAsDataURL(file);
+  //       reader.onload=()=>{
+  //         this.cara=reader.result;
+  //       }   
+  //       break;
+  //     case 4:
+  //       reader.readAsDataURL(file);
+  //       reader.onload=()=>{
+  //         this.caraDni=reader.result;
+  //       } 
+  //       break;
+  //   }
+  //    this.editable=false;
     
-  }
+  // }
   subir(num){
 
   }

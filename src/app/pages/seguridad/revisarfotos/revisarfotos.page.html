@@ -12,7 +12,7 @@
     
       <h1 class="align-left">¿Te gusta cómo salieron las fotos?</h1>
         <p class="align-left">Si las ves bien, por favor, confirmalas. Si necesitás modificar alguna, podés hacerlo en este paso. </p>
-        <ion-list *ngIf="!platform">
+        <ion-list>
           <ion-item (click)="volver(1)">
             <div class="column"  >
               <h2>Foto del frente de tu DNI</h2>
@@ -40,50 +40,6 @@
             <div class="column">
               <h2>Selfi con DNI</h2>
               <div class="foto" id="fotcara" style="background-image:url({{caraDni}})">
-              </div>
-            </div>
-          </ion-item>
-        </ion-list>
-        <ion-list *ngIf="platform">
-          <ion-item (click)="subir(1)">
-            <div class="column"  >
-              <h2>Foto del frente de tu DNI</h2>
-              <div class="foto" *ngIf="!dniF || editable">
-                <input class="file"  name="filef" accept="file" type="file" (change)="cargar_image(1,$event)"/>
-              </div>
-              <div class="foto" id="fotfrente" style="background-image:url({{dniF}})" *ngIf="dniF && !editable">
-               
-              </div>
-            </div>
-          </ion-item>
-          <ion-item (click)="subir(2)">
-            <div class="column" >
-              <h2>Foto del dorso de tu DNI</h2>
-              <div class="foto" *ngIf="!dniD || editable">
-                <input class="file" name="filed" accept="file" type="file"  (change)="cargar_image(2,$event)"/>
-              </div>
-              <div  class="foto" id="fotdorso" style="background-image:url({{dniD}})" *ngIf="dniD && !editable">
-                
-              </div>
-            </div>
-          </ion-item>
-          <ion-item (click)="subir(3)">
-            <div class="column" >
-              <h2>Selfie</h2>
-              <div class="foto" *ngIf="!cara || editable">
-                <input class="file" accept="file" name="filec" type="file" (change)="cargar_image(3,$event)"/>
-              </div>
-              <div class="foto" id="fotcara" style="background-image:url({{cara}})" *ngIf="cara && !editable">
-              </div>
-            </div>
-          </ion-item>
-          <ion-item (click)="subir(4)">
-            <div class="column">
-              <h2>Selfi con DNI</h2>
-              <div class="foto" *ngIf="!caraDni || editable">
-                <input class="file" accept="file"  name="filecd" type="file"  (change)="cargar_image(4,$event)"/>
-              </div>
-              <div class="foto" id="fotcara" style="background-image:url({{caraDni}})" *ngIf="caraDni && !editable">
               </div>
             </div>
           </ion-item>
