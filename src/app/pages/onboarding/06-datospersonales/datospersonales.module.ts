@@ -8,6 +8,7 @@ import { DatospersonalesPageRoutingModule } from './datospersonales-routing.modu
 
 import { DatospersonalesPage } from './datospersonales.page';
 import { RenaperService } from '../../../service/renaper.service';
+import { LocationService } from '../../../service/location.service';
 
 @NgModule({
   imports: [
@@ -17,6 +18,6 @@ import { RenaperService } from '../../../service/renaper.service';
     DatospersonalesPageRoutingModule
   ],
   declarations: [DatospersonalesPage],
-  providers:[RenaperService]
+  providers:[RenaperService,LocationService]
 })
 export class DatospersonalesPageModule {}

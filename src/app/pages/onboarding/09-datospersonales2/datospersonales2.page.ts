@@ -58,7 +58,7 @@ export class Datospersonales2Page implements OnInit {
      p  = Onboarding_vars.get();
      if(!p.cuit_modificado)
       p.cuit_modificado=p.cuit || p.cuil;
-    this.registroService.registrar(p.mail,p.nombre_completo,p.password,p.valido_sms,p.terminos_acepta,p.cod_area,p.celular,p.foto_frente,p.foto_frente_con_dni,p.foto_dorso_dni,p.foto_frente_dni,p.documento,p.fecha_nac,p.nacionalidad,p.sexo,p.estado_civil,p.ocupacion,p.provincia,p.ciudad,this.cod_postal,calle,altura,piso,depto,p.fatca,p.politico_expuesto,p.sujeto_obligado,p.cuit || p.cuil ,p.cuit_modificado,p.pfpj,p.proceso_alta,p.usuario).then(data=>{
+    this.registroService.registrar(p.mail,p.nombre_completo,p.password,p.valido_sms,p.terminos_acepta,p.cod_area,p.celular,p.foto_frente,p.foto_frente_con_dni,p.foto_dorso_dni,p.foto_frente_dni,p.documento,p.fecha_nac,p.nacionalidad,p.sexo,p.estado_civil,p.ocupacion,p.provincia,p.ciudad,this.cod_postal,calle,altura,piso,depto,p.fatca,p.politico_expuesto,p.sujeto_obligado,p.cuit || p.cuil ,p.cuit_modificado,p.pfpj,p.proceso_alta,p.usuario,p.relacion).then(data=>{
     let mensaje_titulo = "¡Todo un éxito!";
     let mensaje = "Ahora podés iniciar sesión y comenzar a disfrutar de todos los beneficios de llevar tu billetera en el celular."
     let mensaje2 = "Ya completaste tu registro";  

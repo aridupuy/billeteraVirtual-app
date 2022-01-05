@@ -42,6 +42,7 @@ export interface Vars{
     cuit_modificado?,
     logued?,
     platform?,
+    relacion?,
     
 }
 
