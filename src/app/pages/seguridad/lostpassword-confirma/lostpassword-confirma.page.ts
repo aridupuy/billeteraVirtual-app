@@ -52,20 +52,21 @@ export class LostpasswordConfirmaPage implements OnInit {
     this.pass_has_upper = false;;
     this.pass_has_number = false;;
     this.pass_has_simbol = false;
-
-    if (this.password.toString().length >= 6) {
-      this.pass_minim = true;
+    if (this.password != null) {
+      if (this.password.toString().length >= 6) {
+        this.pass_minim = true;
+      }
+      if ((this.password.toString().match(/^.*(?=\d).*$/))) {
+        this.pass_has_number = true;
+      }
+      if ((this.password.toString().match(/^.*(?=[A-Z]).*$/))) {
+        this.pass_has_upper = true;
+      }
     }
-    if ((this.password.toString().match(/^.*(?=\d).*$/))) {
-      this.pass_has_number = true;
-    }
-    if ((this.password.toString().match(/^.*(?=[A-Z]).*$/))) {
-      this.pass_has_upper = true;
-    }
-    if ((this.password.toString().match(/^.*(?=[@$!%*#?&]).*$/))) {
-      this.pass_has_simbol = true;
-    }
-    if (this.pass_minim && this.pass_has_upper && this.pass_has_number && this.pass_has_simbol) {
+    // if ((this.password.toString().match(/^.*(?=[@$!%*#?&]).*$/))) {
+    //   this.pass_has_simbol = true;
+    // }
+    if (this.pass_minim && this.pass_has_upper && this.pass_has_number /* && this.pass_has_simbol*/) {
       this.error_password = false;
     } else {
       this.error_password = true;
