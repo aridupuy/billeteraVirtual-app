@@ -170,7 +170,7 @@ export class ConfirmaEmailPage implements OnInit,ViewDidEnter {
             console.log(navigationExtras);
             this.countdown.stop();
             if (!this.revalidar) {
-              this.navCtrl.navigateForward("cuentacreada", navigationExtras);
+              this.navCtrl.navigateForward("preguntaslegales", navigationExtras);
               return true;
             }
             else
@@ -258,7 +258,6 @@ export class ConfirmaEmailPage implements OnInit,ViewDidEnter {
         this.values = [];
         this.retornar_error();
       });
-      // this.navCtrl.navigateForward(["cuentacreada",{}]);
     }
 
   }

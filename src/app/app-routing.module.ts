@@ -390,7 +390,8 @@ const routes: Routes = [
   {
     path: 'confirma-email',
     loadChildren: () => import('./pages/seguridad/confirma-email/confirma-email.module').then( m => m.ConfirmaEmailPageModule)
-  },  {
+  },
+  {
     path: 'modificar-mail',
     loadChildren: () => import('./pages/seguridad/modificar-mail/modificar-mail.module').then( m => m.ModificarMailPageModule)
   },
@@ -405,6 +406,10 @@ const routes: Routes = [
   {
     path: 'confirmapaswword',
     loadChildren: () => import('./pages/seguridad/confirmapaswword/confirmapaswword.module').then( m => m.ConfirmapaswwordPageModule)
+  },
+  {
+    path: 'registro-pass',
+    loadChildren: () => import('./pages/onboarding/03-1registro-pass/registro-pass.module').then( m => m.RegistroPassPageModule)
   }
 
 

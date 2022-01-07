@@ -8,6 +8,7 @@ import { Datospersonales2PageRoutingModule } from './datospersonales2-routing.mo
 
 import { Datospersonales2Page } from './datospersonales2.page';
 import { RegistroService } from '../../../service/registro.service';
+import { LocationService } from '../../../service/location.service';
 
 @NgModule({
   imports: [
@@ -17,6 +18,6 @@ import { RegistroService } from '../../../service/registro.service';
     Datospersonales2PageRoutingModule
   ],
   declarations: [Datospersonales2Page],
-  providers:[RegistroService]
+  providers:[RegistroService,LocationService]
 })
 export class Datospersonales2PageModule {}

@@ -178,7 +178,7 @@ export class ConfirmasmsPage implements OnInit,ViewDidEnter {
             console.log(navigationExtras);
             this.countdown.stop();
             if(!this.revalidar){
-              this.navCtrl.navigateForward("cuentacreada", navigationExtras);
+              this.navCtrl.navigateForward("preguntaslegales", navigationExtras);
               return true;
             }
             else
@@ -273,7 +273,6 @@ export class ConfirmasmsPage implements OnInit,ViewDidEnter {
         this.values=[];
         this.retornar_error();
       });
-      // this.navCtrl.navigateForward(["cuentacreada",{}]);
     }
 
   }
@@ -291,7 +290,7 @@ export class ConfirmasmsPage implements OnInit,ViewDidEnter {
     Onboarding_vars.add(p);
 
     this.countdown.stop();
-    this.navCtrl.navigateForward("cuentacreada");
+    this.navCtrl.navigateForward("preguntaslegales");
   }
   retornar_error() {
     if(this.intentos>=3){

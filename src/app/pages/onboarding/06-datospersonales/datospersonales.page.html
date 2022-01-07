@@ -16,26 +16,31 @@
     </p>
     <p class="align-left" *ngIf="pfpj=='pj'">Por favor, Completa estos datos para continuar </p>
 
-    <div class="form datospersonales">
-      <div class="dato full" *ngIf="pfpj=='pf' ">
+    <!-- <div class="form datospersonales"> -->
+      <div class="form">
+      <div class="dato mitad" *ngIf="pfpj=='pf'">
         <h2>Nombre y apellido</h2>
         <ion-item *ngIf="!nombre_completo_pedir" class="full">
           <p #nombrecompleto>{{nombre_completo}}</p>
         </ion-item>
-        <ion-input type="text" *ngIf="nombre_completo_pedir" [(ngModel)]="nombre_completo"></ion-input>
+        <ion-item *ngIf="nombre_completo_pedir">
+        <ion-input type="text" class="full"  [(ngModel)]="nombre_completo"></ion-input>
+        </ion-item>
       </div>
-      <div class="dato full" *ngIf="pfpj=='pj'">
+      <div class="dato mitad" *ngIf="pfpj=='pj'">
         <h2 class="align-left full">Razon Social</h2>
         <ion-item class="full">
           <ion-input type="text" [(ngModel)]="nombre_completo"></ion-input>
         </ion-item>
       </div>
       <div class="dato mitad" *ngIf="pfpj=='pf'">
-        <h2>Dni</h2>
-        <ion-item *ngIf="dni!==undefined" class="full">
-          <p>{{dni||cuit}}</p>
+        <h2>DNI</h2>
+        <ion-item *ngIf="(dni!==undefined || cuit!=undefined) && !dni_pedir">
+          <p>{{dni  ||cuit}}</p>
         </ion-item>
-        <ion-input *ngIf="dni_pedir" type="tel" maxlength="8" [(ngModel)]="dni||cuit" disabled="true"></ion-input>
+        <ion-item *ngIf="dni_pedir">
+          <ion-input  type="tel" maxlength="8" [(ngModel)]="dni||cuit" disabled="true"></ion-input>
+      </ion-item>
       </div>
       <div class="dato mitad" *ngIf="pfpj=='pj'">
         <h2 class="align-left full">CUIT</h2>
@@ -56,27 +61,18 @@
           </ion-select>
         </ion-item>
       </div>
-      <div class="dato mitad" *ngIf="pfpj=='pf'">
-        <h2>Nacionalidad</h2>
-        <ion-item>
-          <p *ngIf="!nacionalidad_pedir">{{nacionalidad}}</p>
-        </ion-item>
-        <ion-item *ngIf="nacionalidad_pedir">
-          <ion-input type="text" [(ngModel)]="nacionalidad"></ion-input>
-        </ion-item>
-      </div>
-      <div class="dato mitad" *ngIf="pfpj=='pj'">
+      <div class="dato mitad">
         <h2>Nacionalidad</h2>
         <ion-item class="full">
-          <ion-select [(ngModel)]="nacionalidad" (ngModelChange)="obtener_provincias(nacionalidad)">
+          <ion-select [(ngModel)]="nacionalidad">
           <ion-select-option *ngFor="let ciu of paises" [value]="ciu.id_pais">{{ciu.nombre}}</ion-select-option>
           </ion-select>
         </ion-item>
       </div>
-      <div class="dato mitad" *ngIf="pfpj=='pf'">
+      <div class="dato full" *ngIf="pfpj=='pf'">
         <h2>Fecha de nacimiento</h2>
-        <ion-item>
-          <p *ngIf="!fec_nac_pedir">{{fec_nac}}</p>
+        <ion-item *ngIf="!fec_nac_pedir">
+          <p >{{fec_nac}}</p>
         </ion-item>
         <ion-item class="full" *ngIf="fec_nac_pedir">
           <ion-input type="date" [(ngModel)]="fec_nac"></ion-input>
@@ -88,25 +84,6 @@
           <ion-input type="date" [(ngModel)]="fec_nac"></ion-input>
         </ion-item>
       </div>
-
-      <div class="dato mitad" *ngIf="pfpj=='pj'">
-        <h2>Provincia</h2>
-        <ion-item class="full">
-          <ion-select [(ngModel)]="provincia" (ngModelChange)="obtener_ciudades(provincia)">
-          <ion-select-option *ngFor="let ciu of provincias" [value]="ciu.id_provincia">{{ciu.nombre}}</ion-select-option>
-          <ion-select-option *ngIf="!provincias">debe seleccionar un pais</ion-select-option>
-          </ion-select>
-        </ion-item>
-      </div>
-      <div class="dato mitad" *ngIf="pfpj=='pj'">
-        <h2>Ciudad</h2>
-        <ion-item class="full">
-          <ion-select [(ngModel)]="ciudad">
-            <ion-select-option *ngFor="let ciu of ciudades" [value]="ciu.id_ciudad">{{ciu.nombre}}</ion-select-option>
-            <ion-select-option *ngIf="!ciudades">debe seleccionar una provincia</ion-select-option>
-          </ion-select>
-        </ion-item>
-      </div>
       <div class="dato mitad" *ngIf="pfpj=='pj'">
         <h2>Relacion</h2>
         <ion-item class="full">
@@ -114,7 +91,7 @@
             <ion-select-option>Apoderado</ion-select-option>
             <ion-select-option>Socio</ion-select-option>
             <ion-select-option>Gerente</ion-select-option>
-            <ion-select-option>Dueño</ion-select-option>
+            <ion-select-option>Presidente</ion-select-option>
             <ion-select-option>Otro</ion-select-option>
           </ion-select>
           <!-- <ion-input type="text" [(ngModel)]="responsable"></ion-input> -->
@@ -123,15 +100,15 @@
     </div>
   </div>
   <div class="onboarding-btn-group">
-    <div class="btn-round inactivo" *ngIf="!cargando && (!fec_nac || !nacionalidad || !relacion)">
+    <div class="btn-round inactivo" *ngIf="!cargando && (!fec_nac || !nacionalidad || (!relacion && pfpj=='pj'))">
       Confirmar
     </div>
-    <div class="btn-round activo" (click)="Continuar()" *ngIf="!cargando && fec_nac && nacionalidad && relacion">
+    <div class="btn-round activo" (click)="Continuar()" *ngIf="!cargando && fec_nac && nacionalidad && (relacion || !(pfpj=='pj'))">
       Confirmar
     </div>
   </div>
 
 </ion-content>
 <ion-footer>
-  <ion-progress-bar color="primary" value="0.4"></ion-progress-bar>
+  <ion-progress-bar color="primary" value="0.6"></ion-progress-bar>
 </ion-footer>

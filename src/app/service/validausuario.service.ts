@@ -25,7 +25,12 @@ export class ValidausuarioService extends ServiceService{
     return new Promise((resolve, reject) => {
       var postParams = ({ documento: documento, id_proceso_alta: localStorage.getItem("proceso_alta") });
       this.post<respuesta>( 'api/validausuario/existe',postParams,httpOptions).subscribe((data) => {
-        return resolve(!data.extras[0].data.match);
+        if(!data.extras[0].data.match){
+          resolve(data.extras);
+        }
+        else{
+          reject(data.log);
+        }
       });
     });
   }

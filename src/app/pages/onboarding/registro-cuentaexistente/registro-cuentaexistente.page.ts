@@ -13,10 +13,12 @@ export class RegistroCuentaexistentePage implements OnInit {
   private pfpj;
   public error;
   protected usuario;
+  public tipo;
   constructor(private navCtrl : NavController,public route: ActivatedRoute) { }
 
   ngOnInit() {
     this.pfpj = (JSON.parse(this.route.snapshot.queryParamMap.get("param"))).pfpj;
+    this.tipo = (JSON.parse(this.route.snapshot.queryParamMap.get("param"))).tipo;
     this.usuario=(JSON.parse(this.route.snapshot.queryParamMap.get("param"))).usuario;
     this.error = (JSON.parse(this.route.snapshot.queryParamMap.get("param"))).error?(JSON.parse(this.route.snapshot.queryParamMap.get("param"))).error:false;
   }

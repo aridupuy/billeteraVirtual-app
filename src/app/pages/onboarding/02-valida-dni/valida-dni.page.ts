@@ -4,6 +4,7 @@ import { ValidausuarioService } from '../../../service/validausuario.service';
 import { LoginBoService } from '../../../service/login-bo.service';
 import { NavController } from '@ionic/angular';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-valida-dni',
@@ -67,13 +68,19 @@ export class ValidaDniPage implements OnInit,AfterViewInit {
       await this.validUser.validar(this.documento, token).then((data) => {
         mailNoExiste = true;
       }).catch((data) => {
-        this.navCtrl.navigateForward("registro-cuentaexistente");
-        return false;
+        console.log("capturado")
+        const navigationExtras: NavigationExtras = {
+          queryParams: {
+            param: JSON.stringify({ pfpj: vars.pfpj,documento:this.documento,tipo:"documento" })
+          }
+        };
+        mailNoExiste=false;
+        this.navCtrl.navigateForward("registro-cuentaexistente",navigationExtras);
 
       })
       if (mailNoExiste) {
-
-        this.navCtrl.navigateForward("registro");
+        console.log("aca");
+        return this.navCtrl.navigateForward("registro");
       }
       else {
         return false;

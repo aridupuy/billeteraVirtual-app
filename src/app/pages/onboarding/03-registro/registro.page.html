@@ -10,9 +10,9 @@
 <ion-content center>
 <div class="contenedor-90">
   <h1 class="align-left">
-    Hola, que bueno que estás acá
+    Vamos a generar tu usuario.
   </h1>
-  <p class="align-left"> Vamos a crear tu cuenta y para eso te pedimos que completes estos datos.</p>
+  <p class="align-left"> Si ya tenes un usuario registrado ingresalo ahora, sino ingresa tu nuevo usuario.</p>
   <div class="form">
     <ion-item class="input-container with-label">
       <ion-label position="floating">Ingresá tu Usuario</ion-label>
@@ -22,60 +22,16 @@
     </ion-item>
     <div class="validationMsg" *ngIf="usuario && errorusuario">
       <div class="msg full danger" color="danger">
-        <!-- Te ganaron de mano, ese email ya existe. -->
         El usuario elegido no esta disponible.
       </div>
     </div>
-    <ion-item class="input-container with-label">
-      <ion-label position="floating">Ingresá una contraseña</ion-label>
-      <ion-input [(ngModel)]="password" [type]="showPassword ? 'text' : 'password'" (ngModelChange)="validar_regex()"></ion-input>
-      <ion-icon slot="end" [name]="passwordToggleIcon"    (click)="togglePassword()"></ion-icon>
-      <ion-icon slot="end" name="checkmark-sharp" color="success" *ngIf="password && !error_password && error_password!=null" ></ion-icon>
-      <ion-icon slot="end" name="close-sharp" color="danger" *ngIf="password && error_password!=null && error_password==true " ></ion-icon>
-    </ion-item>
-    <div class="validationMsg">
-      <div class="msg">
-        <ion-icon name="checkmark-circle-sharp" slot="start" color="success" *ngIf="pass_minim"></ion-icon>
-        <ion-icon name="close-circle-sharp" slot="start" color="danger" *ngIf="!pass_minim"></ion-icon>
-         Minimo de 6 caracteres
-      </div>
-      <div class="msg">
-        <ion-icon name="checkmark-circle-sharp" slot="start" color="success" *ngIf="pass_has_upper"></ion-icon> 
-        <ion-icon name="close-circle-sharp" slot="start" color="danger" *ngIf="!pass_has_upper"></ion-icon>
-         1 mayúscula
-      </div>
-      <div class="msg">
-        <ion-icon name="checkmark-circle-sharp" slot="start" color="success" *ngIf="pass_has_number"></ion-icon>
-        <ion-icon name="close-circle-sharp" slot="start" color="danger" *ngIf="!pass_has_number"></ion-icon>
-         1 número
-      </div>
-      <!-- <div class="msg">
-        <ion-icon name="checkmark-circle-sharp" slot="start" color="success" *ngIf="pass_has_simbol"></ion-icon>
-        <ion-icon name="close-circle-sharp" slot="start" color="danger" *ngIf="!pass_has_simbol"></ion-icon>
-         1 carácter especial
-      </div> -->
-    </div>
-    <ion-item class="input-container">
-      <ion-label position="floating">Repetí la contraseña</ion-label>
-      <ion-input [(ngModel)]="repassword"  (ngModelChange)="validar_password()" [type]="showPassword ? 'text' : 'password'"></ion-input>
-    </ion-item>
-    <div class="validationMsg" *ngIf="repassword && error_password">
-      <div class="msg full danger" color="danger">
-        Las contraseñas no coinciden. Chequealas y volvé a intentarlo.
-      </div>
-    </div>
-    <div class="tyc-container">
-      <ion-checkbox [(ngModel)]="checkterms"></ion-checkbox><span class="align-left tyc">Aceptar <a (click)="tycModal()" class="link">términos y condiciones</a></span>
-    </div>  
-  </div>
-
-  
+  </div>  
 </div>
 <div class="onboarding-btn-group">
-  <div class="btn-round inactivo" *ngIf="!checkterms || !password || !repassword || !usuario">
+  <div class="btn-round inactivo" *ngIf="!usuario">
     Continuar
   </div>
-  <div class="btn-round activo" *ngIf="checkterms && password && repassword  && usuario && !error_password && !errorusuario" (click)="Continuar()">
+  <div class="btn-round activo" *ngIf="usuario  && !errorusuario" (click)="Continuar()">
     Continuar
   </div>
 </div>

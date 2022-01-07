@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { Onboarding_vars } from 'src/app/classes/onboarding-vars';
+import { calculaCuil } from '../../../classes/CalculaCuil';
 
 @Component({
   selector: 'app-datospersonales1',
@@ -46,7 +47,7 @@ export class Datospersonales1Page implements OnInit {
       this.dni = p.documento;
       this.sexo = p.sexo;
       this.pfpj=p.pfpj;
-      this.renaper.validar_dni(p.dni, p.sexo).then(data => {
+      this.renaper.validar_dni(this.dni, p.sexo).then(data => {
         console.log(JSON.stringify(data));
         this.apellido = data.apellido;
         this.nombre = data.nombres;
@@ -72,9 +73,17 @@ export class Datospersonales1Page implements OnInit {
         this.cuit1 = cuit.substr(0,2);
         this.cuit2 = cuit.substr(cuit.length-1,1);
       }).catch(err=>{
-        
-        this.cuit1 = p.cuit.substr(0,2);
-        this.cuit2 = p.cuit.substr(p.cuit.length-1,1);
+        if(p.cuit || p.cuil){
+          this.cuit1 = p.cuit?p.cuit.substr(0,2):p.cuil?p.cuil.substr(0,2):"";
+          this.cuit2 = p.cuit?p.cuit.substr(p.cuit.length-1,1):p.cuil?p.cuil.substr(p.cuil.length-1,1):"";
+        }
+        else{
+          let calculo = new calculaCuil();
+          let cuil:String =calculo.getCuilCuit(this.dni,this.sexo || "S").toString();
+          this.cuit1=cuil.substring(0,2);
+          this.cuit2 = cuil.substring(cuil.length-1,1);
+          console.log(cuil);
+        }
         this.nombre=p.nombre;
         this.fec_nac=p.fecha_nac;
         this.sexo=p.sexo;

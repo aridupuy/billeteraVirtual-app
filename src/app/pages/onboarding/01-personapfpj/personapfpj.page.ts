@@ -24,10 +24,10 @@ export class PersonapfpjPage implements OnInit {
   ngOnInit() {
     this.params  = Onboarding_vars.get();
     console.log(this.params);
-    
-    let pagina = localStorage.getItem("onboardingLastPage");
-    if(pagina!=null)
-      this.navCtrl.navigateForward(pagina);
+    /*con este codigo se puede hacer persistente la ultima accion del usuario */
+    // let pagina = localStorage.getItem("onboardingLastPage");
+    // if(pagina!=null)
+    //   this.navCtrl.navigateForward(pagina);
   }
   validar(pfpj){
     Onboarding_vars.add({"pfpj":pfpj})

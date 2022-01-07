@@ -41,21 +41,29 @@ export class LocationService extends LoginBoService {
   //   });
   // }
   public async obtener_pais() {
-    var resp  ;
-    await this.login().then((data:any)=>{
+    var resp;
+    await this.login().then((data: any) => {
       resp = new Promise((resolve, reject) => {
         httpOption["headers"]["token"] = data;
         try {
-          this.get<any>( 'api/location/obtener_pais', httpOption)
+          this.get<any>('api/location/obtener_pais', httpOption)
             .subscribe(data => {
-              if (data.resultado != null && data.resultado== false) {
+              if (data.resultado != null && data.resultado == false) {
                 // console.log(data.log);
                 return reject(data.log);
               }
-              return resolve(data.extras[0]);
+              return resolve(data.extras[0].sort((a, b) => {
+                if (a.nombre > b.nombre) {
+                  return 1;
+                }
+                if (a.nombre < b.nombre) {
+                  return -1;
+                }
+                return 0;
+              }));
             });
         } catch (e) {
-          console.log(e+"ACA");
+          console.log(e + "ACA");
           reject(e);
         }
       });
@@ -65,22 +73,30 @@ export class LocationService extends LoginBoService {
   }
 
   async obtener_provincia(id_pais) {
-    var resp  ;
-    await this.login().then((data:any)=>{
+    var resp;
+    await this.login().then((data: any) => {
       resp = new Promise((resolve, reject) => {
         httpOption["headers"]["token"] = data;
         try {
-          let post ={id_pais:id_pais};
-          this.post<any>('api/location/obtener_provincia',post, httpOption)
+          let post = { id_pais: id_pais };
+          this.post<any>('api/location/obtener_provincia', post, httpOption)
             .subscribe(data => {
-              if (data.resultado != null && data.resultado== false) {
+              if (data.resultado != null && data.resultado == false) {
                 // console.log(data.log);
                 return reject(data.log);
               }
-              return resolve(data.extras[0]);
+              return resolve(data.extras[0].sort((a, b) => {
+                if (a.nombre > b.nombre) {
+                  return 1;
+                }
+                if (a.nombre < b.nombre) {
+                  return -1;
+                }
+                return 0;
+              }));
             });
         } catch (e) {
-          console.log(e+"ACA");
+          console.log(e + "ACA");
           reject(e);
         }
       });
@@ -88,22 +104,30 @@ export class LocationService extends LoginBoService {
     return resp
   }
   async obtener_ciudad(id_provincia) {
-    var resp  ;
-    await this.login().then((data:any)=>{
+    var resp;
+    await this.login().then((data: any) => {
       resp = new Promise((resolve, reject) => {
         httpOption["headers"]["token"] = data;
-        let post={id_provincia:id_provincia}
+        let post = { id_provincia: id_provincia }
         try {
-          this.post<any>('api/location/obtener_ciudad', post,httpOption)
+          this.post<any>('api/location/obtener_ciudad', post, httpOption)
             .subscribe(data => {
-              if (data.resultado != null && data.resultado== false) {
+              if (data.resultado != null && data.resultado == false) {
                 // console.log(data.log);
                 return reject(data.log);
               }
-              return resolve(data.extras[0]);
+
+              return resolve(data.extras[0].sort((a, b) => {
+                if (a.nombre > b.nombre) {
+                  return 1;
+                }
+                if (a.nombre < b.nombre) {
+                  return -1;
+                }
+              }));
             });
         } catch (e) {
-          console.log(e+"ACA");
+          console.log(e + "ACA");
           reject(e);
         }
       });

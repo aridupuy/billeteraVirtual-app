@@ -50,13 +50,14 @@ export class DatospersonalesPage implements OnInit {
     // this.obtener_provincias(null);
     // this.obtener_ciudades(null);
     let p = Onboarding_vars.get();
+    console.log(p);
     // p["politico_expuesto"]= (this.form.pe_no)? !this.form.pe_no : this.form.pe_si;
     // p["sujeto_obligado"]=(this.form.so_no)? !this.form.so_no : this.form.so_si
     // p["fatca"]=(this.form.fat_no)? !this.form.fat_no : this.form.fat_si
     // localStorage.setItem("varsOnboarding",JSON.stringify(p));
     // let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
     if (p != null) {
-      this.dni = p.dni;
+      this.dni = p.dni || p.documento;
       this.sexo = p.sexo;
       this.pfpj = p.pfpj;
       this.apellido = p.apellido
@@ -73,8 +74,8 @@ export class DatospersonalesPage implements OnInit {
       this.piso = p.piso
       this.depto = p.depto
       this.cuit = p.cuit;
-      this.dni = p.documento;
-      if (this.pfpj == "pf")
+      // this.dni = p.documento;
+      if (p.sexo && this.pfpj == "pf"){
         this.renaper.validar_dni(p.documento || p.dni, p.sexo).then(data => {
           console.log(data);
           this.apellido = data.apellido;
@@ -104,9 +105,10 @@ export class DatospersonalesPage implements OnInit {
             this.pedir();
             this.cargando = false;
           });
+        }
       else {
         this.cargando = false;
-        this.dni = null;
+        // this.dni = null;
         this.pedir();
       }
     }
@@ -121,16 +123,7 @@ export class DatospersonalesPage implements OnInit {
     this.fec_nac_pedir = this.fec_nac == undefined;
     this.nacionalidad_pedir = this.nacionalidad == undefined;
   }
-  public ciudades=[];
-  obtener_ciudades(provincia) {
-    this.location.obtener_ciudad(provincia).then(data => {
-      this.ciudades = data;
-
-    }).catch(err => {
-      console.log(err);
-    });
-
-  }
+ 
   public paises = [];
   obtener_paises() {
     this.location.obtener_pais().then(data => {
@@ -142,17 +135,7 @@ export class DatospersonalesPage implements OnInit {
     return this.paises;
 
   }
-  public provincias=[];
-  async obtener_provincias(pais) {
-    
-    console.log(pais);
-    await this.location.obtener_provincia(pais).then(data => {
-      this.provincias = data;
-    }).catch(err => {
-      console.log(err);
-    });
-  }
-
+  
 
   Continuar() {
     let vars = Onboarding_vars.get();
@@ -166,8 +149,6 @@ export class DatospersonalesPage implements OnInit {
     p["nombre_completo"] = this.nombre_completo
     p["fecha_nac"] = this.fec_nac
     p["nacionalidad"] = this.nacionalidad;
-    p["provincia"] = this.provincia;
-    p["ciudad"] = this.ciudad;
     p["cod_postal"] = this.cod_postal;
     p["direccion"] = this.direccion;
     p["numero"] = this.numero;

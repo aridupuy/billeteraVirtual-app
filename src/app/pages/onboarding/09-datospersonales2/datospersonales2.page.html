@@ -10,39 +10,41 @@
   <div class="contenedor-90">
     <h1 class="align-left">
       Y por último, ¿este es tu
-domicilio actual?
+      domicilio actual?
 
 
     </h1>
-    <p class="align-left">Si te mudaste, poné tu nueva dirección. Por las dudas, te recordamos que jamás compartiremos tus datos personales. Es solo para chequear que toda la info que tenemos sea la correcta.
+    <p class="align-left">Si te mudaste, poné tu nueva dirección. Por las dudas, te recordamos que jamás compartiremos
+      tus datos personales. Es solo para chequear que toda la info que tenemos sea la correcta.
     </p>
     <div class="form datospersonales" *ngIf="condatos">
       <div class="dato mitad">
         <h2>Calle</h2>
         <ion-item>
-          <p >{{calle}}</p>
+          <p>{{calle}}</p>
         </ion-item>
       </div>
       <div class="dato mitad">
         <h2>Altura</h2>
         <ion-item>
-          <p >{{altura}}</p>
+          <p>{{altura}}</p>
         </ion-item>
       </div>
       <div class="dato mitad">
         <h2>Piso</h2>
-      <ion-item>
-        <p >{{piso}}</p>
-      </ion-item>
+        <ion-item>
+          <p>{{piso}}</p>
+        </ion-item>
       </div>
       <div class="dato mitad">
         <h2>Dpto</h2>
         <ion-item>
-          <p >{{depto}}</p>
+          <p>{{depto}}</p>
         </ion-item>
       </div>
       <div class="checkbox full">
-        <ion-checkbox [(ngModel)]="modificar"></ion-checkbox> <p>No es correcto mi domicilio</p>
+        <ion-checkbox [(ngModel)]="modificar"></ion-checkbox>
+        <p>No es correcto mi domicilio</p>
       </div>
     </div>
     <!-- Si el checkbox es tiltado aparece el form para cambiar domicilio -->
@@ -50,38 +52,64 @@ domicilio actual?
       <div class="input-container">
         <ion-item class="mitad">
           <ion-label position="stacked">Calle</ion-label>
-          <ion-input [(ngModel)]="calle_mod" type="text"  clear-on-edit="true" placeholder="Av. Siempre Viva"></ion-input>
+          <ion-input [(ngModel)]="calle_mod" type="text" clear-on-edit="true" placeholder="Av. Siempre Viva">
+          </ion-input>
         </ion-item>
         <ion-item class="mitad">
           <ion-label position="stacked">Altura</ion-label>
-          <ion-input [(ngModel)]="altura_mod" type="number"  clear-on-edit="true" placeholder="1234"></ion-input>
+          <ion-input [(ngModel)]="altura_mod" type="number" clear-on-edit="true" placeholder="1234"></ion-input>
         </ion-item>
       </div>
       <div class="input-container">
         <ion-item class="mitad">
           <ion-label position="stacked">Piso</ion-label>
-          <ion-input [(ngModel)]="piso_mod" type="text"  clear-on-edit="true" placeholder="2"></ion-input>
+          <ion-input [(ngModel)]="piso_mod" type="text" clear-on-edit="true" placeholder="2"></ion-input>
         </ion-item>
         <ion-item class="mitad">
           <ion-label position="stacked">Dpto</ion-label>
-          <ion-input [(ngModel)]="depto_mod" type="text"  clear-on-edit="true" placeholder="B"></ion-input>
+          <ion-input [(ngModel)]="depto_mod" type="text" clear-on-edit="true" placeholder="B"></ion-input>
         </ion-item>
       </div>
       <div class="input-container" *ngIf="!act_cod_postal">
         <ion-item class="mitad">
           <ion-label position="stacked">Código Postal</ion-label>
-          <ion-input [(ngModel)]="cod_postal" type="text"  clear-on-edit="true" placeholder="1431"></ion-input>
+          <ion-input [(ngModel)]="cod_postal" type="text" clear-on-edit="true" placeholder="1431"></ion-input>
+        </ion-item>
+        <div class="mitad" *ngIf="pfpj=='pj' || provincia_sel">
+          <ion-label position="stacked">Provincia</ion-label>
+          <ion-item class="full">
+            <ion-select [(ngModel)]="provincia" (ngModelChange)="obtener_ciudades(provincia)">
+              <ion-select-option>debe seleccionar una provincia</ion-select-option>
+              <ion-select-option *ngFor="let ciu of provincias" [value]="ciu.id_provincia">{{ciu.nombre}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </div>
+      </div>
+      <!-- este -->
+      <div class="input-container" *ngIf="pfpj=='pj' || ciudad_sel">
+        <ion-label position="stacked">Localidad</ion-label>
+        <ion-item class="full">
+          <ion-select [(ngModel)]="ciudad">
+            <ion-select-option selected>debe seleccionar una localidad</ion-select-option>
+            <ion-select-option *ngFor="let ciu of ciudades" [value]="ciu.id_ciudad">{{ciu.nombre}}</ion-select-option>
+          </ion-select>
         </ion-item>
       </div>
+
     </div>
   </div>
   <div class="onboarding-btn-group">
-    <div class="btn-round activo" (click)="Continuar()">
+    <div class="btn-round inactivo" *ngIf="!validar() ">
       Confirmar
     </div>
-  </div> 
-  
+    <div class="btn-round activo" (click)="Continuar()" *ngIf="validar()">
+      Confirmar
+    </div>
+  </div>
+
+
 </ion-content>
 <ion-footer>
-  <ion-progress-bar color="primary" value="0.7"></ion-progress-bar>
+  <ion-progress-bar color="primary" value="0.9"></ion-progress-bar>
 </ion-footer>
