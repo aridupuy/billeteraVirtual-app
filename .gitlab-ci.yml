@@ -1,4 +1,3 @@
-
 .deploy: &deploy
   stage: deploy
   cache:
@@ -42,9 +41,11 @@ deploy:android:release:
     PLATFORM: android
     FILE_TYPE: apk
     OUTPUT_PATH: platforms/android/app/build/outputs/apk/release/app-release
+    
   script:
     - npm ci
     - ionic cordova build android --release
+    - curl --request POST -F token="${SLACK_CHANNEL_ACCESS_TOKEN}" -F channels="${SLACK_CHANNEL_ID}" -F initial_comment="Hola equipo! dejo el ultimo APK 🚀 (compilacion de test)" -F "file=@/builds/equipo-de-desarrollo-efectivo-digital/efectivofront/platforms/android/app/build/outputs/apk/debug/app-debug.apk" https://slack.com/api/files.upload
 deploy:ios:debug:
   <<: *deploy
   environment:
@@ -67,5 +68,3 @@ deploy:ios:release:
   script:
     - npm ci
     - ionic cordova build ios --release
-- 'curl -X POST -H ''Content-type: application/json'' -F token="${SLACK_CHANNEL_ACCESS_TOKEN}" -F channels="${SLACK_CHANNEL_ID}" --data '' ''''{"text":"🚀 ''${CI_PROJECT_NAME}'' ''${PLATFORM}'' *''${CI_COMMIT_REF_NAME}''* is now available for download: <https://gitlab.com/<my-workspace>/<my-app>/-/jobs/''${CI_JOB_ID}''/artifacts/download>" }'''' '' ${SLACK_HOOK}'
-# curl --request POST -F token="${SLACK_CHANNEL_ACCESS_TOKEN}" -F channels="${SLACK_CHANNEL_ID}" -F initial_comment="Hola equipo! dejo el ultimo APK 🚀 (compilacion de test)" -F "file=@/builds/equipo-de-desarrollo-efectivo-digital/efectivofront/platforms/android/app/build/outputs/apk/debug/app-debug.apk" https://slack.com/api/files.upload
