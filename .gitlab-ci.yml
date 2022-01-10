@@ -40,7 +40,7 @@ deploy:android:release:
   variables:
     PLATFORM: android
     FILE_TYPE: apk
-    OUTPUT_PATH: @/builds/equipo-de-desarrollo-efectivo-digital/efectivofront/platforms/android/app/build/outputs/apk/debug/app-debug.apk
+    OUTPUT_PATH: platforms/android/app/build/outputs/apk/debug/app-debug.apk
     
   script:
     - npm ci
