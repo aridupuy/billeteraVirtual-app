@@ -145,7 +145,7 @@ export class IngresaPinPage implements OnInit {
     // console.log(this.clave1+""+this.clave2+""+this.clave3+""+this.clave4+"");
   }
   LostPassword() {
-    this.navCtl.navigateForward(["lostpassword", {}]);
+    this.navCtl.navigateForward(["logout", {}]);
   }
   validarCodigo() {
     // console.log("aca "+this.proposito);
