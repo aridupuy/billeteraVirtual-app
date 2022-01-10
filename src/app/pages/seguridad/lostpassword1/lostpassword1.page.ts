@@ -41,7 +41,16 @@ export class Lostpassword1Page implements OnInit {
     this.changeTel = p.changeTel;
     this.cel = p.cel;
     console.log("aca1");
-    this.enviado = this.selectMail ? this.ofus : this.ofustel;
+    // this.enviado = this.selectMail ? this.ofus : this.ofustel;
+    if(this.selectMail){
+      this.enviado=this.ofus;
+      console.log(this.ofus);
+
+    }
+    else{
+      this.enviado=this.ofustel;
+      console.log(this.ofustel);
+    }
     if (this.selectTel || this.selectMail) {
       console.log("aca2");
       this.register.enviar_codigo(this.selectMail, this.selectTel, this.mail, this.changeMail, this.changeTel,this.cel).then(data => {
@@ -49,7 +58,7 @@ export class Lostpassword1Page implements OnInit {
       });
     }
     if (this.selectMail)
-      this.enviado = this.usuario
+      this.enviado = this.usuario || this.ofus
     if (this.selectTel)
       this.enviado = this.ofustel;
   }
