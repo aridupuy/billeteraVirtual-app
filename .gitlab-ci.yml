@@ -32,7 +32,7 @@ deploy:android:debug:
     OUTPUT_PATH: platforms/android/app/build/outputs/apk/debug/app-debug
   script:
     - npm ci
-    - ionic cordova platform add android --verbose
+    - ionic cordova platform add android@8.0.0 --verbose
     - ionic cordova build android --debug --verbose
 deploy:android:release:
   <<: *deploy
@@ -45,7 +45,7 @@ deploy:android:release:
     
   script:
     - npm ci
-    - ionic cordova platform add android --verbose
+    - ionic cordova platform add android@8.0.0 --verbose
     - ionic cordova build android --release --verbose
     - pwd
     - ls platforms/android/app/build/outputs/apk/debug/app-debug.apk
