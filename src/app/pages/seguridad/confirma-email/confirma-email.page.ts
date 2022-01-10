@@ -217,6 +217,7 @@ export class ConfirmaEmailPage implements OnInit,ViewDidEnter {
               })
                 .catch(err => { console.log(err); return; });
             });
+            this.countdown.restart();
           }
         },]
     });

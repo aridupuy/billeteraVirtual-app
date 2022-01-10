@@ -208,6 +208,7 @@ export class ConfirmasmsPage implements OnInit, ViewDidEnter {
         {
           text: 'Modificar celular',
           handler: () => {
+            this.countdown.stop();
             this.navCtrl.navigateBack("modificar-cel");
           }
         },
@@ -232,6 +233,7 @@ export class ConfirmasmsPage implements OnInit, ViewDidEnter {
               })
                 .catch(err => { console.log(err); return; });
             });
+            this.countdown.restart();
           }
         },]
     });
