@@ -9,6 +9,7 @@ import { DatospersonalesPageRoutingModule } from './datospersonales-routing.modu
 import { DatospersonalesPage } from './datospersonales.page';
 import { RenaperService } from '../../../service/renaper.service';
 import { LocationService } from '../../../service/location.service';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 @NgModule({
   imports: [
@@ -18,6 +19,6 @@ import { LocationService } from '../../../service/location.service';
     DatospersonalesPageRoutingModule
   ],
   declarations: [DatospersonalesPage],
-  providers:[RenaperService,LocationService]
+  providers:[RenaperService,LocationService,ScreenOrientation]
 })
 export class DatospersonalesPageModule {}

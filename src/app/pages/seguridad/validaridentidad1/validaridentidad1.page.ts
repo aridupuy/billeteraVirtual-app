@@ -118,7 +118,13 @@ export class Validaridentidad1Page implements OnInit {
     // this.screenOrientation.unlock();
     console.log("identidad1 camara apagada");
   }
-  noPuedo() { 
-    this.navCtrl.navigateRoot("datospersonales");
+  async noPuedo() { 
+    await this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT).then(
+      async () => {
+          this.navCtrl.navigateRoot("datospersonales");  
+          await  this.cameraPreview.stopCamera();
+        }
+      );
+    
   }
 }

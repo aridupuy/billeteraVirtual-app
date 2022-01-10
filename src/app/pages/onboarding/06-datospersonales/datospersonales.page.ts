@@ -5,7 +5,7 @@ import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 @Component({
   selector: 'app-datospersonales',
@@ -14,7 +14,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 })
 export class DatospersonalesPage implements OnInit {
 
-  constructor(private navCtrl: NavController, public renaper: RenaperService, public route: ActivatedRoute, public Router: Router, public location: LocationService) { }
+  constructor(public screenOrientation: ScreenOrientation,private navCtrl: NavController, public renaper: RenaperService, public route: ActivatedRoute, public Router: Router, public location: LocationService) { }
 
   readonly = "true";
   public apellido;
@@ -44,7 +44,9 @@ export class DatospersonalesPage implements OnInit {
   public dni_pedir;
 
   /*fin variables de control */
-  ngOnInit() {
+  async ngOnInit() {
+    await this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT).then();
+
     localStorage.setItem("onboardingLastPage", "datospersonales");
     this.obtener_paises();
     // this.obtener_provincias(null);
