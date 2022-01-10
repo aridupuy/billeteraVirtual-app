@@ -33,8 +33,8 @@ deploy:android:debug:
   script:
     #- npm ci
     - pwd
-    - cordova platform add android --verbose
-    - cordova build android --debug --verbose
+    - ionic cordova platform add android --verbose
+    - ionic cordova build android --debug --verbose
     - curl --request POST -F token="${SLACK_CHANNEL_ACCESS_TOKEN}" -F channels="${SLACK_CHANNEL_ID}" -F initial_comment="Hola equipo! dejo el ultimo APK 🚀 (compilacion de test)" -F "file=@/builds/equipo-de-desarrollo-efectivo-digital/efectivofront/platforms/android/app/build/outputs/apk/debug/app-debug.apk" https://slack.com/api/files.upload
 deploy:android:release:
   <<: *deploy
