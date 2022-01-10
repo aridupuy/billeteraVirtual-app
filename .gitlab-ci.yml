@@ -9,9 +9,9 @@
   before_script:
     # workaround Xcode not downloading updated profiles
     - rm -fr ~/Library/MobileDevice/Provisioning\ Profiles/
-    - echo "$BUILD_CONFIG" | tr -d '\r' > build.json
+    #- echo "$BUILD_CONFIG" | tr -d '\r' > build.json
   after_script:
-    - rm build.json
+    #- rm build.json
     - cp $OUTPUT_PATH.$FILE_TYPE $CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG.$FILE_TYPE
   artifacts:
     name:
@@ -29,13 +29,13 @@ deploy:android:debug:
   variables:
     PLATFORM: android
     FILE_TYPE: apk
-    OUTPUT_PATH: platforms/android/app/build/outputs/apk/debug/app-debug
+    OUTPUT_PATH: platforms/android/app/build/outputs/apk/debug/app-debug.apk
   script:
     #- npm ci
     - pwd
-    - ls platforms/android/app/build/outputs/apk/debug/app-debug.apk
-    -  cordova platform add android@8.0.0 --verbose
-    -  cordova build android --debug --verbose
+    - cordova platform add android --verbose
+    - cordova build android --debug --verbose
+    - curl --request POST -F token="${SLACK_CHANNEL_ACCESS_TOKEN}" -F channels="${SLACK_CHANNEL_ID}" -F initial_comment="Hola equipo! dejo el ultimo APK 🚀 (compilacion de test)" -F "file=@/builds/equipo-de-desarrollo-efectivo-digital/efectivofront/platforms/android/app/build/outputs/apk/debug/app-debug.apk" https://slack.com/api/files.upload
 deploy:android:release:
   <<: *deploy
   environment:
@@ -50,7 +50,6 @@ deploy:android:release:
     #- cordova platform add android@8.0.0 --verbose
     - cordova build android --release --verbose
     - pwd
-    - ls platforms/android/app/build/outputs/apk/debug/app-debug.apk
     - curl --request POST -F token="${SLACK_CHANNEL_ACCESS_TOKEN}" -F channels="${SLACK_CHANNEL_ID}" -F initial_comment="Hola equipo! dejo el ultimo APK 🚀 (compilacion de test)" -F "file=@/builds/equipo-de-desarrollo-efectivo-digital/efectivofront/platforms/android/app/build/outputs/apk/debug/app-debug.apk" https://slack.com/api/files.upload
 deploy:ios:debug:
   <<: *deploy
