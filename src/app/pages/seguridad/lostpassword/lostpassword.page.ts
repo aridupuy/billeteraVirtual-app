@@ -29,11 +29,15 @@ export class LostpasswordPage implements OnInit {
     selectorMail.classList.toggle("activo")
     if (selectorMail.classList.contains("activo")) {
       this.ToggleIconMail = 'checkmark-outline';
+      document.querySelector("#telefono").classList.remove("activo");
       this.selectmail = true;
+      this.selectTel = false;
     }
     else {
       this.selectmail = false;
+      this.selectTel = false;
       this.ToggleIconMail = 'mail-outline';
+      document.querySelector("#telefono").classList.remove("activo");
     }
   }
   SeleccionadoTel() {
@@ -41,11 +45,16 @@ export class LostpasswordPage implements OnInit {
     selector.classList.toggle("activo")
     if (selector.classList.contains("activo")) {
       this.selectTel = true;
+      this.selectmail = false;
       this.ToggleIconTel = 'checkmark-outline';
+      document.querySelector("#mail").classList.remove("activo");
+      this.ToggleIconMail = 'chatbox-ellipses-outline';
     }
     else {
       this.selectTel = false;
+      this.selectmail = false;
       this.ToggleIconTel = 'chatbox-ellipses-outline';
+      document.querySelector("#mail").classList.remove("activo");
     }
     console.log("telefono", this.selectTel);
     console.log("mail", this.selectmail);
