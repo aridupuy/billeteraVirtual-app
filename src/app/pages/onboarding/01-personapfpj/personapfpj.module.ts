@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { PersonapfpjPageRoutingModule } from './personapfpj-routing.module';
 
 import { PersonapfpjPage } from './personapfpj.page';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { PersonapfpjPage } from './personapfpj.page';
     IonicModule,
     PersonapfpjPageRoutingModule
   ],
-  declarations: [PersonapfpjPage]
+  declarations: [PersonapfpjPage],
+  providers:[ScreenOrientation]
 })
 export class PersonapfpjPageModule {}

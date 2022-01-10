@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { Component, ViewChild, ElementRef, Renderer2, OnInit } from '@angular/core';
 import { NavigationExtras } from '@angular/router';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 
 @Component({
@@ -14,14 +15,16 @@ import { NavigationExtras } from '@angular/router';
 })
 export class PersonapfpjPage implements OnInit {
   params;
-  constructor(public route: ActivatedRoute, public router: Router,private navCtrl : NavController,private renderer: Renderer2) { 
+  constructor(public screenOrientation:ScreenOrientation,public route: ActivatedRoute, public router: Router,private navCtrl : NavController,private renderer: Renderer2) { 
 
     if (localStorage.getItem("onboarding") != "1") {
       localStorage.setItem("onboarding", "1");
     }
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT).then();
+
     this.params  = Onboarding_vars.get();
     console.log(this.params);
     /*con este codigo se puede hacer persistente la ultima accion del usuario */

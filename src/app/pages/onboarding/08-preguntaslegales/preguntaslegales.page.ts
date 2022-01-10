@@ -6,6 +6,7 @@ import { PreguntasPopupPage } from '../preguntas-popup/preguntas-popup.page';
 import { Onboarding_vars } from '../../../classes/onboarding-vars';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 interface checkboxGroup {
   pe_no: boolean,
@@ -37,10 +38,13 @@ export class PreguntaslegalesPage implements OnInit {
     grupo3: null
   }
 
-  constructor(public route: ActivatedRoute, public router: Router, private navCtrl: NavController, public modalCtrl: ModalController) { }
+  constructor(public screenOrientation: ScreenOrientation,public route: ActivatedRoute, public router: Router, private navCtrl: NavController, public modalCtrl: ModalController) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     localStorage.setItem("onboardingLastPage","preguntaslegales");
+    await this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT).then();
+
+
   }
 
   Continuar() {

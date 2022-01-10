@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { LostpasswordPageRoutingModule } from './lostpassword-routing.module';
 
 import { LostpasswordPage } from './lostpassword.page';
+import { ValidausuarioService } from '../../../service/validausuario.service';
+import { LoginBoService } from '../../../service/login-bo.service';
 
 @NgModule({
   imports: [
@@ -15,6 +17,7 @@ import { LostpasswordPage } from './lostpassword.page';
     IonicModule,
     LostpasswordPageRoutingModule
   ],
-  declarations: [LostpasswordPage]
+  declarations: [LostpasswordPage],
+  providers:[ValidausuarioService,LoginBoService]
 })
 export class LostpasswordPageModule {}

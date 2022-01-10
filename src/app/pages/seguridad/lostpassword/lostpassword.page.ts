@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { LoginBoService } from '../../../service/login-bo.service';
 import { InicioProcesoService } from '../../../service/inicio-proceso.service';
+import { ValidausuarioService } from '../../../service/validausuario.service';
+import { Onboarding_vars } from '../../../classes/onboarding-vars';
 import { AlertController } from '@ionic/angular';
 
 
@@ -15,13 +17,13 @@ import { AlertController } from '@ionic/angular';
 export class LostpasswordPage implements OnInit {
   ToggleIconMail = 'mail-outline';
   ToggleIconTel = 'chatbox-ellipses-outline';
-  usuario :string;
-  logued : boolean;
-  telefono :string;
-  selectmail :boolean= false;
-  selectTel :boolean= false;
-  mail:string;
-  celular:string;
+  usuario: string;
+  logued: boolean;
+  telefono: string;
+  selectmail: boolean = false;
+  selectTel: boolean = false;
+  mail: string;
+  celular: string;
   SeleccionadoMail() {
     const selectorMail = document.querySelector("#mail")
     selectorMail.classList.toggle("activo")
@@ -29,7 +31,7 @@ export class LostpasswordPage implements OnInit {
       this.ToggleIconMail = 'checkmark-outline';
       this.selectmail = true;
     }
-    else{
+    else {
       this.selectmail = false;
       this.ToggleIconMail = 'mail-outline';
     }
@@ -41,17 +43,17 @@ export class LostpasswordPage implements OnInit {
       this.selectTel = true;
       this.ToggleIconTel = 'checkmark-outline';
     }
-    else{
+    else {
       this.selectTel = false;
       this.ToggleIconTel = 'chatbox-ellipses-outline';
     }
-    console.log("telefono",this.selectTel);
-    console.log("mail",this.selectmail);
+    console.log("telefono", this.selectTel);
+    console.log("mail", this.selectmail);
   }
-  constructor(private navCtrl : NavController,public route: ActivatedRoute,public pocesoalta:InicioProcesoService,protected loginbo:LoginBoService,public alertController: AlertController) {
-   
-          // this.usuario = p.usuario;
-      // this.logued = p.logued;
+  constructor(public ValidausuarioService: ValidausuarioService, private navCtrl: NavController, public route: ActivatedRoute, public pocesoalta: InicioProcesoService, protected loginbo: LoginBoService, public alertController: AlertController) {
+
+    // this.usuario = p.usuario;
+    // this.logued = p.logued;
   }
   async presentAlert() {
     const alert = await this.alertController.create({
@@ -69,48 +71,76 @@ export class LostpasswordPage implements OnInit {
   }
   async ngOnInit() {
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
+    let vars = Onboarding_vars.get();
     console.log(p.usuario);
-    if(p==undefined || p.usuario==undefined || p.usuario==""){
-      await this.presentAlert().then(()=>{
+    if (!(p == undefined || p.usuario == undefined || p.usuario == "")) {
+      console.log("aca");
+       this.loginbo.login().then(async token => {
+        console.log(token);
+         this.ValidausuarioService.validar_usuario(p.usuario.toLowerCase(), vars.pfpj, token).then(data => {
+          console.log(data);
+          this.loginbo.login().then(token => {
+            this.pocesoalta.obtener_datos(p.usuario, token).then((data: { cel: string, mail: string }) => {
+              this.mail = data.mail;
+              this.celular = data.cel;
+            })
+          })
+        }).catch(async err=>{
+          console.log("aca");
+          const alert = await this.alertController.create({
+            cssClass: 'my-custom-class',
+            header: err,
+            subHeader: '',
+            message: 'Sin un mail o telefono registrado no podemos identificarte.',
+            buttons: ['OK']
+          });
+      
+          await alert.present().then(() => {
+          this.navCtrl.navigateRoot("ingreso");
+          })
+        });
+      }).catch(err=>{
+          console.log(err);
+      });
+    }
+    else{
+      await this.presentAlert().then(() => {
         this.navCtrl.navigateRoot("ingreso");
       })
-      return;
     }
-    this.loginbo.login().then(token=>{
-      this.pocesoalta.obtener_datos(p.usuario,token).then((data:{cel:string,mail:string})=>{
-        this.mail=data.mail;
-        this.celular=data.cel;
-      })
-    })
+    return;
+    
+    
+   
   }
   public ofus;
-  ofuscar_cel(cel){
-    if(!cel){
+  ofuscar_cel(cel) {
+    if (!cel) {
       return cel;
     }
-    console.log((cel.length)-4);
+    console.log((cel.length) - 4);
     console.log();
-    
-    return "".padStart(cel.length-4,"*")+cel.substr(cel.length-4,cel.length);
+
+    return "".padStart(cel.length - 4, "*") + cel.substr(cel.length - 4, cel.length);
   }
-  ofuscar(usuario){
+  ofuscar(usuario) {
     // return usuario:
-    if(usuario==undefined){
+    if (usuario == undefined) {
       return usuario;
     }
     console.log(usuario);
-    let usu:string = usuario.split("@");
+    let usu: string = usuario.split("@");
     console.log(usu);
-    this.ofus = usu[0].substr(0,1)+"".padStart((usu[0].length)-2,"*")+usu[0].substr(usu[0].length-1,usu[0].length)+"@"+usu[1];
+    this.ofus = usu[0].substr(0, 1) + "".padStart((usu[0].length) - 2, "*") + usu[0].substr(usu[0].length - 1, usu[0].length) + "@" + usu[1];
     return this.ofus;
   }
-  EnviarCodigo(){
+  EnviarCodigo() {
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
     const navigationExtras: NavigationExtras = {
       queryParams: {
-        param: JSON.stringify({email:this.mail, logued:p.logued,selectmail:this.selectmail,selectTel:this.selectTel,ofus:this.ofus,cel:this.celular})
+        param: JSON.stringify({ email: this.mail, logued: p.logued, selectmail: this.selectmail, selectTel: this.selectTel, ofus: this.ofus, cel: this.celular })
       }
     }
-    this.navCtrl.navigateForward("lostpassword1",navigationExtras);
+    this.navCtrl.navigateForward("lostpassword1", navigationExtras);
   }
 }

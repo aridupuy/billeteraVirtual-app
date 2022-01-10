@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { PreguntaslegalesPageRoutingModule } from './preguntaslegales-routing.module';
 
 import { PreguntaslegalesPage } from './preguntaslegales.page';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { PreguntaslegalesPage } from './preguntaslegales.page';
     IonicModule,
     PreguntaslegalesPageRoutingModule
   ],
-  declarations: [PreguntaslegalesPage]
+  declarations: [PreguntaslegalesPage],
+  providers:[ScreenOrientation]
 })
 export class PreguntaslegalesPageModule {}
