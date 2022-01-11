@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { NavController, Platform } from '@ionic/angular';
+import { platform } from 'os';
 
 @Component({
   selector: 'app-validaridentidad-mastarde1',
@@ -8,14 +10,22 @@ import { NavController } from '@ionic/angular';
 })
 export class ValidaridentidadMastarde1Page implements OnInit {
 
-  constructor(private navCtrl : NavController) { }
+  constructor(private navCtrl: NavController,public platfrom: Platform, private screenOrientation: ScreenOrientation) { }
 
 
   ngOnInit() {
-    localStorage.setItem("onboardingLastPage","validaridentidad-mastarde1");
+    localStorage.setItem("onboardingLastPage", "validaridentidad-mastarde1");
   }
-  ValidarIdentidad(){
-    this.navCtrl.navigateForward(["validaridentidad",{}]);
-  }
+  async ValidarIdentidad() {
 
+    if(this.platfrom.is("cordova"))
+      await this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT).then(
+        async () => {
+          this.navCtrl.navigateRoot("datospersonales");
+        }
+      );
+    else{
+      this.navCtrl.navigateRoot("datospersonales");
+    }
+  }
 }

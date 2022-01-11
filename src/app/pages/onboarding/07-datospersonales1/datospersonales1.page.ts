@@ -2,7 +2,7 @@ import { RenaperService } from '../../../service/renaper.service';
 import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Router } from '@angular/router';
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, Platform } from '@ionic/angular';
 import { Onboarding_vars } from 'src/app/classes/onboarding-vars';
 import { calculaCuil } from '../../../classes/CalculaCuil';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
@@ -39,11 +39,12 @@ export class Datospersonales1Page implements OnInit {
 
 
 
-  constructor(public screenOrientation: ScreenOrientation, private navCtrl: NavController, public route: ActivatedRoute, public Router: Router, public renaper: RenaperService) { }
+  constructor(public platfrom: Platform, public screenOrientation: ScreenOrientation, private navCtrl: NavController, public route: ActivatedRoute, public Router: Router, public renaper: RenaperService) { }
 
   async ngOnInit() {
     localStorage.setItem("onboardingLastPage", "datospersonales1");
-    await this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT).then();
+    if (this.platfrom.is("cordova"))
+      await this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT).then();
     let p = Onboarding_vars.get();
     if (p != null) {
       this.dni = p.documento;

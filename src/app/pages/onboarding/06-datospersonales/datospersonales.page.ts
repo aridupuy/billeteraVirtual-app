@@ -4,7 +4,7 @@ import { LocationService } from '../../../service/location.service';
 import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, Platform } from '@ionic/angular';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 @Component({
@@ -14,7 +14,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 })
 export class DatospersonalesPage implements OnInit {
 
-  constructor(public screenOrientation: ScreenOrientation,private navCtrl: NavController, public renaper: RenaperService, public route: ActivatedRoute, public Router: Router, public location: LocationService) { }
+  constructor(public platfrom:Platform,public screenOrientation: ScreenOrientation,private navCtrl: NavController, public renaper: RenaperService, public route: ActivatedRoute, public Router: Router, public location: LocationService) { }
 
   readonly = "true";
   public apellido;
@@ -45,7 +45,8 @@ export class DatospersonalesPage implements OnInit {
 
   /*fin variables de control */
   async ngOnInit() {
-    await this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT).then();
+    if(this.platfrom.is("cordova"))
+      await this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT).then();
 
     localStorage.setItem("onboardingLastPage", "datospersonales");
     this.obtener_paises();

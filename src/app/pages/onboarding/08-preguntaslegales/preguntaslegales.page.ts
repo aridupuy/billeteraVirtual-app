@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { NavController, Platform } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { PreguntasPopupPage } from '../preguntas-popup/preguntas-popup.page';
 import { Onboarding_vars } from '../../../classes/onboarding-vars';
@@ -38,13 +38,12 @@ export class PreguntaslegalesPage implements OnInit {
     grupo3: null
   }
 
-  constructor(public screenOrientation: ScreenOrientation,public route: ActivatedRoute, public router: Router, private navCtrl: NavController, public modalCtrl: ModalController) { }
+  constructor(public platform:Platform,public screenOrientation: ScreenOrientation,public route: ActivatedRoute, public router: Router, private navCtrl: NavController, public modalCtrl: ModalController) { }
 
   async ngOnInit() {
     localStorage.setItem("onboardingLastPage","preguntaslegales");
-    await this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT).then();
-
-
+    if(this.platform.is("cordova"))
+      await this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT).then();
   }
 
   Continuar() {

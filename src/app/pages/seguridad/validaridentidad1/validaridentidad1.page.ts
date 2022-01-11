@@ -34,7 +34,8 @@ export class Validaridentidad1Page implements OnInit {
       width = window.screen.height;
       heigth = window.screen.width;
     }
-    await this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE_PRIMARY).then(
+    if(this.platform.is("cordova"))
+      await this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE_PRIMARY).then(
       async () => {
       //  await  this.cameraPreview.startCamera({ x: 0, y: 0,width: this.platform.height(), height: this.platform.width(), previewDrag: true, camera: "rear", toBack: true });
           await  this.cameraPreview.startCamera({ x: 0, y: 0,width: width, height: heigth, previewDrag: true, camera: "rear", toBack: true })
@@ -119,12 +120,15 @@ export class Validaridentidad1Page implements OnInit {
     console.log("identidad1 camara apagada");
   }
   async noPuedo() { 
+    if(this.platform.is("cordova"))
     await this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT).then(
       async () => {
           this.navCtrl.navigateRoot("datospersonales");  
           await  this.cameraPreview.stopCamera();
         }
       );
-    
+    else{
+      this.navCtrl.navigateRoot("datospersonales");  
+    }
   }
 }

@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ValidaridentidadMastarde1PageRoutingModule } from './validaridentidad-mastarde1-routing.module';
 
 import { ValidaridentidadMastarde1Page } from './validaridentidad-mastarde1.page';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { ValidaridentidadMastarde1Page } from './validaridentidad-mastarde1.page
     IonicModule,
     ValidaridentidadMastarde1PageRoutingModule
   ],
-  declarations: [ValidaridentidadMastarde1Page]
+  declarations: [ValidaridentidadMastarde1Page],
+  providers:[ScreenOrientation]
 })
 export class ValidaridentidadMastarde1PageModule {}
