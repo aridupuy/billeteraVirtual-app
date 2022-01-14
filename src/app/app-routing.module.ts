@@ -22,7 +22,7 @@ const routes: Routes = [
   // },
   {
     path: 'historial',
-    loadChildren: () => import('./pages/seguridad/historial/historial.module').then( m => m.HistorialPageModule)
+    loadChildren: () => import('./pages/modulos/historial/historial.module').then( m => m.HistorialPageModule)
   },
   {
     path: 'welcome',
@@ -209,7 +209,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/modulos/pedir-amigo-link2/pedir-amigo-link2.module').then( m => m.PedirAmigoLink2PageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
   },{
     path: 'historial',
-    loadChildren: () => import('./pages/seguridad/historial/historial.module').then( m => m.HistorialPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
+    loadChildren: () => import('./pages/modulos/historial/historial.module').then( m => m.HistorialPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
   },
   {
     path: 'agenda-links',

@@ -5,7 +5,7 @@ import { Transacciones } from '../../../interfaces/transacciones';
 import { MenuController, ModalController, NavController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { IFilter } from '../../../interfaces/IFilter';
-import { FilterPage } from '../../modulos/filter/filter.page';
+import { FilterPage } from '../filter/filter.page';
 
 @Component({
   selector: 'app-historial',

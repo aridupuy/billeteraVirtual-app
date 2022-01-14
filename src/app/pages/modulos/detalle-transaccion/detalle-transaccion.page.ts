@@ -67,7 +67,9 @@ export class DetalleTransaccionPage implements OnInit {
     }
   }
   obtener_comisiones(){
-      return (parseFloat(this.item.fijo)+parseFloat(this.item.variable)).toFixed(2);
+    let comisiones=  (parseFloat(this.item.fijo)+parseFloat(this.item.variable)).toFixed(2);
+    let signo = parseFloat(this.item.monto_final)-parseFloat(this.item.precio)>=0? 1: -1;
+      return parseFloat(comisiones)*signo;
   }
   verComprobante(){
     const navigationExtras: NavigationExtras = {
