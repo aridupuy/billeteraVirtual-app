@@ -1,0 +1,104 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="IrAtras()" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Usuario Nuevo</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content center>
+  <div class="contenedor-90">
+    <h1 class="align-left">
+      Llena este formulario para dar de alta tu usuario.
+
+    </h1>
+    <div class="form">
+      <div class="input-container">
+        <h2 class="align-left full">Ingresá tu numero de telefono</h2>
+        <ion-item class="fijo">
+          <p #cod_pais>+54</p>
+        </ion-item>
+        <ion-item class="un-tercio">
+          <ion-input class="center" [(ngModel)]="usuario.codArea" placeholder="11" (ngModelChange)="validar_telefono()"
+            type="number" maxlength="2"></ion-input>
+        </ion-item>
+        <ion-item class="mitad">
+          <ion-input [(ngModel)]="usuario.telefono" maxlength=8 (ngModelChange)="validar_telefono()" type="number"
+            placeholder="22334455"></ion-input>
+          <ion-icon name="close-circle-sharp" *ngIf="usuario.telefono &&  errorCel" slot="end" color="danger" class="center">
+          </ion-icon>
+          <ion-icon name="checkmark-circle-sharp" *ngIf="usuario.telefono && !errorCel" slot="end" color="success"></ion-icon>
+        </ion-item>
+      </div>
+      <div class="validationMsg" *ngIf="usuario.telefono &&  errorCel">
+        <div class="msg full danger">
+          El número de telefono que ingresaste no es válido. Intentá otra vez.
+        </div>
+      </div>
+      <div class="input-container">
+        <h2 class="align-left full">Escribí tu nuevo email</h2>
+        <ion-item class="full">
+          <ion-input type="email" [(ngModel)]="usuario.email" (ngModelChange)="valida_mail()"></ion-input>
+          <ion-icon name="close-circle-sharp" *ngIf="usuario.email &&  errorMail" slot="end" color="danger" class="center">
+          </ion-icon>
+          <ion-icon name="checkmark-circle-sharp" *ngIf="usuario.email && !errorMail" slot="end" color="success"></ion-icon>
+        </ion-item>
+      </div>
+      <div class="validationMsg" *ngIf="errorMail">
+        <div class="msg full danger">
+          Ingresaste un email que no es válido, Tal vez Tipeaste algo erróneo. Intenta de nuevo.
+        </div>
+      </div>
+      <ion-item class="input-container with-label mitad">
+        <ion-label position="floating">Tipo Documento</ion-label>
+        <h2 *ngIf="!usuario.tipodoc"></h2>
+        <ion-select [(ngModel)]="usuario.tipodoc">
+          <ion-select-option>DNI</ion-select-option>
+          <ion-select-option>CUIL</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item class="input-container with-label mitad">
+        <ion-label position="floating">Ingresá número de documento</ion-label>
+        <ion-input [(ngModel)]="usuario.documento" (ngModelChange)="validar_documento()"></ion-input>
+        <ion-icon slot="end" name="checkmark-sharp" color="success"
+          *ngIf="usuario.documento && !error_documento && error_documento!=null"></ion-icon>
+        <ion-icon slot="end" name="close-sharp" color="danger"
+          *ngIf="usuario.documento && error_documento!=null && error_documento "></ion-icon>
+      </ion-item>
+      <div class="validationMsg">
+        <div class="msg" *ngIf="usuario.documento && !pass_documento">
+          <ion-icon name="close-circle-sharp" slot="start" color="danger" *ngIf="usuario.documento && !pass_documento">
+          </ion-icon>
+          Maximo de {{longitud}} caracteres
+        </div>
+
+        <div class="dato full">
+          <h2>Nombre Completo</h2>
+          <ion-item>
+            <ion-input type="text" class="full" [(ngModel)]="usuario.nombre"></ion-input>
+          </ion-item>
+        </div>
+
+        <!-- <div class="msg">
+          <ion-icon name="checkmark-circle-sharp" slot="start" color="success" *ngIf="pass_has_simbol"></ion-icon>
+          <ion-icon name="close-circle-sharp" slot="start" color="danger" *ngIf="!pass_has_simbol"></ion-icon>
+           1 carácter especial
+        </div> -->
+      </div>
+
+
+    </div>
+  </div>
+
+</ion-content>
+<ion-footer>
+  <div class="onboarding-btn-group">
+    <div class="btn-round inactivo" *ngIf="!usuario.nombre || ! usuario.documento || !usuario.telefono || !usuario.email">
+      Confirmar
+    </div>
+    <div class="btn-round activo" (click)="Continuar()" *ngIf="usuario.nombre && usuario.documento && usuario.telefono && usuario.email">
+      Confirmar
+    </div>
+  </div>
+
+</ion-footer>

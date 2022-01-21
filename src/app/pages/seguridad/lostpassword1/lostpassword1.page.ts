@@ -32,7 +32,7 @@ export class Lostpassword1Page implements OnInit {
   ngOnInit() {
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
     console.log(p);
-    this.mail = p.email;
+    this.mail = p.email || p.usuario;
     this.selectMail = p.selectmail;
     this.selectTel = p.selectTel;
     this.ofus = p.ofus;

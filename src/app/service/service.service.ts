@@ -65,14 +65,14 @@ export class ServiceService extends HttpClient {
   // tslint:disable-next-line: align
   public post<T>(url: string, body: any | null, options?): Observable<T> {
     AppComponent.cargando = true;
-      // console.log("URL POST " + this.URL+url);
-      // console.log(this.encrypt(body, CLAVE_ENCRIPTACION));
-      // console.log(options);
+    // console.log("URL POST " + this.URL+url);
+    // console.log(this.encrypt(body, CLAVE_ENCRIPTACION));
+    // console.log(options);
     let post = super.post<T>(this.URL + url, this.encrypt(body, CLAVE_ENCRIPTACION), options).pipe(
       //.pipe<T>(
       map((data) => {
         AppComponent.cargando = false;
-        if ((data.hasOwnProperty(0) && data[0].hasOwnProperty('token')) || data.hasOwnProperty('token') || data.hasOwnProperty('tokenError') ) {
+        if ((data.hasOwnProperty(0) && data[0].hasOwnProperty('token')) || data.hasOwnProperty('token') || data.hasOwnProperty('tokenError')) {
           return data as unknown as T;
         }
         // tslint:disable-next-line: comment-format
@@ -86,9 +86,10 @@ export class ServiceService extends HttpClient {
         AppComponent.cargando = false;
         if (error.error instanceof ErrorEvent) {
           console.log(error.error);
-          
         }
-        return [];
+        let json = JSON.parse(JSON.stringify([{ respuesta: false, log: "error http", data: [] }]));
+        return json as unknown as Observable<T>;
+        // return [];
       })
     );
     // post.subscribe(null,err=>{

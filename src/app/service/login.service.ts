@@ -2,6 +2,7 @@ import { ServiceService } from './service.service';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs'
 import { environment } from 'src/environments/environment';
+import { Observable as MiObserver}  from '../classes/observable';
 
 export interface Ilogin {
   resultado?:boolean;
@@ -56,6 +57,8 @@ export class LoginService extends ServiceService{
           localStorage.removeItem("token");
         }
         
+        console.log(data);
+        console.log(data[0].token);
         await localStorage.setItem("token", data[0].token);
         await localStorage.setItem("cuentas", JSON.stringify(data));
         await localStorage.setItem("nombreEmpresa", data[0].titular[0]);
@@ -65,10 +68,7 @@ export class LoginService extends ServiceService{
         return resolve(this.token);
       });
 
-      //      .pipe(
-      //        tap(data => console.log(data)),
-      //        catchError(this.handleError('login', []))
-      //      );
+      
     });
   }
   checkToken(url, json) {
@@ -78,7 +78,7 @@ export class LoginService extends ServiceService{
         rejects(false);
       }
       this.post<IcheckToken>(url, json, httpOption)
-        .subscribe(async (data) => {
+      .subscribe(async (data) => {
           if (data != undefined  && (data.check == 1 || data.check =='true')){
             localStorage.setItem("cuentas",JSON.stringify(data.cuentas))
             resolve(true);
@@ -118,7 +118,9 @@ export class LoginService extends ServiceService{
           if(localStorage.getItem("token")){
             localStorage.removeItem("token");
           }
-          
+          if(!(0 in data) && !("token" in data[0])){
+            MiObserver.notify("error_token","");
+          }
           await localStorage.setItem("token", data[0].token);
           // console.log(localStorage.getItem("token"));
           if(!data.token)
@@ -132,6 +134,7 @@ export class LoginService extends ServiceService{
 
   public handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
+      console.log("Error de HTTP");
       // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
       // TODO: better job of transforming error for user consumption

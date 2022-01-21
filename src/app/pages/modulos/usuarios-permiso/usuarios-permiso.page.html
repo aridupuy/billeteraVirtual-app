@@ -1,0 +1,29 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="IrAtras()" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Permisos</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <div class="contenedor-90">
+    <div class="content-filtro">
+      <h1>Asignacion de Permisos</h1>
+      <!-- <ion-icon class="filtro" (click)="presentModal()" name="list"></ion-icon> -->
+    </div>
+    <p>Acá podes ver todos los permisos que podés aplicar.</p>
+      <ion-item *ngFor="let pemiso of permisos; let i=index" [attr.data-index]="i">
+        <div>
+          <ion-label>
+            <img [src]="pemiso.icono">
+            {{pemiso.nombre}}
+          </ion-label>
+        </div>
+        <ion-toggle [(ngModel)]="options[i]" (click)="select()" slot="start"></ion-toggle>
+      </ion-item>
+      <div class="onboarding-btn-group">
+        <div class="btn-round activo" (click)="nuevo()">Aceptar</div>
+      </div>
+  </div>
+</ion-content>

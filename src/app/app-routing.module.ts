@@ -410,7 +410,21 @@ const routes: Routes = [
   {
     path: 'registro-pass',
     loadChildren: () => import('./pages/onboarding/03-1registro-pass/registro-pass.module').then( m => m.RegistroPassPageModule)
+  },
+  {
+    path: 'nuevo-usuario',
+    loadChildren: () => import('./pages/modulos/nuevo-usuario/nuevo-usuario.module').then( m => m.NuevoUsuarioPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
+  },
+  {
+    path: 'usuarios',
+    loadChildren: () => import('./pages/modulos/usuarios/usuarios.module').then( m => m.UsuariosPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
+  },
+  {
+    path: 'usuarios-permiso',
+    loadChildren: () => import('./pages/modulos/usuarios-permiso/usuarios-permiso.module').then( m => m.UsuariosPermisoPageModule),canActivate: [AuthGuardGuard]
   }
+
+
 
 
 

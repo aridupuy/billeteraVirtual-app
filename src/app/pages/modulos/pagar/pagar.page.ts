@@ -17,6 +17,7 @@ import { SaldoService } from '../../../service/saldo.service';
 import { TarjetasService } from '../../../service/tarjetas.service';
 import { PricingService } from '../../../service/pricing.service';
 import { Observable } from 'src/app/classes/observable';
+import { FormTcPage } from '../form-tc/form-tc.page';
 @Component({
   selector: 'app-pagar',
   templateUrl: './pagar.page.html',
@@ -198,12 +199,12 @@ export class PagarPage implements OnInit {
       this.ionViewDidEnter();
       Observable.unsuscribe("return");
     });
-    // const modal = await this.modalCtrl.create({
-    //   component: FormTcPage,
+    const modal = await this.modalCtrl.create({
+      component: FormTcPage,
 
-    // });
+    });
 
-    // await modal.present();
+    await modal.present();
     return true;
   }
   async change() {

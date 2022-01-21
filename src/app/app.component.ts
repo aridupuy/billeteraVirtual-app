@@ -1,4 +1,4 @@
-import { environment } from './../environments/environment';
+import { environment } from '../environments/environment';
 import { UsuarioService } from './service/usuario.service';
 import { ServiceService } from './service/service.service';
 import { Pago } from './classes/Pago';
@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
   public static cargando = false;
   public static splash=true;
   public static menu = Array();
-  public static DIAS = 3;
+  public static DIAS = 1;
   public static login=false;
   public static token;
   public static validado=true;
@@ -143,13 +143,13 @@ export class AppComponent implements OnInit {
     return this.iniciales;
   }
   get_iniciales_empresa(){
-    if(!this.iniciales_empresa)
+    if(!this.iniciales_empresa || this.iniciales_empresa!=localStorage.getItem("inicialesEmpresa"))
     this.iniciales_empresa = localStorage.getItem("inicialesEmpresa");
 
   return this.iniciales_empresa;
   }
   get_empresa(){
-    if(!this.empresa)
+    if(!this.empresa || this.empresa!=localStorage.getItem("nombreEmpresa"))
       this.empresa= localStorage.getItem("nombreEmpresa");
     return this.empresa;
   }

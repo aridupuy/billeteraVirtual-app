@@ -207,11 +207,12 @@ export class FormTcPage {
       this.documento)
       .then(data => {
         console.log(data);
+        Observable.notify("return",true);
       }).catch(err => {
         console.log(err);
       });
     //});
-    //    Observable.notify("return",true);
+      // Observable.notify("return",true);
   }
   CerrarModal() {
     this.modalCtrl.dismiss({
