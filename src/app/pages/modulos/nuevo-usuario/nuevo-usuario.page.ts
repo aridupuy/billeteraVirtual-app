@@ -32,6 +32,7 @@ export class NuevoUsuarioPage implements OnInit {
     this.usuario.cod_pais=this.obtener_codigo_pais();
     this.UssersService.crear_usuario(this.usuario).then(data=>{
       // this.usuario=new Usuario();
+      console.log(data);
       this.usuario.id=data["id_cuenta_usuario"];
       const navigationExtras: NavigationExtras = {
       queryParams: {

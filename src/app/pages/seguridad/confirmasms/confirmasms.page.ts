@@ -37,7 +37,7 @@ export class ConfirmasmsPage implements OnInit, ViewDidEnter {
   public error_code;
   public intentos = 1;
   public revalidar = false;
-
+  private nav;
   constructor(public AlertController: AlertController, private navCtrl: NavController, public route: ActivatedRoute, public router: Router, public validCel: ValidacionCelService, public loginBo: LoginBoService, public procesoaltaservice: InicioProcesoService) {
 
   }
@@ -50,19 +50,21 @@ export class ConfirmasmsPage implements OnInit, ViewDidEnter {
   async init(mandar = false) {
     let p = Onboarding_vars.get();
     this.validar_cel();
+    this.nav=JSON.parse(this.route.snapshot.queryParamMap.get("param"))!=null;
     this.telefono = p.cod_pais.toString() + p.cod_area.toString() + p.celular.toString();
     this.revalidar = p.revalidar;
     let detener = false;
     let proceso_alta = localStorage.getItem("proceso_alta") != null ? localStorage.getItem("proceso_alta") : p.proceso_alta;
-    await this.loginBo.login().then(async token => {
-      await this.procesoaltaservice.validar_estado(token, proceso_alta).then((validaciones: Ivalidaciones) => {
-        localStorage.setItem("validaciones", JSON.stringify(validaciones));
-        if (validaciones.cel == true || validaciones.cel == 't') {
-          this.navCtrl.navigateForward("validaridentidad");
-          this.countdown.stop();
-        }
+    if(!this.nav)
+      await this.loginBo.login().then(async token => {
+        await this.procesoaltaservice.validar_estado(token, proceso_alta).then((validaciones: Ivalidaciones) => {
+          localStorage.setItem("validaciones", JSON.stringify(validaciones));
+          if (validaciones.cel == true || validaciones.cel == 't') {
+            this.navCtrl.navigateForward("validaridentidad");
+            this.countdown.stop();
+          }
 
-      });
+        });
       if (mandar) {
         await this.loginBo.login().then(async token => {
           await this.validCel.obtener_codigo(p.cod_pais.toString() + p.cod_area.toString() + p.celular.toString(), token, proceso_alta).then(data => {
@@ -297,6 +299,8 @@ export class ConfirmasmsPage implements OnInit, ViewDidEnter {
     Onboarding_vars.add(p);
 
     this.countdown.stop();
+    if(this.nav)
+      return this.navCtrl.navigateRoot("home");
     this.navCtrl.navigateForward("preguntaslegales");
   }
   retornar_error() {

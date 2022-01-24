@@ -8,9 +8,11 @@ export interface datosProceso {
   valida_mail: Boolean | any,
   valida_ident: Boolean | any,
   valida_cel: Boolean | any,
-  estado_cuenta:any,
-  cel:any,
-  mail:any
+  estado_cuenta: any,
+  cel: any,
+  mail: any
+  id_proceso_alta_usuario:number,
+  id_proceso_alta:number
 }
 
 @Injectable({
@@ -39,65 +41,67 @@ export class ProcesoAltaGuard implements CanActivate {
       // }
       await this.proceso.validar().then(async (data: datosProceso) => {
         console.log(data);
+        localStorage.setItem("proceso_alta",data.id_proceso_alta_usuario.toString());
 
-        if(data.estado_cuenta==4){
+        if (data.estado_cuenta == 4) {
           const navigationExtras: NavigationExtras = {
             queryParams: {
-              param: JSON.stringify({ login: true, valido:true,Mensaje: "Tu cuenta ha sido bloqueada, por favor ponete en contacto con nosotros." })
+              param: JSON.stringify({ id_proceso_alta:data.id_proceso_alta,id_proceso_alta_usuario:data.id_proceso_alta_usuario,login: true, valido: true, Mensaje: "Tu cuenta ha sido bloqueada, por favor ponete en contacto con nosotros." })
             }
           };
           this.navCtrl.navigateForward("home", navigationExtras);
           resp = true
         }
-        else if(data.estado_cuenta==6){
+        else if (data.estado_cuenta == 6) {
           const navigationExtras: NavigationExtras = {
             queryParams: {
-              param: JSON.stringify({ login: true,valido:true, Mensaje: "Tu cuenta se encuentra en validacion manual, en 72hs tus datos seran procesados." })
+              param: JSON.stringify({ id_proceso_alta:data.id_proceso_alta,id_proceso_alta_usuario:data.id_proceso_alta_usuario,login: true, valido: true, Mensaje: "Tu cuenta se encuentra en validacion manual, en 72hs tus datos seran procesados." })
             }
           };
           this.navCtrl.navigateForward("home", navigationExtras);
           resp = true
         }
-        else if ((data.valida_ident == null || data.valida_ident == undefined)) {
-          const navigationExtras: NavigationExtras = {
-            queryParams: {
-              param: JSON.stringify({ login: true,valida_ident:true, Mensaje: "Tienes que validar tu Identidad para operar" })
-            }
-          };
-          this.navCtrl.navigateForward("home", navigationExtras);
-          resp = true
-        }
-        else if (data.estado_cuenta!=1 &&(!data.valida_ident || data.valida_ident == 'f')) {
-          const navigationExtras: NavigationExtras = {
-            queryParams: {
-              param: JSON.stringify({ login: true,valida_ident:true, Mensaje: "Tienes que validar tu Identidad para operar" })
-            }
-          }; //parametros para el nav
-          this.navCtrl.navigateForward("home", navigationExtras);
-          resp = true
-        }
+
         // else if (data.estado_cuenta!=1 &&(!data.valida_mail || data.valida_mail == 'f')) {
-          else if ((!data.valida_mail || data.valida_mail == 'f')) {
+        else if ((!data.valida_mail || data.valida_mail == 'f' || data.valida_mail == null)) {
           const navigationExtras: NavigationExtras = {
             queryParams: {
-              param: JSON.stringify({ login: true,valida_mail:true, Mensaje: "Tienes que validar tu Correo para operar" })
+              param: JSON.stringify({ id_proceso_alta:data.id_proceso_alta,id_proceso_alta_usuario:data.id_proceso_alta_usuario,login: true, valida_mail: true, Mensaje: "Tienes que validar tu Correo para operar" })
             }
           };
           this.navCtrl.navigateForward("home", navigationExtras);
           resp = false
         }
         // else if (data.estado_cuenta!=1 &&(!data.valida_cel || data.valida_cel == 'f')) {
-          else if ((!data.valida_cel || data.valida_cel == 'f')) {
+        else if ((!data.valida_cel || data.valida_cel == 'f'  || data.valida_cel == null)) {
           await this.validCel.reenviar_codigo().then((cel) => {
             console.log(cel);
             const navigationExtras: NavigationExtras = {
               queryParams: {
-                param: JSON.stringify({ login: true,valida_cel:true, Mensaje: "Tienes que validar tu Celular para operar",revalidar:true,cod_area:"",celular:cel})
+                param: JSON.stringify({ id_proceso_alta:data.id_proceso_alta,id_proceso_alta_usuario:data.id_proceso_alta_usuario,login: true, valida_cel: true, Mensaje: "Tienes que validar tu Celular para operar", revalidar: true, cod_area: "", celular: cel })
               }
             };
             this.navCtrl.navigateForward("confirmasms", navigationExtras);
 
           });
+        }
+        else if ((data.valida_ident == null || data.valida_ident == undefined)) {
+          const navigationExtras: NavigationExtras = {
+            queryParams: {
+              param: JSON.stringify({ id_proceso_alta:data.id_proceso_alta,id_proceso_alta_usuario:data.id_proceso_alta_usuario,login: true, valida_ident: true, Mensaje: "Tienes que validar tu Identidad para operar" })
+            }
+          };
+          this.navCtrl.navigateForward("home", navigationExtras);
+          resp = true
+        }
+        else if (data.estado_cuenta != 1 && (!data.valida_ident || data.valida_ident == 'f')) {
+          const navigationExtras: NavigationExtras = {
+            queryParams: {
+              param: JSON.stringify({id_proceso_alta:data.id_proceso_alta,id_proceso_alta_usuario:data.id_proceso_alta_usuario, login: true, valida_ident: true, Mensaje: "Tienes que validar tu Identidad para operar" })
+            }
+          }; //parametros para el nav
+          this.navCtrl.navigateForward("home", navigationExtras);
+          resp = true
         }
         else {
           validador += 1;
@@ -105,17 +109,17 @@ export class ProcesoAltaGuard implements CanActivate {
         }
         Cookie.set("validador", validador.toString(), this.DIAS);
         return resp;
-      }).catch(err=>{
+      }).catch(err => {
         console.log(err);
-        if(err=="El token es invalido"){
+        if (err == "El token es invalido") {
           this.navCtrl.navigateForward("home");
           return true;
         }
-          
+
         return false;
       });
     }
-    else{
+    else {
       return true;
     }
     return resp;

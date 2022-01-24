@@ -98,7 +98,7 @@ export class HomePage implements OnInit {
               param: JSON.stringify({ mensaje: "Revisá tu cuenta de mail y segui los pasos para confirmar que sos el dueño de la cuenta." })
             }
           }
-          this.navCtl.navigateForward("confirmaciones", navigationExtras);
+          this.navCtl.navigateForward("confirma-email", navigationExtras);
         }).catch(()=>{
           const navigationExtras: NavigationExtras = {
             queryParams: {

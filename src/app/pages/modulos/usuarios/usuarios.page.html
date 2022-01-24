@@ -34,6 +34,9 @@
               </div>
             </div>
             <div >
+              <a  (click)="reenviar_url(usuario)">Reenviar correo</a>
+          </div>
+            <div >
                 <ion-toggle [(ngModel)]="usuario.activo" (click)="cambiar_estado(usuario)"></ion-toggle>
             </div>
           </div>

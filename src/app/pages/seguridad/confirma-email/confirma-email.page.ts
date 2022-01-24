@@ -39,7 +39,7 @@ export class ConfirmaEmailPage implements OnInit,ViewDidEnter {
   public error_code;
   public intentos = 1;
   public revalidar = false;
-
+  private nav;
   constructor(public AlertController: AlertController, private navCtrl: NavController, public route: ActivatedRoute, public router: Router, public validMail: ValidacionMailService, public validCel: ValidacionCelService, public loginBo: LoginBoService,public procesoaltaservice:InicioProcesoService) {
 
   }
@@ -55,21 +55,23 @@ export class ConfirmaEmailPage implements OnInit,ViewDidEnter {
     this.revalidar = p.revalidar;
     let detener = false;
     console.log("Envia Codigo");
-    console.log(p);
+    this.nav=JSON.parse(this.route.snapshot.queryParamMap.get("param"))!=null;
+    
     let proceso_alta = localStorage.getItem("proceso_alta") != null ? localStorage.getItem("proceso_alta") : p.proceso_alta;
-    await  this.loginBo.login().then(async token=>{
-      this.procesoaltaservice.validar_estado(token,proceso_alta).then((validaciones:Ivalidaciones)=>{
-        localStorage.setItem("validaciones",JSON.stringify(validaciones));
-        if(validaciones.mail==true || validaciones.mail=='t'){
-          this.navCtrl.navigateForward("confirmasms");    
-          this.countdown.stop();
-        }
+    if(!this.nav)
+      await  this.loginBo.login().then(async token=>{
+        this.procesoaltaservice.validar_estado(token,proceso_alta).then((validaciones:Ivalidaciones)=>{
+          localStorage.setItem("validaciones",JSON.stringify(validaciones));
+          if(validaciones.mail==true || validaciones.mail=='t'){
+            this.navCtrl.navigateForward("confirmasms");    
+            this.countdown.stop();
+          }
+        })
+        await this.validMail.validar(this.mail.toString(), token, proceso_alta).then(data => {
+          
+        })
+          .catch(err => { console.log(err); return; });
       })
-      await this.validMail.validar(this.mail.toString(), token, proceso_alta).then(data => {
-        
-      })
-        .catch(err => { console.log(err); return; });
-    })
     
   }
   click(event){
@@ -271,6 +273,10 @@ export class ConfirmaEmailPage implements OnInit,ViewDidEnter {
     this.error_code = false;
     this.countdown.stop();
     let p = Onboarding_vars.get();
+    if(this.nav){
+      console.log("Correo Confirmado");
+      return this.navCtrl.navigateRoot("home");
+    }
     this.navCtrl.navigateForward("confirmasms");
     
     

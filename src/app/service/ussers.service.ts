@@ -92,5 +92,17 @@ export class UssersService extends ServiceService {
       });
     });
   }
+  reenviar_url(usuario){
+    httpOptions.headers.token = localStorage.getItem("token");
+    return new Promise((resolve, reject) => {
+      this.post<IUsuarioPermiso>('api/usuarios/reenviar_url',{usuario:usuario},httpOptions).subscribe((data) => {
+        // console.log(data);
+        if (data.resultado != null && data.resultado == false) {
+          reject(data.log);
+        }
+        return resolve(data.extras[0]);
+      });
+    });
+  }
 
 }

@@ -121,4 +121,29 @@ export class UsuariosPage implements OnInit {
   // let params =this.navParams.data={usuario:usuario};
   this.navCtrl.navigateForward("usuarios-permiso",navigationExtras);
   }
+
+
+  reenviar_url(usuario:Usuario){
+    this.UssersService.reenviar_url(usuario).then(async (data:[Usuario])=>{
+      const alert = await this.alertController.create({
+        cssClass: 'my-custom-class',
+        header: "",
+        message: "Correo enviado correctamente.",
+        buttons: [
+          {
+            text: ''
+          },
+          {
+            text: 'Entendido',
+            role: 'cancel',
+            cssClass: 'primary'
+          }
+        ]
+        
+      });
+  
+      await alert.present();
+    });
+  }
+
 }
