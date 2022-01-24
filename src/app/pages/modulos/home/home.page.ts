@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController } from '@ionic/angular';
+import { MenuController, ViewDidEnter } from '@ionic/angular';
 import { formatCurrency } from '@angular/common';
 import { MiCvuPage } from '../mi-cvu/mi-cvu.page';
 
@@ -20,12 +20,13 @@ import { Libs } from '../../../classes/libs';
 import { MenuserviceService } from '../../../service/menuservice.service';
 import { FcmService } from '../../../service/fcm.service';
 import { ValidacionMailService } from '../../../service/validacion-mail.service';
+import { ValidacionCelService } from '../../../service/validacion-cel.service';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, ViewDidEnter {
 
   // Icon Cambia Saldo
   mostrarSaldo = localStorage.getItem("saldoVisible") == "false" ? false : true;
@@ -49,40 +50,50 @@ export class HomePage implements OnInit {
   public iniciales;
   modalDataResponse: any;
   public valida_mail;
+  public valida_cel;
   public valida_ident;
   public valida_empresa
-  public muestro_menu=true;
-  constructor(public modalCtrl: ModalController, public navCtl: NavController, private menu: MenuController,public validaMail:ValidacionMailService, public saldoService: SaldoService, public transaccionesService: TransaccionesService, public route: ActivatedRoute, public router: Router, public usuarioService: UsuarioService, public libs: Libs, public menuService: MenuserviceService, public FcmService: FcmService) { }
+  public muestro_menu = true;
+  public mail;
+  public celular;
+  constructor(public modalCtrl: ModalController, public navCtl: NavController, private menu: MenuController, public validaMail: ValidacionMailService, public validaCel: ValidacionCelService, public saldoService: SaldoService, public transaccionesService: TransaccionesService, public route: ActivatedRoute, public router: Router, public usuarioService: UsuarioService, public libs: Libs, public menuService: MenuserviceService, public FcmService: FcmService) { }
+  ionViewDidEnter(): void {
+    this.obtener_estado();
 
-  ngOnInit(): void {
-    // AppComponent.cargando=true;
-    console.log("EN HOME");
-    this.FcmService.getToken();
+  }
+  obtener_estado(){
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
     if (this.route.snapshot.queryParamMap.has("param")) {
       this.valida_ident = p.valida_ident;
       this.valida_mail = p.valida_mail;
+      this.valida_cel = p.valida_cel;
       this.valida_empresa = p.valida_empresa;
-      this.mensaje = p.Mensaje?this.mensaje = p.Mensaje:this.mensaje = p.mensaje;
-      AppComponent.validado=p.valido?p.valido:false;
+      this.mensaje = p.Mensaje ? this.mensaje = p.Mensaje : this.mensaje = p.mensaje;
+      this.celular = p.celular;
+      AppComponent.validado = p.valido ? p.valido : false;
       let cuentas = JSON.parse(localStorage.getItem("cuentas"));
 
-      if(cuentas.length==1){
+      if (cuentas.length == 1) {
         this.muestro_menu = AppComponent.validado;
       }
       this.validado = false;
-      this.obtener_datos_usuario();
       return;
     }
     else {
       console.log("sin datos");
       this.validado = true;
-      AppComponent.validado=true;
-      this.obtener_datos_usuario();
+      AppComponent.validado = true;
       this.obtener_saldo();
-      this.cargar_transacciones();
     }
-    
+  }
+
+  ngOnInit(): void {
+    // AppComponent.cargando=true;
+    console.log("EN HOME");
+    this.FcmService.getToken();
+    this.obtener_estado();
+    this.obtener_datos_usuario();
+    this.cargar_transacciones();
   }
   ir() {
     // const navigationExtras: NavigationExtras = {
@@ -90,38 +101,55 @@ export class HomePage implements OnInit {
     //     param: JSON.stringify({rvalidar:true, ira:"/",})
     //   }
     // }
+    console.log("IR");
+    this.mail = localStorage.getItem("mail");
     if (this.valida_mail) {
       /*SERVICIO DE REENVIO DE MAIL */
-        this.validaMail.reenviar().then(()=>{
-          const navigationExtras: NavigationExtras = {
-            queryParams: {
-              param: JSON.stringify({ mensaje: "Revisá tu cuenta de mail y segui los pasos para confirmar que sos el dueño de la cuenta." })
-            }
-          }
-          this.navCtl.navigateForward("confirma-email", navigationExtras);
-        }).catch(()=>{
-          const navigationExtras: NavigationExtras = {
-            queryParams: {
-              param: JSON.stringify({ mensaje: "No te pudimos enviar el email, comunicate con atencion al cliente."})
-            }
-          }
-          this.navCtl.navigateForward("confirmaciones", navigationExtras);
-        });
-    }
-    if (this.valida_empresa) {
-      /*SERVICIO DE REENVIO DE MAIL */
-      
-      this.validaMail.reenviar_empresa().then(()=>{
+      this.validaMail.reenviar().then(() => {
         const navigationExtras: NavigationExtras = {
           queryParams: {
-            param: JSON.stringify({ mensaje: "Revisá tu casilla de mail, te enviamos uno para que puedas seguir." })
+            // param: JSON.stringify({ mensaje: "Revisá tu cuenta de mail y segui los pasos para confirmar que sos el dueño de la cuenta.",mail:this.mail })
+            param: JSON.stringify({ mail: this.mail })
+          }
+        }
+        this.navCtl.navigateForward("confirma-email", navigationExtras);
+      }).catch(() => {
+        const navigationExtras: NavigationExtras = {
+          queryParams: {
+            param: JSON.stringify({ mensaje: "No te pudimos enviar el email, comunicate con atencion al cliente.", mail: this.mail })
           }
         }
         this.navCtl.navigateForward("confirmaciones", navigationExtras);
-      }).catch(()=>{
+      });
+    }
+    if (this.valida_cel) {
+      /*SERVICIO DE REENVIO DE SMS */
+
+      this.validaCel.reenviar_codigo().then(data => {
         const navigationExtras: NavigationExtras = {
           queryParams: {
-            param: JSON.stringify({ mensaje: "No te pudimos enviar el email, comunicate con atencion al cliente."})
+            param: JSON.stringify({ celular: this.celular })
+          }
+        }
+        this.navCtl.navigateForward("confirmasms", navigationExtras);
+        return true;
+      })
+        .catch(err => { console.log(err); return; });
+    }
+    if (this.valida_empresa) {
+      /*SERVICIO DE REENVIO DE MAIL */
+
+      this.validaMail.reenviar_empresa().then(() => {
+        const navigationExtras: NavigationExtras = {
+          queryParams: {
+            param: JSON.stringify({ mensaje: "Revisá tu casilla de mail, te enviamos uno para que puedas seguir.", mail: this.mail })
+          }
+        }
+        this.navCtl.navigateForward("confirmaciones", navigationExtras);
+      }).catch(() => {
+        const navigationExtras: NavigationExtras = {
+          queryParams: {
+            param: JSON.stringify({ mensaje: "No te pudimos enviar el email, comunicate con atencion al cliente.", mail: this.mail })
           }
         }
         this.navCtl.navigateForward("confirmaciones", navigationExtras);
@@ -137,8 +165,8 @@ export class HomePage implements OnInit {
       this.navCtl.navigateForward("validaridentidad3", navigationExtras);
       return true;
     }
-    
-    
+
+
 
   }
   async obtener_saldo() {
@@ -165,14 +193,14 @@ export class HomePage implements OnInit {
 
   // Formateador de Float a Currency
   // public saldoUsuario = 
-  myDateParser(dateStr : string) : string {
-    
+  myDateParser(dateStr: string): string {
+
 
     let date = dateStr.substring(0, 10);
     let time = dateStr.substring(11, 19);
     let millisecond = dateStr.substring(20)
-    if(millisecond==""){
-      millisecond="00";
+    if (millisecond == "") {
+      millisecond = "00";
     }
     let validDate = date + 'T' + time + '.' + millisecond;
     console.log(validDate)
@@ -189,7 +217,7 @@ export class HomePage implements OnInit {
         if (this.items == undefined) {
           this.items = [fila];
         }
-        
+
         fila.fecha = this.myDateParser(fila.fecha);
         this.items[i] = fila;
         i++;
@@ -296,29 +324,34 @@ export class HomePage implements OnInit {
         // return false;
       } else {
         this.usuarioService.obtener_mis_datos().then((data: any) => {
+          console.log("aca donde queres estar");
           console.log(data);
           this.username = data.nombre;
           this.iniciales = this.libs.iniciales(data.nombre_completo);
-          // console.log("aca");
+          this.mail = data.email;
+          this.celular = data.celular;
+          console.log("aca");
           localStorage.setItem("nombre", this.username);
           localStorage.setItem("iniciales", this.iniciales);
+          localStorage.setItem("mail", this.mail);
           // console.log(this.username);
         });
       }
     }
     // alert("aca");
     let menu = Cookie.get("menu");
-    AppComponent.menu=[];
-    AppComponent.menu.length=0;
-    if (AppComponent.token!=localStorage.getItem("token") || !menu || menu.length == 0 ) {
+    AppComponent.menu = [];
+    AppComponent.menu.length = 0;
+    if (AppComponent.token != localStorage.getItem("token") || !menu || menu.length == 0) {
       Cookie.delete("menu");
       this.menuService.obtener_menu().then((data: []) => {
         console.log("Levanto desde api");
+        AppComponent.menu = [];
         data.forEach(element => {
           AppComponent.menu.push(element);
         });
         console.log(this.menu);
-        AppComponent.token=localStorage.getItem("token");
+        AppComponent.token = localStorage.getItem("token");
         Cookie.set("menu", JSON.stringify(AppComponent.menu), AppComponent.DIAS);
       })
     }
@@ -348,74 +381,74 @@ export class HomePage implements OnInit {
   }
 
   MenuIngresoDinero() {
-      this.navCtl.navigateForward(this.navigateMenu(this.obtener_menu(), "ingreso-dinero"));
-    }
+    this.navCtl.navigateForward(this.navigateMenu(this.obtener_menu(), "ingreso-dinero"));
+  }
   MenuTransferirDinero() {
-      this.navCtl.navigateForward(this.navigateMenu(this.obtener_menu(), "retiro-transferencia"));
-    }
+    this.navCtl.navigateForward(this.navigateMenu(this.obtener_menu(), "retiro-transferencia"));
+  }
   MenuRetiroDinero() {
     this.navCtl.navigateForward(this.navigateMenu(this.obtener_menu(), "retirar-dinero"));
   }
   MenuCodigoQR() {
-      this.navCtl.navigateForward(this.navigateMenu(this.obtener_menu(), "Qr-pago"));
+    this.navCtl.navigateForward(this.navigateMenu(this.obtener_menu(), "Qr-pago"));
   }
   puede(menu, item) {
-    if(menu==undefined)
+    if (menu == undefined)
       return false;
-    let puede= menu.filter(menuElement=>{
-      let submenu = menuElement.filter(submenuElmement=>{
+    let puede = menu.filter(menuElement => {
+      let submenu = menuElement.filter(submenuElmement => {
         return submenuElmement.path == item
       });
-      return submenu.length !=0;
+      return submenu.length != 0;
     })
-    return puede.length !=0;
+    return puede.length != 0;
   }
   navigateMenu(menu, item): string {
-    let path="";
-    menu.find(menuElement=>{
-      let submenu = menuElement.filter(submenuElmement=>{
-        if(submenuElmement.path == item){
-          path=submenuElmement.path;
+    let path = "";
+    menu.find(menuElement => {
+      let submenu = menuElement.filter(submenuElmement => {
+        if (submenuElmement.path == item) {
+          path = submenuElmement.path;
         }
         return submenuElmement.path == item
       });
-      return submenu.length !=0;
+      return submenu.length != 0;
     });
     console.log(path);
     return path;
   }
-  obtener_menu(){
+  obtener_menu() {
     return AppComponent.menu;
   }
   irAHistorial() {
     this.navCtl.navigateForward("historial");
   }
-  verMas(item){
+  verMas(item) {
     console.log(item);
     const navigationExtras: NavigationExtras = {
       queryParams: {
-        param: JSON.stringify({item:item})
+        param: JSON.stringify({ item: item })
       }
     }
-    this.navCtl.navigateForward("detalle-transaccion",navigationExtras);
+    this.navCtl.navigateForward("detalle-transaccion", navigationExtras);
     //this.navCtl.navigateForward("detalle-transaccion",);
   }
 
-  validarNotificaciones(){
-      var notifs = JSON.parse(localStorage.getItem("notification"));
-      if(!notifs){
-        return false;
+  validarNotificaciones() {
+    var notifs = JSON.parse(localStorage.getItem("notification"));
+    if (!notifs) {
+      return false;
+    }
+    notifs = Object.values(notifs);
+    let nuevo = false;
+    notifs.forEach(element => {
+      if (element.nuevo) {
+        nuevo = true
       }
-      notifs = Object.values(notifs);
-      let nuevo = false; 
-      notifs.forEach(element => {
-          if(element.nuevo){
-            nuevo = true
-          }
-      });
-      return nuevo;
+    });
+    return nuevo;
   }
-  VerNotificaciones(){
+  VerNotificaciones() {
     this.navCtl.navigateForward("notificaciones");
   }
 }

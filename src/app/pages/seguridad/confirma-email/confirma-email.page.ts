@@ -45,20 +45,27 @@ export class ConfirmaEmailPage implements OnInit,ViewDidEnter {
   }
   ionViewDidEnter(): void {
     let p = Onboarding_vars.get();
-    console.log(p);
-    this.mail = p.mail.toString();
+    if("mail" in p){
+      this.mail = p.mail.toString();
+    }
   }
   async ngOnInit() {
     let p = Onboarding_vars.get();
     console.log(p);
-    this.mail = p.mail.toString();
-    this.revalidar = p.revalidar;
+    if("mail" in p){
+      this.mail = p.mail.toString();
+      this.revalidar = p.revalidar;
+    }
     let detener = false;
     console.log("Envia Codigo");
     this.nav=JSON.parse(this.route.snapshot.queryParamMap.get("param"))!=null;
-    
+    let params=JSON.parse(this.route.snapshot.queryParamMap.get("param"));
+    if("mail" in params){
+      this.mail=params.mail;
+    }
+    console.log(this.nav);
     let proceso_alta = localStorage.getItem("proceso_alta") != null ? localStorage.getItem("proceso_alta") : p.proceso_alta;
-    if(!this.nav)
+    if(!this.nav){
       await  this.loginBo.login().then(async token=>{
         this.procesoaltaservice.validar_estado(token,proceso_alta).then((validaciones:Ivalidaciones)=>{
           localStorage.setItem("validaciones",JSON.stringify(validaciones));
@@ -67,11 +74,13 @@ export class ConfirmaEmailPage implements OnInit,ViewDidEnter {
             this.countdown.stop();
           }
         })
-        await this.validMail.validar(this.mail.toString(), token, proceso_alta).then(data => {
-          
-        })
-          .catch(err => { console.log(err); return; });
+        
       })
+      await this.validMail.validar(this.mail.toString(), localStorage.getItem("token"), proceso_alta).then(data => {
+            console.log(data);
+      })
+        .catch(err => { console.log(err); return; });
+    }
     
   }
   click(event){
@@ -248,15 +257,19 @@ export class ConfirmaEmailPage implements OnInit,ViewDidEnter {
     else {
       console.log("aca confirma email-");
       this.loginBo.login().then(async token => {
-        await this.validMail.validar_codigo(p.mail.toString(), codigo, token, localStorage.getItem("proceso_alta"), this.intentos).then(data => {
+        console.log(this.mail);
+        let mail = p.mail!==undefined?p.mail:this.mail;
+        await this.validMail.validar_codigo(mail.toString(), codigo, token, localStorage.getItem("proceso_alta"), this.intentos).then(data => {
           this.values = [];
           this.retornar_exito();
         }).catch(err => {
+          console.log(err);
           this.intentos = err.intentos;
           this.values = [];
           this.retornar_error();
         })
       }).catch(err => {
+        console.log(err);
         this.intentos = err.intentos;
         this.values = [];
         this.retornar_error();

@@ -39,6 +39,7 @@ export class ValidacionMailService extends ServiceService{
     return new Promise((resolve, reject) => {
       var postParams = ({ email: mail, id_proceso_alta: proceso_alta,codigo:codigo,intentos:intentos});
       this.post<respuesta>( 'api/validamail/validarcodigo',postParams,httpOptions).subscribe((data) => {
+        console.log(data);
         if(data.extras[0].data.match)
           return resolve(data.extras[0].data);
         else 

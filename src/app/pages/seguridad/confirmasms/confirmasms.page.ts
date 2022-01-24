@@ -51,8 +51,14 @@ export class ConfirmasmsPage implements OnInit, ViewDidEnter {
     let p = Onboarding_vars.get();
     this.validar_cel();
     this.nav=JSON.parse(this.route.snapshot.queryParamMap.get("param"))!=null;
-    this.telefono = p.cod_pais.toString() + p.cod_area.toString() + p.celular.toString();
-    this.revalidar = p.revalidar;
+    if("cod_pais" in p && "cod_area" in p && "celular" in p){
+      this.telefono = p.cod_pais.toString() + p.cod_area.toString() + p.celular.toString();
+      this.revalidar = p.revalidar;
+    }
+    let params=JSON.parse(this.route.snapshot.queryParamMap.get("param"));
+    if("celular" in params){
+      this.telefono=params.celular.toString();
+    }
     let detener = false;
     let proceso_alta = localStorage.getItem("proceso_alta") != null ? localStorage.getItem("proceso_alta") : p.proceso_alta;
     if(!this.nav)
@@ -249,8 +255,8 @@ export class ConfirmasmsPage implements OnInit, ViewDidEnter {
     console.log(this.intentos);
     let p = JSON.parse(localStorage.getItem("varsOnboarding"));
     console.log(p);
-    let proceso_alta = p.proceso_alta != null ? p.proceso_alta : localStorage.getItem("proceso_alta");
-    if (p.login) {
+    let proceso_alta = (p!=null && "proceso_alta" in p) ? p.proceso_alta : localStorage.getItem("proceso_alta");
+    if (p!=null && "login " in p && p.login) {
       console.log("REVALIDAR CODIGO");
       console.log(p);
       await this.validCel.validar_codigo_reenviado(p.cod_pais.toString() + p.cod_area.toString() + p.celular.toString(), codigo, this.intentos).then(data => {
@@ -267,7 +273,17 @@ export class ConfirmasmsPage implements OnInit, ViewDidEnter {
     }
     else {
       this.loginBo.login().then(async token => {
-        await this.validCel.validar_codigo(p.cod_pais.toString() + p.cod_area.toString() + p.celular.toString(), codigo, token, proceso_alta, this.intentos).then(data => {
+        let celular="";
+        console.log(p);
+        if(p==null || !("cod_pais" in p) || !("cod_area" in p) || !("celular" in p)){
+          let params = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
+          console.log(params);
+          if("celular" in params)
+            celular=params.celular;
+        }
+        else
+         celular= p.cod_pais.toString() + p.cod_area.toString() + p.celular.toString();
+        await this.validCel.validar_codigo(celular, codigo, token, proceso_alta, this.intentos).then(data => {
           this.values = [];
           this.retornar_exito();
         }).catch(err => {

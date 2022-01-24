@@ -12,6 +12,7 @@ export const environment = {
   ACTIVAR_TEST: true,
   // URL_LOGIN: "https://efectivodigital.com.ar/",
   URL_LOGIN: "https://efectivodigital.com.ar/",
+  // URL_LOGIN_DESARROLLO: "https://efectivodigital.com.ar/",
   URL_LOGIN_DESARROLLO: "http://localhost:8200/",
   
   

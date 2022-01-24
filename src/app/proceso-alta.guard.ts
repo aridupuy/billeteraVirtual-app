@@ -75,13 +75,13 @@ export class ProcesoAltaGuard implements CanActivate {
         // else if (data.estado_cuenta!=1 &&(!data.valida_cel || data.valida_cel == 'f')) {
         else if ((!data.valida_cel || data.valida_cel == 'f'  || data.valida_cel == null)) {
           await this.validCel.reenviar_codigo().then((cel) => {
-            console.log(cel);
+            
             const navigationExtras: NavigationExtras = {
               queryParams: {
                 param: JSON.stringify({ id_proceso_alta:data.id_proceso_alta,id_proceso_alta_usuario:data.id_proceso_alta_usuario,login: true, valida_cel: true, Mensaje: "Tienes que validar tu Celular para operar", revalidar: true, cod_area: "", celular: cel })
               }
             };
-            this.navCtrl.navigateForward("confirmasms", navigationExtras);
+            this.navCtrl.navigateForward("home", navigationExtras);
 
           });
         }
