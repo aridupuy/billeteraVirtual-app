@@ -84,7 +84,8 @@ export class Datospersonales1Page implements OnInit {
           let calculo = new calculaCuil();
           let cuil: String = calculo.getCuilCuit(this.dni, this.sexo || "S").toString();
           this.cuit1 = cuil.substring(0, 2);
-          this.cuit2 = cuil.substring(cuil.length - 1, 1);
+          // this.cuit2 = cuil.substring(cuil.length - 1, 1);
+          this.cuit2=cuil.substring((cuil.length-1),cuil.length);
           console.log(cuil);
         }
         this.nombre = p.nombre;
