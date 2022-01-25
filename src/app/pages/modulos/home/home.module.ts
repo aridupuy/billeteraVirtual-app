@@ -12,15 +12,20 @@ import { TransaccionesService } from '../../../service/transacciones.service';
 import { ValidacionMailService } from '../../../service/validacion-mail.service';
 
 import { Clipboard } from '@ionic-native/clipboard/ngx';
+import { LogoutComponent } from '../../../components/logout/logout.component';
+import { ComponentsModule } from '../../../components/components.module';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
+    ComponentsModule
   ],
   providers:[LoginService,UsuarioService,TransaccionesService,Clipboard,ValidacionMailService],
   declarations: [HomePage]
+  ,schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HomePageModule {}

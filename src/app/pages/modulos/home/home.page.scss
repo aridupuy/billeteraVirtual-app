@@ -53,3 +53,19 @@
 .onboarding-btn-group{
   position: fixed;
 }
+.logout{
+  display: flex;
+  align-self: flex-end;
+  flex-wrap: nowrap;
+  text-align: center;
+  padding: 0.5rem;
+  font-size: 1rem;
+  flex-direction: row;
+  justify-content: end;
+  white-space: nowrap;
+  overflow: initial;
+  text-overflow: ellipsis;
+}
+.logout>img{
+  display: none;
+}

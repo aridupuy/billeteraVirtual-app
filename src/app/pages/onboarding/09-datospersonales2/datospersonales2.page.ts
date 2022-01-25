@@ -60,12 +60,19 @@ export class Datospersonales2Page implements OnInit {
 
   validar():boolean{
     if(!this.piso){
-      if(!this.piso_mod)
-        return false;
+      if(!this.piso_mod){
+        this.piso="S/N";
+      }
+        
     }
-    if(!this.depto)
-      if(!this.depto_mod)
+    if(!this.depto && !this.piso)
+      if(!this.depto_mod && !this.piso){
         return false;
+      }
+      else{
+        this.depto="S/N";
+      }
+        
     if(!this.calle)
       if(!this.calle_mod)
         return false;

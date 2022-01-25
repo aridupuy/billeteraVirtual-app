@@ -118,8 +118,9 @@ export class LoginService extends ServiceService{
           if(localStorage.getItem("token")){
             localStorage.removeItem("token");
           }
-          if(data!=undefined && (!(0 in data) && !("token" in data[0]))){
+          if(data==undefined || ((!(0 in data) || !("token" in data[0])))){
             MiObserver.notify("error_token","");
+            return false;
           }
           await localStorage.setItem("token", data[0].token);
           // console.log(localStorage.getItem("token"));

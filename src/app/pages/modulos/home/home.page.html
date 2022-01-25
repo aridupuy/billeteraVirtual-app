@@ -16,10 +16,13 @@
             <a class="cvu" *ngIf="validado" (click)="VerCvu()">Mi CVU</a>
           </div>
         </div>
-        <div class="notify" (click)="VerNotificaciones()">
+        <div class="notify" (click)="VerNotificaciones()" *ngIf="validado">
           <div class="badge red" *ngIf="validarNotificaciones()"></div>
           <ion-icon name="notifications-outline"></ion-icon>
-      </div>
+        </div>
+        <div class="logout" *ngIf="!validado">
+          <app-logout img="false"></app-logout>
+        </div>
       </div>
       <div class="button-container" *ngIf="validado">
         <div class="saldo">

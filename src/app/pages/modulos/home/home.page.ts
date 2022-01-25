@@ -119,6 +119,7 @@ export class HomePage implements OnInit, ViewDidEnter {
             param: JSON.stringify({ mensaje: "No te pudimos enviar el email, comunicate con atencion al cliente.", mail: this.mail })
           }
         }
+        
         this.navCtl.navigateForward("confirmaciones", navigationExtras);
       });
     }

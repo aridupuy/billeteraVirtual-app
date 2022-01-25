@@ -21,25 +21,40 @@
             <!--<label></label>-->
             <ion-select text-wrap text-middle (ionChange)="changeFiltro()" formControlName="select" value="1"
               interface="action-sheet" role="combobox" aria-expanded="false" aria-haspopup="dialog"
-              aria-labelledby="ion-sel-6-lbl" class="ios in-item hydrated" text-center>
+              aria-labelledby="ion-sel-6-lbl" class="ios in-item hydrated" text-center cancelText="Cancelar">
               <ion-select-option value="1" role="option" id="ion-selopt-45" class="ios ">Todo</ion-select-option>
               <ion-select-option value="2" role="option" id="ion-selopt-48" class="ios ">Ingresos</ion-select-option>
               <ion-select-option value="3" role="option" id="ion-selopt-47" class="ios ">Egresos</ion-select-option>
               <!--<input type="hidden" class="aux-input" name="ion-sel-6" value="enable">-->
             </ion-select>
           </div>
+          <div class="input-container noWrap">
+            <ion-label text-left>Fecha</ion-label>
+            <!--<label></label>-->
+            <ion-select text-wrap text-middle (ionChange)="selectFecha()" formControlName="select2" value="1"
+              interface="action-sheet" role="combobox" aria-expanded="false" aria-haspopup="dialog" cancelText="Cancelar"
+              aria-labelledby="ion-sel-6-lbl" class="ios in-item hydrated" text-center>
+              <ion-select-option value="1" role="option" id="ion-selopt-45" class="ios ">Ayer</ion-select-option>
+              <ion-select-option value="2" role="option" id="ion-selopt-48" class="ios ">Última Semana</ion-select-option>
+              <ion-select-option value="3" role="option" id="ion-selopt-47" class="ios ">Último Mes</ion-select-option>
+              <ion-select-option value="4" role="option" id="ion-selopt-47" class="ios ">Otro Periodo</ion-select-option>
+              <!--<input type="hidden" class="aux-input" name="ion-sel-6" value="enable">-->
+            </ion-select>
+          </div>
           <hr class="hrShow"/>
-          <ion-item>
+          <ion-item *ngIf="this.form.value.select2==4">
             <div class="input-container noWrap">
               <ion-label>Fecha desde</ion-label>
-              <ion-datetime  color="primary" formControlName="desde" display-format="DD/MM/YYYY" placeholder="Fecha de inicio">
+              <ion-datetime  color="primary" formControlName="desde" display-format="DD/MM/YYYY" placeholder="Fecha de inicio" doneText="Aceptar"
+              cancelText="Cancelar">>
               </ion-datetime>
             </div>
           </ion-item>
-          <ion-item>
+          <ion-item *ngIf="this.form.value.select2==4">
             <div class="input-container noWrap">
               <ion-label>Fecha hasta</ion-label>
-              <ion-datetime formControlName="hasta" display-format="DD/MM/YYYY" placeholder="Fecha de inicio">
+              <ion-datetime formControlName="hasta" display-format="DD/MM/YYYY" placeholder="Fecha de inicio"  doneText="Aceptar"
+              cancelText="Cancelar">
               </ion-datetime>
             </div>
           </ion-item>
@@ -47,17 +62,15 @@
         </ion-list>
       </form>
     </div>
-  </div>
-  <div class="onboarding-btn-group">
-    <div class="btn-round activo" (click)="ApliModal()">
-      Aplicar
-    </div>
-  </div>
+  </div> 
   <div class="onboarding-btn-group">
     <a class="link" (click)="vaciar()">
       Limpiar
     </a>
-  </div> 
-
+    <div class="btn-round activo" (click)="ApliModal()">
+      Aplicar
+    </div>
+  </div>
+  
 
 </ion-content>

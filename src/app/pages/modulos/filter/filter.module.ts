@@ -8,6 +8,7 @@ import { FilterPageRoutingModule } from './filter-routing.module';
 
 import { FilterPage } from './filter.page';
 
+
 @NgModule({
   imports: [
     CommonModule,
