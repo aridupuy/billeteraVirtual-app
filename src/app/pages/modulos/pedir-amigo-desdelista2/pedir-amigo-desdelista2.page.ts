@@ -115,7 +115,8 @@ export class PedirAmigoDesdelista2Page implements OnInit {
         param: JSON.stringify(p)
       }
     };
-    this.navCtrl.navigateBack("pedir-amigo-desdelista2",navigationExtras);
+    // this.navCtrl.navigateBack("lista-amigos",navigationExtras);
+    this.navCtrl.pop()
   }
   FinalizarLink(){
 
