@@ -31,11 +31,12 @@ export class AgregarDestinatarioPage implements OnInit {
       let apellido = this.encontrado.nombre.split(' ').slice(1,this.encontrado.nombre.split(' ').length)[0];
       console.log(nombre,apellido);
       
-      this.destinatario.crear_destinatario(nombre, apellido, this.encontrado.documento, this.referencia, this.email, this.encontrado.cvu, this.encontrado.cbu, this.encontrado.alias,this.encontrado.nombre_banco,this.encontrado.codigo_banco).then(data => {
+      this.destinatario.crear_destinatario(nombre, apellido, this.encontrado.documento, this.referencia, this.email, this.encontrado.cvu, this.encontrado.cbu, this.encontrado.alias,this.encontrado.nombre_banco,this.encontrado.codigo_banco,this.encontrado.tipo).then(data => {
         console.log(data);
         this.destinatarioNuevo = data;
-        this.destinatarioNuevo = this.email;
-        this.destinatarioNuevo=this.referencia;
+        // this.destinatarioNuevo.tipo = data["tipo"];
+        this.destinatarioNuevo.email = this.email;
+        this.destinatarioNuevo.referencia=this.referencia;
         const navigationExtras: NavigationExtras = {
           queryParams: {
             param: JSON.stringify({ destinatario: this.destinatarioNuevo })

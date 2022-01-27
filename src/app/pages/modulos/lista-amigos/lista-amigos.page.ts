@@ -46,7 +46,7 @@ export class ListaAmigosPage implements OnInit {
     };
     console.log(navigationExtras);
     console.log("agregar-amigo");
-    this.navCtrl.navigateRoot("agregar-amigo",navigationExtras);
+    this.navCtrl.navigateForward("agregar-amigo",navigationExtras);
   }
   buscar(event) {
     console.log(this.busqueda);

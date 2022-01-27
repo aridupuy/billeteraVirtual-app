@@ -7,13 +7,13 @@ export const environment = {
   production: false,
   // URL: "https://efectivodigital.com.ar/",
   URL: "https://efectivodigital.com.ar/",
-  // URL_DESARROLLO: "http://localhost:8200/",
-  URL_DESARROLLO: "https://efectivodigital.com.ar/",
+  URL_DESARROLLO: "http://localhost:8200/",
+  // URL_DESARROLLO: "https://efectivodigital.com.ar/",
   ACTIVAR_TEST: true,
   // URL_LOGIN: "https://efectivodigital.com.ar/",
   URL_LOGIN: "https://efectivodigital.com.ar/",
-  URL_LOGIN_DESARROLLO: "https://efectivodigital.com.ar/",
-  // URL_LOGIN_DESARROLLO: "http://localhost:8200/",
+  // URL_LOGIN_DESARROLLO: "https://efectivodigital.com.ar/",
+  URL_LOGIN_DESARROLLO: "http://localhost:8200/",
   
   
   // URL_LOGIN_DESARROLLO: "https://efectivodigital.com.ar/",

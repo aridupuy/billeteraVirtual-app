@@ -50,6 +50,8 @@ export class AppComponent implements OnInit {
     return AppComponent.login;
   }
   es_valido(){
+    if(JSON.parse(localStorage.getItem("cuentas")).length>0)
+      return true;
     return AppComponent.validado;
   }
   ngOnInit() {

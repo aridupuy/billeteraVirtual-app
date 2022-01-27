@@ -20,8 +20,9 @@
     </div> 
     <!-- Modulo Buscar por mail / celular cambia el h2 según el tipo -->
     <div class="mail">
-       <h2 class="full" *ngIf="tipo=='mail'">Escribí el mail de la persona que querés agregar</h2>
-       <h2 class="full" *ngIf="tipo=='celular'">Escribí el celular de la persona que querés agregar</h2>
+      <h2 class="full" *ngIf="tipo=='nombre'">Escribí el Nombre solo buscaremos en tus contactos.</h2> 
+      <h2 class="full" *ngIf="tipo=='mail'">Escribí el mail de la persona que querés agregar, buscaremos en nuestro sistema</h2>
+       <h2 class="full" *ngIf="tipo=='celular'">Escribí el celular de la persona que querés agregar, buscaremos en nuestro sistema</h2>
     <ion-item class="input-container full">
       <ion-input [(ngModel)]="busqueda" (keyup)="busquedaAutomatica($event)"  type="text"><ion-icon name="search-outline"></ion-icon></ion-input>
     </ion-item>

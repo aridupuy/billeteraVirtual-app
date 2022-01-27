@@ -185,7 +185,8 @@ export class AgregarAmigoPage implements OnInit {
   }
 
   async buscar(event) {
-    console.log(this.busqueda);
+    // console.log(this.busqueda);
+    // console.log(this.tipo);
     this.buscando = true;
     this.sinResutados = false
     this.resultados = [];
