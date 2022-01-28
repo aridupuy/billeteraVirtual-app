@@ -43,7 +43,25 @@ export interface Vars{
     logued?,
     platform?,
     relacion?,
-    
+    persona_dni?,
+    persona_apellido?,
+    persona_nombre?,
+    persona_cuil?,
+    persona_sexo?,
+    persona_calle?,
+    persona_altura?,
+    persona_piso?,
+    persona_depto?,
+    persona_cod_postal?,
+    persona_provincia?,
+    persona_ciudad?
+    altura_empresa?,
+    calle_empresa?,
+    ciudad_empresa?,
+    cod_postal_empresa?,
+    depto_empresa?,
+    piso_empresa?,
+    provincia_empresa?
 }
 
 export class  Onboarding_vars {

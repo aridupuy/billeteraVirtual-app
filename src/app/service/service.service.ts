@@ -82,7 +82,7 @@ export class ServiceService extends HttpClient {
       //)
       //.pipe(
       catchError(error => {
-        console.log(error);
+        // console.log(error);
         AppComponent.cargando = false;
         if (error.error instanceof ErrorEvent) {
           console.log(error.error);

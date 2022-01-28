@@ -1,0 +1,80 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content center>
+  <div class="contenedor-90">
+    <h1 class="align-left">
+      ¡Lo hiciste perfecto! Ahora,
+      necesitamos algo más
+
+    </h1>
+    <p class="align-left">Tenemos que validar tu identidad para continuar. Por favor, confirmanos si
+      esta info que te mostramos es correcta.
+    </p>
+      <div class="form">
+      <div class="dato mitad">
+        <h2>Nombre y apellido</h2>
+        <ion-item *ngIf="!nombre_completo_pedir" class="full">
+          <p #nombrecompleto>{{nombre_completo}}</p>
+        </ion-item>
+        <ion-item *ngIf="nombre_completo_pedir">
+        <ion-input type="text" class="full"  [(ngModel)]="nombre_completo"></ion-input>
+        </ion-item>
+      </div>
+      <div class="dato mitad">
+        <h2>DNI</h2>
+        <ion-item *ngIf="(dni!==undefined || cuit!=undefined) && !dni_pedir">
+          <p>{{dni  ||cuit}}</p>
+        </ion-item>
+        <ion-item *ngIf="dni_pedir">
+          <ion-input  type="tel" maxlength="8" [(ngModel)]="dni||cuit" disabled="true"></ion-input>
+      </ion-item>
+      </div>
+      <div class="dato mitad">
+        <h2>Sexo</h2>
+        <ion-item *ngIf="!sexo_pedir">
+          <p>{{sexo}}</p>
+        </ion-item>
+        <ion-item *ngIf="sexo_pedir">
+          <!-- <ion-label>Sexo</ion-label> -->
+          <ion-select [(ngModel)]="sexo">
+            <ion-select-option value="f">Femenino</ion-select-option>
+            <ion-select-option value="m">Masculino</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </div>
+      <div class="dato mitad">
+        <h2>Pais</h2>
+        <ion-item class="full">
+          <ion-select [(ngModel)]="nacionalidad">
+          <ion-select-option *ngFor="let ciu of paises" [value]="ciu.id_pais">{{ciu.nombre}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </div>
+      <div class="dato full">
+        <h2>Fecha de nacimiento</h2>
+        <ion-item *ngIf="!fec_nac_pedir">
+          <p >{{fec_nac}}</p>
+        </ion-item>
+        <ion-item class="full" *ngIf="fec_nac_pedir">
+          <ion-input type="date" [(ngModel)]="fec_nac"></ion-input>
+        </ion-item>
+      </div>
+    </div>
+  </div>
+  <div class="onboarding-btn-group">
+    <div class="btn-round inactivo" *ngIf="!cargando && (!fec_nac || !nacionalidad )">
+      Confirmar
+    </div>
+    <div class="btn-round activo" (click)="Continuar()" *ngIf="!cargando && fec_nac && nacionalidad">
+      Confirmar
+    </div>
+  </div>
+
+</ion-content>
+<ion-footer>
+  <ion-progress-bar color="primary" value="0.6"></ion-progress-bar>
+</ion-footer>

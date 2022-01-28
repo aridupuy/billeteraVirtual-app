@@ -1,0 +1,69 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content center>
+  <div class="contenedor-90">
+    <h1 class="align-left">
+      ¡Lo hiciste perfecto! Ahora,
+      necesitamos algo más
+
+    </h1>
+    <p class="align-left">Por favor, Completa estos datos de la empresa para continuar </p>
+
+    <!-- <div class="form datospersonales"> -->
+      <div class="form">
+      <div class="dato mitad" >
+        <h2 class="align-left full">Razon Social</h2>
+        <ion-item class="full">
+          <ion-input type="text" [(ngModel)]="nombre_completo"></ion-input>
+        </ion-item>
+      </div>
+      <div class="dato mitad">
+        <h2 class="align-left full">CUIT</h2>
+        <ion-item class="full">
+          <ion-input type="tel" maxlength="11" [(ngModel)]="cuit" disabled="true"></ion-input>
+        </ion-item>
+      </div>
+      <div class="dato mitad">
+        <h2>Pais</h2>
+        <ion-item class="full">
+          <ion-select [(ngModel)]="nacionalidad">
+          <ion-select-option *ngFor="let ciu of paises" [value]="ciu.id_pais">{{ciu.nombre}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </div>
+      <div class="dato mitad" >
+        <h2>Fecha de contitucion</h2>
+        <ion-item class="full">
+          <ion-input type="date" [(ngModel)]="fec_nac"></ion-input>
+        </ion-item>
+      </div>
+      <div class="dato mitad" >
+        <h2>Relacion</h2>
+        <ion-item class="full">
+          <ion-select [(ngModel)]="relacion">
+            <ion-select-option>Apoderado</ion-select-option>
+            <ion-select-option>Socio</ion-select-option>
+            <ion-select-option>Gerente</ion-select-option>
+            <ion-select-option>Presidente</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </div>
+    </div>
+  </div>
+  <div class="onboarding-btn-group">
+    <div class="btn-round inactivo" *ngIf="!cargando && (!fec_nac || !nacionalidad || (!relacion))">
+      Confirmar
+    </div>
+    <div class="btn-round activo" (click)="Continuar()" *ngIf="!cargando && fec_nac && nacionalidad && (relacion)">
+      Confirmar
+    </div>
+  </div>
+
+</ion-content>
+<ion-footer>
+  <ion-progress-bar color="primary" value="0.6"></ion-progress-bar>
+</ion-footer>

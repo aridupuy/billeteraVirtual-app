@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="IrAtras()" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content center>
+<div class="contenedor-90">
+  <h1 class="align-left">
+    Hola, que bueno que estás acá
+  </h1>
+  <p class="align-left"> Vamos a validar tus datos y para eso te pedimos que completes esta información.</p>
+  <div class="form">
+    <ion-item class="input-container with-label">
+      <ion-label position="floating">Tipo documento</ion-label>
+      <ion-input type="text" [value]="tipodoc" readonly="true"></ion-input>
+    </ion-item>
+    <ion-item class="input-container with-label">
+      <ion-label position="floating">Ingresá número de documento</ion-label>
+      <ion-input [(ngModel)]="documento"  (ngModelChange)="validar_documento()"></ion-input>
+      <ion-icon slot="end" name="checkmark-sharp" color="success" *ngIf="documento && !error_documento && error_documento!=null" ></ion-icon>
+      <ion-icon slot="end" name="close-sharp" color="danger" *ngIf="documento && error_documento!=null && error_documento " ></ion-icon>
+    </ion-item>
+    <div class="validationMsg">
+      <div class="msg" *ngIf="documento && !pass_documento">
+        <ion-icon name="close-circle-sharp" slot="start" color="danger" *ngIf="documento && !pass_documento"></ion-icon>
+         Maximo de {{longitud}} caracteres
+      </div>
+      <!-- <div class="msg">
+        <ion-icon name="checkmark-circle-sharp" slot="start" color="success" *ngIf="pass_has_simbol"></ion-icon>
+        <ion-icon name="close-circle-sharp" slot="start" color="danger" *ngIf="!pass_has_simbol"></ion-icon>
+         1 carácter especial
+      </div> -->
+    </div>
+  </div>
+  
+</div>
+<div class="onboarding-btn-group">
+  <div class="btn-round inactivo" *ngIf="!documento">
+    Continuar
+  </div>
+  <div class="btn-round activo" *ngIf="documento" (click)="Continuar()">
+    Continuar
+  </div>
+</div>
+</ion-content>
+<ion-footer>
+  <ion-progress-bar color="primary" value="0.1"></ion-progress-bar>
+</ion-footer>

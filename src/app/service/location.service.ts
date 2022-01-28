@@ -43,6 +43,7 @@ export class LocationService extends LoginBoService {
   public async obtener_pais() {
     var resp;
     await this.login().then((data: any) => {
+      console.log(data);
       resp = new Promise((resolve, reject) => {
         httpOption["headers"]["token"] = data;
         try {

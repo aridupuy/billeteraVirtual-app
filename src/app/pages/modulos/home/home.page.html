@@ -89,7 +89,8 @@
         <h2 *ngIf="validado">¡Es hora de comenzar a hacer efectivo tu efectivo! Cuando lo hagas, acá vas a poder ver
           todos los movimientos que realizaste.</h2>
         <h1 *ngIf="!validado">{{mensaje}}</h1>
-        <div class="onboarding-btn-group" *ngIf="!validado">
+        <!-- {{validacion_manual}} -->
+        <div class="onboarding-btn-group" *ngIf="!validado && !validacion_manual">
           <div class="btn-round activo" (click)="ir()">
             Revalidar ahora
           </div>

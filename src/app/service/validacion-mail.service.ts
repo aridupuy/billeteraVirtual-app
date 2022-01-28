@@ -27,9 +27,12 @@ export class ValidacionMailService extends ServiceService{
   validar(email,token,proceso_alta){
     httpOptions.headers.token=token;
     return new Promise((resolve, reject) => {
-      var postParams = ({ mail: email, id_proceso_alta: proceso_alta });
+      var postParams = { mail: email, id_proceso_alta: proceso_alta };
       this.post<respuesta>( 'api/validamail/validar',postParams,httpOptions).subscribe((data) => {
-        return resolve(data.extras[0].data.url);
+        console.log(data);
+        if(data!=undefined && "extras" in data && "0" in data.extras && "data" in data.extras[0] && "url" in data.extras[0].data)
+          return resolve(data.extras[0].data.url);
+        return reject(data.log);
       });
     });
   }

@@ -1,3 +1,4 @@
+import { Onboarding_vars } from '../../../classes/onboarding-vars';
 import { QueryList } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
@@ -120,15 +121,17 @@ export class Validaridentidad1Page implements OnInit {
     console.log("identidad1 camara apagada");
   }
   async noPuedo() { 
+    let p = Onboarding_vars.get();
+    let nav = p.pfpj=="pf"? "datospersonales" : "empresa/datospersonales";
     if(this.platform.is("cordova"))
     await this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT).then(
       async () => {
-          this.navCtrl.navigateRoot("datospersonales");  
+          this.navCtrl.navigateRoot(nav);  
           await  this.cameraPreview.stopCamera();
         }
       );
     else{
-      this.navCtrl.navigateRoot("datospersonales");  
+      this.navCtrl.navigateRoot(nav);  
     }
   }
 }

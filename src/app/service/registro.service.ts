@@ -19,7 +19,67 @@ var httpOptions = {
 })
 export class RegistroService extends LoginBoService {
 
-  async registrar(email, titular, password, valido_sms, terminos_acepta, cod_area, celular, selfie, selfie_doc, fotoDorso, fotoFrente, documento, fecha_nac, id_pais, genero, estado_civil, ocupacion, id_prov, id_loc, cod_postal, calle, numero, piso, depto, fatca, politico_expuesto, sujeto_obligado, cuit, cuit_modificado,pfpj,proceso_alta,usuario,relacion) {
+  async registrar(email, titular, password, valido_sms, terminos_acepta, cod_area, celular, selfie, selfie_doc, fotoDorso, fotoFrente, documento, fecha_nac, id_pais, genero, estado_civil, ocupacion, id_prov, id_loc, cod_postal, calle, numero, piso, depto, fatca, politico_expuesto, sujeto_obligado, cuit, cuit_modificado,pfpj,proceso_alta,usuario,relacion,sexo) {
+    var resp;
+    // return false;
+    await this.login().then((data: any) => {
+      resp = new Promise((resolve, reject) => {
+        httpOptions["headers"]["token"] = data;
+        var postParams = ({
+          email: email,
+          titular: titular,
+          password: password,
+          valido_sms: valido_sms,
+          terminos_acepta: terminos_acepta,
+          cod_area: cod_area,
+          celular: celular,
+          selfie: selfie,
+          selfie_doc: selfie_doc,
+          fotoDorso: fotoDorso,
+          fotoFrente: fotoFrente,
+          documento: documento,
+          fecha_nac: fecha_nac,
+          id_pais: id_pais,
+          genero: genero,
+          estado_civil: estado_civil,
+          ocupacion: ocupacion,
+          id_prov: id_prov,
+          id_loc: id_loc,
+          cod_postal: cod_postal,
+          calle: calle,
+          numero: numero,
+          piso: piso,
+          sexo:sexo,
+          depto: depto,
+          id_proceso_alta:proceso_alta,
+          fatca: fatca,
+          politico_expuesto: politico_expuesto,
+          sujeto_obligado: sujeto_obligado,
+          cuit: cuit || cuit_modificado ,
+          pfpj:pfpj,
+          usuario:usuario,
+          relacion:relacion,
+        });
+        console.log(postParams);
+        this.post<res>('api/alta/crear', postParams, httpOptions).subscribe((data) => {
+          if (data.resultado != null && data.resultado == false) {
+            reject(data.log);
+          }
+          return resolve(data.extras[0]);
+        });
+      });
+    });
+    return resp
+  }
+
+
+
+
+  async registrar_empresa(email, titular, password, valido_sms, terminos_acepta, cod_area, celular, selfie, selfie_doc, fotoDorso, fotoFrente, 
+    documento, fecha_nac, id_pais, genero, estado_civil, ocupacion, id_prov, id_loc, cod_postal, calle, numero, piso, depto, fatca, politico_expuesto, 
+    sujeto_obligado, cuit, cuit_modificado,pfpj,proceso_alta,usuario,relacion,
+    persona_dni,persona_apellido,persona_nombre,persona_cuil,persona_sexo,persona_calle,persona_altura,persona_piso,persona_depto,persona_cod_postal,persona_provincia,persona_ciudad
+    ,altura_empresa,calle_empresa,ciudad_empresa,cod_postal_empresa,depto_empresa,piso_empresa,provincia_empresa) {
     var resp;
     await this.login().then((data: any) => {
       resp = new Promise((resolve, reject) => {
@@ -57,6 +117,25 @@ export class RegistroService extends LoginBoService {
           pfpj:pfpj,
           usuario:usuario,
           relacion:relacion,
+          persona_dni:persona_dni,
+          persona_apellido:persona_apellido,
+          persona_nombre:persona_nombre,
+          persona_cuil:persona_cuil,
+          persona_sexo:persona_sexo,
+          persona_calle:persona_calle,
+          persona_altura:persona_altura,
+          persona_piso:persona_piso,
+          persona_depto:persona_depto,
+          persona_cod_postal:persona_cod_postal,
+          persona_provincia:persona_provincia,
+          persona_ciudad:persona_ciudad,
+          altura_empresa:altura_empresa,
+          calle_empresa:calle_empresa,
+          ciudad_empresa:ciudad_empresa,
+          cod_postal_empresa:cod_postal_empresa,
+          depto_empresa:depto_empresa,
+          piso_empresa:piso_empresa,
+          provincia_empresa:provincia_empresa
         });
         console.log(postParams);
         this.post<res>('api/alta/crear', postParams, httpOptions).subscribe((data) => {
@@ -69,6 +148,10 @@ export class RegistroService extends LoginBoService {
     });
     return resp
   }
+
+
+
+
   async obtener_datos_usuario(usuario) {
     var resp;
     await this.login().then((data: any) => {

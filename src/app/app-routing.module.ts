@@ -30,11 +30,11 @@ const routes: Routes = [
   },
   {
     path: 'registro',
-    loadChildren: () => import('./pages/onboarding/03-registro/registro.module').then( m => m.RegistroPageModule)
+    loadChildren: () => import('./pages/onboarding/persona/03-registro/registro.module').then( m => m.RegistroPageModule)
   },
   {
     path: 'registro1',
-    loadChildren: () => import('./pages/onboarding/04-registro1/registro1.module').then( m => m.Registro1PageModule)
+    loadChildren: () => import('./pages/onboarding/persona/04-registro1/registro1.module').then( m => m.Registro1PageModule)
   },
   {
     path: 'confirmasms',
@@ -42,11 +42,11 @@ const routes: Routes = [
   },
   {
     path: 'cuentacreada',
-    loadChildren: () => import('./pages/onboarding/05-cuentacreada/cuentacreada.module').then( m => m.CuentacreadaPageModule)
+    loadChildren: () => import('./pages/onboarding/persona/05-cuentacreada/cuentacreada.module').then( m => m.CuentacreadaPageModule)
   },
   {
     path: 'preguntaslegales',
-    loadChildren: () => import('./pages/onboarding/08-preguntaslegales/preguntaslegales.module').then( m => m.PreguntaslegalesPageModule)
+    loadChildren: () => import('./pages/onboarding/persona/08-preguntaslegales/preguntaslegales.module').then( m => m.PreguntaslegalesPageModule)
   },
   {
     path: 'validaridentidad',
@@ -74,19 +74,19 @@ const routes: Routes = [
   },
   {
     path: 'datospersonales',
-    loadChildren: () => import('./pages/onboarding/06-datospersonales/datospersonales.module').then( m => m.DatospersonalesPageModule)
+    loadChildren: () => import('./pages/onboarding/persona/06-datospersonales/datospersonales.module').then( m => m.DatospersonalesPageModule)
   },
   {
     path: 'datospersonales1',
-    loadChildren: () => import('./pages/onboarding/07-datospersonales1/datospersonales1.module').then( m => m.Datospersonales1PageModule)
+    loadChildren: () => import('./pages/onboarding/persona/07-datospersonales1/datospersonales1.module').then( m => m.Datospersonales1PageModule)
   },
   {
     path: 'datospersonales2',
-    loadChildren: () => import('./pages/onboarding/09-datospersonales2/datospersonales2.module').then( m => m.Datospersonales2PageModule)
+    loadChildren: () => import('./pages/onboarding/persona/09-datospersonales2/datospersonales2.module').then( m => m.Datospersonales2PageModule)
   },
   {
     path: 'registrofinalizado',
-    loadChildren: () => import('./pages/onboarding/010-registrofinalizado/registrofinalizado.module').then( m => m.RegistrofinalizadoPageModule)
+    loadChildren: () => import('./pages/onboarding/persona/010-registrofinalizado/registrofinalizado.module').then( m => m.RegistrofinalizadoPageModule)
   },
   {
     path: 'ingreso',
@@ -354,7 +354,7 @@ const routes: Routes = [
   },
   {
     path: 'personapfpj',
-    loadChildren: () => import('./pages/onboarding/01-personapfpj/personapfpj.module').then( m => m.PersonapfpjPageModule)
+    loadChildren: () => import('./pages/onboarding/persona/01-personapfpj/personapfpj.module').then( m => m.PersonapfpjPageModule)
   },
   {
     path: 'confirmaciones',
@@ -385,7 +385,7 @@ const routes: Routes = [
   },
   {
     path: 'valida-dni',
-    loadChildren: () => import('./pages/onboarding/02-valida-dni/valida-dni.module').then( m => m.ValidaDniPageModule)
+    loadChildren: () => import('./pages/onboarding/persona/02-valida-dni/valida-dni.module').then( m => m.ValidaDniPageModule)
   },
   {
     path: 'confirma-email',
@@ -409,7 +409,7 @@ const routes: Routes = [
   },
   {
     path: 'registro-pass',
-    loadChildren: () => import('./pages/onboarding/03-1registro-pass/registro-pass.module').then( m => m.RegistroPassPageModule)
+    loadChildren: () => import('./pages/onboarding/persona/03-1registro-pass/registro-pass.module').then( m => m.RegistroPassPageModule)
   },
   {
     path: 'nuevo-usuario',
@@ -422,7 +422,30 @@ const routes: Routes = [
   {
     path: 'usuarios-permiso',
     loadChildren: () => import('./pages/modulos/usuarios-permiso/usuarios-permiso.module').then( m => m.UsuariosPermisoPageModule),canActivate: [AuthGuardGuard]
+  },
+  {
+    path: 'empresa/datospersonales',
+    loadChildren: () => import('./pages/onboarding/empresa/datospersonales/datospersonales.module').then( m => m.DatospersonalesPageModule)
+  },
+  {
+    path: 'empresa/valida-dni',
+    loadChildren: () => import('./pages/onboarding/empresa/valida-dni/valida-dni.module').then( m => m.ValidaDniPageModule)
+  },
+  {
+    path: 'empresa/datospersonales1',
+    loadChildren: () => import('./pages/onboarding/empresa/datospersonales1/datospersonales1.module').then( m => m.Datospersonales1PageModule)
+  },
+  {
+    path: 'empresa/datospersonales2',
+    loadChildren: () => import('./pages/onboarding/empresa/datospersonales2/datospersonales2.module').then( m => m.Datospersonales2PageModule)
+  },
+  {
+    path: 'empresa/datospersonales-empresa1',
+    loadChildren: () => import('./pages/onboarding/empresa/datospersonales-empresa1/datospersonales-empresa1.module').then( m => m.DatospersonalesEmpresa1PageModule)
   }
+
+
+
 
 
 

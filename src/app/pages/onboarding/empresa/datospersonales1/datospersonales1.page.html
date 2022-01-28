@@ -1,0 +1,87 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <ion-back-button defaultHref="IrAtras()" class="small"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content center>
+  <div class="contenedor-90">
+    <h1 class="align-left">
+      Por favor, completá tus datos Personales.
+    </h1>
+    <div class="form">
+      <div class="dato mitad" >
+        <h2 class="align-left full">Nombres</h2>
+        <ion-item class="full">
+          <ion-input type="text" [(ngModel)]="nombre"></ion-input>
+        </ion-item>
+      </div>
+      <div class="dato mitad" >
+        <h2 class="align-left full">Apellido</h2>
+        <ion-item class="full">
+          <ion-input type="text" [(ngModel)]="apellido"></ion-input>
+        </ion-item>
+      </div>
+      <div class="dato mitad">
+        <h2>Sexo</h2>
+        <ion-item >
+          <ion-select [(ngModel)]="sexo" (ngModelChange)="validar_dni()">
+            <ion-select-option value="f">Femenino</ion-select-option>
+            <ion-select-option value="m">Masculino</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </div>
+      <div class="dato mitad">
+        <h2 class="align-left full">DNI</h2>
+        <ion-item class="full" >
+          <ion-input   maxlength="8"  readonly="false" type="text" class="align-center" placeholder="12345678" [(ngModel)]="dni_modificado" (ngModelChange)="validar_dni()"></ion-input>
+        </ion-item>
+      </div>
+      <div class="input-container">
+        <h2 class="full">CUIL/CUIT</h2>
+        <ion-item class="cuil-1">     
+          <ion-input type="tel" pattern="[0-9]*" maxlength="2" readonly="false" class="align-center" placeholder="" #cuil1 [(ngModel)]="cuit1" (keyup)="onKeyUp($event,1)"></ion-input>
+        </ion-item>
+  
+        <ion-item class="cuil-2" >
+          <ion-input   maxlength="8"  readonly="true" type="text" class="align-center" placeholder="12345678" [(ngModel)]="dni_modificado"></ion-input>
+        </ion-item>
+
+        <ion-item class="cuil-3">
+          <ion-input maxlength="1" readonly="false" type="tel" pattern="[0-9]*" class="align-center" placeholder="" #cuil2 (keyup)="onKeyUp($event,2)" [(ngModel)]="cuit2"></ion-input>
+        </ion-item>      
+      </div>
+    </div>
+    <h2>Estado Civil</h2>
+    <div class="option-container">
+      <div class="option-round" ds-data = 1  (click)="OpcionSeleccionada($event,1)">Soltera/o</div>
+      <div class="option-round" ds-data = 1  (click)="OpcionSeleccionada($event,1)">Casada/o</div>
+      <div class="option-round" ds-data = 1 (click)="OpcionSeleccionada($event,1)">Viuda/o</div>
+      <div class="option-round" ds-data = 1 (click)="OpcionSeleccionada($event,1)">Concubina/o</div>
+      <div class="option-round" ds-data = 1 (click)="OpcionSeleccionada($event,1)">Divorciada/o</div>
+    </div>
+    <h2>Ocupación</h2>
+    <div class="option-container">
+      <div class="option-round" ds-data = 2 (click)="OpcionSeleccionada($event,2)">Empleada/o</div>
+      <div class="option-round" ds-data = 2 (click)="OpcionSeleccionada($event,2)">Estudiante</div>
+      <div class="option-round" ds-data = 2 (click)="OpcionSeleccionada($event,2)">Aútonoma/o</div>
+      <div class="option-round" ds-data = 2 (click)="OpcionSeleccionada($event,2)">Desocupada/o</div>
+      <div class="option-round" ds-data = 2 (click)="OpcionSeleccionada($event,2)">Jubilada/o</div>
+      <div class="option-round" ds-data = 2 (click)="OpcionSeleccionada($event,2)">Otro</div>
+    </div>
+  </div>
+  <div class="onboarding-btn-group">
+    <div class="btn-round inactivo" *ngIf="(!cuit1 || !cuit2 || !estadoCivil || !ocupacion)">
+      Continuar
+    </div>
+    <div class="btn-round activo" *ngIf="(cuit1 && cuit2 && estadoCivil && ocupacion)" (click)="Continuar()">
+      Continuar
+    </div>
+  </div>
+  
+</ion-content>
+<ion-footer>
+  <ion-progress-bar color="primary" value="0.8"></ion-progress-bar> 
+</ion-footer>

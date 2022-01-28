@@ -33,6 +33,7 @@ export class HomePage implements OnInit, ViewDidEnter {
   ToggleIcon = 'eye-outline';
   public saldoUsuario;
   public validado = false;
+  public validacion_manual=false;
   public mensaje = "";
   public cargandoSaldo = true;
   // public cargando:boolean=false;
@@ -71,12 +72,15 @@ export class HomePage implements OnInit, ViewDidEnter {
       this.mensaje = p.Mensaje ? this.mensaje = p.Mensaje : this.mensaje = p.mensaje;
       this.celular = p.celular;
       AppComponent.validado = p.valido ? p.valido : false;
+      this.validado = false;
+      if("validacion_manual" in p)
+        this.validacion_manual=p.validacion_manual;
       let cuentas = JSON.parse(localStorage.getItem("cuentas"));
 
       if (cuentas.length == 1) {
-        this.muestro_menu = AppComponent.validado;
+        this.muestro_menu = AppComponent.validado && !this.validacion_manual;
       }
-      this.validado = false;
+      
       return;
     }
     else {

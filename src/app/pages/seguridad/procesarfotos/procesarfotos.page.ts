@@ -211,7 +211,9 @@ export class ProcesarfotosPage implements OnInit {
     p["nombre"] = this.nombre;
     p["valida_identidad"] = true;
     localStorage.setItem("varsOnboarding", JSON.stringify(p));
-    this.navCtrl.navigateForward("datospersonales");
+    let params = Onboarding_vars.get();
+    let nav = params.pfpj=="pf"? "datospersonales" : "empresa/datospersonales";
+    this.navCtrl.navigateForward(nav);
   }
   calcular_nombre(tipo) {
     var f = new Date();
