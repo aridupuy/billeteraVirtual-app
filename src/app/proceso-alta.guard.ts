@@ -43,27 +43,10 @@ export class ProcesoAltaGuard implements CanActivate {
         console.log(data);
         localStorage.setItem("proceso_alta",data.id_proceso_alta_usuario.toString());
 
-        if (data.estado_cuenta == 4) {
-          const navigationExtras: NavigationExtras = {
-            queryParams: {
-              param: JSON.stringify({ id_proceso_alta:data.id_proceso_alta,id_proceso_alta_usuario:data.id_proceso_alta_usuario,login: true, valido: true, Mensaje: "Tu cuenta ha sido bloqueada, por favor ponete en contacto con nosotros." })
-            }
-          };
-          this.navCtrl.navigateForward("home", navigationExtras);
-          resp = true
-        }
-        else if (data.estado_cuenta == 6) {
-          const navigationExtras: NavigationExtras = {
-            queryParams: {
-              param: JSON.stringify({ id_proceso_alta:data.id_proceso_alta,id_proceso_alta_usuario:data.id_proceso_alta_usuario,login: true, valido: true, Mensaje: "Tu cuenta se encuentra en validacion manual, en 72hs tus datos seran procesados." })
-            }
-          };
-          this.navCtrl.navigateForward("home", navigationExtras);
-          resp = true
-        }
+       
 
         // else if (data.estado_cuenta!=1 &&(!data.valida_mail || data.valida_mail == 'f')) {
-        else if ((!data.valida_mail || data.valida_mail == 'f' || data.valida_mail == null)) {
+        if ((!data.valida_mail || data.valida_mail == 'f' || data.valida_mail == null)) {
           const navigationExtras: NavigationExtras = {
             queryParams: {
               param: JSON.stringify({ id_proceso_alta:data.id_proceso_alta,id_proceso_alta_usuario:data.id_proceso_alta_usuario,login: true, valida_mail: true, Mensaje: "Tienes que validar tu Correo para operar" })
@@ -100,6 +83,24 @@ export class ProcesoAltaGuard implements CanActivate {
               param: JSON.stringify({id_proceso_alta:data.id_proceso_alta,id_proceso_alta_usuario:data.id_proceso_alta_usuario, login: true, valida_ident: true, Mensaje: "Tienes que validar tu Identidad para operar" })
             }
           }; //parametros para el nav
+          this.navCtrl.navigateForward("home", navigationExtras);
+          resp = true
+        }
+        else if (data.estado_cuenta == 4) {
+          const navigationExtras: NavigationExtras = {
+            queryParams: {
+              param: JSON.stringify({ id_proceso_alta:data.id_proceso_alta,id_proceso_alta_usuario:data.id_proceso_alta_usuario,login: true, valido: false, validacion_manual:true,Mensaje: "Tu cuenta ha sido bloqueada, por favor ponete en contacto con nosotros." })
+            }
+          };
+          this.navCtrl.navigateForward("home", navigationExtras);
+          resp = true
+        }
+        else if (data.estado_cuenta == 6) {
+          const navigationExtras: NavigationExtras = {
+            queryParams: {
+              param: JSON.stringify({ id_proceso_alta:data.id_proceso_alta,id_proceso_alta_usuario:data.id_proceso_alta_usuario,login: true, valido: false,validacion_manual:true, Mensaje: "Tu cuenta se encuentra en validacion manual, en 72hs tus datos seran procesados." })
+            }
+          };
           this.navCtrl.navigateForward("home", navigationExtras);
           resp = true
         }
