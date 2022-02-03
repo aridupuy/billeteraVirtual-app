@@ -34,6 +34,20 @@ export class SaldoService extends ServiceService {
       });
     });
   }
+
+  obtener_all(){
+    httpOptions.headers.token=localStorage.getItem("token");
+    return new Promise((resolve, reject) => {
+      this.get<saldo>('api/saldo/obtener_saldo',httpOptions).subscribe((data) => {
+        console.log(data);
+        if (data.log != null && data.log != false) {
+          reject(data.log);
+        }
+        return resolve(data.extras[0]);
+      });
+    });
+  }
+
   recargar_saldo_td(monto,tarjeta){
     console.log("recarga_td");
     httpOptions.headers.token=localStorage.getItem("token");

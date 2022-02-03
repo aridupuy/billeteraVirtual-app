@@ -32,6 +32,8 @@ export class HomePage implements OnInit, ViewDidEnter {
   mostrarSaldo = localStorage.getItem("saldoVisible") == "false" ? false : true;
   ToggleIcon = 'eye-outline';
   public saldoUsuario;
+  public TotalUsuario;
+  public noliquidadoUsuario;
   public validado = false;
   public validacion_manual=false;
   public mensaje = "";
@@ -175,9 +177,11 @@ export class HomePage implements OnInit, ViewDidEnter {
 
   }
   async obtener_saldo() {
-    await this.saldoService.obtener().then((data: number) => {
+    await this.saldoService.obtener_all().then((data: any) => {
       console.log(data);
-      this.saldoUsuario = formatCurrency(data, 'en-US', '$', 'ARS', '4.2-2');
+      this.saldoUsuario = formatCurrency(data.saldo_actual, 'es-AR', '$', 'ARS', '4.2-2');
+      this.TotalUsuario = formatCurrency(data.saldo_total, 'es-AR', '$', 'ARS', '4.2-2');
+      this.noliquidadoUsuario = formatCurrency(data.saldo_no_liquidado, 'es-AR', '$', 'ARS', '4.2-2');
       this.cargandoSaldo = false;
     });
   }

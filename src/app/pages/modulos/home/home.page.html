@@ -4,9 +4,9 @@
       <div class="user-header">
         <div class="home-header">
           <ion-menu-button *ngIf="muestro_menu" color="primary" menu="menuPrincipal" type="reset"></ion-menu-button>
-          
+
         </div>
-        
+
         <div class="line">
           <div class="avatar">
             {{iniciales}}
@@ -26,7 +26,7 @@
       </div>
       <div class="button-container" *ngIf="validado">
         <div class="saldo">
-          <h2>Saldo Disponible</h2>
+          <h2>Disponible</h2>
           <h1 class="regular saldoUsuario" *ngIf="!cargandoSaldo && mostrarSaldo">
             {{ saldoUsuario }}
           </h1>
@@ -39,6 +39,30 @@
           <ion-icon slot="end" *ngIf="mostrarSaldo" name="eye-off-outline" (click)="toggleIcon()" color="white">
           </ion-icon>
           <ion-icon slot="end" *ngIf="!mostrarSaldo" name="eye-outline" (click)="toggleIcon()" color="white"></ion-icon>
+        </div>
+        <div class="saldo menos">
+          <h2>Saldo</h2>
+          <h1 class="regular saldoUsuario menos_saldo" *ngIf="!cargandoSaldo && mostrarSaldo">
+            {{ TotalUsuario }}
+          </h1>
+          <h1 class="regular saldoUsuario menos_saldo" *ngIf="!cargandoSaldo && !mostrarSaldo">
+            *******
+          </h1>
+          <ion-skeleton-text class="regular saldoUsuario skeletonSaldo menos" *ngIf="cargandoSaldo">
+            <!-- {{ saldoUsuario }} -->
+          </ion-skeleton-text>
+        </div>
+        <div class="saldo menos">
+          <h2>Sin Liquidar</h2>
+          <h1 class="regular saldoUsuario menos_saldo" *ngIf="!cargandoSaldo && mostrarSaldo">
+            {{ noliquidadoUsuario }}
+          </h1>
+          <h1 class="regular saldoUsuario menos_saldo" *ngIf="!cargandoSaldo && !mostrarSaldo">
+            *******
+          </h1>
+          <ion-skeleton-text class="regular saldoUsuario skeletonSaldo menos" *ngIf="cargandoSaldo">
+            <!-- {{ saldoUsuario }} -->
+          </ion-skeleton-text>
         </div>
         <div class="botonera" *ngIf="validado">
           <a *ngIf='puede(obtener_menu(),"ingreso-dinero")' (click)="MenuIngresoDinero()"><img
@@ -61,11 +85,12 @@
         <div class="movimientos-wrapper">
           <div class="movimiento" *ngFor="let item of items">
             <div class="imagen">
-              <img src="assets/img/mov-recibiste.svg" alt="Recibiste" *ngIf="item.id_tipo_trans=='2' || item.id_tipo_trans=='5' || item.id_tipo_trans==6">
+              <img src="assets/img/mov-recibiste.svg" alt="Recibiste"
+                *ngIf="item.id_tipo_trans=='2' || item.id_tipo_trans=='5' || item.id_tipo_trans==6">
               <img src="assets/img/mov-retiro.svg" alt="Recibiste" *ngIf="item.id_tipo_trans=='1'">
               <img src="assets/img/mov-pago.svg" alt="Pagaste" *ngIf="item.id_tipo_trans=='3'">
             </div>
-            <div class="texto" (click)="verMas(item)" >
+            <div class="texto" (click)="verMas(item)">
               <h4>{{item.titulo}}</h4>
               <span>{{ item.fecha | date:'dd'}} de {{ fecha_espaniol(item.fecha | date:'M')}} - {{ item.fecha |
                 date:'hh:mma'}}</span>

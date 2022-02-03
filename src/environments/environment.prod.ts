@@ -4,12 +4,20 @@ import { AppComponent } from 'src/app/app.component';
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 export const environment = {
-  production: true,
-  URL: "http://192.168.90.139:8200/",
-  URL_DESARROLLO: "http://localhost:8200/",
+  production: false,
+  // URL: "https://efectivodigital.com.ar/",
+  URL: "https://efectivodigital.com.ar/",
+  // URL_DESARROLLO: "http://localhost:8200/",
+  URL_DESARROLLO: "https://efectivodigital.com.ar/",
   ACTIVAR_TEST: true,
-  URL_LOGIN: "http://192.168.90.139:8200/",
-  URL_LOGIN_DESARROLLO: "http://localhost:8200/",
+  // URL_LOGIN: "https://efectivodigital.com.ar/",
+  URL_LOGIN: "https://efectivodigital.com.ar/",
+  URL_LOGIN_DESARROLLO: "https://efectivodigital.com.ar/",
+  // URL_LOGIN_DESARROLLO: "http://localhost:8200/",
+  
+  
+  // URL_LOGIN_DESARROLLO: "https://efectivodigital.com.ar/",
+  // URL_LOGIN_DESARROLLO: "https://efectivodigital.com.ar/",
   mobile:false,
   get_url: () =>{
     if(!environment.mobile){
@@ -26,7 +34,7 @@ export const environment = {
       return environment.URL_LOGIN
     }
   }
-  // URL_LOGIN: "http://192.168.90.139:360/"
+  // URL_LOGIN: "http://172.17.0.1:360/"
   // ionic cordova run browser --livereload  --consolelogs --serverlogs
 };
 
