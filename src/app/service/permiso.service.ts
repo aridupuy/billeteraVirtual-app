@@ -71,7 +71,7 @@ export class PermisoService extends ServiceService {
   obtener_rutas_alt(){
     return new Promise((resolve, reject) => {
     this.obtener_rutas().then((data:[IUsuarioPermisoExtra])=>{
-      return resolve(Object.values(data[0]));
+      return resolve(data.pop);
     })
     .catch(data=>{
       reject(data);
