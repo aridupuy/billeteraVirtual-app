@@ -19,18 +19,26 @@ export class PermisoService extends ServiceService {
     let rutas = JSON.parse(Cookie.get("rutas"));
     if(!rutas){
       await this.obtener_rutas().then(data=>{
-        ruta=data;
-        Cookie.set("rutas",JSON.stringify(ruta),0.1);
+        console.log("RUTAS OBTENIDAS POR API");
+        console.log(data);
+        rutas=data;
+        Cookie.set("rutas",JSON.stringify(rutas),1);
+        console.log("coockie seteada");
+
       });
     }
     let valida_ok=false;
-    await Object.values(rutas[0]).forEach((ru:any)=> {
+
+    console.log("RUUUUTAS");
+    console.log(rutas);
+    console.log("RUUUUTAS");
+    await Object.values(rutas[0]).forEach(async (ru:any)=> {
       if(ruta == ru.ruta){
         valida_ok=true;
       }
       else{
         if("submodulos" in ru ){
-          ru.submodulos.forEach(subru => {
+          await ru.submodulos.forEach(subru => {
             if(subru.ruta==ruta){
               valida_ok=true;
             }  
@@ -40,12 +48,16 @@ export class PermisoService extends ServiceService {
       }
     });
     if(!valida_ok){
-      return  new Promise(resolve=>{resolve(true)});
+      console.log("LA RUTA NO SE VALIDA");
+      return  new Promise((resolve, reject) =>{resolve(true)});
     }
     httpOptions.headers.token=localStorage.getItem("token");
     return new Promise((resolve, reject) => {
       var postParams = ({ ruta:ruta });
+      console.log("VALIDANDO RUTA CON PUEDE");
       this.post<any>('api/permiso/puede',postParams,httpOptions).subscribe((data) => {
+        console.log(data);
+        console.log("RESULTADO PUEDE");
         if (data.resultado != null && data.resultado == false) {
           reject(data);
         }
