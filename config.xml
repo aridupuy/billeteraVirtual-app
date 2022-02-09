@@ -221,5 +221,11 @@
     <allow-navigation href="http://192.168.0.163:8200" sessionid="2065653c" />
     <allow-navigation href="https://www.efectivodigital.com.ar:8200" sessionid="2065653c" />
     <allow-navigation href="https://www.efectivodigital.com.ar" />
+    <allow-navigation href="https://efectivodigital.com.ar" />
     <allow-navigation href="http://localhost:8100" sessionid="4149243a" />
+    <plugin name="phonegap-plugin-barcodescanner" spec="^8.1.0">
+        <variable name="ANDROID_SUPPORT_V4_VERSION" value="27.+" />
+    </plugin>
+    <plugin name="cordova-plugin-add-swift-support" spec="^1.7.1" />
+    <plugin name="cordova-plugin-camera-stream" spec="^0.1.5" />
 </widget>

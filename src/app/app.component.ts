@@ -55,16 +55,13 @@ export class AppComponent implements OnInit {
           var resp = false;
           console.log(event.url.substring(1,event.url.length));
           await this.permisoService.puede(event.url.substring(1,event.url.length)).then(data => {
-            console.log("SALE BIEN");
-            console.log(data);
-            resp = true;
+            console.log("SALE BIEN "+event.url);
           }).catch(data => {
             console.log("SALE MAL");
             /*aca deberia ir a una pantalla de acceso denegado */
-            resp = false;
-          })
-          if (!resp && event.url != "/home")
-            this.Router.navigate(['/accesodenegado']);
+            if (!resp && event.url != "/home")
+            this.Router.navigate(['/accesodenegado']);          })
+          
         }
       }
     });
