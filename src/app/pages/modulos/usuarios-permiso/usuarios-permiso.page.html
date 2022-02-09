@@ -13,17 +13,32 @@
       <!-- <ion-icon class="filtro" (click)="presentModal()" name="list"></ion-icon> -->
     </div>
     <p>Acá podes ver todos los permisos que podés aplicar.</p>
-      <ion-item *ngFor="let pemiso of permisos; let i=index" [attr.data-index]="i">
-        <div>
-          <ion-label>
+    <div *ngFor="let pemiso of permisos; let i=index" [attr.data-index]="i" >
+      <ion-item expand="full">
+        <div *ngIf="pemiso.id_padre==null">
+          <ion-label expand="full">
             <img [src]="pemiso.icono">
             {{pemiso.nombre}}
           </ion-label>
         </div>
-        <ion-toggle [(ngModel)]="options[i]" (click)="select()" slot="start"></ion-toggle>
+        <ion-toggle [(ngModel)]="options[pemiso.id_elemento_menu]" (ngModelChange)="select(pemiso.id_elemento_menu)" slot="start"></ion-toggle>
       </ion-item>
-      <div class="onboarding-btn-group">
-        <div class="btn-round activo" (click)="nuevo()">Aceptar</div>
-      </div>
+        <div class="submodulo" *ngIf="option_submodulos && pemiso.submodulos != undefined">
+          <ion-item *ngFor="let permiso of pemiso.submodulos let ind=index" class="submodulo" >
+              <div>
+                <ion-label>
+                  <img [src]="permiso.icono">
+                  {{permiso.nombre}}
+                </ion-label>
+              </div>
+              <ion-toggle *ngIf="option_submodulos[pemiso.id_elemento_menu]!=undefined" [(ngModel)]="option_submodulos[pemiso.id_elemento_menu][permiso.id_elemento_menu]"  
+                  (ngModelChange)="select_submodulo(pemiso.id_elemento_menu)" slot="start">
+              </ion-toggle>
+          </ion-item>
+        </div>
+    </div>
+    <div class="onboarding-btn-group largo">
+      <div class="btn-round activo" (click)="nuevo()">Aceptar</div>
+    </div>
   </div>
 </ion-content>

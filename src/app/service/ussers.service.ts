@@ -68,10 +68,11 @@ export class UssersService extends ServiceService {
     });
   }
 
-  obtener_permisos_usuario(usuario:Usuario){
+  obtener_submodulos(id_elemento_menu){
     httpOptions.headers.token = localStorage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.post<IUsuarioPermiso>('api/usuarios/obtener_permisos',usuario,httpOptions).subscribe((data) => {
+      let post ={id_elemento_menu:id_elemento_menu};
+      this.post<IUsuarioPermiso>('api/usuarios/obtener_submodulos',post,httpOptions).subscribe((data) => {
         // console.log(data);
         if (data.resultado != null && data.resultado == false) {
           reject(data.log);
@@ -80,10 +81,24 @@ export class UssersService extends ServiceService {
       });
     });
   }
-  setear_permiso(permisos,usuario,options){
+
+
+  obtener_permisos_usuario(usuario:Usuario){
     httpOptions.headers.token = localStorage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.post<IUsuarioPermiso>('api/usuarios/setear_permisos',{usuario:usuario,permisos:permisos,options},httpOptions).subscribe((data) => {
+      this.post<IUsuarioPermiso>('api/usuarios/obtener_permisos',usuario,httpOptions).subscribe((data) => {
+        console.log(data);
+        if (data.resultado != null && data.resultado == false) {
+          reject(data.log);
+        }
+        return resolve(data.extras[0]);
+      });
+    });
+  }
+  setear_permiso(permisos,usuario,options,submodulos){
+    httpOptions.headers.token = localStorage.getItem("token");
+    return new Promise((resolve, reject) => {
+      this.post<IUsuarioPermiso>('api/usuarios/setear_permisos',{usuario:usuario,permisos:permisos,options:options,submodulos:submodulos},httpOptions).subscribe((data) => {
         // console.log(data);
         if (data.resultado != null && data.resultado == false) {
           reject(data.log);

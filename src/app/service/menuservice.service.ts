@@ -19,7 +19,7 @@ export class MenuserviceService extends ServiceService {
         if (data.resultado != null && data.resultado === false) {
           rejects(data.log);
         }
-        // console.log(data.extras[0]);
+        console.log(data.extras[0]);
         let menu = new Array();
         for ( let  i in data.extras[0]){
           menu.push(data.extras[0][i]);

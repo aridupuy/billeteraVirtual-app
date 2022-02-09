@@ -22,6 +22,7 @@ export class ErrorComponent implements OnInit {
   @Input() envio=false;
   @Input() pedido = false;
   @Input() goto="home";
+  @Input() denegado=false;
 
   // public mensaje;
   public p;
@@ -38,7 +39,7 @@ export class ErrorComponent implements OnInit {
     // }
     // if(!this.url)
     //   this.url = this.p.goto;
-    console.log(this);
+    // console.log(this);
   }
   finalizar(){
     this.navCtrl.navigateForward("home");
@@ -46,9 +47,6 @@ export class ErrorComponent implements OnInit {
   }
   reintentar(){
     
-    console.log(this.url);
-    console.log(this.goto);
-    console.log(this.dato);
     const navigationExtras: NavigationExtras = {
       queryParams: {
         param: JSON.stringify(this.p)

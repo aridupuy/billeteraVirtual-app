@@ -4,3 +4,8 @@ export interface IUsuarioPermiso {
     log:String| boolean,
     extras:[[UsuarioPermiso]]
 }
+
+
+export interface IUsuarioPermisoExtra {
+    0:[UsuarioPermiso]
+}

@@ -38,6 +38,16 @@
     font-size: 1rem;
     
 }
+.forma{
+  @media (min-width: 800px) {
+    margin: inherit;
+    flex-direction: row;
+  }
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  margin: 3%;
+}
 
 .badge{
   width: 10px;

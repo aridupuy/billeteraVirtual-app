@@ -43,7 +43,9 @@
     align-content: center;
     color: $btn-inactivo-txt;
     text-align: center;
-    margin-top: 20%;
+    @media (max-width: 800px) {
+        margin-top: 20%;
+    }
     h1 {
         color: $btn-inactivo-txt;
         font-weight: 300;

@@ -8,4 +8,19 @@
     width: auto;
     justify-content: space-between;
   }
-  
+  // .item{
+  //   display: flex;
+  //   flex-direction: row-reverse;
+  //   width: 58%;
+  // }
+  .submodulo{
+      margin-left: 10%;
+      text-transform: capitalize;
+  }
+  .largo{
+    background: white;
+    z-index: 99;
+    display: block;
+    position: relative;
+    margin-top: 15%;
+  }

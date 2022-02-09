@@ -114,7 +114,7 @@ export class ContactoService extends ServiceService {
   }
   crear_envio(id, monto, mensaje) {
     httpOptions.headers.token = localStorage.getItem('token');
-    var postParams = { id_usuario_contacto: id, monto: monto, mensaje: mensaje };
+    var postParams = { id_cuenta: id, monto: monto, mensaje: mensaje };
     return new Promise((resolve, reject) => {
       this.post<any>('api/contacto/crear_envio', postParams, httpOptions).subscribe((data: resp) => {
         if (data.resultado != null && data.resultado === false) {
