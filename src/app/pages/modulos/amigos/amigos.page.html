@@ -11,16 +11,6 @@
   <div class="contenedor-90">
     <h1>Elegí si querés enviar <br />
       o pedir dinero a un amigo</h1>
-    <!-- <div class="botonera">
-      <div class="boton pedir-dinero" (click)="enviardinero();">
-        <img src="assets/img/amigos/enviar-dinero.svg" alt="Enviar dinero a un amigo">
-        <h2>Enviar dinero</h2>
-      </div>
-      <div class="boton enviar-dinero" (click)="pedirdinero();">
-        <img src="assets/img/amigos/pedir-dinero.svg" alt="Pedir dinero a un amigo">
-        <h2>Pedir dinero</h2>
-      </div>
-    </div> -->
     <div class="botonera">
       <div class="boton agregar-amigo" (click)="pedirdinero();">
         <img src="assets/img/amigos/agregar-amigo.svg" alt="Pedir dinero a un amigo">
@@ -28,7 +18,13 @@
       </div>
     </div>
     <!-- Pedidos en espera -->
-    <div class="lista-pedidos-espera">
+    <div class="mensaje-bienvenida" *ngIf="pedidos.length==0 && envios.length==0">
+      <ion-icon name="wallet-outline"></ion-icon>
+      <h1>Todavía no hay nada por acá</h1>
+      <h2>¡Vas a poder ver los pedidos que tus amigos te hagan!</h2>
+    </div>
+
+    <div class="lista-pedidos-espera" *ngIf="pedidos.length>0 && envios.length>0">
       <div class="titulo">
         <h2>Pedidos en espera</h2>
       </div>
@@ -80,7 +76,7 @@
       </div>
     </div>
     <!-- Lista Ultimos Movimientos -->
-    <div class="lista-ultimos-movimientos">
+    <div class="lista-ultimos-movimientos" *ngIf="historial_pedidos.length>0">
       <div class="titulo">
         <h2>Últimos movimientos</h2>
         <h2 (click)="irAHistorial();">Ver todos</h2>
@@ -116,7 +112,6 @@
       </div>
     </div>
 
-
   </div>
- 
+
 </ion-content>

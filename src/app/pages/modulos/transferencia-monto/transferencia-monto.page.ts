@@ -29,7 +29,6 @@ export class TransferenciaMontoPage implements OnInit {
     this.email=p.destinatario.email;
     this.destinatario =p.destinatario;
     }
-    console.log(p);
     if('destinatario' in p){
       if(0 in p.destinatario){
         this.email=p.destinatario[0].email;
@@ -39,7 +38,12 @@ export class TransferenciaMontoPage implements OnInit {
         this.email=p.destinatario.email;
         this.destinatario =p.destinatario;
       }
+      if("extras" in p.destinatario ){
+        this.destinatario=p.destinatario.extras[0];
+      }
+      console.log(this.destinatario);
     }
+    
     
   }
   customActionSheetOptions: any = {
