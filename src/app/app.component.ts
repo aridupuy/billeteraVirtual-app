@@ -72,6 +72,9 @@ export class AppComponent implements OnInit {
       return true;
     return AppComponent.validado;
   }
+  es_usuario_validado() {
+    return AppComponent.validado;
+  }
   ngOnInit() {
 
     console.log("ngOnInit");

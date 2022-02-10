@@ -62,7 +62,7 @@ export class HomePage implements OnInit, ViewDidEnter {
   constructor(public modalCtrl: ModalController, public navCtl: NavController, private menu: MenuController, public validaMail: ValidacionMailService, public validaCel: ValidacionCelService, public saldoService: SaldoService, public transaccionesService: TransaccionesService, public route: ActivatedRoute, public router: Router, public usuarioService: UsuarioService, public libs: Libs, public menuService: MenuserviceService, public FcmService: FcmService) { }
   ionViewDidEnter(): void {
     this.obtener_estado();
-
+    
   }
   obtener_estado(){
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
@@ -90,6 +90,7 @@ export class HomePage implements OnInit, ViewDidEnter {
       this.validado = true;
       AppComponent.validado = true;
       this.obtener_saldo();
+      this.cargar_transacciones();
     }
   }
 
@@ -101,6 +102,12 @@ export class HomePage implements OnInit, ViewDidEnter {
     this.obtener_datos_usuario();
     this.cargar_transacciones();
   }
+
+
+  cantidad_cuentas(){
+    return localStorage.getItem("cuentas").length;
+  }
+
   ir() {
     // const navigationExtras: NavigationExtras = {
     //   queryParams: {

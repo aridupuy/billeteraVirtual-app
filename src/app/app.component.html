@@ -1,35 +1,39 @@
 <ion-app>
-  <ion-menu side="start" menuId="menuPrincipal" contentId="main" class="menu-custom" type="overlay" *ngIf="mostrar_menu() && es_valido()">
+  <ion-menu side="start" menuId="menuPrincipal" contentId="main" class="menu-custom" type="overlay"
+    *ngIf="mostrar_menu() && es_valido()">
     <!-- <ion-menu side="start" menuId="menuPrincipal" contentId="main" class="menu-custom" type="overlay"> -->
     <ion-content class="menu">
       <div class="user-header" [class]="addClass()">
-        <div class="avatar" >
+        <div class="avatar">
           {{get_iniciales_empresa()}}
         </div>
         <div class="user-info">
           <span class="bienvenida"><span class="username"> {{get_empresa()}}</span></span>
         </div>
         <div>
-          <ion-button shape="round" color="dark" fill="outline" class="subboton" (click)="cambiar()">Cambiar Cuenta</ion-button>
+          <ion-button shape="round" color="dark" fill="outline" class="subboton" (click)="cambiar()">Cambiar Cuenta
+          </ion-button>
         </div>
       </div>
-       <div class="menu-lista" *ngFor="let grupo of get_menu() | keyvalue">
-        <a (click)="Ir('home')" class="opcion-menu" *ngIf="grupo.key=='0'">
-          <img src="assets/img/logo_home.png" alt=""  >
-          <p >Inicio</p>
-        </a>
+      <div *ngIf="es_usuario_validado()">
+        <div class="menu-lista" *ngFor="let grupo of get_menu() | keyvalue">
+          <a (click)="Ir('home')" class="opcion-menu" *ngIf="grupo.key=='0'">
+            <img src="assets/img/logo_home.png" alt="">
+            <p>Inicio</p>
+          </a>
           <a (click)="Ir(item.path)" class="opcion-menu" *ngFor="let item of grupo.value ">
-          <img [src]="item.icono" alt="">
-          <p>{{item.nombre}}</p>
-        </a>
-      </div>
-      <div class="menu-lista">
-        <a (click)="MenuAyuda()" class="opcion-menu">
-          <img src="assets/img/menu/ayuda.svg" alt="">
-          <p>Ayuda</p>
-        </a>
-        <app-logout></app-logout>
-        
+            <img [src]="item.icono" alt="">
+            <p>{{item.nombre}}</p>
+          </a>
+        </div>
+        <div class="menu-lista">
+          <a (click)="MenuAyuda()" class="opcion-menu">
+            <img src="assets/img/menu/ayuda.svg" alt="">
+            <p>Ayuda</p>
+          </a>
+          <app-logout></app-logout>
+
+        </div>
       </div>
     </ion-content>
   </ion-menu>

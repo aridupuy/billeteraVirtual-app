@@ -68,7 +68,7 @@ export class ProcesoAltaGuard implements CanActivate {
 
           });
         }
-        else if ((data.valida_ident == null || data.valida_ident == undefined)) {
+        else if ((data.valida_ident == null || data.valida_ident == undefined || data.valida_ident == 'f')) {
           const navigationExtras: NavigationExtras = {
             queryParams: {
               param: JSON.stringify({ id_proceso_alta:data.id_proceso_alta,id_proceso_alta_usuario:data.id_proceso_alta_usuario,login: true, valida_ident: true, Mensaje: "Tienes que validar tu Identidad para operar" })

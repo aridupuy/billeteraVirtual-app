@@ -25,11 +25,12 @@ export class SuccessComponent implements OnInit {
   constructor(public libs:Libs,public route:ActivatedRoute,private navCtrl: NavController) { }
 
   ngOnInit() {
+    console.log(this.dato);
     
   }
 
   finalizar(){
-    this.navCtrl.navigateForward(this.goto);
+    this.navCtrl.navigateRoot(this.goto);
 
   }
   compartirComprobante(){

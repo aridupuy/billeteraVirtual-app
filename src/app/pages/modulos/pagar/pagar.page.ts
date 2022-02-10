@@ -176,6 +176,8 @@ export class PagarPage implements OnInit {
       this.change();
     }).catch(err => {
       console.log(err);
+      this.cargando_Tarjetas=false;
+      this.tap();
     });
     this.saldo.obtener().then(saldo => {
       this.saldo_en_cuenta = saldo;
@@ -329,7 +331,7 @@ export class PagarPage implements OnInit {
      console.log(data);
     if (data.error !== false || data.error == undefined) {
       RespuestaResultadoComponent.setStatus(3);
-      console.log(data.error);
+      console.log(data);
       this.descripcion = "Ocurrio un error"
       this.mensaje = data.error;
       this.cargando = 0;

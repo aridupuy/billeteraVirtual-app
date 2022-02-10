@@ -80,8 +80,11 @@ export class Pago{
                 Observable.notify("pagar-result",d);
                 Observable.notify("init-process",false);
             }).catch(e=>{
-                if(data["error"]==undefined || data["error"]==false)
-                    data["error"]=e.log;
+                console.log(e);
+                if(data["error"]==undefined || data["error"]==false){
+                    data["error"]=(typeof e == "string" )?e:("log" in e )?e.log:e;
+                }
+                    
                 console.log(data);
                 Observable.notify("pagar-result",data);
                 Observable.notify("init-process",false);

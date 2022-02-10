@@ -3,7 +3,7 @@
     <div class="contenedor-90">
       <div class="user-header">
         <div class="home-header">
-          <ion-menu-button *ngIf="muestro_menu" color="primary" menu="menuPrincipal" type="reset"></ion-menu-button>
+          <ion-menu-button *ngIf="(validado || cantidad_cuentas()>1) && muestro_menu" color="primary" menu="menuPrincipal" type="reset"></ion-menu-button>
 
         </div>
 
@@ -78,7 +78,7 @@
 
         </div>
         <!-- Lista Ultimos Movimientos -->
-        <div class="lista-ultimos-movimientos mt-10" *ngIf="items">
+        <div class="lista-ultimos-movimientos mt-10" *ngIf="items && validado">
           <div class="titulo">
             <h2>Últimos movimientos</h2>
             <h2 (click)="irAHistorial();">Ver todos</h2>
@@ -110,7 +110,8 @@
         <a class="bold">Reenviar correo</a>
       </div> -->
       <!-- Mensaje si este validado pero todavía no tenga movimientos -->
-      <div class="mensaje-bienvenida" *ngIf="!items || items.lenght == 0">
+      
+      <div class="mensaje-bienvenida" *ngIf="!items || items.lenght == 0 || !validado">
         <ion-icon name="wallet-outline"></ion-icon>
         <h1 *ngIf="validado">Todavía no hay nada por acá</h1>
         <h2 *ngIf="validado">¡Es hora de comenzar a hacer efectivo tu efectivo! Cuando lo hagas, acá vas a poder ver
