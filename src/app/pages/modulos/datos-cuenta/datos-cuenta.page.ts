@@ -32,17 +32,13 @@ export class DatosCuentaPage implements OnInit {
   ngOnInit() {
     this.usuarioService.obtener_mis_datos().then((data: any) => {
       console.log(data);
-      this.username = data.nombre_completo;
-      this.iniciales = data.nombre_completo
-        .split(' ')
-        .map(it => it.charAt(0))
-        .slice(0, 1)
-        .join('')
-        + data.nombre_completo
-          .split(' ')
-          .map(it => it.charAt(0))
-          .slice(2, 3)
-          .join('');
+      this.username = data.nombre_usuario;
+      this.iniciales = data.nombre
+        .charAt(0)
+        .toUpperCase()
+        + data.apellido
+          .charAt(0)
+          .toUpperCase();
       //     console.log(data.codArea+ data.celular);
         this.celular = data.cod_area+data.celular;
         this.email = data.email;
@@ -56,10 +52,6 @@ export class DatosCuentaPage implements OnInit {
         this.domicilio = data.direccion;
         this.nacionalidad = data.nacionalidad;
         this.usuario = data;
-        // this.
-      // localStorage.setItem("nombre",this.username);
-      // localStorage.setItem("iniciales",this.iniciales);
-      // console.log(this.username);
     });
 
   }
