@@ -39,10 +39,10 @@ export class LostpasswordConfirmaPage implements OnInit {
     }
 
     let  p  = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
+    console.log(p.id_usuario,this.password);
     this.register.cambiar_pass(p.id_usuario,this.password).then(data=>{
       this.navCtrl.navigateForward("lostpassword-exito");
     }).catch(err=>{
-      
       
     });
     

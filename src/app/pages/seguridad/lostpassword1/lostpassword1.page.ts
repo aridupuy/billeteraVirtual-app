@@ -40,6 +40,7 @@ export class Lostpassword1Page implements OnInit {
     this.changeMail = p.change_mail;
     this.changeTel = p.changeTel;
     this.cel = p.cel;
+    this.usuario= p.usuario;
     console.log("aca1");
     // this.enviado = this.selectMail ? this.ofus : this.ofustel;
     if(this.selectMail){
@@ -53,12 +54,12 @@ export class Lostpassword1Page implements OnInit {
     }
     if (this.selectTel || this.selectMail) {
       console.log("aca2");
-      this.register.enviar_codigo(this.selectMail, this.selectTel, this.mail, this.changeMail, this.changeTel,this.cel).then(data => {
+      this.register.enviar_codigo(this.selectMail, this.selectTel, this.mail,this.usuario, this.changeMail, this.changeTel,this.cel).then(data => {
 
       });
     }
     if (this.selectMail)
-      this.enviado = this.usuario || this.ofus
+      this.enviado = this.ofus
     if (this.selectTel)
       this.enviado = this.ofustel;
   }
@@ -151,8 +152,8 @@ export class Lostpassword1Page implements OnInit {
   }
   Confirmar() {
     let codigo = this.values[0].toString() + this.values[1] + this.values[2].toString() + this.values[3];
-    this.register.validar_codigo(codigo, this.mail).then((data: any) => {
-
+    this.register.validar_codigo(codigo, this.mail,this.usuario).then((data: any) => {
+      console.log(data);
       this.retornar_exito(data.data.id_usuario);
     }).catch(err => {
       this.retornar_error();
@@ -170,7 +171,7 @@ export class Lostpassword1Page implements OnInit {
     const navigationExtras: NavigationExtras = {
       queryParams: {
 
-        param: JSON.stringify({ id_usuario: id_usuario })
+        param: JSON.stringify({ usuario: this.usuario,id_usuario:id_usuario })
       }
     };
     // console.log(navigationExtras);

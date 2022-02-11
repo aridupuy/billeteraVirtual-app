@@ -173,7 +173,7 @@ export class RegistroService extends LoginBoService {
     });
     return resp
   }
-  async enviar_codigo(porMail, porTel, mail,changemail?,changetel?,cel?) {
+  async enviar_codigo(porMail, porTel, mail,usuario,changemail?,changetel?,cel?) {
     console.log(porMail, porTel, mail,changemail,changetel,cel);
     var resp;
     await this.login().then((data: any) => {
@@ -185,7 +185,8 @@ export class RegistroService extends LoginBoService {
           porTel: porTel,
           change_mail:changemail,
           change_cel:changetel,
-          cel:cel
+          cel:cel,
+          usuario:usuario
         });
         console.log(postParams);
         this.post<res>('api/alta/enviar_codigo', postParams, httpOptions).subscribe((data) => {
@@ -198,13 +199,14 @@ export class RegistroService extends LoginBoService {
     });
     return resp
   }
-  async validar_codigo(codigo, usuario) {
+  async validar_codigo(codigo, mail,usuario) {
     var resp;
     await this.login().then((data: any) => {
       resp = new Promise((resolve, reject) => {
         httpOptions["headers"]["token"] = data;
         var postParams = ({
-          email: usuario,
+          email: mail,
+          usuario:usuario,
           codigo: codigo,
         });
         console.log(postParams);
