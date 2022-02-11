@@ -158,7 +158,7 @@ export class ConfirmasmsPage implements OnInit, ViewDidEnter {
     // console.log(event);
     switch (event.action) {
       case "done":
-        this.PopupCode("Se termino el tiempo por favor reintentá");
+        this.PopupCode(false);
         break;
       case "saltear":
         this.PopupCodeSaltear("No pudimos validar tu celular, intentaremos mas adelante.");
