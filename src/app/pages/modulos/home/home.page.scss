@@ -7,7 +7,9 @@
   top: 50%;
   transform: translateY(-50%);
 }
-
+.username{
+  text-transform: capitalize;
+}
 #container strong {
   font-size: 20px;
   line-height: 26px;

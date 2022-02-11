@@ -333,6 +333,7 @@ export class HomePage implements OnInit, ViewDidEnter {
     //     localStorage.setItem("nombre",this.username);
     // });
     else {
+      console.log("aca2");
       nombre = localStorage.getItem("nombre");
       if (nombre && this.iniciales) {
         this.username = nombre;
@@ -342,12 +343,16 @@ export class HomePage implements OnInit, ViewDidEnter {
         this.usuarioService.obtener_mis_datos().then((data: any) => {
           console.log("aca donde queres estar");
           console.log(data);
-          this.username = data.nombre;
-          this.iniciales = this.libs.iniciales(data.nombre_completo);
+          this.username = data.nombre_completo;
           this.mail = data.email;
           this.celular = data.celular;
-          console.log("aca");
           localStorage.setItem("nombre", this.username);
+          this.iniciales = data.nombre
+          .charAt(0)
+          .toUpperCase()
+          + data.apellido
+            .charAt(0)
+            .toUpperCase();
           localStorage.setItem("iniciales", this.iniciales);
           localStorage.setItem("mail", this.mail);
           // console.log(this.username);

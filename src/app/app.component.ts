@@ -92,17 +92,13 @@ export class AppComponent implements OnInit {
 
     if (localStorage.getItem("token") != null)
       this.usuarioService.obtener_mis_datos().then((data: any) => {
-        this.usuario = data.nombre;
-        this.iniciales = data.nombre_completo
-          .split(' ')
-          .map(it => it.charAt(0))
-          .slice(0, 1)
-          .join('')
-          + data.nombre_completo
-            .split(' ')
-            .map(it => it.charAt(0))
-            .slice(2, 3)
-            .join('');
+        this.usuario = data.nombre_completo;
+        this.iniciales = data.nombre
+        .charAt(0)
+        .toUpperCase()
+        + data.apellido
+          .charAt(0)
+          .toUpperCase();
         // console.log("aca");
         localStorage.setItem("nombre", this.usuario);
         localStorage.setItem("iniciales", this.iniciales);
