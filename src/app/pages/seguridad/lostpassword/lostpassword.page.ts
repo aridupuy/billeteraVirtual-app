@@ -98,7 +98,7 @@ export class LostpasswordPage implements OnInit {
           console.log("aca");
           const alert = await this.alertController.create({
             cssClass: 'my-custom-class',
-            header: err,
+            header: "Ups Reintentalo!",
             subHeader: '',
             message: 'Sin un mail o telefono registrado no podemos identificarte.',
             buttons: ['OK']
