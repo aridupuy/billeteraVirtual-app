@@ -1,6 +1,7 @@
 import {
-    notification
+  notification
 } from '../../../../../plugins/cordova-plugin-local-notification/src/windows/LocalNotificationProxy';
+import { NotificacionesService } from '../../../service/notificaciones.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 @Component({
@@ -8,49 +9,54 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
   templateUrl: './notificaciones.page.html',
   styleUrls: ['./notificaciones.page.scss'],
 })
-export class NotificacionesPage implements OnInit,OnDestroy {
+export class NotificacionesPage implements OnInit, OnDestroy {
   public items;
   public class_refresher = "";
-  public class= "circulo rojo";
-  public class_texto="texto";
+  public class = "circulo rojo";
+  public class_texto = "texto";
 
-  constructor() { }
-
-  ngOnInit() {
-    this.items= JSON.parse(localStorage.getItem("notification"));
-    if(this.items!=null && this.items.length>0)
-      this.items.reverse();
+  constructor(private notifService: NotificacionesService) { }
+  ngOnDestroy(): void {
+    console.log(this.items.filter(data=>{data.visto=="f"}));
+    this.items.filter(data=>{return data.visto=="f"}).forEach(notificacion => {
+      this.notifService.marcar_visto(notificacion.id_notificacion).catch(err => {
+        console.log(err);
+      });
+    });
   }
-  verMas(item){
-    // console.log(item);
 
+  async ngOnInit() {
+    await this.obtener_notificaciones();
+    
   }
-  refresh(e){
+
+  obtener_notificaciones() {
+    this.notifService.obtener_notificaciones().then(data => {
+      this.items = data;
+    });
+    return this.items;
+  }
+  verMas(item) {
+    
+  }
+  refresh(e) {
     return this.ngOnInit();
   }
   mostrar(event: any) {
     this.class_refresher = "refresher"
   }
-  validar_class(item){
-    if(item.nuevo)
-        return this.class;
-    return "circulo gris";  
+  validar_class(item) {
+    if (item.nuevo || item.visto == 'f')
+      return this.class;
+    return "circulo gris";
   }
-  validar_class_texto(item){
-    if(item.nuevo)
+  validar_class_texto(item) {
+    if (item.nuevo || item.visto == 'f')
       return "texto bold";
     return this.class_texto;
   }
-  ngOnDestroy(){
-    let items= JSON.parse(localStorage.getItem("notification"));
-    if(this.items!=null && this.items.length>0)
-      items.map((item)=>{
-        console.log(item);
-        item.nuevo=false;
-      })
-    localStorage.setItem("notification",JSON.stringify(items));
-  }
-  IrAtras(){
+ 
+  IrAtras() {
     history.back();
   }
 }

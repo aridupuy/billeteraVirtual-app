@@ -140,6 +140,8 @@ export class AmigosHistorialPage implements OnInit {
         }
       });
       // console.log(this.historial_pedidos);
+    }).catch(err=>{
+      event.target.complete();
     });
   }
 }

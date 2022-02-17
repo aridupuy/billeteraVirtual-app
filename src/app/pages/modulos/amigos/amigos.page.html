@@ -24,7 +24,7 @@
       <h2>¡Vas a poder ver los pedidos que tus amigos te hagan!</h2>
     </div>
 
-    <div class="lista-pedidos-espera" *ngIf="pedidos.length>0 && envios.length>0">
+    <div class="lista-pedidos-espera" *ngIf="pedidos.length>0 || envios.length>0">
       <div class="titulo">
         <h2>Pedidos en espera</h2>
       </div>
@@ -90,7 +90,7 @@
             </div>
             <div class="texto">
               <h4 *ngIf="item.recibido==true && !item.rechazo">Recibiste de {{item.nombre}}</h4>
-              <h4 *ngIf="item.pago==true && !item.rechazo">Enviaste a {{item.nombre}}</h4>
+              <h4 *ngIf="item.pago==true && !item.rechazo">Enviaste a {{item.nombre_receptor}}</h4>
               <h4 *ngIf="item.rechazo==true">Rechazo de {{item.nombre}}</h4>
               <span>{{ item.fecha | date:'dd'}} de {{ fecha_espaniol(item.fecha | date:'M')}} - {{ item.fecha |
                 date:'hh:mma'}}</span>

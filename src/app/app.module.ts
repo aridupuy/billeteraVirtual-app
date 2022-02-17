@@ -43,7 +43,7 @@ import { environment } from '../environments/environment.prod';
 import { firebaseConfig } from '../environments/firebaseconfig';
 import { AngularFireModule } from '@angular/fire/';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
-// import { SplashComponent } from './components/splash/splash.component';
+
 declare var Hammer: any;
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any> {

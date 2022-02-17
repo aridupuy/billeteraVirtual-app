@@ -14,6 +14,7 @@ import { ValidacionMailService } from '../../../service/validacion-mail.service'
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { LogoutComponent } from '../../../components/logout/logout.component';
 import { ComponentsModule } from '../../../components/components.module';
+import { NotificacionesService } from '../../../service/notificaciones.service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @NgModule({
@@ -24,7 +25,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     HomePageRoutingModule,
     ComponentsModule
   ],
-  providers:[LoginService,UsuarioService,TransaccionesService,Clipboard,ValidacionMailService],
+  providers:[LoginService,UsuarioService,TransaccionesService,Clipboard,ValidacionMailService,NotificacionesService],
   declarations: [HomePage]
   ,schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })

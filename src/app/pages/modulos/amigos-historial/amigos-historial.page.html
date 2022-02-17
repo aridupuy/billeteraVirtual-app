@@ -31,7 +31,7 @@
           </div>
           <div class="texto">
             <h4 *ngIf="item.recibido==true && !item.rechazo">Recibiste de {{item.nombre}}</h4>
-            <h4 *ngIf="item.pago==true && !item.rechazo">Enviaste a {{item.nombre}}</h4>
+            <h4 *ngIf="item.pago==true && !item.rechazo">Enviaste a {{item.nombre_receptor}}</h4>
             <h4 *ngIf="item.rechazo==true">Rechazo de {{item.nombre}}</h4>
             <span>{{ item.fecha | date:'dd'}} de {{ fecha_espaniol(item.fecha | date:'M')}} - {{ item.fecha |
               date:'hh:mma'}}</span>

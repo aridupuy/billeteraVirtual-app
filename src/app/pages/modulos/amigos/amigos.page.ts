@@ -38,6 +38,7 @@ export class AmigosPage implements OnInit {
 
   ngOnInit(){
     this.cargarData();
+    console.log(this.historial_pedidos);
   }
   cargarData(){
     this.contacto.obtener_pedidos_dinero().then((data:any[])=>{

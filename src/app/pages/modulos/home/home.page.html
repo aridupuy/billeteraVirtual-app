@@ -17,7 +17,7 @@
           </div>
         </div>
         <div class="notify" (click)="VerNotificaciones()" *ngIf="validado">
-          <div class="badge red" *ngIf="validarNotificaciones()"></div>
+          <div class="badge red" *ngIf="nuevo"></div>
           <ion-icon name="notifications-outline"></ion-icon>
         </div>
         <div class="logout" *ngIf="!validado">

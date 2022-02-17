@@ -19,6 +19,7 @@ import { Deeplinks, DeeplinksOriginal } from '@ionic-native/deeplinks'
 import { AmigosPage } from './pages/modulos/amigos/amigos.page';
 import { IngresoDineroPage } from './pages/modulos/ingreso-dinero/ingreso-dinero.page';
 import { PermisoService } from './service/permiso.service';
+import { FcmService } from './service/fcm.service';
 import { Router } from '@angular/router';
 import { NavigationStart } from '@angular/router';
 
@@ -42,12 +43,13 @@ export class AppComponent implements OnInit {
   public static token;
   public static validado = true;
   // public static _this;
-  constructor(public permisoService: PermisoService, public Router: Router, private platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen, private pago: Pago, public service: ServiceService, public modalCtrl: ModalController, public usuarioService: UsuarioService, public navCtrl: NavController) {
+  constructor(public permisoService: PermisoService, public Router: Router, private platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen, private pago: Pago, public service: ServiceService, public modalCtrl: ModalController, public usuarioService: UsuarioService, public navCtrl: NavController,public fcm:FcmService) {
     // console.log(platform.is("cordova"));
     environment.mobile = platform.is("cordova");
     this.statusBar.overlaysWebView(false);
     this.statusBar.backgroundColorByHexString('#000000');
     // AppComponent._this = this;
+
     this.Router.events.subscribe(async event => {
       if (event instanceof NavigationStart) {
         if (localStorage.getItem("token") != undefined) {
@@ -216,10 +218,9 @@ export class AppComponent implements OnInit {
 
   onPause = () => {
     // console.log("ONPAUSE");
-    console.dir(AppComponent);
+    // console.dir(AppComponent);
     AppComponent.splash = true;
     document.getElementById("splash").setAttribute("class", "visible");
-
   }
 
   validarClave(clave1, clave2): Boolean {

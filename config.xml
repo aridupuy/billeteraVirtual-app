@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.efectivodigital.com.ar" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.efectivodigital.com.ar" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>EfectivoDigital</name>
-    <description>An awesome Ionic/Cordova app.</description>
-    <author email="hi@ionicframework.com" href="http://ionicframework.com/">Ionic Framework Team</author>
+    <description>Una applicacion del GrupoDigital.</description>
+    <author email="hi@ionicframework.com" href="http://ionicframework.com/">CobroDigial Software Development Team</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -33,10 +33,17 @@
         <resource-file src="resources/android/icon/ic_notificacion.png" target="app/src/main/res/ic_notificacion.png" />
         <resource-file src="resources/android/icon/ic_notificacion.png" target="app/src/main/res/mipmap/ic_notificacion.png" />
         <resource-file src="resources/android/xml/color.xml" target="app/src/main/res/values/colors.xml" />
-        <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application" xmlns:android="http://schemas.android.com/apk/res/android">
+        <config-file file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application">
             <application android:networkSecurityConfig="@xml/network_security_config" />
             <application android:usesCleartextTraffic="true" />
-        </edit-config>
+        </config-file>
+        <custom-preference delete="true" name="android-manifest/uses-permission/[@android:name='android.hardware.camera']" />
+        <config-file parent="/manifest/application" target="AndroidManifest.xml">
+            <meta-data android:name="firebase_messaging_auto_init_enabled" android:value="true" />
+            <meta-data android:name="com.google.firebase.messaging.default_notification_color" android:resource="@color/primary" />
+            <meta-data android:name="com.google.firebase.messaging.default_notification_channel_id" android:value="com.efectivodigital.com.ar/topic" />
+        </config-file>
+        <custom-preference delete="true" name="android-manifest/application/meta-data/[@android:name='com.google.firebase.messaging.default_notification_icon']" />
         <preference name="AndroidPersistentFileLocation" value="Compatibility" />
         <resource-file src="resources/android/xml/network_security_config.xml" target="app/src/main/res/xml/network_security_config.xml" />
         <allow-intent href="market:*" />
