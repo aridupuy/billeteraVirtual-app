@@ -35,7 +35,9 @@ export class AmigosPage implements OnInit {
     return validDate
   }
 
-
+  ionViewDidEnter(): void {
+    this.ngOnInit();
+  }
   ngOnInit(){
     this.cargarData();
     console.log(this.historial_pedidos);
