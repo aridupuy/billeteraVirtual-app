@@ -1,3 +1,4 @@
+import { Observable } from './classes/observable';
 import { environment } from '../environments/environment';
 import { UsuarioService } from './service/usuario.service';
 import { ServiceService } from './service/service.service';
@@ -45,6 +46,9 @@ export class AppComponent implements OnInit {
   // public static _this;
   constructor(public permisoService: PermisoService, public Router: Router, private platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen, private pago: Pago, public service: ServiceService, public modalCtrl: ModalController, public usuarioService: UsuarioService, public navCtrl: NavController,public fcm:FcmService) {
     // console.log(platform.is("cordova"));
+    Observable.suscribe("tapNoti",(nav)=>{
+      this.Router.navigate(['/'+nav]);
+    })
     environment.mobile = platform.is("cordova");
     this.statusBar.overlaysWebView(false);
     this.statusBar.backgroundColorByHexString('#000000');

@@ -59,11 +59,13 @@ export class HomePage implements OnInit, ViewDidEnter {
     this.obtener_estado();
     this.fcm.getToken();
     let vars = this.fcm.obtener_data_notificacion();
+    console.log("ACA NOTIFICACION TAP")
     console.log(vars);    
 
     // this.fcm.onNotifications();
     if(this.primero){
       this.primero=false;
+      
       Observable.suscribe("notificacion-nueva",(data)=>{
         this.nuevo = true
      })

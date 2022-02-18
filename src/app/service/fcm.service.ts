@@ -137,34 +137,39 @@ export class FcmService {
     localStorage.setItem("notification", JSON.stringify(notifs));
   }
   subscripto = false;
+  ultima_noti;
   onNotifications() {
-    // console.log("ACA NOTIFICACION ONNOTIFICATION");
     if (!this.subscripto) {
       this.subscripto = true;
       return this.fcm.onNotification().subscribe(data => {
-        // console.log("ACA NOTIFICACION RECIBIDA");
-        // console.log(JSON.stringify(data));
+        console.log("ACA NOTIFICACION RECIBIDA");
+        console.log(JSON.stringify(data));
         this.localnotif.getDefaults();
-        if (!this.platform.is("ios")) {
-          // console.log("RECIBI NOTIFICACION");
+        if(data.wasTapped){
+          console.log("ACA WASTAPPED");
+          Observable.notify("tapNoti",data.activity);
+          return true;
+        }
+        this.ultima_noti=Math.random();
+        if (!data.data.id || data.data.id!=this.ultima_noti) {
+          console.log("RECIBI NOTIFICACION");
           this.localnotif.schedule({
-            id: Math.random(),
+            id: this.ultima_noti,
             title: data.title,
             text: data.body,
             icon: 'res://ic_notificacion.png',
             smallIcon: 'res://ic_notificacion.png',
             color: "e9434d",
             priority: 10,
-            data: { body: data.body, activity: data.activity, params: data.params },
+            data: { body: data.body, activity: data.activity, params: data.params,id:this.ultima_noti },
             foreground: true,
             vibrate: true,
             wakeup: true,
             lockscreen: true,
             silent: false,
+            launch:false,
             group: "efectivoDigital",
             groupSummary: true,
-            launch: true,
-
           });
         }
         this.clickNotif = this.localnotif.on("click").subscribe((notification) => {
@@ -219,7 +224,7 @@ export class FcmService {
     }
 
   }
-  obtener_data_notificacion(){
+  public obtener_data_notificacion(){
     return this.fcm.getInitialPushPayload();
   }
 
