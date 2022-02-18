@@ -42,9 +42,9 @@ export class FCMServerService extends ServiceService{
         }
         var postParams = ({tokenFCM: token, tipo: tipo, identificador_dispositivo: device });
         let cuentas = JSON.parse(localStorage.getItem("cuentas"));
-        console.log(cuentas);
+        // console.log(cuentas);
         return cuentas.each(async cuenta=>{
-          console.log(cuenta);
+          // console.log(cuenta);
           httpOption.headers.token = cuenta.token;
           return await this.post<tokenReceive>('api/fcm/registrar', postParams, httpOption)
             .subscribe(async (data) => {

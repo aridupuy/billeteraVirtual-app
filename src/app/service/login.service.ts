@@ -44,9 +44,7 @@ export class LoginService extends ServiceService{
     if(localStorage.getItem("token") && localStorage.getItem("token")!="false"){
       this.checkToken("api/checkToken", {token: localStorage.getItem("token")}).then(()=>console.log()).catch(()=>console.log());
     }
-    console.log("aca");
     return new Promise((resolve, reject) => {
-      console.log("aca2");
       var postParams = ({ usuario: usuario, clave: clave })
       this.post<Ilogin>('api/login', postParams,httpOption).subscribe(async (data) => {
         console.log(data);
@@ -56,13 +54,10 @@ export class LoginService extends ServiceService{
         if(localStorage.getItem("token")){
           localStorage.removeItem("token");
         }
-        
-        console.log(data);
-        console.log(data[0].token);
-        await localStorage.setItem("token", data[0].token);
-        await localStorage.setItem("cuentas", JSON.stringify(data));
-        await localStorage.setItem("nombreEmpresa", data[0].titular[0]);
-        await localStorage.setItem("inicialesEmpresa", data[0].iniciales);
+        localStorage.setItem("token", data[0].token);
+        localStorage.setItem("cuentas", JSON.stringify(data));
+        localStorage.setItem("nombreEmpresa", data[0].titular[0]);
+        localStorage.setItem("inicialesEmpresa", data[0].iniciales);
         
         this.token = data[0].token;
         return resolve(this.token);
@@ -72,28 +67,27 @@ export class LoginService extends ServiceService{
     });
   }
   checkToken(url, json) {
-    console.log(this.URL);  
     return new Promise((resolve,rejects)=>{
       if(!localStorage.getItem("token")){
         rejects(false);
       }
       this.post<IcheckToken>(url, json, httpOption)
-      .subscribe(async (data) => {
-          if (data != undefined  && (data.check == 1 || data.check =='true')){
-            localStorage.setItem("cuentas",JSON.stringify(data.cuentas))
+        .subscribe(async (data) => {
+          if (data != undefined && (data.check == 1 || data.check == 'true')) {
+            localStorage.setItem("cuentas", JSON.stringify(data.cuentas));
             resolve(true);
           }
-          else{
+          else {
             let resp;
-            await this.loginWithToken("api/loginwithtoken",json).then((data)=>{
+            await this.loginWithToken("api/loginwithtoken", json).then((data) => {
               // console.log(data);
               resolve(data);
               resp = true;
-            }).catch((data)=>{
+            }).catch((data) => {
               rejects(data);
               resp = false;
             });
-            if(await resp){
+            if (await resp) {
               resolve(resp);
             }
             rejects(false);
@@ -110,7 +104,6 @@ export class LoginService extends ServiceService{
       }
       this.post<Ilogin>(url, json, httpOption)
         .subscribe(async (data) => {
-          console.log(data);
           if (data.resultado == false && data.log != false) {
             rejects(data.log);
           }
@@ -118,11 +111,11 @@ export class LoginService extends ServiceService{
           if(localStorage.getItem("token")){
             localStorage.removeItem("token");
           }
-          if(data==undefined || ((!(0 in data) || !("token" in data[0])))){
+          if(data==undefined || (!("token" in data))){
             MiObserver.notify("error_token","");
             return false;
           }
-          await localStorage.setItem("token", data[0].token);
+          localStorage.setItem("token", data.token);
           // console.log(localStorage.getItem("token"));
           if(!data.token)
             rejects(false)

@@ -22,7 +22,7 @@ export class FcmService {
   constructor(
     public angularFireMessaging: AngularFireMessaging, private platform: Platform, public navCtrl: NavController, private fcm: FCM, private localnotif: LocalNotifications, public FCMServerservice: FCMServerService, public UniqueDeviceID: UniqueDeviceID, private notifService: NotificacionesService) {
 
-    console.log("levantando fcm");
+    // console.log("levantando fcm");
   }
   receiveMessage() {
     this.angularFireMessaging.onMessage((payload) => {
@@ -51,24 +51,24 @@ export class FcmService {
       console.log(this.fcm.hasOwnProperty("getToken"));
       // if (this.platform.is('android') && FCM.hasOwnProperty("getToken")) {
       if (this.platform.is('android') && this.platform.is('cordova')) {
-        console.log("es android");
+        // console.log("es android");
         await this.fcm.getToken().then(tok => {
           token = tok;
-          console.log(tok);
+          // console.log(tok);
         });
         this.registerToken(token);
-        console.log("TOKEN OBTENIDO.");
+        // console.log("TOKEN OBTENIDO.");
         await this.fcm.onTokenRefresh().subscribe((token) => {
           this.registerToken(token);
-          console.log("SUSCRIBIENDO NOTIFICACIONES");
+          // console.log("SUSCRIBIENDO NOTIFICACIONES");
         });
         await this.onNotifications();
       }
       else if (this.platform.is('ios') && this.platform.is('cordova')) {
-        console.log("es ios");
+        // console.log("es ios");
         await this.fcm.getToken().then(tok => {
           token = tok;
-          console.log("TOKENFCM : " + tok);
+          // console.log("TOKENFCM : " + tok);
         });
         await this.fcm.requestPushPermission({
           ios9Support: {
@@ -84,19 +84,19 @@ export class FcmService {
         await this.onNotifications();
       }
       else {
-        console.log("FCM WEB");
+        // console.log("FCM WEB");
         let tok = await localStorage.getItem("tokenFCM");
-        console.log("aca FCM");
+        // console.log("aca FCM");
         console.log(tok);
         if (tok == null || tok == undefined) {
-          console.log("aca TOKENFCM");
+          // console.log("aca TOKENFCM");
           this.angularFireMessaging.requestPermission.toPromise().then(data => {
             this.angularFireMessaging.requestToken.subscribe(data => {
-              console.log("requested Token");
+              // console.log("requested Token");
               this.angularFireMessaging.getToken.subscribe(data => {
-                console.log("registrando Messages");
+                // console.log("registrando Messages");
                 this.receiveMessage();
-                console.log(data);
+                // console.log(data);
                 this.registerToken(data);
               })
             });
@@ -110,20 +110,7 @@ export class FcmService {
         }
       }
     });
-    console.log(token);
   }
-  // private saveToken(token) {
-  //   if (!token) return;
-
-  //   const devicesRef = this.afs.collection('devices');
-
-  //   const data = {
-  //     token,
-  //     userId: 'testUserId'
-  //   };
-
-  //   return devicesRef.doc(token).set(data);
-  // }
   public clickNotif;
   unsub() {
     this.clickNotif.unsubscribe();
@@ -150,15 +137,15 @@ export class FcmService {
   }
   subscripto = false;
   onNotifications() {
-    console.log("ACA NOTIFICACION ONNOTIFICATION");
+    // console.log("ACA NOTIFICACION ONNOTIFICATION");
     if (!this.subscripto) {
       this.subscripto = true;
       return this.fcm.onNotification().subscribe(data => {
-        console.log("ACA NOTIFICACION RECIBIDA");
-        console.log(JSON.stringify(data));
+        // console.log("ACA NOTIFICACION RECIBIDA");
+        // console.log(JSON.stringify(data));
         this.localnotif.getDefaults();
         if (!this.platform.is("ios")) {
-          console.log("RECIBI NOTIFICACION");
+          // console.log("RECIBI NOTIFICACION");
           this.localnotif.schedule({
             id: Math.random(),
             title: data.title,
@@ -180,7 +167,7 @@ export class FcmService {
           });
         }
         this.clickNotif = this.localnotif.on("click").subscribe((notification) => {
-          console.log("CLICK EN NOTIFICACION");
+          // console.log("CLICK EN NOTIFICACION");
           console.log(notification);
           if (notification.data.activity) {
             let params = notification.data.params;
@@ -196,12 +183,12 @@ export class FcmService {
           }
         });
         Observable.notify("notificacion-nueva", false);
-        console.log('Received in foreground');
+        // console.log('Received in foreground');
         // this.router.navigate([data.landing_page, data.price]);
       });
     }
     else {
-      console.log("ya subscripto");
+      // console.log("ya subscripto");
     }
 
   }
@@ -220,7 +207,7 @@ export class FcmService {
     if (this.platform.is("ios") || this.platform.is("android")) {
       await this.UniqueDeviceID.get()
         .then((uuid: any) => {
-          console.log("DEVICENRO:" + uuid);
+          // console.log("DEVICENRO:" + uuid);
           this.FCMServerservice.refreshToken(token, this.platform, uuid, tipo);
         })
         .catch((error: any) => console.log(error));
