@@ -41,8 +41,12 @@ export class FCMServerService extends ServiceService{
             device = Math.random() + Date.now().toString();
         }
         var postParams = ({tokenFCM: token, tipo: tipo, identificador_dispositivo: device });
-        httpOption.headers.token = localStorage.getItem('token');
-        return await this.post<tokenReceive>('api/fcm/registrar', postParams, httpOption)
+        let cuentas = JSON.parse(localStorage.getItem("cuentas"));
+        console.log(cuentas);
+        return cuentas.each(async cuenta=>{
+          console.log(cuenta);
+          httpOption.headers.token = cuenta.token;
+          return await this.post<tokenReceive>('api/fcm/registrar', postParams, httpOption)
             .subscribe(async (data) => {
                 if (data.ejecucion_correcta == "1"){
                     return await localStorage.setItem("tokenFCM", token)
@@ -53,6 +57,7 @@ export class FCMServerService extends ServiceService{
                   reject(false);
                 }
             });
+        })
     });
 
 }
@@ -60,16 +65,18 @@ async refresherToken(token: string, tipo, uniqueDeviceID) {
     var check = 0;
     let device = uniqueDeviceID;
     // let oldtoken = localStorage.getItem("tokenFCM");
-    httpOption.headers.token = localStorage.getItem('token');
-    var postParams = ({ token: token, tipo: tipo, identificador_dispositivo: device });
-    this.post<tokenReceive>('api/fcm/refresh', postParams, httpOption)
-        .subscribe(async (data) => {
-            if (data.ejecucion_correcta == "1"){
-                await localStorage.setItem("token", token);
-                return token;
-            }
-        });
-
+    let cuentas = JSON.parse(localStorage.getItem("cuentas"));
+    return cuentas.forEach(async cuenta=>{
+      httpOption.headers.token = cuenta.token;
+      var postParams = ({ token: token, tipo: tipo, identificador_dispositivo: device });
+      this.post<tokenReceive>('api/fcm/refresh', postParams, httpOption)
+          .subscribe(async (data) => {
+              if (data.ejecucion_correcta == "1"){
+                  await localStorage.setItem("token", token);
+                  return token;
+              }
+          });
+      });
 }
 refreshToken(token, platform,deviceID?,tipo?) {
   let device   
