@@ -58,6 +58,9 @@ export class HomePage implements OnInit, ViewDidEnter {
   ionViewDidEnter(): void {
     this.obtener_estado();
     this.fcm.getToken();
+    let vars = this.fcm.obtener_data_notificacion();
+    console.log(vars);    
+
     // this.fcm.onNotifications();
     if(this.primero){
       this.primero=false;

@@ -41,7 +41,8 @@ export class FcmService {
         launch: true,
 
       });
-      this.guardar_notificacion(payload.notification);
+      console.log(payload);
+      this.guardar_notificacion(payload);
       this.currentMessage.next(payload);
     });
   }
@@ -120,12 +121,12 @@ export class FcmService {
     console.log(data);
     let notifs = [];
     let notif = {
-      data: data.body,
+      data: data.notification.body,
       nuevo: true,
-      titulo: data.title,
-      fecha: Date()
+      titulo: data.notification.title,
+      fecha: Date(),
+      activity:data.data.activity
     }
-
     notifs = JSON.parse(localStorage.getItem("notification"));
     if (!notifs) {
       notifs = [notif];
@@ -218,6 +219,8 @@ export class FcmService {
     }
 
   }
-
+  obtener_data_notificacion(){
+    return this.fcm.getInitialPushPayload();
+  }
 
 }
