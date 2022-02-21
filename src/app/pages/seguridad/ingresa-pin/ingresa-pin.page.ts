@@ -35,6 +35,7 @@ export class IngresaPinPage implements OnInit {
 
   // public error_code: any;
   public proposito = "crear";
+  public mensaje = "crear";
   public iniciales = "";
   public titulo;
   public titulo2 = "¡Creá tu nuevo  PIN de acceso!";
@@ -42,7 +43,9 @@ export class IngresaPinPage implements OnInit {
   public conHuella = false;
   constructor(private platform: Platform, private faio: FingerprintAIO, public service: ServiceService, public navCtl: NavController, public viewCtrl: ModalController, public route: ActivatedRoute, params: NavParams) {
     this.proposito = params.get("tipo");
+    this.mensaje = params.get("mensaje");
     this.pago = params.get("pago");
+    
     this.platform.backButton.observers.pop();
     this.platform.backButton.subscribeWithPriority(9999, () => {
       // to disable hardware back button on whole app
@@ -70,6 +73,11 @@ export class IngresaPinPage implements OnInit {
     switch (this.proposito) {
       case "crear":
         this.titulo = "Crea tu Pin";
+        if(this.mensaje!=undefined){
+          this.titulo=this.mensaje;
+          this.titulo2="¡Intenta de nuevo!"
+        }
+        
         break;
       case "validar":
         console.log("validar");

@@ -46,6 +46,7 @@ export class AppComponent implements OnInit {
   // public static _this;
   constructor(public permisoService: PermisoService, public Router: Router, private platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen, private pago: Pago, public service: ServiceService, public modalCtrl: ModalController, public usuarioService: UsuarioService, public navCtrl: NavController,public fcm:FcmService) {
     // console.log(platform.is("cordova"));
+    this.splashScreen.show();
     Observable.suscribe("tapNoti",(nav)=>{
       this.Router.navigate(['/'+nav]);
     })
@@ -69,7 +70,9 @@ export class AppComponent implements OnInit {
         }
       }
     });
+    
   }
+ 
   mostrar_menu() {
     return AppComponent.login;
   }
@@ -84,7 +87,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
 
     console.log("ngOnInit");
-    this.splashScreen.show();
+    
     //localStorage.setItem("modalValidado","0");
     localStorage.setItem("modalAbiero", "0");
     let nombre = localStorage.getItem("nombre");
@@ -124,8 +127,8 @@ export class AppComponent implements OnInit {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       // console.log("SPLASH_HIDE");
-      this.splashScreen.hide();
-      AppComponent.splash = false;
+      
+      
       // AppComponent.cargando=false;
       // document.addEventListener("resume", this.onDeviceresume, false);
       document.onpause = this.onPause;
@@ -146,7 +149,16 @@ export class AppComponent implements OnInit {
       });
       this.pago.registrar_observer();
     });
-    console.log("Termina");
+    
+    Observable.suscribe("SlashHide",(data)=>{
+      console.log("Termina");
+      setTimeout(()=>{
+        this.splashScreen.hide();
+        AppComponent.splash = false;
+      },100);
+      
+    })
+    
   }
   Ir(path) {
     this.navCtrl.navigateForward(path);
@@ -207,8 +219,8 @@ export class AppComponent implements OnInit {
 
   }
   onDeviceresume = () => {
-
-    AppComponent.splash = false;
+    AppComponent.splash = true;
+    
     document.getElementById("splash").setAttribute("class", "noVisible");
     console.log(localStorage.getItem("modalAbiero"));
     if (localStorage.getItem("modalAbiero") == '0') {
@@ -216,6 +228,7 @@ export class AppComponent implements OnInit {
         localStorage.setItem("inBackground", "1");
         localStorage.setItem("modalValidado", "0");
         this.mostrarModal("validar");
+        
       }
     }
   }
@@ -236,8 +249,10 @@ export class AppComponent implements OnInit {
 
   async mostrarModal(tipo) {
     console.log(localStorage.getItem("modal-abierto"));
+    Observable.notify("SlashHide",false);
     if (AppComponent.modal_abierto == 1) {
       // console.log("no abre");
+      Observable.notify("SlashHide",false);
       return false;
     }
     else {
@@ -250,7 +265,8 @@ export class AppComponent implements OnInit {
 
     modal2.onDidDismiss().then(async (modalDataResponse) => {
       let clave1;
-      AppComponent.splash = false;
+      // AppComponent.splash = false;
+      Observable.notify("SlashHide",false);
       // console.log(modalDataResponse);
       clave1 = modalDataResponse.data;
       localStorage.setItem("inBackground", "0");
@@ -260,8 +276,10 @@ export class AppComponent implements OnInit {
     });
     AppComponent.modal_abierto = 1;
     // console.log("MODAL ABIERTO setitem 1");
-    await modal2.present();
-
+    await modal2.present().then(()=>{
+      Observable.notify("SlashHide",false);
+    });
+    
 
   }
 

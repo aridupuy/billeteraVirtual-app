@@ -145,13 +145,14 @@ export class FcmService {
         console.log("ACA NOTIFICACION RECIBIDA");
         console.log(JSON.stringify(data));
         this.localnotif.getDefaults();
-        if(data.wasTapped){
+        if(data.wasTapped==true){
           console.log("ACA WASTAPPED");
           Observable.notify("tapNoti",data.activity);
           return true;
         }
         this.ultima_noti=Math.random();
-        if (!data.data.id || data.data.id!=this.ultima_noti) {
+        console.log(JSON.stringify(data));
+        if (!data.data || !("id" in data.data) || !data.data.id || data.data.id!=this.ultima_noti) {
           console.log("RECIBI NOTIFICACION");
           this.localnotif.schedule({
             id: this.ultima_noti,
@@ -173,7 +174,7 @@ export class FcmService {
           });
         }
         this.clickNotif = this.localnotif.on("click").subscribe((notification) => {
-          // console.log("CLICK EN NOTIFICACION");
+          console.log("CLICK EN NOTIFICACION");
           console.log(notification);
           if (notification.data.activity) {
             let params = notification.data.params;
@@ -225,6 +226,8 @@ export class FcmService {
 
   }
   public obtener_data_notificacion(){
+    console.log("ACA");
+    console.log("getInitialPushPayload");
     return this.fcm.getInitialPushPayload();
   }
 

@@ -57,7 +57,9 @@ export class HomePage implements OnInit, ViewDidEnter {
   constructor(public modalCtrl: ModalController, public navCtl: NavController, private menu: MenuController, public validaMail: ValidacionMailService, public validaCel: ValidacionCelService, public saldoService: SaldoService, public transaccionesService: TransaccionesService, public route: ActivatedRoute, public router: Router, public usuarioService: UsuarioService, public libs: Libs, public menuService: MenuserviceService,public notiService:NotificacionesService,public fcm:FcmService) { }
   ionViewDidEnter(): void {
     this.obtener_estado();
-    this.fcm.getToken();
+    this.fcm.getToken().then(()=>{
+      Observable.notify("SlashHide",false);
+    });
     let vars = this.fcm.obtener_data_notificacion();
     console.log("ACA NOTIFICACION TAP")
     console.log(vars);    
@@ -226,6 +228,7 @@ export class HomePage implements OnInit, ViewDidEnter {
         i++;
       }
       this.itemback = this.items;
+      
     });
 
 

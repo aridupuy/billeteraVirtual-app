@@ -148,7 +148,7 @@ export class LostpasswordPage implements OnInit {
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
     const navigationExtras: NavigationExtras = {
       queryParams: {
-        param: JSON.stringify({usuario:this.usuario, email: this.mail, logued: p.logued, selectmail: this.selectmail, selectTel: this.selectTel, ofus: this.ofus, cel: this.celular,ofustel:this.ofuscar_cel(this.celular) })
+        param: JSON.stringify({usuario:this.usuario.toLowerCase(), email: this.mail, logued: p.logued, selectmail: this.selectmail, selectTel: this.selectTel, ofus: this.ofus, cel: this.celular,ofustel:this.ofuscar_cel(this.celular) })
       }
     }
     this.navCtrl.navigateForward("lostpassword1", navigationExtras);

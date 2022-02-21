@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
 import { IngresaPinConfirmaPage } from './pages/seguridad/ingresa-pin-confirma/ingresa-pin-confirma.page';
 import { ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -9,6 +8,8 @@ import { ServiceService } from './service/service.service';
 import * as CryptoJS from 'crypto-js';
 import { Platform } from '@ionic/angular';
 import { IngresaPinPage } from './pages/seguridad/ingresa-pin/ingresa-pin.page';
+import { rejects } from 'assert';
+import { Observable } from './classes/observable';
 
 export const pass = "TeganamosCon9";
 @Injectable({
@@ -42,8 +43,8 @@ export class PatronGuard implements CanActivate {
         console.log("esta validado");
         return resolve(true);
       }
-      if(this.is_cambioCuenta()){
-        localStorage.setItem("CambioCuenta","0");
+      if (this.is_cambioCuenta()) {
+        localStorage.setItem("CambioCuenta", "0");
         return resolve(true);
       }
       if (this.is_login() && this.existe_pin()) {
@@ -58,7 +59,7 @@ export class PatronGuard implements CanActivate {
       else {
         console.log("esta logueado y existe no existe pin");
         await this.mostrarModal("crear").then(data => {
-          return  resolve(true);
+          return resolve(true);
         }).catch(data => {
           return reject(false);
         });
@@ -70,8 +71,8 @@ export class PatronGuard implements CanActivate {
       }
     });
   }
-  from_lastLogin(){
-    return (localStorage.getItem("fromlastLogin") == "1" )
+  from_lastLogin() {
+    return (localStorage.getItem("fromlastLogin") == "1")
   }
   is_login() {
     return (localStorage.getItem("token") != null && localStorage.getItem("token") != "" && localStorage.getItem("token") != "false")
@@ -83,76 +84,82 @@ export class PatronGuard implements CanActivate {
     console.log(localStorage.getItem("modalValidado"));
     return (localStorage.getItem("modalValidado") == "1");
   }
-  is_cambioCuenta(){
-    return (localStorage.getItem("CambioCuenta")=="1");
+  is_cambioCuenta() {
+    return (localStorage.getItem("CambioCuenta") == "1");
   }
   existe_pin() {
     return !(localStorage.getItem("pin") == undefined || localStorage.getItem("pin") == null || localStorage.getItem("pin") == "false")
   }
   async mostrarModal(tipo) {
-    localStorage.setItem("modalAbiero","1");
+    localStorage.setItem("modalAbiero", "1");
     switch (tipo) {
       case "crear":
-        const modal = await this.modalCtrl.create({
-          component: IngresaPinPage,
-          componentProps: { tipo: "crear" }
-        });
-
-        modal.onDidDismiss().then(async (modalDataResponse) => {
-          let clave1;
-          console.log(modalDataResponse);
-          clave1 = modalDataResponse.data;
+        Observable.suscribe("novalido", async (data) => {
+          if(!data){
+            var mensaje= "Intenta de nuevo";
+          }
           const modal = await this.modalCtrl.create({
-            component: IngresaPinConfirmaPage
+            component: IngresaPinPage,
+            componentProps: { tipo: "crear",mensaje:mensaje }
           });
-          modal.onDidDismiss().then(data => {
-            if (this.validarClave(clave1, data.data)) {
-              this.guardarClave(clave1);
-              localStorage.setItem("modalAbiero","0");
-              localStorage.setItem("modalValidado","1");
-              // this.navController.navigateRoot("home");
-              return true;
-            }
-          })
-          return await modal.present();
 
+          modal.onDidDismiss().then(async (modalDataResponse) => {
+            let clave1;
+            console.log(modalDataResponse);
+            clave1 = modalDataResponse.data;
+            const modal = await this.modalCtrl.create({
+              component: IngresaPinConfirmaPage
+            });
+            modal.onDidDismiss().then(async data => {
+              if (this.validarClave(clave1, data.data)) {
+                this.guardarClave(clave1);
+                localStorage.setItem("modalAbiero", "0");
+                localStorage.setItem("modalValidado", "1");
+                return true;
+              }
+              await Observable.notify("novalido",false);
+            })
+            await modal.present();
+          });
+          modal.present();
         });
-        console.log("aca Modal patron");
-        return await modal.present();
+       await Observable.notify("novalido",true);
+    break;
       case "validar":
-      const modal2 = await this.modalCtrl.create({
-        component: IngresaPinPage,
-        componentProps: { tipo: "validar" }
-      });
+    const modal2 = await this.modalCtrl.create({
+      component: IngresaPinPage,
+      componentProps: { tipo: "validar" }
+    });
 
-      modal2.onDidDismiss().then(async (modalDataResponse) => {
-        let clave1;
-        console.log(modalDataResponse);
-        localStorage.setItem("modalAbiero","0");
-        localStorage.setItem("modalValidado","1");
-        clave1 = modalDataResponse.data;
-        // localStorage.setItem("inBackground", "0");
-        return true;
-      });
-      await modal2.present();
-      break;
+    modal2.onDidDismiss().then(async (modalDataResponse) => {
+      let clave1;
+      console.log(modalDataResponse);
+      localStorage.setItem("modalAbiero", "0");
+      localStorage.setItem("modalValidado", "1");
+      clave1 = modalDataResponse.data;
+      // localStorage.setItem("inBackground", "0");
+      return true;
+    });
+    await modal2.present();
+    return true;
+    break;
       default:
 
-        break;
-    }
+    break;
+}
 
   }
-  validarClave(clave1, clave2): Boolean {
-    console.log(clave1, clave2);
-    if (clave1 === clave2)
-      return true;
-    return false;
-  }
-  guardarClave(clave) {
-    let claveEnc = this.service.encrypt(clave, pass);
-    localStorage.setItem("pin", claveEnc); //esto deberia estar hasheado;
-    console.log("clave guardada");
+validarClave(clave1, clave2): Boolean {
+  console.log(clave1, clave2);
+  if (clave1 === clave2)
     return true;
-  }
+  return false;
+}
+guardarClave(clave) {
+  let claveEnc = this.service.encrypt(clave, pass);
+  localStorage.setItem("pin", claveEnc); //esto deberia estar hasheado;
+  console.log("clave guardada");
+  return true;
+}
 
 }

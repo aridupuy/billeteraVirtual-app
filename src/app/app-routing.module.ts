@@ -8,13 +8,17 @@ import { ValidacionEmpresaGuard } from './validacion-empresa.guard';
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./pages/modulos/home/home.module').then( m => m.HomePageModule),canActivate: [AuthGuardGuard,PatronGuard,ProcesoAltaGuard,ValidacionEmpresaGuard],
+    loadChildren: () => import('./pages/modulos/home/home.module').then( m => m.HomePageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard,ValidacionEmpresaGuard],
   },
   {
     path: '',
     // redirectTo: 'validaridentidad',
-    redirectTo: 'home',
+    redirectTo: 'home-first',
     pathMatch: 'full'
+  },
+  {
+    path: 'home-first',
+    loadChildren: () => import('./pages/seguridad/home-first/home-first.module').then( m => m.HomeFirstPageModule),canActivate: [AuthGuardGuard,PatronGuard,ProcesoAltaGuard,ValidacionEmpresaGuard],
   },
   {
     path: 'ingreso',
@@ -461,6 +465,7 @@ const routes: Routes = [
     path: 'accesodenegado',
     loadChildren: () => import('./accesodenegado/accesodenegado.module').then( m => m.AccesodenegadoPageModule)
   },
+
 
   
 

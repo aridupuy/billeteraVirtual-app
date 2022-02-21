@@ -1,3 +1,4 @@
+import { Observable } from '../../../classes/observable';
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 
@@ -12,6 +13,7 @@ export class WelcomePage implements OnInit {
 
   ngOnInit() {
     console.log("aca");
+    Observable.notify("SlashHide",false);
   }
   Registrarse(){
     this.navCtrl.navigateForward(["personapfpj",{}]);
