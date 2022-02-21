@@ -3,6 +3,7 @@ import {
 } from '../../../../../plugins/cordova-plugin-local-notification/src/windows/LocalNotificationProxy';
 import { NotificacionesService } from '../../../service/notificaciones.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-notificaciones',
@@ -15,7 +16,7 @@ export class NotificacionesPage implements OnInit, OnDestroy {
   public class = "circulo rojo";
   public class_texto = "texto";
 
-  constructor(private notifService: NotificacionesService) { }
+  constructor(private notifService: NotificacionesService,private navCtrol:NavController) { }
   ngOnDestroy(): void {
     console.log(this.items.filter(data=>{data.visto=="f"}));
     this.items.filter(data=>{return data.visto=="f"}).forEach(notificacion => {
@@ -37,7 +38,8 @@ export class NotificacionesPage implements OnInit, OnDestroy {
     return this.items;
   }
   verMas(item) {
-    
+    console.log(item);
+    this.navCtrol.navigateForward(item.activity==null?"home":item.activity);
   }
   refresh(e) {
     return this.ngOnInit();
