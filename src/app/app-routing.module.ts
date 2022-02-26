@@ -237,6 +237,7 @@ const routes: Routes = [
     path: 'usuarios-permiso',
     loadChildren: () => import('./pages/modulos/usuarios-permiso/usuarios-permiso.module').then( m => m.UsuariosPermisoPageModule),canActivate: [AuthGuardGuard]
   },
+  
 
 
 
@@ -466,6 +467,11 @@ const routes: Routes = [
     loadChildren: () => import('./accesodenegado/accesodenegado.module').then( m => m.AccesodenegadoPageModule)
   },
 
+  {
+    path: 'IrAtras',
+    loadChildren: () => import('./pages/modulos/home/home.module').then( m => m.HomePageModule)
+  },
+
 
   
 
@@ -478,4 +484,7 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule { 
+
+  
+}

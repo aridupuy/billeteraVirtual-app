@@ -1,7 +1,4 @@
 import { ServiceService } from './service.service';
-import e from '../../../plugins/cordova-plugin-badge/src/browser/favico.min';
-import { proceso } from './login-bo.service';
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 interface respuesta{

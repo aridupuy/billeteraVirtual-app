@@ -6,6 +6,12 @@ export interface IUsuarioPermiso {
 }
 
 
+export interface IUsuarioPermisoArray {
+    0:Array<UsuarioPermiso>
+}
 export interface IUsuarioPermisoExtra {
-    0:[UsuarioPermiso]
+    resultado:Boolean;
+    log:String;
+    extras:IUsuarioPermisoArray;
+    
 }

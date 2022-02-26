@@ -38,6 +38,7 @@ import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 import { FCM } from "cordova-plugin-fcm-with-dependecy-updated/ionic/ngx";
 // import splash from '../../resources/splash.png';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { LocalNotifications as localnotif } from '@awesome-cordova-plugins/local-notifications/ngx';
 import { SplashComponent } from './components/splash/splash.component';
 import { environment } from '../environments/environment.prod';
 import { firebaseConfig } from '../environments/firebaseconfig';
@@ -73,6 +74,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     Cookie,
     ServiceService,
     LocalNotifications,
+    localnotif,
     UsuarioService,
     Libs,
     Pago,

@@ -70,9 +70,13 @@ export class Validaridentidad3Page implements OnInit {
           }
         };
         this.cameraPreview.stopCamera();
+        
+        if (p.reintentar == true) {
+          return this.navCtrl.navigateRoot("procesarfotos", navigationExtras);
+        }
         if (p.revalidar == true) {
-          this.navCtrl.navigateRoot("procesarfotos", navigationExtras);
-          return;
+          return this.navCtrl.navigateRoot("validaridentidad4", navigationExtras);
+          
         }
         if (p.editar == true) {
           this.navCtrl.navigateRoot("revisarfotos", navigationExtras);

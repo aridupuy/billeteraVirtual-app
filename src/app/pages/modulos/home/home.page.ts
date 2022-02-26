@@ -176,7 +176,7 @@ export class HomePage implements OnInit, ViewDidEnter {
           param: JSON.stringify({ revalidar: true, ira: "/", })
         }
       }
-      this.navCtl.navigateForward("validaridentidad3", navigationExtras);
+      this.navCtl.navigateForward("validaridentidad1", navigationExtras);
       return true;
     }
   }

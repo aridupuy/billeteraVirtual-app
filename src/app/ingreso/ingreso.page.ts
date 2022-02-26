@@ -1,4 +1,5 @@
 import { LoginService, Ilogin } from '../service/login.service';
+import { Observable } from '../classes/observable';
 import { Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { NavigationExtras, Router } from '@angular/router';
@@ -32,6 +33,7 @@ export class IngresoPage implements OnInit {
         usuario: ['', Validators.required],
         password: [''],
     });
+    Observable.notify("SlashHide",false);
   }
   login(){
     this.noLogin=true;

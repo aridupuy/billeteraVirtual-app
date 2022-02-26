@@ -67,6 +67,12 @@ export class Validaridentidad4Page implements OnInit {
         }
       };
       // this.cameraPreview.stopCamera();
+      if (p.reintentar == true) {
+        return this.navCtrl.navigateRoot("procesarfotos", navigationExtras);
+      }
+      if (p.revalidar == true) {
+        return this.navCtrl.navigateRoot("procesarfotos", navigationExtras);
+      }
       if (p.editar == true) {
         this.navCtrl.navigateRoot("revisarfotos", navigationExtras);
       }
@@ -92,9 +98,11 @@ export class Validaridentidad4Page implements OnInit {
         replaceUrl: true
       };
       // this.cameraPreview.stopCamera(); 
+      
       if (p.editar == true) {
         this.navCtrl.navigateRoot("revisarfotos", navigationExtras);
       }
+      
       else {
         // this.navCtrl.navigateRoot("revisarfotos", navigationExtras); //temp
         this.navCtrl.navigateRoot("revisarfotos", navigationExtras);

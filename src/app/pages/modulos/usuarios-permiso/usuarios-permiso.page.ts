@@ -1,6 +1,10 @@
 import { Usuario } from '../../../models/usuario';
 import { UssersService } from '../../../service/ussers.service';
-import { UsuarioPermiso } from '../../../models/usuario-permiso';
+import {
+    UsuarioPermiso,
+    UsuarioPermisoArray,
+    UsuarioPermisoExtras
+} from '../../../models/usuario-permiso';
 import { PermisoService } from '../../../service/permiso.service';
 import { id } from '../../../../../platforms/android/platform_www/cordova-js-src/platform';
 import { NavController } from '@ionic/angular';
@@ -17,7 +21,7 @@ import { Component, OnInit } from '@angular/core';
 export class UsuariosPermisoPage implements OnInit {
 
   usuario: Usuario;
-  permisos: [UsuarioPermiso];
+  permisos: any;
   usuariopermisos: [UsuarioPermiso];
   options: any = [];
   submodulos: any = [];
@@ -43,14 +47,15 @@ export class UsuariosPermisoPage implements OnInit {
     console.log(this.submodulos);
     return this.submodulos;
   }
-
+  permisos_alt:any;
   async obtener_permisos() {
     await this.PermisoService.obtener_rutas_alt()
       // await this.UssersService.obtener_permisos()
-      .then(async (data: [UsuarioPermiso]) => {
-        // console.log(data);
-        this.permisos = data;
-         data.forEach(element => {
+      .then(async (data: Array<UsuarioPermiso>) => {
+        console.log(data);
+        this.permisos_alt =data
+        data.forEach((element:UsuarioPermiso) => {
+          console.log(element);
           if (this.options[element.id_elemento_menu] == undefined) {
             this.options[element.id_elemento_menu] = false;
           }
@@ -59,7 +64,9 @@ export class UsuariosPermisoPage implements OnInit {
       .catch(err => {
         console.log(err);
       });
-    this.permisos.forEach(permiso => {
+      console.log(this.permisos_alt);
+     await Array.from(this.permisos_alt).forEach((permiso:UsuarioPermiso) => {
+      console.log(this.permisos_alt);
       if ("submodulos" in permiso)
         permiso.submodulos.forEach((submodulo, i) => {
           // this.option_submodulos.push(permiso.id_elemento_menu);
@@ -68,6 +75,7 @@ export class UsuariosPermisoPage implements OnInit {
           }
           this.option_submodulos[permiso.id_elemento_menu][submodulo.id_elemento_menu] = false;
         });
+        this.permisos=this.permisos_alt;
     });
 
     await this.UssersService.obtener_permisos_usuario(this.usuario)

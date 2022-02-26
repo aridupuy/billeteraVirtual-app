@@ -1,6 +1,3 @@
-import {
-  notification
-} from '../../../../../plugins/cordova-plugin-local-notification/src/windows/LocalNotificationProxy';
 import { NotificacionesService } from '../../../service/notificaciones.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';

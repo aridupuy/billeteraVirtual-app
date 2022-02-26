@@ -21,12 +21,13 @@ export class Validaridentidad1Page implements OnInit {
   setZoom = 2;
   flashMode = 'off';
   isToBack = true;
-
+  p;
   constructor(private navCtrl: NavController, private cameraPreview: CameraPreview, private screenOrientation: ScreenOrientation, public route: ActivatedRoute, public router: Router,protected platform: Platform) { }
 
   async ngOnInit() {
     let width;
     let heigth; 
+    this.p=JSON.parse(this.route.snapshot.queryParamMap.get("param"));
     if (this.platform.isLandscape()) {
       heigth = window.screen.height;
       width = window.screen.width;
@@ -62,6 +63,7 @@ export class Validaridentidad1Page implements OnInit {
         this.IMAGE_PATH = 'data:image/jpeg;base64,' + imageData;
         console.log(this.IMAGE_PATH);
         let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
+        
         if (p == null)
           p = { foto_frente_dni: false };
         p["foto_frente_dni"] = this.IMAGE_PATH;
@@ -73,6 +75,9 @@ export class Validaridentidad1Page implements OnInit {
           replaceUrl: true
         };
         // this.cameraPreview.stopCamera(); 
+        if (p.reintentar == true) {
+          return this.navCtrl.navigateRoot("procesarfotos", navigationExtras);
+        }
         if (p.editar == true) {
           this.navCtrl.navigateRoot("revisarfotos", navigationExtras);
         }

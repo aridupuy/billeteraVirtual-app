@@ -89,7 +89,7 @@ export class ProcesarfotoscargadasPage implements AfterViewInit {
     let data = { imagen: this.fotoDniFrente, x: 0, y: 0, width: 1280, height: 640 };
     if (p.revalidar == true) {
       this.mensaje = "Estamos revalidando tu identidad.";
-      this.revalidar_renaper.revalidar_rostro(this.fotoRostro).then(data => {
+      this.revalidar_renaper.revalidar_rostro(this.fotoRostro,this.fotoDniFrente,dniD,caraDni).then(data => {
         console.log("se valida el rostro correctamente.");
         this.validado = true;
         this.mensaje = "Listo tus Fotos se cargaron correctamente.";

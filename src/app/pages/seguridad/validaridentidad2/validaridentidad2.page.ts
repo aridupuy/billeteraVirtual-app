@@ -78,7 +78,9 @@ export class Validaridentidad2Page implements OnInit {
             param: JSON.stringify(p)
           }
         };
-
+        if (p.reintentar == true) {
+          return this.navCtrl.navigateRoot("procesarfotos", navigationExtras);
+        }
         if (p.editar == true) {
           this.navCtrl.navigateRoot("revisarfotos", navigationExtras);
         }

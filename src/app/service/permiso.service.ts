@@ -1,7 +1,11 @@
 import { ServiceService } from './service.service';
 import { Injectable } from '@angular/core';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
-import { IUsuarioPermiso, IUsuarioPermisoExtra } from '../interfaces/iusuario-permiso';
+import {
+    IUsuarioPermiso,
+    IUsuarioPermisoExtra,
+    IUsuarioPermisoArray
+} from '../interfaces/iusuario-permiso';
 var httpOptions = {
 
   headers: { 'Content-Type': 'application/json', "token": "" }
@@ -70,11 +74,11 @@ export class PermisoService extends ServiceService {
   async obtener_rutas(){
     httpOptions.headers.token=localStorage.getItem("token");
     return new Promise((resolve, reject) => {
-      this.get<IUsuarioPermiso>('api/permiso/obtener_permisos',httpOptions).subscribe((data) => {
-        console.log(data);
-        if (data.resulado != null && data.resulado == false) {
+      this.get<IUsuarioPermiso>('api/permiso/obtener_permisos',httpOptions).subscribe((data:IUsuarioPermisoExtra) => {
+        if (data.resultado != null && data.resultado == false) {
           reject(data.log);
         }
+        console.log(data);
         return resolve(data.extras);
       });
     });
@@ -82,8 +86,16 @@ export class PermisoService extends ServiceService {
 
   obtener_rutas_alt(){
     return new Promise((resolve, reject) => {
-    this.obtener_rutas().then((data:[IUsuarioPermisoExtra])=>{
-      return resolve(data.pop);
+    this.obtener_rutas().then(async (data:IUsuarioPermisoArray)=>{
+      var resultArray = await Object.keys(data[0]).map(function(index){
+        let permisos = data[0][index];
+        console.log(index);
+        console.log(data[0][index]);
+        return permisos;
+        // do something with person
+        
+    });
+    return resolve(resultArray);
     })
     .catch(data=>{
       reject(data);

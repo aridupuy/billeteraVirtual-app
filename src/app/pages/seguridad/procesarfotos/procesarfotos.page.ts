@@ -13,6 +13,7 @@ import { File } from '@ionic-native/file/ngx';
 import { BrowserCodeReader, BrowserPDF417Reader } from '@zxing/browser';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { int } from '@zxing/library/esm/customTypings';
+import Integer from '@zxing/library/esm/core/util/Integer';
 @Component({
   selector: 'app-procesarfotos',
   templateUrl: './procesarfotos.page.html',
@@ -76,22 +77,28 @@ export class ProcesarfotosPage implements OnInit {
     let dniD = p.foto_dorso_dni;
     let caraDni = p.foto_frente_con_dni;
     let data = { imagen: fotoDniFrente, x: 0, y: 0, width: 1280, height: 640 };
-    let json = JSON.parse(localStorage.getItem("varsOnboarding"));
-    json["fotoRostro"] = fotoRostro;
-    json["fotoDniFrente"] = fotoDniFrente;
-    json["foto_dorso_dni"] = dniD;
-    json["foto_frente_con_dni"] = caraDni;
-    localStorage.setItem("varsOnboarding", JSON.stringify(json));
+    let json;
+    let reintentos  = Integer.parseInt(localStorage.getItem("reintentos"));
+    if(reintentos>=3){}
+    if(!p.revalidar){
+        let json = JSON.parse(localStorage.getItem("varsOnboarding"));
+        json["fotoRostro"] = fotoRostro;
+        json["fotoDniFrente"] = fotoDniFrente;
+        json["foto_dorso_dni"] = dniD;
+        json["foto_frente_con_dni"] = caraDni;
+      localStorage.setItem("varsOnboarding", JSON.stringify(json));
+  }
     console.log(environment.ACTIVAR_TEST);
     console.log(JSON.stringify(p));
     if (p.revalidar == true) {
       this.mensaje = "Estamos revalidando tu identidad.";
-      this.revalidar_renaper.revalidar_rostro(fotoRostro).then(data => {
+      this.revalidar_renaper.revalidar_rostro(fotoRostro,fotoDniFrente,dniD,caraDni).then(data => {
         console.log("se valida el rostro correctamente.");
         this.validado = true;
         this.mensaje = "Listo tus Fotos se cargaron correctamente.";
         this.imagen = 'assets/img/procesando-success.svg';
         this.claseProcesando = 'procesandofotos-success';
+        return ;
       }).catch(async err => {
         console.log("Error al validar renaper");
         this.mensaje = "Vuelve a sacar la foto de tu rostro ";
@@ -100,6 +107,7 @@ export class ProcesarfotosPage implements OnInit {
         this.validado = false
         this.claseProcesando = 'procesandofotos-error';
         console.log("Error en validar identidad");
+        return;
       });
     }
 
@@ -160,6 +168,7 @@ export class ProcesarfotosPage implements OnInit {
             this.renaper.validar_rostro(fotoRostro, this.dni, this.sexo).then(data => {
               console.log("se valida el rostro correctamente.");
               this.validado = true;
+              this.reintento=false;
               this.mensaje = "Listo tus Fotos se cargaron correctamente.";
               this.imagen = 'assets/img/procesando-success.svg';
               this.claseProcesando = 'procesandofotos-success';
@@ -244,6 +253,7 @@ export class ProcesarfotosPage implements OnInit {
     if (!this.omitir) {
       let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
       p["editar"] = true;
+      p["reintentar"] = true;
       const navigationExtras: NavigationExtras = {
         queryParams: {
           param: JSON.stringify(p)

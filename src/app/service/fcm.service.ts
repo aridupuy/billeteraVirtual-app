@@ -4,12 +4,9 @@ import { Injectable } from '@angular/core';
 import { NavController, Platform } from '@ionic/angular';
 import { FCM } from "cordova-plugin-fcm-with-dependecy-updated/ionic/ngx";
 import { NotificacionesService } from './notificaciones.service';
-import {
-  notification
-} from '../../../plugins/cordova-plugin-local-notification/src/windows/LocalNotificationProxy';
 import { Observable } from '../classes/observable';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
-import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { LocalNotifications } from '@awesome-cordova-plugins/local-notifications/ngx';
 import { NavigationExtras } from '@angular/router';
 import { AngularFireMessaging } from '@angular/fire/messaging';
 
@@ -38,7 +35,7 @@ export class FcmService {
         vibrate: true,
         lockscreen: true,
         group: "efectivoDigital",
-        launch: true,
+        
 
       });
       console.log(payload);
@@ -46,6 +43,37 @@ export class FcmService {
       this.currentMessage.next(payload);
     });
   }
+
+  // createChannel() {
+  //   // to check if we have permission
+  //   this.push.hasPermission()
+  //     .then((res: any) => {
+
+  //       if (res.isEnabled) {
+  //         console.log('We have permission to send push notifications');
+  //       } else {
+  //         console.log('We do not have permission to send push notifications');
+  //       }
+
+  //     });
+
+  //   // Create a channel (Android O and above). You'll need to provide the id, description and importance properties.
+  //   this.push.createChannel({
+  //     description: 'General Notifications',
+  //     id: 'varios',
+  //     importance: 5,
+  //     sound: 'shotgun.wav',
+  //     vibration: true,
+  //     visibility: 1,
+  //   }).then(() => console.log('Channel created'));
+
+  //   // Return a list of currently configured channels
+  //   this.push.listChannels().then((channels) => console.log('List of channels', channels));
+
+  // }
+
+
+
   async getToken() {
     let token;
     this.platform.ready().then(async () => {
@@ -53,6 +81,7 @@ export class FcmService {
       // if (this.platform.is('android') && FCM.hasOwnProperty("getToken")) {
       if (this.platform.is('android') && this.platform.is('cordova')) {
         // console.log("es android");
+        // this.createChannel();
         await this.fcm.getToken().then(tok => {
           token = tok;
           // console.log(tok);
@@ -152,26 +181,37 @@ export class FcmService {
         }
         this.ultima_noti=Math.random();
         console.log(JSON.stringify(data));
+
         if (!data.data || !("id" in data.data) || !data.data.id || data.data.id!=this.ultima_noti) {
-          console.log("RECIBI NOTIFICACION");
-          this.localnotif.schedule({
-            id: this.ultima_noti,
-            title: data.title,
-            text: data.body,
-            icon: 'res://ic_notificacion.png',
-            smallIcon: 'res://ic_notificacion.png',
-            color: "e9434d",
-            priority: 10,
-            data: { body: data.body, activity: data.activity, params: data.params,id:this.ultima_noti },
-            foreground: true,
-            vibrate: true,
-            wakeup: true,
-            lockscreen: true,
-            silent: false,
-            launch:false,
-            group: "efectivoDigital",
-            groupSummary: true,
-          });
+          
+          this.localnotif.requestPermission().then(resp=>{
+            console.log("RECIBI NOTIFICACION");
+            console.log(resp);
+            this.localnotif.getDefaults();
+            this.localnotif.schedule({
+              id: this.ultima_noti,
+              title: data.title,
+              text: data.body,
+              icon: 'res://ic_notificacion.png',
+              smallIcon: 'res://ic_notificacion.png',
+              color: "e9434d",
+              priority: 2,
+              data: { body: data.body, activity: data.activity, params: data.params,id:this.ultima_noti },
+              foreground: true,
+              vibrate: true,
+              wakeup: true,
+              badge:1,
+              lockscreen: true,
+              silent: false,
+              launch: false,
+              group: "efectivoDigital",
+              groupSummary: false,
+              channel:"varios"
+            });
+          }).catch(err=>{
+            console.log(err);
+            console.log("NO TENES PERMISOS");
+          })
         }
         this.clickNotif = this.localnotif.on("click").subscribe((notification) => {
           console.log("CLICK EN NOTIFICACION");

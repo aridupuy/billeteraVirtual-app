@@ -41,7 +41,11 @@
         <config-file parent="/manifest/application" target="AndroidManifest.xml">
             <meta-data android:name="firebase_messaging_auto_init_enabled" android:value="true" />
             <meta-data android:name="com.google.firebase.messaging.default_notification_color" android:resource="@color/primary" />
-            <meta-data android:name="com.google.firebase.messaging.default_notification_channel_id" android:value="com.efectivodigital.com.ar/topic" />
+            <meta-data android:name="com.google.firebase.messaging.default_notification_channel_id" android:value="varios" />
+        </config-file>
+        <config-file parent="/manifest" target="AndroidManifest.xml">
+            <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+            <uses-permission android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" />
         </config-file>
         <custom-preference delete="true" name="android-manifest/application/meta-data/[@android:name='com.google.firebase.messaging.default_notification_icon']" />
         <preference name="AndroidPersistentFileLocation" value="Compatibility" />

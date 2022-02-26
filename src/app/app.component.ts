@@ -57,6 +57,9 @@ export class AppComponent implements OnInit {
 
     this.Router.events.subscribe(async event => {
       if (event instanceof NavigationStart) {
+        if ((event.url.toString()) !== '' || (event.url.toString() !== '/home') || (event.url.toString() !== '/welcome')){
+          Observable.notify("SlashHide",false);
+        }
         if (localStorage.getItem("token") != undefined) {
           console.log("REVISANDO PERMISOS");
           await this.permisoService.puede(event.url.substring(1,event.url.length)).then(data => {
@@ -64,8 +67,10 @@ export class AppComponent implements OnInit {
           }).catch(data => {
             console.log("SALE MAL");
             /*aca deberia ir a una pantalla de acceso denegado */
-            if (event.url != "/home")
-            this.Router.navigate(['/accesodenegado']);
+            if (event.url.toString() != "/home" || event.url.toString()!=""){
+              this.Router.navigate(['/accesodenegado']);
+              Observable.notify("SlashHide",false);
+            }
           })
         }
       }

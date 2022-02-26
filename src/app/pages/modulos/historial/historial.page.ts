@@ -40,14 +40,12 @@ export class HistorialPage implements OnInit {
     this.cargar_transacciones_filtrado(event);
     
   }
-  myDateParser(dateStr : string) : string {
-    
-
+  myDateParser(dateStr: string): string {
     let date = dateStr.substring(0, 10);
     let time = dateStr.substring(11, 19);
     let millisecond = dateStr.substring(20)
-    if(millisecond==""){
-      millisecond="00";
+    if (millisecond == "") {
+      millisecond = "00";
     }
     let validDate = date + 'T' + time + '.' + millisecond;
     return validDate
@@ -59,23 +57,21 @@ export class HistorialPage implements OnInit {
     this.transaccionesService.obtener_transacciones(this.offset, this.limit).then((data: Transacciones[]) => {
       let i = 0;
       for (const dato of data) {
-        let fila = { titulo: dato.mp, precio: dato.monto, fecha: dato.fecha_pago, tipo: dato.concepto, id_tipo_trans: dato.id_tipo_trans, id_cuenta: dato.id_cuenta, fijo: dato.pri_fijo, variable: dato.pri_variable, monto_final: dato.monto_final, id_entidad: dato.id_entidad, id_referencia: dato.id_referencia, resumen: dato.resumen_op, click() { } };
-        fila.fecha = this.myDateParser(fila.fecha);
+        let fila = { titulo: dato.mp, precio: dato.monto_final, fecha: dato.fecha_gen, tipo: dato.concepto, id_tipo_trans: dato.id_tipo_trans, id_cuenta: dato.id_cuenta, fijo: dato.pri_fijo, variable: dato.pri_variable, monto_final: dato.monto_final, id_entidad: dato.id_entidad, id_referencia: dato.id_referencia, resumen: dato.resumen_op, click() { } };
         if (this.items == undefined) {
           this.items = [fila];
         }
+        fila.fecha = this.myDateParser(fila.fecha);
         this.items[i] = fila;
         i++;
       }
-      // let fila = {titulo:data[0].mp,precio:data[0].monto,fecha:data[0].fecha_pago,tipo:data[0].concepto,click: function () {}};
-      // this.items[i]=fila;
       this.itemback = this.items;
-      // console.log(this.items);
+      
     });
 
 
   }
-  fecha_espaniol(fecha: any) {
+  fecha_espaniol(fecha) {
 
     switch (fecha) {
       case "1":

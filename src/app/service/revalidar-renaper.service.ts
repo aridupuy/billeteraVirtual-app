@@ -11,12 +11,12 @@ var httpOptions = {
 export class RevalidarRenaperService extends ServiceService{
 
   
-  public async revalidar_rostro(foto){
+  public async revalidar_rostro(foto,fotoDniFrente,dniD,caraDni){
     var resp  ;
     console.log("Validando RostroService");
       resp = new Promise((resolve, reject) => {
         httpOptions.headers.token=localStorage.getItem("token");
-        var postParams = {selfie: foto};
+        var postParams = {selfie: foto,frentedni:fotoDniFrente,dorsodni:dniD,selfiedni:caraDni};
         try {
           
           this.post<any>( 'api/revalidaridentidad/validar', postParams, httpOptions)

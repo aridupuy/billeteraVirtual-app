@@ -1,6 +1,5 @@
 export class UsuarioPermiso {
 
-    
     nombre:string;
     id:number;
     id_elemento_menu:number;
@@ -11,5 +10,8 @@ export class UsuarioPermiso {
     submodulos:[UsuarioPermiso];
 }
 export class UsuarioPermisoArray{
-    0:[UsuarioPermiso]
+    0:Array<UsuarioPermiso>
+}
+export class UsuarioPermisoExtras{
+    extras:UsuarioPermisoArray
 }
