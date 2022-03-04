@@ -3,6 +3,7 @@ import { Libs } from '../../../classes/libs';
 import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import Integer from '@zxing/library/esm/core/util/Integer';
 
 @Component({
   selector: 'app-pedir-amigo-desdelista',
@@ -23,6 +24,7 @@ export class PedirAmigoDesdelistaPage implements OnInit {
   public amigos ;
   public enviar;
   public pedir;
+  public MINIMO_OPERACION = 10; 
   ngOnInit() {
     let  p  = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
     console.log(p.var);
@@ -44,8 +46,13 @@ export class PedirAmigoDesdelistaPage implements OnInit {
 
   }
   
-
+  parseInt(monto){
+    return Integer.parseInt(monto);
+  }
   Continuar() {
+    if(this.monto<this.MINIMO_OPERACION){
+      return false;
+    }
     let  p  = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
     const navigationExtras: NavigationExtras = {
       queryParams: {

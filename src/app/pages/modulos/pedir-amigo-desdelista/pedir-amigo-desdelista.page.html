@@ -41,8 +41,8 @@
     </ion-item>
   </div>
   <div class="onboarding-btn-group">
-    
-    <div class="btn-round activo" (click)="Continuar()">Continuar</div>
+    <div class="btn-round activo" (click)="Continuar()" *ngIf="monto_escrito!=0 && parseInt(monto_escrito)>=MINIMO_OPERACION">Continuar</div>
+    <div class="btn-round inactivo" *ngIf="(referencia=='' || parseInt(monto_escrito)<MINIMO_OPERACION)">Continuar</div>
 
   </div>
 </ion-content>

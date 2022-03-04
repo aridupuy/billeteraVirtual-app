@@ -182,9 +182,9 @@ export class HomePage implements OnInit, ViewDidEnter {
   }
   async obtener_saldo() {
     await this.saldoService.obtener_all().then((data: any) => {
-      this.saldoUsuario = formatCurrency(data.saldo_actual, 'es-AR', '$', 'ARS', '4.2-2');
-      this.TotalUsuario = formatCurrency(data.saldo_total, 'es-AR', '$', 'ARS', '4.2-2');
-      this.noliquidadoUsuario = formatCurrency(data.saldo_no_liquidado, 'es-AR', '$', 'ARS', '4.2-2');
+      this.saldoUsuario = data.saldo_actual>1000?formatCurrency(data.saldo_actual, 'es-AR', '$', 'ARS', '4.2-2'):formatCurrency(data.saldo_actual, 'es-AR', '$', 'ARS', '3.2-2');
+      this.TotalUsuario = data.saldo_actual>1000?formatCurrency(data.saldo_total, 'es-AR', '$', 'ARS', '4.2-2'):formatCurrency(data.saldo_actual, 'es-AR', '$', 'ARS', '3.2-2');
+      this.noliquidadoUsuario =data.saldo_actual>1000?formatCurrency(data.saldo_no_liquidado, 'es-AR', '$', 'ARS', '4.2-2'):formatCurrency(data.saldo_actual, 'es-AR', '$', 'ARS', '3.2-2');
       this.cargandoSaldo = false;
     });
   }

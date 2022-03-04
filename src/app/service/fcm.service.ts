@@ -6,6 +6,7 @@ import { FCM } from "cordova-plugin-fcm-with-dependecy-updated/ionic/ngx";
 import { NotificacionesService } from './notificaciones.service';
 import { Observable } from '../classes/observable';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
+
 import { LocalNotifications } from '@awesome-cordova-plugins/local-notifications/ngx';
 import { NavigationExtras } from '@angular/router';
 import { AngularFireMessaging } from '@angular/fire/messaging';
@@ -254,10 +255,16 @@ export class FcmService {
     if (this.platform.is("ios") || this.platform.is("android")) {
       await this.UniqueDeviceID.get()
         .then((uuid: any) => {
-          // console.log("DEVICENRO:" + uuid);
+           console.log("DEVICENRO:" + uuid);
           this.FCMServerservice.refreshToken(token, this.platform, uuid, tipo);
         })
-        .catch((error: any) => console.log(error));
+        .catch((error: any) =>{
+            console.log("error al obtener uuid:");
+            device = Math.random() + Date.now().toString();
+            console.log(device+": Generado");
+            this.FCMServerservice.refreshToken(token, this.platform, device, tipo);
+          }
+        );
     }
     else {
       device = Math.random() + Date.now().toString();

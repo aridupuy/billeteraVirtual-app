@@ -100,7 +100,8 @@ export class ListaAmigosPage implements OnInit {
     let contactos = this.amigos;
     this.amigos = [];
     var esta = false;
-    if(contactos .length == 0){
+    
+    if(contactos.length == 0){
       console.log("VACIO");
       console.log(this.amigos.length);
       resultado.marcado = 1;
@@ -110,9 +111,7 @@ export class ListaAmigosPage implements OnInit {
     }
     
     contactos.forEach((cont) => {
-      console.log(cont.id == resultado.id);
-      console.log(cont.id);
-      console.log(resultado.id);
+      
       if(!esta)
         if (cont.id == resultado.id) {
           console.log("ESTA");
@@ -131,6 +130,11 @@ export class ListaAmigosPage implements OnInit {
       this.amigos = contactos;
     }
     else{
+      if(contactos.length>=5){
+        console.log("RESTRINJO");
+        this.amigos=contactos;
+        return false
+      }
       resultado.marcado = 1;
       resultado.iniciales = this.iniciales(resultado.nombre);
       this.amigos = contactos;

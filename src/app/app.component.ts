@@ -21,6 +21,7 @@ import { AmigosPage } from './pages/modulos/amigos/amigos.page';
 import { IngresoDineroPage } from './pages/modulos/ingreso-dinero/ingreso-dinero.page';
 import { PermisoService } from './service/permiso.service';
 import { FcmService } from './service/fcm.service';
+import { NavigationEnd } from '@angular/router';
 import { Router } from '@angular/router';
 import { NavigationStart } from '@angular/router';
 
@@ -55,23 +56,28 @@ export class AppComponent implements OnInit {
     this.statusBar.backgroundColorByHexString('#000000');
     // AppComponent._this = this;
 
-    this.Router.events.subscribe(async event => {
+    this.Router.events.subscribe(async (event) => {
       if (event instanceof NavigationStart) {
-        if ((event.url.toString()) !== '' || (event.url.toString() !== '/home') || (event.url.toString() !== '/welcome')){
-          Observable.notify("SlashHide",false);
+        if (event.url.toString() != "/home" && event.url.toString() != "") {
+          if (localStorage.getItem("token") != undefined) {
+            console.log("REVISANDO PERMISOS");
+            await this.permisoService.puede(event.url.substring(1, event.url.length)).then(data => {
+              console.log("SALE BIEN " + event.url);
+              return;
+            }).catch(data => {
+              console.log("SALE MAL");
+              /*aca deberia ir a una pantalla de acceso denegado */
+              if (event.url.toString() != "/home" && event.url.toString() != "" && event.url.toString() != "/ingreso" && event.url.toString() != "/welcome") {
+                this.Router.navigate(['/accesodenegado']);
+              }
+            });
+          }
         }
-        if (localStorage.getItem("token") != undefined) {
-          console.log("REVISANDO PERMISOS");
-          await this.permisoService.puede(event.url.substring(1,event.url.length)).then(data => {
-            console.log("SALE BIEN "+event.url);
-          }).catch(data => {
-            console.log("SALE MAL");
-            /*aca deberia ir a una pantalla de acceso denegado */
-            if (event.url.toString() != "/home" || event.url.toString()!=""){
-              this.Router.navigate(['/accesodenegado']);
-              Observable.notify("SlashHide",false);
-            }
-          })
+      }
+      if (event instanceof NavigationEnd) {
+        console.log(event.url);
+        if ((event.url.toString()) !== '' && (event.url.toString() !== '/home') && (event.url.toString() !== '/welcome')) {
+          Observable.notify("SlashHide", false);
         }
       }
     });

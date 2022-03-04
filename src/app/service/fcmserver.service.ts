@@ -2,6 +2,7 @@ import { ServiceService } from './service.service';
 import { Platform } from '@ionic/angular';
 import { Injectable } from '@angular/core';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
+
 interface checkToken {
   data: any;
   check: any;
@@ -33,9 +34,9 @@ export class FCMServerService extends ServiceService{
         }
         var device;
         if (platform.is("ios") || platform.is("android")) {
-            uniqueDeviceID.get()
+            await uniqueDeviceID.get()
                 .then((uuid: any) => device = (uuid))
-                .catch((error: any) => console.log(error));
+                .catch((error: any) => device = Math.random() + Date.now().toString());
         }
         else {
             device = Math.random() + Date.now().toString();
@@ -65,12 +66,14 @@ async refresherToken(token: string, tipo, uniqueDeviceID) {
     var check = 0;
     let device = uniqueDeviceID;
     // let oldtoken = localStorage.getItem("tokenFCM");
+    console.log("Registrando Token");
     let cuentas = JSON.parse(localStorage.getItem("cuentas"));
     return cuentas.forEach(async cuenta=>{
       httpOption.headers.token = cuenta.token;
       var postParams = ({ token: token, tipo: tipo, identificador_dispositivo: device });
       this.post<tokenReceive>('api/fcm/refresh', postParams, httpOption)
           .subscribe(async (data) => {
+            console.log(JSON.stringify(data));
               if (data.ejecucion_correcta == "1"){
                   await localStorage.setItem("token", token);
                   return token;
@@ -85,6 +88,7 @@ refreshToken(token, platform,deviceID?,tipo?) {
     else{
       device = deviceID;
     }
+    console.log("Refrescando token "+token);
     this.refresherToken(token, tipo, device);
 }
 

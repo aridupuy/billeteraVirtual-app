@@ -81,21 +81,21 @@ export class FilterPage {
 //                    2022-01-23T13:58:54.891-03:00
 
                 /*ayer */
-                this.form.value.desde=fecha.format("YYYY-MM-DDTHH:mm:ss.ms-03:00");
-                this.form.value.hasta=fecha.subtract(1,"d").format("YYYY-MM-DDTHH:mm:ss.ms-03:00");
+                this.form.value.hasta=fecha.format("YYYY-MM-DDTHH:mm:ss.ms-03:00");
+                this.form.value.desde=fecha.subtract(1,"d").format("YYYY-MM-DDTHH:mm:ss.ms-03:00");
                 break;
             case 2:
             case "2":
                 /*Semana*/
-                this.form.value.desde=fecha.format("YYYY-MM-DDTHH:mm:ss.ms-03:00");
-                this.form.value.hasta=fecha.subtract(1,"w").format("YYYY-MM-DDTHH:mm:ss.ms-03:00");
+                this.form.value.hasta=fecha.format("YYYY-MM-DDTHH:mm:ss.ms-03:00");
+                this.form.value.desde=fecha.subtract(1,"w").format("YYYY-MM-DDTHH:mm:ss.ms-03:00");
                 // this.form.value.=;
                 break;
             case 3:
             case "3":
                 /*Mes*/
-                this.form.value.desde=fecha.format("YYYY-MM-DDTHH:mm:ss.ms-03:00");
-                this.form.value.hasta=fecha.subtract(1,"M").format("YYYY-MM-DDTHH:mm:ss.ms-03:00");
+                this.form.value.hasta=fecha.format("YYYY-MM-DDTHH:mm:ss.ms-03:00");
+                this.form.value.desde=fecha.subtract(1,"M").format("YYYY-MM-DDTHH:mm:ss.ms-03:00");
                 break;
         }
     }

@@ -36,14 +36,16 @@ export class AmigosPage implements OnInit {
   }
 
   ionViewDidEnter(): void {
-    this.ngOnInit();
+    this.cargarData();
   }
   ngOnInit(){
-    this.cargarData();
-    console.log(this.historial_pedidos);
+    
   }
-  cargarData(){
-    this.contacto.obtener_pedidos_dinero().then((data:any[])=>{
+  async cargarData(){
+    this.pedidos=[];
+    this.envios=[];
+    this.historial_pedidos=[];
+    await this.contacto.obtener_pedidos_dinero().then((data:any[])=>{
       console.log("aca2");
       console.log(data);
       data.forEach(d=>{
@@ -60,10 +62,24 @@ export class AmigosPage implements OnInit {
     }).catch(err=>{
       this.envios=[];
     });
+    this.envios=await this.envios.sort((a,b)=>{
+      console.log("ordenar fecha");
+      console.log(a.fecha);
+      console.log(b.fecha);
+      if(a.fecha<b.fecha)
+        return 1
+      if(a.fecha==b.fecha)
+          return 0
+      if(a.fecha>b.fecha)
+        return -1
+    });
+   
     // console.log(this.envios);
-    this.contacto.obtener_pedidos_dinero_otros().then((data:any[])=>{
+    await this.contacto.obtener_pedidos_dinero_otros().then((data:any[])=>{
       // console.log("aca");
+      // console.log(data);
       data.forEach(d=>{
+        console.log(d);
         d["iniciales"]=d.nombre
         .split(' ')
         .map( it => it.charAt(0) )
@@ -75,8 +91,23 @@ export class AmigosPage implements OnInit {
     }).catch(err=>{
       this.pedidos=[];
     });
-    this.contacto.obtener_historial_envios(this.offset,this.limit).then((data:any[])=>{
+    
+    console.log("ordenando pedidos");
+    this.pedidos=await this.pedidos.sort((a,b)=>{
+      console.log("ordenar fecha");
+      console.log(a.fecha);
+      console.log(b.fecha);
+      if(a.fecha<b.fecha)
+        return 1
+      if(a.fecha==b.fecha)
+          return 0
+      if(a.fecha>b.fecha)
+        return -1
+    });
+   
+    await   this.contacto.obtener_historial_envios(this.offset,this.limit).then((data:any[])=>{
       // console.log("aca3");
+      // console.log(data);
       data.forEach(d=>{
         
         data.forEach(d=>{
@@ -120,8 +151,22 @@ export class AmigosPage implements OnInit {
       });
       // console.log(this.historial_pedidos);
     });
-
+   
+    this.historial_pedidos=this.historial_pedidos.sort((a,b)=>{
+      console.log("ordenar fecha");
+      console.log(a.fecha);
+      console.log(b.fecha);
+      if(a.fecha<b.fecha)
+        return 1
+      if(a.fecha==b.fecha)
+          return 0
+      if(a.fecha>b.fecha)
+        return -1
+    });
   }
+
+
+  ordenar_fecha
   fecha_espaniol(fecha){
   
     switch(fecha){
@@ -186,7 +231,7 @@ export class AmigosPage implements OnInit {
         param: JSON.stringify({persona:persona,deuda:deuda,url:"amigos"})
       }
     };
-    this.navCtrl.navigateRoot("pagar",navigationExtras);
+    this.navCtrl.navigateForward("pagar",navigationExtras);
     console.log(item);
   }
   rechazar(item){
