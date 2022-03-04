@@ -27,7 +27,8 @@ export class PatronGuard implements CanActivate {
     state: RouterStateSnapshot): Promise<boolean> {
 
     return await new Promise(async (resolve, reject) => {
-      if (!this.platfrom.is('mobile')) {
+      console.log("Procesando PIN para "+JSON.stringify(this.platfrom.platforms()));
+      if (!this.platfrom.is('mobile') && !this.platfrom.is('android') && !this.platfrom.is('ios')) {
         console.log("no es mobile");
         return resolve(true);
       }
@@ -120,8 +121,10 @@ export class PatronGuard implements CanActivate {
               await Observable.notify("novalido",false);
             })
             await modal.present();
+            Observable.notify("SlashHide", false);
           });
           modal.present();
+          Observable.notify("SlashHide", false);
         });
        await Observable.notify("novalido",true);
     break;

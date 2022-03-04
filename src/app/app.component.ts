@@ -261,7 +261,7 @@ export class AppComponent implements OnInit {
   async mostrarModal(tipo) {
     console.log(localStorage.getItem("modal-abierto"));
     Observable.notify("SlashHide",false);
-    if (AppComponent.modal_abierto == 1) {
+    if (AppComponent.modal_abierto == 1 || localStorage.getItem("pin")==undefined) {
       // console.log("no abre");
       Observable.notify("SlashHide",false);
       return false;

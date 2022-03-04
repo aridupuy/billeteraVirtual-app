@@ -29,7 +29,7 @@ export class HomePage implements OnInit, ViewDidEnter {
   public TotalUsuario;
   public noliquidadoUsuario;
   public validado = false;
-  public validacion_manual=false;
+  public validacion_manual = false;
   public mensaje = "";
   public cargandoSaldo = true;
   static select = '1';
@@ -54,27 +54,27 @@ export class HomePage implements OnInit, ViewDidEnter {
   public celular;
   primero = true;
   nuevo = false;
-  constructor(public modalCtrl: ModalController, public navCtl: NavController, private menu: MenuController, public validaMail: ValidacionMailService, public validaCel: ValidacionCelService, public saldoService: SaldoService, public transaccionesService: TransaccionesService, public route: ActivatedRoute, public router: Router, public usuarioService: UsuarioService, public libs: Libs, public menuService: MenuserviceService,public notiService:NotificacionesService,public fcm:FcmService) { }
+  constructor(public modalCtrl: ModalController, public navCtl: NavController, private menu: MenuController, public validaMail: ValidacionMailService, public validaCel: ValidacionCelService, public saldoService: SaldoService, public transaccionesService: TransaccionesService, public route: ActivatedRoute, public router: Router, public usuarioService: UsuarioService, public libs: Libs, public menuService: MenuserviceService, public notiService: NotificacionesService, public fcm: FcmService) { }
   ionViewDidEnter(): void {
     this.obtener_estado();
-    this.fcm.getToken().then(()=>{
-      Observable.notify("SlashHide",false);
+    this.fcm.getToken().then(() => {
+      Observable.notify("SlashHide", false);
     });
     let vars = this.fcm.obtener_data_notificacion();
     console.log("ACA NOTIFICACION TAP")
-    console.log(vars);    
+    console.log(vars);
 
     // this.fcm.onNotifications();
-    if(this.primero){
-      this.primero=false;
-      
-      Observable.suscribe("notificacion-nueva",(data)=>{
+    if (this.primero) {
+      this.primero = false;
+
+      Observable.suscribe("notificacion-nueva", (data) => {
         this.nuevo = true
-     })
+      })
     }
     this.validarNotificaciones();
   }
-  async obtener_estado(){
+  async obtener_estado() {
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
     if (this.route.snapshot.queryParamMap.has("param")) {
       this.valida_ident = p.valida_ident;
@@ -85,8 +85,8 @@ export class HomePage implements OnInit, ViewDidEnter {
       this.celular = p.celular;
       AppComponent.validado = p.valido ? p.valido : false;
       this.validado = false;
-      if("validacion_manual" in p)
-        this.validacion_manual=p.validacion_manual;
+      if ("validacion_manual" in p)
+        this.validacion_manual = p.validacion_manual;
       let cuentas = JSON.parse(localStorage.getItem("cuentas"));
       if (cuentas.length == 1) {
         this.muestro_menu = AppComponent.validado && !this.validacion_manual;
@@ -100,9 +100,9 @@ export class HomePage implements OnInit, ViewDidEnter {
       this.cargar_transacciones();
     }
 
-    await this.notiService.obtener_notificaciones().then(data=>{
+    await this.notiService.obtener_notificaciones().then(data => {
       localStorage.removeItem("notification");
-      localStorage.setItem("notification",JSON.stringify(data));
+      localStorage.setItem("notification", JSON.stringify(data));
       this.validarNotificaciones();
     })
   }
@@ -114,7 +114,7 @@ export class HomePage implements OnInit, ViewDidEnter {
   }
 
 
-  cantidad_cuentas(){
+  cantidad_cuentas() {
     return localStorage.getItem("cuentas").length;
   }
 
@@ -182,9 +182,9 @@ export class HomePage implements OnInit, ViewDidEnter {
   }
   async obtener_saldo() {
     await this.saldoService.obtener_all().then((data: any) => {
-      this.saldoUsuario = data.saldo_actual>1000?formatCurrency(data.saldo_actual, 'es-AR', '$', 'ARS', '4.2-2'):formatCurrency(data.saldo_actual, 'es-AR', '$', 'ARS', '3.2-2');
-      this.TotalUsuario = data.saldo_actual>1000?formatCurrency(data.saldo_total, 'es-AR', '$', 'ARS', '4.2-2'):formatCurrency(data.saldo_actual, 'es-AR', '$', 'ARS', '3.2-2');
-      this.noliquidadoUsuario =data.saldo_actual>1000?formatCurrency(data.saldo_no_liquidado, 'es-AR', '$', 'ARS', '4.2-2'):formatCurrency(data.saldo_actual, 'es-AR', '$', 'ARS', '3.2-2');
+      this.saldoUsuario = data.saldo_actual > 1000 ? formatCurrency(data.saldo_actual, 'es-AR', '$', 'ARS', '4.2-2') : formatCurrency(data.saldo_actual, 'es-AR', '$', 'ARS', '3.2-2');
+      this.TotalUsuario = data.saldo_actual > 1000 ? formatCurrency(data.saldo_total, 'es-AR', '$', 'ARS', '4.2-2') : formatCurrency(data.saldo_actual, 'es-AR', '$', 'ARS', '3.2-2');
+      this.noliquidadoUsuario = data.saldo_actual > 1000 ? formatCurrency(data.saldo_no_liquidado, 'es-AR', '$', 'ARS', '4.2-2') : formatCurrency(data.saldo_actual, 'es-AR', '$', 'ARS', '3.2-2');
       this.cargandoSaldo = false;
     });
   }
@@ -228,7 +228,7 @@ export class HomePage implements OnInit, ViewDidEnter {
         i++;
       }
       this.itemback = this.items;
-      
+
     });
 
 
@@ -318,11 +318,11 @@ export class HomePage implements OnInit, ViewDidEnter {
           this.celular = data.celular;
           localStorage.setItem("nombre", this.username);
           this.iniciales = data.nombre
-          .charAt(0)
-          .toUpperCase()
-          + data.apellido
             .charAt(0)
-            .toUpperCase();
+            .toUpperCase()
+            + data.apellido
+              .charAt(0)
+              .toUpperCase();
           localStorage.setItem("iniciales", this.iniciales);
           localStorage.setItem("mail", this.mail);
         });
@@ -416,7 +416,7 @@ export class HomePage implements OnInit, ViewDidEnter {
     //this.navCtl.navigateForward("detalle-transaccion",);
   }
 
-  
+
   async validarNotificaciones() {
     console.log("validando");
     var notifs = JSON.parse(localStorage.getItem("notification"));
@@ -424,9 +424,9 @@ export class HomePage implements OnInit, ViewDidEnter {
       return false;
     }
     notifs = Object.values(notifs);
-    this.nuevo=false;
-    for(let element of notifs ){
-      if (!this.nuevo && element.visto=='f') {
+    this.nuevo = false;
+    for (let element of notifs) {
+      if (!this.nuevo && element.visto == 'f') {
         this.nuevo = true;
         return this.nuevo;
       }
