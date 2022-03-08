@@ -1,4 +1,5 @@
 import { UsuarioService } from '../../../service/usuario.service';
+import { Platform } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -9,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 export class MenuprincipalPage implements OnInit {
   public usuario;
   public iniciales;
-  constructor(public usuarioService:UsuarioService) { }
+  constructor(public usuarioService:UsuarioService,public platform:Platform) { }
 
   ngOnInit() {
     let nombre =  localStorage.getItem("nombre");
@@ -35,7 +36,9 @@ export class MenuprincipalPage implements OnInit {
         localStorage.setItem("iniciales",this.iniciales);
         console.log(this.usuario);
     });
-
+    if(this.platform.is("cordova") && (!this.platform.is("android") && !this.platform.is("ios"))){
+        alert("web");
+    }
   }
   
 }

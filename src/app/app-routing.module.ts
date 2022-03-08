@@ -470,7 +470,11 @@ const routes: Routes = [
   {
     path: 'IrAtras',
     loadChildren: () => import('./pages/modulos/home/home.module').then( m => m.HomePageModule)
+  },  {
+    path: 'lotedetransferencia',
+    loadChildren: () => import('./pages/modulos/lotedetransferencia/lotedetransferencia.module').then( m => m.LotedetransferenciaPageModule)
   },
+
 
 
   

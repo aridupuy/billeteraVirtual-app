@@ -78,6 +78,39 @@
   overflow: initial;
   text-overflow: ellipsis;
 }
+
+
+
+@media (min-width: 600px) {
+  .home-main .contenedor-90 .button-container{
+    align-content: start;
+    max-height: 40em;
+    border-radius: inherit;
+    margin: 1em 1em 1em 1em;
+  }
+  .mt-10{
+    margin-top: 0px;
+  }
+  .lista-ultimos-movimientos{
+    border-radius: inherit;
+    margin: 1em 1em 1em 1em;
+    max-height: 40em;
+  }
+  .botonera{
+    display: none !important;
+  }
+}
+
+@media (min-width: 600px) {
+
+  .opcion-menu{
+      display: none !important;
+      visibility: hidden !important;
+  }
+}
+
+
+
 .logout>img{
   display: none;
 }

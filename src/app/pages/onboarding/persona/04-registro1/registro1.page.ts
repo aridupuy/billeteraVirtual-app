@@ -82,7 +82,7 @@ export class Registro1Page implements OnInit {
     return this.cod_pais.nativeElement.innerHTML.replace("+", "");
   }
   validar_celular() {
-    
+    console.log("aca validar_celular");
     let libs = new Libs();
     if (libs.validar_celular(this.obtener_codigo_pais() , this.codArea , this.celular)) {
       this.errorCel = false;
@@ -99,7 +99,7 @@ export class Registro1Page implements OnInit {
   //   // return true;
   // }
   validar_mail(){
-
+    console.log("aca validar_mail");
     let libs = new Libs();
     if(libs.validar_mail(this.mail.toString())){
       this.errorMail = true;

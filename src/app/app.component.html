@@ -22,8 +22,8 @@
             <p>Inicio</p>
           </a>
           <a (click)="Ir(item.path)" class="opcion-menu" *ngFor="let item of grupo.value ">
-            <img [src]="item.icono" alt="">
-            <p>{{item.nombre}}</p>
+            <img [src]="item.icono" alt="" *ngIf="validar(item)">
+            <p *ngIf="validar(item)">{{item.nombre}}</p>
           </a>
         </div>
         <div class="menu-lista">

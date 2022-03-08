@@ -21,6 +21,7 @@ import { AmigosPage } from './pages/modulos/amigos/amigos.page';
 import { IngresoDineroPage } from './pages/modulos/ingreso-dinero/ingreso-dinero.page';
 import { PermisoService } from './service/permiso.service';
 import { FcmService } from './service/fcm.service';
+import { isUndefined } from '../../plugins/cordova-plugin-advanced-http/www/umd-tough-cookie';
 import { NavigationEnd } from '@angular/router';
 import { Router } from '@angular/router';
 import { NavigationStart } from '@angular/router';
@@ -45,11 +46,11 @@ export class AppComponent implements OnInit {
   public static token;
   public static validado = true;
   // public static _this;
-  constructor(public permisoService: PermisoService, public Router: Router, private platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen, private pago: Pago, public service: ServiceService, public modalCtrl: ModalController, public usuarioService: UsuarioService, public navCtrl: NavController,public fcm:FcmService) {
+  constructor(public permisoService: PermisoService, public Router: Router, private platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen, private pago: Pago, public service: ServiceService, public modalCtrl: ModalController, public usuarioService: UsuarioService, public navCtrl: NavController, public fcm: FcmService) {
     // console.log(platform.is("cordova"));
     this.splashScreen.show();
-    Observable.suscribe("tapNoti",(nav)=>{
-      this.Router.navigate(['/'+nav]);
+    Observable.suscribe("tapNoti", (nav) => {
+      this.Router.navigate(['/' + nav]);
     })
     environment.mobile = platform.is("cordova");
     this.statusBar.overlaysWebView(false);
@@ -59,18 +60,21 @@ export class AppComponent implements OnInit {
     this.Router.events.subscribe(async (event) => {
       if (event instanceof NavigationStart) {
         if (event.url.toString() != "/home" && event.url.toString() != "") {
-          if (localStorage.getItem("token") != undefined) {
+          console.log(localStorage.getItem("token"));
+          if (localStorage.getItem("token") != undefined && localStorage.getItem("token") != "undefined" && localStorage.getItem("token") != "false") {
             console.log("REVISANDO PERMISOS");
-            await this.permisoService.puede(event.url.substring(1, event.url.length)).then(data => {
-              console.log("SALE BIEN " + event.url);
-              return;
-            }).catch(data => {
-              console.log("SALE MAL");
-              /*aca deberia ir a una pantalla de acceso denegado */
-              if (event.url.toString() != "/home" && event.url.toString() != "" && event.url.toString() != "/ingreso" && event.url.toString() != "/welcome") {
+            if (!["/home", "", "/ingreso", "/welcome", "/personapfpj"].includes(event.url.toString()))
+              await this.permisoService.puede(event.url.substring(1, event.url.length)).then(data => {
+                console.log("SALE BIEN " + event.url);
+                return;
+              }).catch(data => {
+                console.log("SALE MAL"+ event.url);
+                /*aca deberia ir a una pantalla de acceso denegado */
+
+                // if (event.url.toString() != "/home" && event.url.toString() != "" && event.url.toString() != "/ingreso" && event.url.toString() != "/welcome") {
                 this.Router.navigate(['/accesodenegado']);
-              }
-            });
+                //}
+              });
           }
         }
       }
@@ -81,9 +85,9 @@ export class AppComponent implements OnInit {
         }
       }
     });
-    
+
   }
- 
+
   mostrar_menu() {
     return AppComponent.login;
   }
@@ -98,7 +102,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
 
     console.log("ngOnInit");
-    
+
     //localStorage.setItem("modalValidado","0");
     localStorage.setItem("modalAbiero", "0");
     let nombre = localStorage.getItem("nombre");
@@ -114,11 +118,11 @@ export class AppComponent implements OnInit {
       this.usuarioService.obtener_mis_datos().then((data: any) => {
         this.usuario = data.nombre_completo;
         this.iniciales = data.nombre
-        .charAt(0)
-        .toUpperCase()
-        + data.apellido
           .charAt(0)
-          .toUpperCase();
+          .toUpperCase()
+          + data.apellido
+            .charAt(0)
+            .toUpperCase();
         // console.log("aca");
         localStorage.setItem("nombre", this.usuario);
         localStorage.setItem("iniciales", this.iniciales);
@@ -138,15 +142,17 @@ export class AppComponent implements OnInit {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       // console.log("SPLASH_HIDE");
-      
-      
+
+
       // AppComponent.cargando=false;
       // document.addEventListener("resume", this.onDeviceresume, false);
-      document.onpause = this.onPause;
+      // document.onpause = this.onPause;
+      
+      document.addEventListener("stopped", this.onStop, false);
       document.addEventListener("pause", this.onPause, false);
       document.addEventListener("resume", this.onDeviceresume, false);
       document.addEventListener("freeze", this.onPause, false);
-     
+
 
       /*Esto es un test para mas adelante */
       Deeplinks.routeWithNavController(this.navCtrl, {
@@ -160,16 +166,17 @@ export class AppComponent implements OnInit {
       });
       this.pago.registrar_observer();
     });
-    
-    Observable.suscribe("SlashHide",(data)=>{
+
+    Observable.suscribe("SlashHide", (data) => {
       console.log("Termina");
-      setTimeout(()=>{
+      setTimeout(() => {
         this.splashScreen.hide();
         AppComponent.splash = false;
-      },100);
-      
+        document.getElementById("splash").setAttribute("class", "noVisible");
+      }, 10);
+
     })
-    
+
   }
   Ir(path) {
     this.navCtrl.navigateForward(path);
@@ -215,10 +222,8 @@ export class AppComponent implements OnInit {
     return AppComponent.cargando;
   }
   getSplash() {
-    // if(AppComponent.splash)console.log("MUESTRO SPLASH");
-    //return AppComponent.splash;
     if (document.getElementById("splash") == null) {
-      return true;
+      return false;
     }
     if (AppComponent.splash == false) {
       document.getElementById("splash").setAttribute("class", "noVisible");
@@ -229,26 +234,46 @@ export class AppComponent implements OnInit {
     return true;
 
   }
+
+    validar(item){
+      if(["Amigos","Usuarios","Ingreso de dinero","Transferir dinero","Retiro de dinero"].includes(item.nombre) && this.platform.is("desktop") && (!this.platform.is("android") && !this.platform.is("ios"))){
+          return false;
+      }
+      else{
+        if(["lotedetransferencia"].includes(item.nombre)&& !(this.platform.is("desktop") && (!this.platform.is("android") && !this.platform.is("ios")))){
+          return false;
+        }
+      }
+      return true;
+    }
+
   onDeviceresume = () => {
-    AppComponent.splash = true;
-    
+    AppComponent.splash = false;
     document.getElementById("splash").setAttribute("class", "noVisible");
+    Observable.notify("SlashHide", false);
     console.log(localStorage.getItem("modalAbiero"));
     if (localStorage.getItem("modalAbiero") == '0') {
       if (localStorage.getItem("token") != "false" && localStorage.getItem("token") != null && localStorage.getItem("token") != "" && localStorage.getItem("onboarding") == null && localStorage.getItem("onboarding") != "1") {
         localStorage.setItem("inBackground", "1");
         localStorage.setItem("modalValidado", "0");
         this.mostrarModal("validar");
-        
+
       }
     }
   }
 
   onPause = () => {
-    // console.log("ONPAUSE");
-    // console.dir(AppComponent);
-    AppComponent.splash = true;
-    document.getElementById("splash").setAttribute("class", "visible");
+    if(localStorage.getItem("token")!=="undefined" && localStorage.getItem("token")!=="false"){
+        console.log("aca");
+        AppComponent.splash = true;
+        document.getElementById("splash").setAttribute("class", "visible");
+    }
+
+  }
+
+  onStop = () => {
+    console.log("onStop");
+
   }
 
   validarClave(clave1, clave2): Boolean {
@@ -259,11 +284,10 @@ export class AppComponent implements OnInit {
   }
 
   async mostrarModal(tipo) {
-    console.log(localStorage.getItem("modal-abierto"));
-    Observable.notify("SlashHide",false);
-    if (AppComponent.modal_abierto == 1 || localStorage.getItem("pin")==undefined) {
+    Observable.notify("SlashHide", false);
+    if (AppComponent.modal_abierto == 1 || localStorage.getItem("pin") == undefined) {
       // console.log("no abre");
-      Observable.notify("SlashHide",false);
+      Observable.notify("SlashHide", false);
       return false;
     }
     else {
@@ -277,7 +301,7 @@ export class AppComponent implements OnInit {
     modal2.onDidDismiss().then(async (modalDataResponse) => {
       let clave1;
       // AppComponent.splash = false;
-      Observable.notify("SlashHide",false);
+      Observable.notify("SlashHide", false);
       // console.log(modalDataResponse);
       clave1 = modalDataResponse.data;
       localStorage.setItem("inBackground", "0");
@@ -287,10 +311,10 @@ export class AppComponent implements OnInit {
     });
     AppComponent.modal_abierto = 1;
     // console.log("MODAL ABIERTO setitem 1");
-    await modal2.present().then(()=>{
-      Observable.notify("SlashHide",false);
+    await modal2.present().then(() => {
+      Observable.notify("SlashHide", false);
     });
-    
+
 
   }
 
