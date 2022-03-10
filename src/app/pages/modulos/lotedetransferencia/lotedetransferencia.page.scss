@@ -1,0 +1,240 @@
+
+@import "../../../../global.scss";
+.flex{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: auto;
+    align-self: center;
+    margin-right: auto;
+
+}
+.home-main{
+    background-color: #80808005;
+}
+.contenido{
+    margin: 2em;
+    border-radius: 2em;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+
+}
+h2,h4{
+    color: $principal;
+    font-size: xx-large;
+}
+.center{
+    text-align: center;
+}
+.oscurecido{
+    background: #f8f8f8;
+}
+.botones{
+    display: flex;
+    flex-direction: row;
+    .boton{
+        width: 10em;
+        height: 3em;
+        border-radius: 1em 1em 0em 0em;
+        display: flex;
+        span{
+            color: $btn-inactivo-txt;
+            text-align: center;
+            font-weight: 600;
+            flex: auto;
+            align-self: center;
+        }
+        
+    }
+    .active{
+        span{
+            color: $principal !important;
+        }
+        background: #d3d3d37a;
+    }
+}
+.subir-archivos{
+    width: 100%;
+    margin: 35px 0;
+    height: auto;
+    min-height: 14vw;
+    padding: 20px;
+    position: relative;
+    // border: 1px dotted rgba(97, 97, 97, 0.5);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    transition: all 0.3s ease;
+    
+    .txt-subir-archivos{
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        
+        .icono-subir{
+            width: 6%;
+            margin-bottom: 20px;
+            .archivo-no-cargado{
+                background: url("../../../../assets/img/icono-excel.svg") no-repeat center;
+                height: 5em;
+                display: flex;
+                margin-left: -50%;
+            }
+            .archivo-cargado {
+                background: url("../../../../assets/img/icono-excel_1.svg") no-repeat center;
+                width: 100;
+                height: 5em;
+                display: flex;
+                margin-left: -50%;
+            }
+            .txt-subir{
+                width: 50%;
+                text-align: center;
+                color: #616161;
+                font-size: 180%;
+                font-weight: 500;
+                opacity: 0.5;
+            }
+        }
+        .button .btn-examinar{
+            width: auto;
+            min-width: 15%;
+            margin-top: 20px;
+            padding: 10px;
+            text-align: center;
+            text-transform: uppercase;
+            border-radius: 5px;
+            border: 2px solid #EF0911;
+            background: none;
+            color: #EF0911;
+            font-weight: 500;
+        }
+    }
+    #archivo {
+        z-index: 199;
+        width: 1110%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+    }
+    
+}
+.row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    
+}
+.subir-archivos{
+    background-color: white;
+    width: 66%;
+    justify-content: center;
+    align-items: center;
+    left: auto;
+    right: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+.izquierda{
+    justify-content: end;
+    width: 100%;
+    div{
+        margin: 1em;
+    }
+}
+.filtros{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 73%;
+    margin: 1em;
+}
+.filtro{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    span{
+        font-size: medium;
+        font-weight: 500;
+    }
+    input{
+        background-color: #eaeced;
+        border: none;
+        height: 2.4em;
+        
+    }
+    select{
+        background-color: #eaeced;
+        border: none;
+        height: 2.4em;
+    }
+    .fecha{
+        margin: 1em;
+        width: 30%;
+    }
+}
+.table{
+    // width: 50%;
+    // margin: auto;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    .thead{
+        display: flex;
+        margin-bottom: 5%;
+        font-size: medium;
+        font-weight: 800;
+        .tr{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            width: 100%;
+            margin: 1em;
+            
+        }
+    }
+    .tbody{
+        display: flex;
+        flex-direction: row;
+        .tr{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            width: 100%;
+            align-items: center;
+            margin: 1.5em;
+            border-bottom: 2px solid #dbdbdb;
+        }
+        .aprobado{
+            background: #09b59a;
+            border-radius: 1em;
+            padding: 0.4em;
+            color: white;
+            text-align: center;
+        }
+        .pendiente{
+            background: #6e03ff;
+            border-radius: 1em;
+            padding: 0.4em;
+            text-align: center;
+            color: white;
+        }
+        .rechazada{
+            background: #ff3f49;
+            border-radius: 1em;
+            padding: 0.4em;
+            color: white;
+            text-align: center;
+        }
+    }
+}

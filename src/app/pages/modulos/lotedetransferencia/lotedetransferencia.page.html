@@ -1,9 +1,201 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>lotedetransferencia</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+  <section class="home-main">
+    <div class="contenedor-90">
+      <div class="user-header">
+        <div class="home-header">
+          <ion-menu-button color="primary" menu="menuPrincipal" type="reset"></ion-menu-button>
+        </div>
+        <div class="flex">
+          <img src="../../../../assets/img/logo-text-negro.svg">
+        </div>
+      </div>
+      <h2 class="ml-3">Lote de transferencias</h2>
+      <div class="contenido">
+        <div class="botones">
+          <div class="boton active" *ngIf="vistas['cargar']">
+            <span (click)="cambiar('cargar')">Carga de archivo</span>
+          </div>
+          <div class="boton" *ngIf="!vistas['cargar']">
+            <span (click)="cambiar('cargar')">Carga de archivo</span>
+          </div>
+          <div class="boton active" *ngIf="vistas['lista']">
+            <span (click)="cambiar('lista')">Lista de archivo</span>
+          </div>
+          <div class="boton" *ngIf="!vistas['lista']">
+            <span (click)="cambiar('lista')">Lista de archivo</span>
+          </div>
+          <div class="boton active" *ngIf="vistas['transferencias']">
+            <span (click)="cambiar('transferencias')">Transferencias</span>
+          </div>
+          <div class="boton" *ngIf="!vistas['transferencias']">
+            <span (click)="cambiar('transferencias')">Transferencias</span>
+          </div>
+        </div>
+        <div class="oscurecido" *ngIf="vistas['cargar']">
+          <h4 class="center">¿Necesitas realizar un lote de transferencias?</h4>
+          <div class="subir-archivos" id="holder" #holder>
+            <div class="txt-subir-archivos">
+              <div class="icono-subir">
+                <div id="iconexcel" #iconexcel class="archivo-no-cargado">
+                </div>
+              </div>
+              <div class="txt-subir" #txtsubir>Subir archivo de Debitos</div>
+              <label><span class="box__dragndrop" #box> o Arrastrelo aqui.</span>.</label>
+            </div>
+            <input type="file" class="carga-file" #archivo id="archivo" style="display: inherit!important"
+              (change)="change($event)">
+            <div type="" class="btn-round activo">Examinar</div>
+          </div>
+          <div>
+            <div class="row">
+              <div>
+                <div type="" class="btn-round outline">Descargar archivo modelo</div>
+              </div>
+              <div>
+                <div type="" class="btn-round activo">Continuar</div>
+              </div>
 
+            </div>
+          </div>
+        </div>
+        <div class="oscurecido" *ngIf="vistas['lista']">
+          <div class="filtros">
+            <div class="filtro">
+              <div>
+                <span>Fecha</span>
+              </div>
+              <div>
+                <input type="date" placeholder="desde" class="fecha">
+                <input type="date" placeholder="hasta" class="fecha">
+              </div>
+            </div>
+            <div class="filtro">
+              <span>Nombre de Archivo</span>
+              <input type="text" placeholder="Archivo">
+            </div>
+            <div class="filtro">
+              <span>Estado</span>
+              <select>
+                <option>Activo</option>
+                <option>Inactivo</option>
+                <option>Pendiente</option>
+                <option>Rechazado</option>
+              </select>
+            </div>
+          </div>
+          <div class="row izquierda">
+            <div>
+              <div type="" class="btn-round outline">limpiar</div>
+            </div>
+            <div>
+              <div type="" class="btn-round activo">Continuar</div>
+            </div>
+
+          </div>
+          <div class="table">
+            <div class="thead">
+              <div class="tr">
+                <div><input type="checkbox"></div>
+                <div>Fecha</div>
+                <div>Nombre del archivo</div>
+                <div>ID_transferencia</div>
+                <div>Estado</div>
+                <div></div>
+              </div>
+              <div></div>
+            </div>
+            <div class="tbody" *ngFor="let item of [1,2,3,4,5,6,7,8,9]">
+              <!--ACA VA EL FOR-->
+              <div class="tr">
+                <div><input type="checkbox"></div>
+                  <div>10/11/2021</div>
+                    <div>Pago a proveedores</div>
+                      <div>00001</div>
+                <div class="aprobado" *ngIf="false">Aprobada</div>
+                <div class="rechazada" *ngIf="true">Rechazada</div>
+                <div class="pendiente" *ngIf="false">Pendiente</div>
+                <div><a>Descargar</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
 </ion-content>
+
+
+<script>
+  /*
+   var oculto = false
+
+    $("#actualiza_clientes").click(function () {
+        $("#alta_clientes").prop("checked", false).prop("value", 0);
+        //$("#actualiza_clientes").prop("checked", false).prop("value", 0);
+        $("#alta_clientes").siblings("label").attr("style", "");
+        //        if ($("#alta_clientes").attr('checked') != 'checked'){
+        if (!$(this).prop("checked") == false) {
+            $("#ocultable").show();
+            $(this).siblings("label").attr("style", "background-position: 0 -15px;");
+            $(this).prop("checked", true);
+            $(this).prop("value", 1);
+            $("#pop-info-debito").show();
+        } else {
+            $("#ocultable").hide();
+            $("label").attr("style", "");
+            $(this).siblings("label").attr("style", "");
+            $(this).prop("checked", false);
+            $(this).prop("value", 0);
+            $("#pop-info-debito").hide();
+        }
+
+    })
+    $("#alta_clientes").click(function () {
+        //$("#alta_clientes").prop("checked", false).prop("value", 0);
+        $("#actualiza_clientes").prop("checked", false).prop("value", 0);
+        $("#actualiza_clientes").siblings("label").attr("style", "");
+        if (!$(this).prop("checked") == false) {
+            $("#ocultable").show();
+            $(this).siblings("label").attr("style", "background-position: 0 -15px;");
+            $(this).prop("checked", true);
+            $(this).prop("value", 1);
+            $("#pop-info-debito").show();
+        } else {
+            $("#ocultable").hide();
+            $("label").attr("style", "");
+            $(this).siblings("label").attr("style", "");
+            $(this).prop("checked", false);
+            $(this).prop("value", 0);
+            $("#pop-info-debito").hide();
+        }
+    })
+    $("#teatro").click(function () {
+        $("#vista_previa").toggle();
+        $("#teatro").toggle();
+    });
+
+
+    var recursion = 0;
+    $("#desc_arch_model").click(function () {
+        var nav = $("#archivo_download").attr("name");
+        var id = $("#actualiza_clientes").val();
+        if (id != 1)
+            id = $("#alta_clientes").val();
+        //        alert(nav);
+        link_reemplazo(nav, id, "oculto", function () {
+            if (recursion == 0)
+                $("#desc_arch").click();
+            recursion++;
+        });
+    })
+    $("#btn_aceptar").click(function () {
+        $("#pop-info-debito").hide();
+    });
+    $(".cerrar-popup").click(function () {
+        $("#pop-info-debito").hide();
+    });
+    $(document).ready(function () {
+        
+    });*/
+</script>

@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header *ngIf="!web">
   <ion-toolbar>
     <ion-buttons slot="start" class="absolute">
       <ion-back-button defaultHref="IrAtras()" class="small"></ion-back-button>
@@ -6,7 +6,7 @@
     <ion-title>Iniciar Sesion</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content center>
+<ion-content center *ngIf="!web">
   <div class="imagen pt-10">
     <img src="assets/img/logo-text-negro.svg" alt="">
   </div>
@@ -49,3 +49,66 @@
 </div>
 </ion-content>
 
+<ion-content center *ngIf="web">
+  <div class="flex">
+    <div class="row">
+      <div>
+        <img class="logo" src="../../../assets/img/logo-text-negro.svg">
+      </div>
+      <div>
+        <h1>¡Hola!</h1>
+      </div>
+      <div>
+        <h1>Te estábamos esperando</h1>
+      </div>
+      <div>
+        <h2>Ingresá los datos de tu empresa para iniciar sesión</h2>
+      </div>
+      <div>
+        <div>
+          <ion-item class="input-container with-label">
+            <ion-label position="floating">Escribí tu nombre de usuario</ion-label>
+            <ion-input type="username" [(ngModel)]="usuario"></ion-input>
+            <ion-icon slot="end" name="close-sharp" color="danger" *ngIf="usuario && error_user"></ion-icon>
+            <ion-icon slot="end" name="checkmark-sharp" color="success" *ngIf="usuario && !error_user"></ion-icon>
+          </ion-item>
+          <div class="validationMsg" *ngIf="error_user">
+            <div class="msg full danger" color="danger">
+              El usuario que escribiste es incorrecto. No te rindas, hacelo de nuevo.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div>
+          <ion-item class="input-container with-label">
+            <ion-label position="floating">Ingresá una contraseña</ion-label>
+            <ion-input [(ngModel)]="password" [type]="showPassword ? 'text' : 'password'"></ion-input>
+            <ion-icon slot="end" [name]="passwordToggleIcon" (click)="togglePassword()"></ion-icon>
+            <ion-icon slot="end" name="close-sharp" color="danger" *ngIf="password && error_pass"></ion-icon>
+            <ion-icon slot="end" name="checkmark-sharp" color="success" *ngIf="password && !error_pass"></ion-icon>
+          </ion-item>
+          <div class="validationMsg" *ngIf="error_pass">
+            <div class="msg full danger" color="danger">
+              La contraseña que escribiste es incorrecta. No pasa nada, intentalo de nuevo
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="onboarding-btn-group">
+          <a (click)="LostPassword()" class="link">Olvidé la contraseña</a>
+          <div *ngIf="password && usuario" class="btn-round activo" (click)="Ingresar()">
+            <div *ngIf="!password || !usuario" class="btn-round inactivo" (click)="Ingresar()"></div>
+            Ingresar
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+        <img src="../../../assets/Login.svg">
+    </div>
+  </div>
+
+
+</ion-content>

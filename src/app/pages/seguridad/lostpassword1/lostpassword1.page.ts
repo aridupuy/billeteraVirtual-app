@@ -14,7 +14,7 @@ export class Lostpassword1Page implements OnInit {
   @ViewChild('passcode2') passcode2;
   @ViewChild('passcode3') passcode3;
   @ViewChild('passcode4') passcode4;
-  @ViewChild('cd', { static: false }) private countdown: CountdownComponent;
+  @ViewChild('cd', { static: false }) protected countdown: CountdownComponent;
 
   public values = [];
   public selectMail;
@@ -27,7 +27,7 @@ export class Lostpassword1Page implements OnInit {
   public changeMail;
   public changeTel;
   public cel;
-  constructor(public AlertController: AlertController, private navCtrl: NavController, public route: ActivatedRoute, public register: RegistroService) { }
+  constructor(public AlertController: AlertController, protected navCtrl: NavController, public route: ActivatedRoute, public register: RegistroService) { }
 
   ngOnInit() {
     let p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));

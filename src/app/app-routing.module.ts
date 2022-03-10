@@ -4,6 +4,7 @@ import { ProcesoAltaGuard } from './proceso-alta.guard';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { ValidacionEmpresaGuard } from './validacion-empresa.guard';
+import { WebguardGuard } from './webguard.guard';
 
 const routes: Routes = [
   {
@@ -56,7 +57,7 @@ const routes: Routes = [
   },
   {
     path: 'welcome',
-    loadChildren: () => import('./pages/modulos/welcome/welcome.module').then( m => m.WelcomePageModule)
+    loadChildren: () => import('./pages/modulos/welcome/welcome.module').then( m => m.WelcomePageModule),canActivate:[WebguardGuard]
   },
   {
     path: 'menuprincipal',
@@ -470,11 +471,28 @@ const routes: Routes = [
   {
     path: 'IrAtras',
     loadChildren: () => import('./pages/modulos/home/home.module').then( m => m.HomePageModule)
-  },  {
+  },
+  {
     path: 'lotedetransferencia',
     loadChildren: () => import('./pages/modulos/lotedetransferencia/lotedetransferencia.module').then( m => m.LotedetransferenciaPageModule)
+  },  {
+    path: 'lostpassword-web',
+    loadChildren: () => import('./pages/seguridad/lostpassword-web/lostpassword-web.module').then( m => m.LostpasswordWebPageModule)
+  },
+  {
+    path: 'lostpassword1-web',
+    loadChildren: () => import('./pages/seguridad/lostpassword1-web/lostpassword1-web.module').then( m => m.Lostpassword1WebPageModule)
+  },
+  {
+    path: 'lostpasswordconfirma-web',
+    loadChildren: () => import('./pages/seguridad/lostpasswordconfirma-web/lostpasswordconfirma-web.module').then( m => m.LostpasswordconfirmaWebPageModule)
+  },
+  {
+    path: 'lostpasswordexito-web',
+    loadChildren: () => import('./pages/seguridad/lostpasswordexito-web/lostpasswordexito-web.module').then( m => m.LostpasswordexitoWebPageModule)
   },
 
+  
 
 
   

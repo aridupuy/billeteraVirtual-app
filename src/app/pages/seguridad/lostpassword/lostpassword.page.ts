@@ -1,6 +1,6 @@
 import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, Platform } from '@ionic/angular';
 import { LoginBoService } from '../../../service/login-bo.service';
 import { InicioProcesoService } from '../../../service/inicio-proceso.service';
 import { ValidausuarioService } from '../../../service/validausuario.service';
@@ -59,7 +59,7 @@ export class LostpasswordPage implements OnInit {
     console.log("telefono", this.selectTel);
     console.log("mail", this.selectmail);
   }
-  constructor(public ValidausuarioService: ValidausuarioService, private navCtrl: NavController, public route: ActivatedRoute, public pocesoalta: InicioProcesoService, protected loginbo: LoginBoService, public alertController: AlertController) {
+  constructor(public platform:Platform,public ValidausuarioService: ValidausuarioService, protected navCtrl: NavController, public route: ActivatedRoute, public pocesoalta: InicioProcesoService, protected loginbo: LoginBoService, public alertController: AlertController) {
 
     // this.usuario = p.usuario;
     // this.logued = p.logued;

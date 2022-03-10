@@ -1,5 +1,6 @@
 import { LoginService, Ilogin } from '../service/login.service';
 import { Observable } from '../classes/observable';
+import { Platform } from '@ionic/angular';
 import { Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { NavigationExtras, Router } from '@angular/router';
@@ -25,15 +26,23 @@ export class IngresoPage implements OnInit {
   public cargando = false
   public error_user=false;
   public error_pass=false;
-
+  public web=false;
 
   constructor(public log_in: LoginService, public route: ActivatedRoute,public router : Router,
-    private formBuilder: FormBuilder, public HttpClient: HttpClient,public navCtrl:NavController) {
+    private formBuilder: FormBuilder, public HttpClient: HttpClient,public navCtrl:NavController,public platform :Platform) {
     this.todo = this.formBuilder.group({
         usuario: ['', Validators.required],
         password: [''],
     });
     Observable.notify("SlashHide",false);
+    console.log(this.platform.is("desktop"));
+    console.log(this.platform.is("android"));
+    console.log(this.platform.is("ios"));
+    if(this.platform.is("desktop") && !this.platform.is("android") && !this.platform.is("ios")){
+        
+      this.web=true;
+    }
+    
   }
   login(){
     this.noLogin=true;
@@ -89,6 +98,10 @@ export class IngresoPage implements OnInit {
         param: JSON.stringify({usuario:this.usuario, logued:false})
       }
     }
-    this.navCtrl.navigateForward("lostpassword",navigationExtras);
+    if(this.platform.is("desktop") && !this.platform.is("android") && !this.platform.is("ios")){
+      this.navCtrl.navigateForward("lostpassword-web",navigationExtras);
+    }
+    else
+      this.navCtrl.navigateForward("lostpassword",navigationExtras);
   }
 }

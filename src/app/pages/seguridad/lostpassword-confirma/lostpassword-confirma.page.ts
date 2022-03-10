@@ -28,7 +28,7 @@ export class LostpasswordConfirmaPage implements OnInit {
       this.passwordToggleIcon = 'eye-outline';
   }
 
-  constructor(private navCtrl : NavController,private route:ActivatedRoute,public register:RegistroService) {}
+  constructor(protected navCtrl : NavController,protected route:ActivatedRoute,public register:RegistroService) {}
 
   ngOnInit() {
   }
