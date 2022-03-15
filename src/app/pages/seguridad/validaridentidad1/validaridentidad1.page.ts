@@ -127,6 +127,7 @@ export class Validaridentidad1Page implements OnInit {
   }
   async noPuedo() { 
     let p = Onboarding_vars.get();
+    alert(p.pfpj);
     let nav = p.pfpj=="pf"? "datospersonales" : "empresa/datospersonales";
     if(this.platform.is("cordova"))
     await this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT).then(

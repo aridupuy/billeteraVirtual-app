@@ -32,7 +32,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HammerModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 import { IonicStorageModule } from '@ionic/storage';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
 
@@ -42,6 +42,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { LocalNotifications as localnotif } from '@awesome-cordova-plugins/local-notifications/ngx';
 import { SplashComponent } from './components/splash/splash.component';
 import { firebaseConfig } from '../environments/firebaseconfig';
+import { Httpinterceptor, DEFAULT_TIMEOUT } from './classes/httpinterceptor';
 import { AngularFireModule } from '@angular/fire/';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 
@@ -85,6 +86,8 @@ export class MyHammerConfig extends HammerGestureConfig {
       provide: HAMMER_GESTURE_CONFIG,
       useClass: MyHammerConfig
     },
+    { provide: HTTP_INTERCEPTORS, useClass: Httpinterceptor, multi: true },
+    { provide: DEFAULT_TIMEOUT, useValue: 30000 },
     { provide: LOCALE_ID, useValue: 'es-AR' },
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

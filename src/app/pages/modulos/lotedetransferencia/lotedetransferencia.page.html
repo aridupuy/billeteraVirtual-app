@@ -10,6 +10,7 @@
         </div>
       </div>
       <h2 class="ml-3">Lote de transferencias</h2>
+      {{status.error}}
       <div class="contenido">
         <div class="botones">
           <div class="boton active" *ngIf="vistas['cargar']">
@@ -18,12 +19,6 @@
           <div class="boton" *ngIf="!vistas['cargar']">
             <span (click)="cambiar('cargar')">Carga de archivo</span>
           </div>
-          <div class="boton active" *ngIf="vistas['lista']">
-            <span (click)="cambiar('lista')">Lista de archivo</span>
-          </div>
-          <div class="boton" *ngIf="!vistas['lista']">
-            <span (click)="cambiar('lista')">Lista de archivo</span>
-          </div>
           <div class="boton active" *ngIf="vistas['transferencias']">
             <span (click)="cambiar('transferencias')">Transferencias</span>
           </div>
@@ -31,7 +26,7 @@
             <span (click)="cambiar('transferencias')">Transferencias</span>
           </div>
         </div>
-        <div class="oscurecido" *ngIf="vistas['cargar']">
+        <div class="oscurecido" *ngIf="vistas['cargar'] && !status.operationInProgress && mensaje==''">
           <h4 class="center">¿Necesitas realizar un lote de transferencias?</h4>
           <div class="subir-archivos" id="holder" #holder>
             <div class="txt-subir-archivos">
@@ -52,13 +47,13 @@
                 <div type="" class="btn-round outline">Descargar archivo modelo</div>
               </div>
               <div>
-                <div type="" class="btn-round activo">Continuar</div>
+                <div type="" class="btn-round activo" (click)="continuar()">Continuar</div>
               </div>
 
             </div>
           </div>
         </div>
-        <div class="oscurecido" *ngIf="vistas['lista']">
+        <div class="oscurecido" *ngIf="vistas['transferencias'] && !status.operationInProgress && mensaje==''">
           <div class="filtros">
             <div class="filtro">
               <div>
@@ -108,9 +103,9 @@
               <!--ACA VA EL FOR-->
               <div class="tr">
                 <div><input type="checkbox"></div>
-                  <div>10/11/2021</div>
-                    <div>Pago a proveedores</div>
-                      <div>00001</div>
+                <div>10/11/2021</div>
+                <div>Pago a proveedores</div>
+                <div>00001</div>
                 <div class="aprobado" *ngIf="false">Aprobada</div>
                 <div class="rechazada" *ngIf="true">Rechazada</div>
                 <div class="pendiente" *ngIf="false">Pendiente</div>
@@ -119,83 +114,51 @@
             </div>
           </div>
         </div>
-      </div>
+        <div class="oscurecido" *ngIf="mensaje!=''">
+          <h4 class="center">{{mensaje}}</h4>
+        </div>
+        <div class="oscurecido" *ngIf="status.operationInProgress && mensaje==''">
+          <h4 class="center">Procesando transferencias {{status.porcentaje}}%</h4>
+          <ion-progress-bar [value]="status.porcentaje/100"></ion-progress-bar>
+        </div>
+      
+        
+        <div class="oscurecido" *ngIf="!status.operationInProgress && transferencias_erroneas.length>0">
+          <h4 class="center">Transferencias con error {{(transferencias_erroneas.length*100)/fileLength}}%</h4>
+          <div class="table">
+            <div class="thead">
+              <div class="tr">
+                <div>Nombre</div>
+                <div>Apellido</div>
+                <div>CUIL/CUIT</div>
+                <div>Clave Bancaria</div>
+                <div>Importe</div>
+                <div>Concepto</div>
+                <div>Estado</div>
+              </div>
+              <div></div>
+            </div>
+            <div class="tbody" *ngFor="let item of transferencias_erroneas">
+              <!--ACA VA EL FOR-->
+              <div class="tr">
+                <div>{{item[posiciones.nombre]}}</div>
+                <div>{{item[posiciones.apellido]}}</div>
+                <div>{{item[posiciones.cuil]}}</div>
+                <div *ngIf="item[posiciones.cbu]">{{item[posiciones.cbu]}}</div>
+                <div *ngIf="item[posiciones.cvu]">{{item[posiciones.cvu]}}</div>
+                <div *ngIf="item[posiciones.alias]">{{item[posiciones.alias]}}</div>
+                <div>{{item[posiciones.importe]}}</div>
+                <div>{{item[posiciones.concepto]}}</div>
 
+                <div class="aprobado" *ngIf="item.status==1">Aprobada</div>
+                <div class="rechazada" *ngIf="item.status==0">Rechazada</div>
+                <!-- <div class="pendiente" *ngIf="false">Pendiente</div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
     </div>
   </section>
 </ion-content>
-
-
-<script>
-  /*
-   var oculto = false
-
-    $("#actualiza_clientes").click(function () {
-        $("#alta_clientes").prop("checked", false).prop("value", 0);
-        //$("#actualiza_clientes").prop("checked", false).prop("value", 0);
-        $("#alta_clientes").siblings("label").attr("style", "");
-        //        if ($("#alta_clientes").attr('checked') != 'checked'){
-        if (!$(this).prop("checked") == false) {
-            $("#ocultable").show();
-            $(this).siblings("label").attr("style", "background-position: 0 -15px;");
-            $(this).prop("checked", true);
-            $(this).prop("value", 1);
-            $("#pop-info-debito").show();
-        } else {
-            $("#ocultable").hide();
-            $("label").attr("style", "");
-            $(this).siblings("label").attr("style", "");
-            $(this).prop("checked", false);
-            $(this).prop("value", 0);
-            $("#pop-info-debito").hide();
-        }
-
-    })
-    $("#alta_clientes").click(function () {
-        //$("#alta_clientes").prop("checked", false).prop("value", 0);
-        $("#actualiza_clientes").prop("checked", false).prop("value", 0);
-        $("#actualiza_clientes").siblings("label").attr("style", "");
-        if (!$(this).prop("checked") == false) {
-            $("#ocultable").show();
-            $(this).siblings("label").attr("style", "background-position: 0 -15px;");
-            $(this).prop("checked", true);
-            $(this).prop("value", 1);
-            $("#pop-info-debito").show();
-        } else {
-            $("#ocultable").hide();
-            $("label").attr("style", "");
-            $(this).siblings("label").attr("style", "");
-            $(this).prop("checked", false);
-            $(this).prop("value", 0);
-            $("#pop-info-debito").hide();
-        }
-    })
-    $("#teatro").click(function () {
-        $("#vista_previa").toggle();
-        $("#teatro").toggle();
-    });
-
-
-    var recursion = 0;
-    $("#desc_arch_model").click(function () {
-        var nav = $("#archivo_download").attr("name");
-        var id = $("#actualiza_clientes").val();
-        if (id != 1)
-            id = $("#alta_clientes").val();
-        //        alert(nav);
-        link_reemplazo(nav, id, "oculto", function () {
-            if (recursion == 0)
-                $("#desc_arch").click();
-            recursion++;
-        });
-    })
-    $("#btn_aceptar").click(function () {
-        $("#pop-info-debito").hide();
-    });
-    $(".cerrar-popup").click(function () {
-        $("#pop-info-debito").hide();
-    });
-    $(document).ready(function () {
-        
-    });*/
-</script>

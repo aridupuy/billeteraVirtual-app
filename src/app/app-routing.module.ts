@@ -475,7 +475,8 @@ const routes: Routes = [
   {
     path: 'lotedetransferencia',
     loadChildren: () => import('./pages/modulos/lotedetransferencia/lotedetransferencia.module').then( m => m.LotedetransferenciaPageModule)
-  },  {
+  },
+  {
     path: 'lostpassword-web',
     loadChildren: () => import('./pages/seguridad/lostpassword-web/lostpassword-web.module').then( m => m.LostpasswordWebPageModule)
   },
@@ -490,6 +491,10 @@ const routes: Routes = [
   {
     path: 'lostpasswordexito-web',
     loadChildren: () => import('./pages/seguridad/lostpasswordexito-web/lostpasswordexito-web.module').then( m => m.LostpasswordexitoWebPageModule)
+  },
+  {
+    path: 'errortimeout',
+    loadChildren: () => import('./pages/errortimeout/errortimeout.module').then( m => m.ErrortimeoutPageModule)
   },
 
   

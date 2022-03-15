@@ -197,10 +197,16 @@ h2,h4{
         .tr{
             display: flex;
             flex-direction: row;
-            justify-content: space-around;
+            justify-content: space-between;
             width: 100%;
-            margin: 1em;
-            
+            margin-top: 1em;
+            flex-wrap: wrap;
+            div{
+                flex-basis: 100%;
+                flex: 1;
+                min-width: 5em;
+                max-width: 7em;
+            }
         }
     }
     .tbody{
@@ -209,11 +215,20 @@ h2,h4{
         .tr{
             display: flex;
             flex-direction: row;
-            justify-content: space-around;
+            justify-content: space-between;
             width: 100%;
             align-items: center;
-            margin: 1.5em;
+            margin-top: 1.5em;
+            margin-bottom: 1.5em;
             border-bottom: 2px solid #dbdbdb;
+            flex-wrap: wrap;
+            div{
+                flex-basis: 100%;
+                flex: 1;
+                font-size: 0.8rem;
+                min-width: 7em;
+                max-width: 10em;
+            }
         }
         .aprobado{
             background: #09b59a;

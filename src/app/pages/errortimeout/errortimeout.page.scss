@@ -1,0 +1,31 @@
+.flex{
+    display: flex;
+    flex-flow: nowrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin: 1em;
+    text-align: center;
+    h1{
+        font-size: 1.3em;
+    }
+    h2{
+        font-size: 1.0em;
+    }
+    div{ 
+        position: fixed;
+        bottom: 6%;
+        right: 0;
+        left: 0;
+        width: 37%;
+        margin: 3% auto 3% auto;
+        text-align: center;
+        flex: 1;
+        display: flex;
+        flex-direction: row;
+        div{
+            width: 40%;
+        }
+    }
+}

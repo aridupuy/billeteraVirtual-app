@@ -1,13 +1,13 @@
-import { Event } from '@angular/router';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, timeout } from 'rxjs/operators';
 import { environment } from './../../environments/environment';
 import { HttpClient, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as CryptoJS from 'crypto-js';
 
 
-import { Observable } from 'rxjs';
+import { Observable, SchedulerAction, throwError, Subscription } from 'rxjs';
 import { AppComponent } from '../app.component';
+import { error } from 'protractor';
 export const CLAVE_ENCRIPTACION = 'teganamoscon9';
 interface CipherParams {
   iv?: string;
@@ -68,7 +68,7 @@ export class ServiceService extends HttpClient {
     // console.log("URL POST " + this.URL+url);
     // console.log(this.encrypt(body, CLAVE_ENCRIPTACION));
     // console.log(options);
-    options.headers.timeout=20000;
+    options.headers.timeout=200;
     let post = super.post<T>(this.URL + url, this.encrypt(body, CLAVE_ENCRIPTACION), options).pipe(
       //.pipe<T>(
       map((data) => {
@@ -83,7 +83,7 @@ export class ServiceService extends HttpClient {
       //)
       //.pipe(
       catchError(error => {
-        // console.log(error);
+        console.log(error);
         AppComponent.cargando = false;
         if (error.error instanceof ErrorEvent) {
           console.log(error.error);
@@ -93,11 +93,9 @@ export class ServiceService extends HttpClient {
         // return [];
       })
     );
-    // post.subscribe(null,err=>{
-    //   console.log(err);
-    //   //aca podria levantar una vista general de error;
-    //   AppComponent.cargando=false;
-    // });
+    // post.pipe(,catchError(error => {
+    //   console.log(error);
+    // }))
     return post;
   }
 
