@@ -5,7 +5,7 @@ import { AppComponent } from 'src/app/app.component';
 // The list of file replacements can be found in `angular.json`.
 export const environment = {
   production: false,
-  // URL: "https://efectivodigital.com.ar/",
+  // URL: "http://localhost:8200/",
   URL: "https://efectivodigital.com.ar/",
   // URL_DESARROLLO: "http://localhost:8200/",
   URL_DESARROLLO: "https://efectivodigital.com.ar/",
@@ -14,6 +14,7 @@ export const environment = {
   URL_LOGIN: "https://efectivodigital.com.ar/",
   URL_LOGIN_DESARROLLO: "https://efectivodigital.com.ar/",
   // URL_LOGIN_DESARROLLO: "http://localhost:8200/",
+  // URL_LOGIN: "http://localhost:8200/",
   
   
   // URL_LOGIN_DESARROLLO: "https://efectivodigital.com.ar/",
