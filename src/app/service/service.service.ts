@@ -83,10 +83,10 @@ export class ServiceService extends HttpClient {
       //)
       //.pipe(
       catchError(error => {
-        console.log(error);
+        // console.log(error);
         AppComponent.cargando = false;
         if (error.error instanceof ErrorEvent) {
-          console.log(error.error);
+          // console.log(error.error);
         }
         let json = JSON.parse(JSON.stringify([{ respuesta: false, log: "error http", data: [] }]));
         return json as unknown as Observable<T>;
