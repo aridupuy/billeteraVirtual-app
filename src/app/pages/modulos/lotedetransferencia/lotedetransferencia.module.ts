@@ -10,6 +10,7 @@ import { LotedetransferenciaPage } from './lotedetransferencia.page';
 import { TransferirProveedorService } from '../../../service/transferir-proveedor.service';
 import { DestinatariosService } from '../../../service/destinatarios.service';
 import { NuevoDestinatarioService } from '../../../service/nuevo-destinatario.service';
+import { DatePipe } from '@angular/common';
 import { AlertController } from '@ionic/angular';
 
 @NgModule({

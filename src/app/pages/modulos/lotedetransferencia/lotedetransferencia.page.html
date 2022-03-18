@@ -3,14 +3,13 @@
     <div class="contenedor-90">
       <div class="user-header">
         <div class="home-header">
-          <ion-menu-button color="primary" menu="menuPrincipal" type="reset"></ion-menu-button>
+          <ion-back-button defaultHref="IrAtras()" class="small"></ion-back-button>
         </div>
         <div class="flex">
           <img src="../../../../assets/img/logo-text-negro.svg">
         </div>
       </div>
       <h2 class="ml-3">Lote de transferencias</h2>
-      {{status.error}}
       <div class="contenido">
         <div class="botones">
           <div class="boton active" *ngIf="vistas['cargar']">
@@ -44,7 +43,7 @@
           <div>
             <div class="row">
               <div>
-                <div type="" class="btn-round outline">Descargar archivo modelo</div>
+                <a class="btn-round outline" href="assets/Lote de ejemplo.xlsx" download="Lote de ejemplo.xlsx">Descargar archivo modelo</a>
               </div>
               <div>
                 <div type="" class="btn-round activo" (click)="continuar()">Continuar</div>
@@ -54,64 +53,86 @@
           </div>
         </div>
         <div class="oscurecido" *ngIf="vistas['transferencias'] && !status.operationInProgress && mensaje==''">
-          <div class="filtros">
+          <div class="filtros" >
             <div class="filtro">
               <div>
                 <span>Fecha</span>
               </div>
               <div>
-                <input type="date" placeholder="desde" class="fecha">
-                <input type="date" placeholder="hasta" class="fecha">
+                <input type="date" placeholder="desde" class="fecha" [(ngModel)]="filtros.fecha_desde">
+                <input type="date" placeholder="hasta" class="fecha" [(ngModel)]="filtros.fecha_hasta">
               </div>
             </div>
             <div class="filtro">
-              <span>Nombre de Archivo</span>
-              <input type="text" placeholder="Archivo">
+              <span>Nombre</span>
+              <input type="text" placeholder="Nombre" [(ngModel)]="filtros.nombre">
             </div>
             <div class="filtro">
               <span>Estado</span>
-              <select>
-                <option>Activo</option>
-                <option>Inactivo</option>
-                <option>Pendiente</option>
-                <option>Rechazado</option>
+              <select [(ngModel)]="filtros.estado">
+                <option value="">Todas</option>
+                <option value="Aprobado">Aprobado</option>
+                <option value="Rechazado">Rechazado</option>
+                <option value="Pendiente">Pendiente</option>
               </select>
             </div>
           </div>
-          <div class="row izquierda">
+          <div class="row izquierda" >
             <div>
-              <div type="" class="btn-round outline">limpiar</div>
+              <div type="" class="btn-round outline" (click)="limpiar_filtro()">limpiar</div>
             </div>
             <div>
-              <div type="" class="btn-round activo">Continuar</div>
+              <div type="" class="btn-round activo" (click)="filtrar()">Continuar</div>
             </div>
 
           </div>
-          <div class="table">
+          <div class="mensaje-bienvenida" *ngIf="transferencias.length==0">
+            <ion-icon name="wallet-outline"></ion-icon>
+            <h1 *ngIf="transferencias.length==0">Todavía no hay nada por acá</h1>
+            <h2 *ngIf="transferencias.length==0">¡Es hora de comenzar a hacer efectivo tu efectivo! Cuando lo hagas, acá vas a poder ver
+                todas las transferencias que realizaste.</h2>
+          </div>
+          <div class="filtro limit" *ngIf="transferencias_back.length>0">
+            <select [(ngModel)]="limit" (ngModelChange)="validar_pagina()">
+              <option value="10">10</option>
+              <option value="100">100</option>
+              <option value="1000">1000</option>
+              <option value="5000">5000</option>
+            </select>
+          </div>
+          <div class="table" *ngIf="transferencias.length>0">
             <div class="thead">
               <div class="tr">
-                <div><input type="checkbox"></div>
+                <!-- <div><input type="checkbox"></div> -->
                 <div>Fecha</div>
-                <div>Nombre del archivo</div>
-                <div>ID_transferencia</div>
+                <div>CUIT/CUIL</div>
+                <div>Nombre</div>
+                <div>Referencia</div>
+                <div>Monto</div>
                 <div>Estado</div>
-                <div></div>
               </div>
               <div></div>
             </div>
-            <div class="tbody" *ngFor="let item of [1,2,3,4,5,6,7,8,9]">
+            <div class="tbody" *ngFor="let item of transferencias">
               <!--ACA VA EL FOR-->
               <div class="tr">
-                <div><input type="checkbox"></div>
-                <div>10/11/2021</div>
-                <div>Pago a proveedores</div>
-                <div>00001</div>
-                <div class="aprobado" *ngIf="false">Aprobada</div>
-                <div class="rechazada" *ngIf="true">Rechazada</div>
-                <div class="pendiente" *ngIf="false">Pendiente</div>
-                <div><a>Descargar</a></div>
+                <!-- <div><input type="checkbox"></div> -->
+                <div>{{item.fecha}}</div>
+                <div>{{item.cuit}}</div>
+                <div>{{item.nombre}}</div>
+                <div>{{item.referencia}}</div>
+                <div>{{item.monto}}</div>
+                <div class="aprobado" *ngIf="item.estado==1">Aprobada</div>
+                <div class="rechazada" *ngIf="item.estado==0">Rechazada</div>
+                <div class="pendiente" *ngIf="item.estado==2">Pendiente</div>
               </div>
             </div>
+          </div>
+          <div class="flex paginador" *ngIf="transferencias_back.length>0">
+            <div (click)="paginar('atras')"*ngIf="offset!=0"><ion-icon name="chevron-back-circle-outline"></ion-icon>Anterior</div>
+            <div *ngIf="offset==0"></div>
+            <div (click)="paginar('adel')" *ngIf="!(transferencias_back.length<limit)">Siguiente<ion-icon name="chevron-forward-circle-outline"></ion-icon></div>
+            <div *ngIf="(transferencias_back.length<limit)"></div>
           </div>
         </div>
         <div class="oscurecido" *ngIf="mensaje!=''">
@@ -123,7 +144,7 @@
         </div>
       
         
-        <div class="oscurecido" *ngIf="!status.operationInProgress && transferencias_erroneas.length>0">
+        <div class="oscurecido" *ngIf="!status.operationInProgress && transferencias_erroneas.length>0 && !vistas['transferencias']">
           <h4 class="center">Transferencias con error {{(transferencias_erroneas.length*100)/fileLength}}%</h4>
           <div class="table">
             <div class="thead">
@@ -152,6 +173,7 @@
 
                 <div class="aprobado" *ngIf="item.status==1">Aprobada</div>
                 <div class="rechazada" *ngIf="item.status==0">Rechazada</div>
+                <div *ngIf="item.status==0">{{item.error}}</div>
                 <!-- <div class="pendiente" *ngIf="false">Pendiente</div> -->
               </div>
             </div>

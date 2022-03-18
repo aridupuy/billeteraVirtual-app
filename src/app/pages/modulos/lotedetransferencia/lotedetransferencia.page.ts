@@ -9,7 +9,9 @@ import { NuevoDestinatarioService } from '../../../service/nuevo-destinatario.se
 import { Observable } from '../../../classes/observable';
 import { AlertController } from '@ionic/angular';
 import { Exception } from '@zxing/library';
-
+import * as moment from 'moment';
+import { off } from 'process';
+import { AppComponent } from '../../../app.component';
 @Component({
   selector: 'app-lotedetransferencia',
   templateUrl: './lotedetransferencia.page.html',
@@ -36,13 +38,21 @@ export class LotedetransferenciaPage implements OnInit {
     this.box.nativeElement.firstChild.textContent = " o Arrastrelo Aqui.";
     console.log("B");
   }
+  menuPrincipal;
   public vistas = {
     "cargar": true,
     lista: false,
     transferencias: false
   }
+  public filtros =
+    {
+      fecha_desde: "",
+      fecha_hasta: "",
+      nombre: "",
+      estado: ""
 
-  constructor(public alertController: AlertController, public TrasnferenciasService: TransferirProveedorService, public DestinatariosService: DestinatariosService, public destinatario: NuevoDestinatarioService) { }
+    }
+  public transferencias_back;
   public file;
   public status = {
     dataset: null,
@@ -64,8 +74,14 @@ export class LotedetransferenciaPage implements OnInit {
     importe: -1,
     concepto: -1,
     email: -1,
-
   }
+  public transferencias;
+  constructor(public alertController: AlertController, public TrasnferenciasService: TransferirProveedorService,
+    public DestinatariosService: DestinatariosService,
+    public destinatario: NuevoDestinatarioService) {
+      this.menuPrincipal=AppComponent.menu;
+     }
+
   change(event) {
     this.iconexcel.nativeElement.classList.remove("archivo-no-cargado");
     this.iconexcel.nativeElement.classList.add("archivo-cargado");
@@ -82,17 +98,26 @@ export class LotedetransferenciaPage implements OnInit {
     }
     this.vistas[vista] = true;
   }
-
+  offset = 0 ;
   ngOnInit() {
+    this.TrasnferenciasService.transferencias(this.offset,this.limit,this.filtros).then(data => {
+      this.transferencias = data;
+      this.transferencias_back = data;
+      console.log(this.transferencias);
+    })
+
 
 
   }
   continuar() {
+    this.transferencias_erroneas=[];
     Observable.suscribe("mensaje", async (msj) => {
-      this.mensaje=msj;
+      this.mensaje = msj;
     });
-    console.log(this.file);
-    Observable.notify("mensaje", "Leyendo archivo");
+    this.fileLength = 0;
+    this.status.porcentaje = 0;
+    this.status.operationInProgress = false,
+      Observable.notify("mensaje", "Leyendo archivo");
     let reader = new FileReader();
     reader.onload = async function (e) {
       let data = new Uint8Array(e.target.result);
@@ -130,17 +155,19 @@ export class LotedetransferenciaPage implements OnInit {
     return data;
   }
   public fileLength;
-  public mensaje="";
+  public mensaje = "";
   async process(dataset) {
+    this.index=0;
+    
     this.fileLength = dataset.length;
     Observable.suscribe("porcentaje", async (data) => {
-      this.mensaje="";
+      this.mensaje = "";
       this.status.porcentaje = ((this.index + 1) * 100) / (data[1]);
       this.index++;
       if (this.status.porcentaje == 100) {
 
         this.status.operationInProgress = false;
-        this.status.porcentaje=0;
+        this.status.porcentaje = 0;
         const alert = await this.alertController.create({
           cssClass: 'my-custom-class',
           header: 'Transferencias Completamente procesadas',
@@ -206,7 +233,7 @@ export class LotedetransferenciaPage implements OnInit {
           this.transferencias_erroneas.push(row);
           return;
         });
-        
+
         if (datos_bancarios != undefined) {
           // console.log(datos_bancarios);
           let banco = datos_bancarios.nombre_banco;
@@ -227,7 +254,7 @@ export class LotedetransferenciaPage implements OnInit {
           })
         }
       }
-      if(destinatario){
+      if (destinatario) {
         await this.TrasnferenciasService.transferir_proveedor(destinatario.id_destinatario, row[this.posiciones.importe], row[this.posiciones.concepto], "VAR", row[this.posiciones.email]).then(data => {
           // console.log(data);
           // console.log(index, dataset.length);
@@ -237,9 +264,12 @@ export class LotedetransferenciaPage implements OnInit {
         }).catch((err: never) => {
           console.log(err);
           row["status"] = 0;
-          row["error"] = err;
+          if (typeof err == "string")
+            row["error"] = err;
+          else
+            row["error"] = err["log"];
           this.transferencias_erroneas.push(row);
-          
+
           Observable.notify("porcentaje", [index, dataset.length]);
           return;
         });
@@ -251,5 +281,43 @@ export class LotedetransferenciaPage implements OnInit {
       /*ACA  va la llamada al webservice para generar transferencias masivas.*/
 
     })
+  }
+
+  async filtrar() {
+    this.transferencias = this.transferencias_back
+    await this.TrasnferenciasService.transferencias(this.offset,this.limit,this.filtros).then(data => {
+      this.transferencias = data;
+      this.transferencias_back = data;
+    })
+  }
+  validar_pagina(){
+    // if(this.transferencias.length<this.limit)
+      return this.filtrar();
+    // if(this.transferencias.length>this.limit)
+      
+  }
+public limit =10;
+  async paginar(sentido) {
+    switch(sentido){
+      case "adel":
+        this.offset+=this.limit;
+        break
+      case "atras":
+        this.offset-=this.limit;
+        break
+    }
+    this.transferencias = this.transferencias_back
+    await this.TrasnferenciasService.transferencias(this.offset,this.limit,this.filtros).then(data => {
+      this.transferencias = data;
+      this.transferencias_back = data;
+    })
+  }
+
+
+  limpiar_filtro() {
+    this.filtros.fecha_desde = "";
+    this.filtros.fecha_hasta = "";
+    this.filtros.estado = "";
+    this.filtros.nombre = "";
   }
 }

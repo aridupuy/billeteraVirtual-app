@@ -36,8 +36,26 @@ export class TransferirProveedorService extends ServiceService {
           return resolve(data.extras[0]);
         });
     });
+    
   }
-  
+  public transferencias(offset=0,limit=-1,filtros) {
+    return new Promise((resolve,reject ) => {
+      httpOptions.headers.token = localStorage.getItem('token');
+      let postparams={offset:offset,limit:limit,nombre:filtros.nombre,
+                                    fecha_desde:filtros.fecha_desde,
+                                    fecha_hasta:filtros.fecha_hasta,
+                                    estado:filtros.estado
+                                  };
+      this.post<any>('api/transferencia/transferencias',postparams,httpOptions)
+        .subscribe(data => {
+          if (data.resultado != null && data.resultado == false) {
+              reject(data.log);
+          }
+          return resolve(data.extras[0]);
+        });
+    });
+    
+  }
 
 
 
