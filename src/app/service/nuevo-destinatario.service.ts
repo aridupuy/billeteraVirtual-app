@@ -39,10 +39,12 @@ export class NuevoDestinatarioService extends ServiceService {
     }
     
     return new Promise((resolve, reject) => {
+      console.log(postParams);
       this.post<any>('api/destinatario/validar_cbu_alias',postParams, httpOptions).subscribe((data) => {
         if (data.resultado != null && data.resultado === false) {
           reject(data.log);
         }
+        console.log(data);
         return resolve(data.extras[0]);
       });
     });

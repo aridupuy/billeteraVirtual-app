@@ -114,6 +114,12 @@ export class Validaridentidad1Page implements OnInit {
 
 
   }
+  is_revalidar(){
+    if(this.p !=null && "revalidar" in this.p){
+      return this.p.revalidar;
+    }
+    return false;
+  }
   ngOnDestroy() {
     console.log("identidad1 onDestroy");
 

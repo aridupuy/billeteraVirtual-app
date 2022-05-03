@@ -64,6 +64,7 @@ export class LotedetransferenciaPage implements OnInit {
   };
   private index = 0;
   public transferencias_erroneas = [];
+  public transferencias_realizadas=[];
   public posiciones = {
     nombre: -1,
     apellido: -1,
@@ -111,6 +112,7 @@ export class LotedetransferenciaPage implements OnInit {
   }
   continuar() {
     this.transferencias_erroneas=[];
+    this.transferencias_realizadas=[];
     Observable.suscribe("mensaje", async (msj) => {
       this.mensaje = msj;
     });
@@ -198,24 +200,36 @@ export class LotedetransferenciaPage implements OnInit {
     let destinatario;
     await dataset.forEach(async (row, index) => {
       destinatario = destinatarios.find((value: any) => {
-        // console.log(row[this.posiciones.cuil]);
-        return value.cuit == row[this.posiciones.cuil];
+        // console.log(value.cuit == row[this.posiciones.cuil]);
+        console.log(value.alias || value.cvu || value.cbu);
+        console.log((value.cbu!=null && value.cbu == row[this.posiciones.cbu]));
+        console.log(( value.cvu!=null && value.cvu == row[this.posiciones.cvu]));
+        console.log((value.alias!=null && value.alias == row[this.posiciones.alias])); 
+        
+        return (value.cuit == row[this.posiciones.cuil])
+              && ((value.cbu!=null && value.cbu == row[this.posiciones.cbu])
+                  ||( value.cvu!=null && value.cvu == row[this.posiciones.cvu])
+                  || (value.alias!=null && value.alias == row[this.posiciones.alias])
+                );
       });
+      console.log(destinatario);
       if (!destinatario || destinatario == undefined) {
+        console.log("Generando nuevo destinatario");
         let referencia = row[this.posiciones.apellido] + " " + row[this.posiciones.nombre];
         let type;
         let dato;
-        if (this.posiciones.cbu != -1) {
+        console.log(this.posiciones);
+        if (this.posiciones.cbu != -1 && row[this.posiciones.cbu]!=null) {
           type = "cbu";
           dato = row[this.posiciones.cbu];
         }
         else
-          if (this.posiciones.alias != -1) {
+          if (this.posiciones.alias != -1 && row[this.posiciones.alias]!=null) {
             type = "alias";
             dato = row[this.posiciones.alias];
           }
           else
-            if (this.posiciones.cvu != -1) {
+            if (this.posiciones.cvu != -1 && row[this.posiciones.cvu]!=null) {
               type = "cvu";
               dato = row[this.posiciones.cvu];
             }
@@ -223,6 +237,7 @@ export class LotedetransferenciaPage implements OnInit {
               throw new Exception("Error falta el parametro cvu, alias o cbu");
             }
         let datos_bancarios;
+        console.log(dato, type);
         await this.destinatario.buscar_informacion(dato, type).then(data => {
           datos_bancarios = data;
         }).catch(err => {
@@ -233,14 +248,14 @@ export class LotedetransferenciaPage implements OnInit {
           this.transferencias_erroneas.push(row);
           return;
         });
-
+        console.log(datos_bancarios);
         if (datos_bancarios != undefined) {
           // console.log(datos_bancarios);
           let banco = datos_bancarios.nombre_banco;
           let cod_banco = datos_bancarios.codigo_banco;
           let tipo = datos_bancarios.tipo;
           await this.destinatario.crear_destinatario(row[this.posiciones.nombre], row[this.posiciones.apellido], row[this.posiciones.cuil], referencia, row[this.posiciones.email], row[this.posiciones.cvu], row[this.posiciones.cbu], row[this.posiciones.alias], banco, cod_banco, tipo).then((data: any) => {
-            // console.log(data);
+            console.log(data);
             destinatario = data.extras[0];
           }).catch(err => {
             console.log(err.data);
@@ -252,8 +267,10 @@ export class LotedetransferenciaPage implements OnInit {
             this.transferencias_erroneas.push(row);
             return;
           })
+          console.log(destinatario);
         }
       }
+      
       if (destinatario) {
         await this.TrasnferenciasService.transferir_proveedor(destinatario.id_destinatario, row[this.posiciones.importe], row[this.posiciones.concepto], "VAR", row[this.posiciones.email]).then(data => {
           // console.log(data);

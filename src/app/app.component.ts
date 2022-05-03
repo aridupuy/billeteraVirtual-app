@@ -240,7 +240,7 @@ export class AppComponent implements OnInit {
           return false;
       }
       else{
-        if(["lotedetransferencia"].includes(item.nombre)&& !(this.platform.is("desktop") && (!this.platform.is("android") && !this.platform.is("ios")))){
+        if(["lotedetransferencia","Lote de transferencias"].includes(item.nombre)&& !(this.platform.is("desktop") && (!this.platform.is("android") && !this.platform.is("ios")))){
           return false;
         }
       }
