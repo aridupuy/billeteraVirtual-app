@@ -6,7 +6,7 @@ import {
     UsuarioPermisoExtras
 } from '../../../models/usuario-permiso';
 import { PermisoService } from '../../../service/permiso.service';
-import { id } from '../../../../../platforms/android/platform_www/cordova-js-src/platform';
+//import { id } from '../../../../../platforms/android/platform_www/cordova-js-src/platform';
 import { NavController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { NavParams } from '@ionic/angular';
