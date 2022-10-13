@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs'
 import { environment } from 'src/environments/environment';
 import { Observable as MiObserver}  from '../classes/observable';
+import { Router } from '@angular/router';
+import { HttpHandler } from '@angular/common/http';
 
 export interface Ilogin {
   resultado?:boolean;
@@ -15,7 +17,7 @@ interface IcheckToken {
   check: any;
   cuentas:any[];
 }
-//@NgModule({providers: [forwardRef(() => LoginService)]}) 
+//@NgModule({providers: [forwardRef(() => LoginService)]})
 
 //@Injectable({
 //  providedIn: 'root'
@@ -33,12 +35,14 @@ const httpOption = {
 export class LoginService extends ServiceService{
 
   URL = environment.get_url_login();
-  
+
   public token;
   //public storage;
   //public URL = "http://192.168.0.163:358/";
 
-  //  constructor(private http: HttpClient) { }
+  constructor(private router: Router,private httpHandler:HttpHandler){
+    super(httpHandler);
+  }
 
   login(usuario: any, clave: any) {
     if(localStorage.getItem("token") && localStorage.getItem("token")!="false"){
@@ -58,12 +62,12 @@ export class LoginService extends ServiceService{
         localStorage.setItem("cuentas", JSON.stringify(data));
         localStorage.setItem("nombreEmpresa", data[0].titular[0]);
         localStorage.setItem("inicialesEmpresa", data[0].iniciales);
-        
+
         this.token = data[0].token;
         return resolve(this.token);
       });
 
-      
+
     });
   }
   checkToken(url, json) {
@@ -71,9 +75,21 @@ export class LoginService extends ServiceService{
       if(!localStorage.getItem("token")){
         rejects(false);
       }
+
       this.post<IcheckToken>(url, json, httpOption)
         .subscribe(async (data) => {
           if (data != undefined && (data.check == 1 || data.check == 'true')) {
+            if(localStorage.getItem("token")!=data.cuentas[0].token){
+              localStorage.removeItem("token");
+              localStorage.removeItem("cuentas");
+              localStorage.removeItem("nombreEmpresa");
+              localStorage.removeItem("inicialesEmpresa");
+              this.router.navigate(['/ingreso']);
+              rejects(false);
+            }
+            console.log(`token localStorage: ${localStorage.getItem("token")}`);
+            console.log(`checkToken: ${JSON.stringify(data)}`);
+
             localStorage.setItem("cuentas", JSON.stringify(data.cuentas));
             resolve(true);
           }
@@ -97,11 +113,14 @@ export class LoginService extends ServiceService{
   }
 
   loginWithToken(url, json) {
-    
+
     return new Promise((resolve,rejects)=>{
       if(!localStorage.getItem("token")){
         rejects(false);
       }
+
+
+
       this.post<Ilogin>(url, json, httpOption)
         .subscribe(async (data) => {
           if (data.resultado == false && data.log != false) {

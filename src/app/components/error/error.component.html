@@ -8,8 +8,8 @@
     <img src="../../assets/icon/error.svg" alt="Operación no realizada">
   </div>
   <div class="contenedor-90 align-center">
-    <h1 *ngIf="!denegado" class="align-center">¡Hubo un error!</h1>
-    <h1 *ngIf="denegado" class="align-center">{{descripcion}}</h1>
+    <h1 *ngIf="denegado=='false'" class="align-center">¡Hubo un error!</h1>
+    <h1 *ngIf="denegado=='true'" class="align-center">{{descripcion}}</h1>
     <!-- <p class="align-center full">(Error de comunicación / falta de fondos / etc.) Invitar al usuario que invite a un
       amigo para que use la billetera virtual o que lo vuelva a reintentar</p> -->
       <p class="align-center full">{{mensaje}}</p>

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { CameraPreview, CameraPreviewOptions, CameraPreviewPictureOptions } from '@ionic-native/camera-preview/ngx/index';
@@ -28,7 +28,6 @@ import { LOCALE_ID } from '@angular/core';
 import localeEs from '@angular/common/locales/es-AR';
 registerLocaleData(localeEs, 'es-AR');
 
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HammerModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 import { IonicStorageModule } from '@ionic/storage';
@@ -43,8 +42,13 @@ import { LocalNotifications as localnotif } from '@awesome-cordova-plugins/local
 import { SplashComponent } from './components/splash/splash.component';
 import { firebaseConfig } from '../environments/firebaseconfig';
 import { Httpinterceptor, DEFAULT_TIMEOUT } from './classes/httpinterceptor';
+import { FormTcPageModule } from './pages/modulos/form-tc/form-tc.module';
+import { DatosTarjetaPageModule } from './pages/modulos/datos-tarjeta/datos-tarjeta.module';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+
 import { AngularFireModule } from '@angular/fire/';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { LocationStrategy, PathLocationStrategy, APP_BASE_HREF } from '@angular/common';
 
 declare var Hammer: any;
 export class MyHammerConfig extends HammerGestureConfig {
@@ -62,6 +66,9 @@ export class MyHammerConfig extends HammerGestureConfig {
       }),
       AngularFireModule.initializeApp(firebaseConfig),
       AngularFireMessagingModule,
+      FormTcPageModule,
+      DatosTarjetaPageModule,
+
       // ServiceWorkerModule.register("firebase-messaging-sw.js",{enabled:true})
     ],
   providers: [
@@ -82,6 +89,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     UniqueDeviceID,
     FcmService,
     FCM,
+    { provide: LocationStrategy, useClass: PathLocationStrategy },
     {
       provide: HAMMER_GESTURE_CONFIG,
       useClass: MyHammerConfig
@@ -90,7 +98,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     { provide: DEFAULT_TIMEOUT, useValue: 30000 },
     { provide: LOCALE_ID, useValue: 'es-AR' },
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
