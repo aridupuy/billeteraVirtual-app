@@ -151,6 +151,16 @@
                 display: flex;
                 flex-direction: column;
               }
+              .contenedor-icon{
+                border: 1px solid #09b59a;
+                width: 70px;
+                height: 70px;
+                
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                padding: 10px;
+              }
               img{
                 width: 60px;
               }
