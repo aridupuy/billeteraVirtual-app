@@ -13,6 +13,7 @@ import { NavController } from '@ionic/angular';
 import { variable } from '@angular/compiler/src/output/output_ast';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 // import { setTimeout } from 'timers';
+import { LoginService } from '../../../service/login.service';
 
 @Component({
   selector: 'app-ingresa-pin',
@@ -41,11 +42,11 @@ export class IngresaPinPage implements OnInit {
   public titulo2 = "¡Creá tu nuevo  PIN de acceso!";
   public pago = false;
   public conHuella = false;
-  constructor(private platform: Platform, private faio: FingerprintAIO, public service: ServiceService, public navCtl: NavController, public viewCtrl: ModalController, public route: ActivatedRoute, params: NavParams) {
+  constructor(private platform: Platform, private faio: FingerprintAIO, public service: ServiceService, public loginService: LoginService, public navCtl: NavController, public viewCtrl: ModalController, public route: ActivatedRoute, params: NavParams) {
     this.proposito = params.get("tipo");
     this.mensaje = params.get("mensaje");
     this.pago = params.get("pago");
-    
+
     this.platform.backButton.observers.pop();
     this.platform.backButton.subscribeWithPriority(9999, () => {
       // to disable hardware back button on whole app
@@ -77,7 +78,7 @@ export class IngresaPinPage implements OnInit {
           this.titulo=this.mensaje;
           this.titulo2="¡Intenta de nuevo!"
         }
-        
+
         break;
       case "validar":
         console.log("validar");
@@ -201,6 +202,7 @@ export class IngresaPinPage implements OnInit {
   validarPin(clave) {
     let claveEnc = this.service.decrypt(localStorage.getItem("pin"), pass);
     if (claveEnc == clave) {
+      this.loginService.checkToken("api/checkToken", {token: localStorage.getItem("token")}).then(()=>console.log()).catch(()=>console.log());
       this.values = [];
       return true;
     }
@@ -224,6 +226,7 @@ export class IngresaPinPage implements OnInit {
           fallbackButtonTitle: 'Atras',
         })
           .then((result: any) => {
+            this.loginService.checkToken("api/checkToken", {token: localStorage.getItem("token")}).then(()=>console.log()).catch(()=>console.log());
             this.shakeit.nativeElement.classList.add("shakeit");
             this.passcode1.nativeElement.classList.add("confirm");
             this.passcode2.nativeElement.classList.add("confirm");

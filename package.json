@@ -51,6 +51,7 @@
     "@zxing/library": "^0.18.6",
     "barcode-scanner": "^0.1.1",
     "cordova": "^10.0.0",
+    "cordova-browser": "6.0.0",
     "cordova-clipboard": "^1.3.0",
     "cordova-plugin-background-mode": "^0.7.3",
     "cordova-plugin-camera-stream": "^0.1.5",
@@ -58,6 +59,7 @@
     "dom-to-image": "^2.6.0",
     "firebase": "^8.10.0",
     "html2canvas": "^1.1.4",
+    "ionic": "^5.4.16",
     "jshint": "^2.13.0",
     "local-notifications": "^0.0.2",
     "moment": "^2.29.1",
@@ -99,10 +101,10 @@
     "cordova-custom-config": "^5.1.1",
     "cordova-ios": "^6.2.0",
     "cordova-pdf-generator": "^2.1.1",
-    "cordova-plugin-add-swift-support": "^1.7.1",
     "cordova-plugin-advanced-http": "^3.2.2",
     "cordova-plugin-androidx": "^3.0.0",
     "cordova-plugin-androidx-adapter": "^1.1.3",
+    "cordova-plugin-badge": "^0.8.8",
     "cordova-plugin-camera-preview": "^0.12.2",
     "cordova-plugin-console": "^1.1.0",
     "cordova-plugin-crop": "^0.4.0",
@@ -112,6 +114,7 @@
     "cordova-plugin-fingerprint-aio": "^4.0.2",
     "cordova-plugin-ionic-keyboard": "^2.2.0",
     "cordova-plugin-ionic-webview": "^4.2.1",
+    "cordova-plugin-local-notification": "^0.9.0-beta.2",
     "cordova-plugin-screen-orientation": "^3.0.2",
     "cordova-plugin-splashscreen": "^5.0.2",
     "cordova-plugin-statusbar": "^2.4.2",
@@ -185,7 +188,6 @@
       "phonegap-plugin-barcodescanner": {
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
       },
-      "cordova-plugin-add-swift-support": {},
       "cordova-plugin-advanced-http": {
         "ANDROIDBLACKLISTSECURESOCKETPROTOCOLS": "SSLv3,TLSv1"
       },
@@ -200,7 +202,8 @@
     },
     "platforms": [
       "ios",
-      "android"
+      "android",
+      "browser"
     ]
   }
 }

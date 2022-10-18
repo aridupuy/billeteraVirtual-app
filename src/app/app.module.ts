@@ -49,6 +49,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { AngularFireModule } from '@angular/fire/';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { LocationStrategy, PathLocationStrategy, APP_BASE_HREF } from '@angular/common';
+
 declare var Hammer: any;
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any> {
@@ -65,8 +66,6 @@ export class MyHammerConfig extends HammerGestureConfig {
       }),
       AngularFireModule.initializeApp(firebaseConfig),
       AngularFireMessagingModule,
-      FormTcPageModule,
-      DatosTarjetaPageModule,
       // ServiceWorkerModule.register("firebase-messaging-sw.js",{enabled:true})
     ],
   providers: [
@@ -87,7 +86,6 @@ export class MyHammerConfig extends HammerGestureConfig {
     UniqueDeviceID,
     FcmService,
     FCM,
-    
     { provide: LocationStrategy, useClass: PathLocationStrategy },
     {
       provide: HAMMER_GESTURE_CONFIG,

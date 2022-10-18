@@ -6,9 +6,9 @@ import { AppComponent } from 'src/app/app.component';
 export const environment = {
   production: false,
  URL: "http://localhost:8200/",
-//  URL: "https://api.efectivodigital.com.ar/",
+//  URL: "https://api.api.efectivodigital.com.ar/",
  URL_DESARROLLO: "http://localhost:8200/",
-//  URL_DESARROLLO: "https://api.efectivodigital.com.ar/",
+//  URL_DESARROLLO: "https://api.api.efectivodigital.com.ar/",
  ACTIVAR_TEST: true,
 //  URL_LOGIN: "https://efectivodigital.com.ar/",
 //  URL_LOGIN: "https://api.efectivodigital.com.ar/",
