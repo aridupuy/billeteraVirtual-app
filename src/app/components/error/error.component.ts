@@ -22,7 +22,7 @@ export class ErrorComponent implements OnInit {
   @Input() envio=false;
   @Input() pedido = false;
   @Input() goto="home";
-  @Input() denegado=false;
+  @Input() denegado="false";
 
   // public mensaje;
   public p;

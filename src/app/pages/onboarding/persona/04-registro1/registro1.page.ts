@@ -5,7 +5,7 @@ import { ValidacionMailService } from '../../../../service/validacion-mail.servi
 import { InicioProcesoService } from '../../../../service/inicio-proceso.service';
 import { Ivalidaciones } from '../../../../interfaces/Ivalidaciones';
 import { Libs } from '../../../../classes/libs';
-import { list } from '../../../../../../platforms/android/cordova/lib/target';
+//import { list } from '../../../../../../platforms/android/cordova/lib/target';
 import { IonInput } from '@ionic/angular';
 import { ElementRef } from '@angular/core';
 import { ActivatedRoute, NavigationExtras } from '@angular/router';
