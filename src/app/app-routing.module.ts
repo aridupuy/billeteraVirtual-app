@@ -69,42 +69,42 @@ const routes: Routes = [
   },
   {
     path: 'amigos',
-    loadChildren: () => import('./pages/modulos/amigos/amigos.module').then( m => m.AmigosPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
+    loadChildren: () => import('./pages/modulos/amigos/amigos.module').then( m => m.AmigosPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard,WebguardGuard]
   },
   {
     path: 'pedir-amigo',
-    loadChildren: () => import('./pages/modulos/pedir-amigo/pedir-amigo.module').then( m => m.PedirAmigoPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
+    loadChildren: () => import('./pages/modulos/pedir-amigo/pedir-amigo.module').then( m => m.PedirAmigoPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard,WebguardGuard]
   },
   {
     path: 'enviar-amigo',
-    loadChildren: () => import('./pages/modulos/enviar-amigo/enviar-amigo.module').then( m => m.EnviarAmigoPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
+    loadChildren: () => import('./pages/modulos/enviar-amigo/enviar-amigo.module').then( m => m.EnviarAmigoPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard,WebguardGuard]
   },
   {
     path: 'pedir-amigo-link',
-    loadChildren: () => import('./pages/modulos/pedir-amigo-link/pedir-amigo-link.module').then( m => m.PedirAmigoLinkPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
+    loadChildren: () => import('./pages/modulos/pedir-amigo-link/pedir-amigo-link.module').then( m => m.PedirAmigoLinkPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard,WebguardGuard]
   },
   {
     path: 'lista-amigos',
-    loadChildren: () => import('./pages/modulos/lista-amigos/lista-amigos.module').then( m => m.ListaAmigosPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
+    loadChildren: () => import('./pages/modulos/lista-amigos/lista-amigos.module').then( m => m.ListaAmigosPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard,WebguardGuard]
   },
   {
     path: 'pedir-amigo-link2',
-    loadChildren: () => import('./pages/modulos/pedir-amigo-link2/pedir-amigo-link2.module').then( m => m.PedirAmigoLink2PageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
+    loadChildren: () => import('./pages/modulos/pedir-amigo-link2/pedir-amigo-link2.module').then( m => m.PedirAmigoLink2PageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard,WebguardGuard]
   },{
     path: 'historial',
     loadChildren: () => import('./pages/modulos/historial/historial.module').then( m => m.HistorialPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
   },
   {
     path: 'agenda-links',
-    loadChildren: () => import('./pages/modulos/agenda-links/agenda-links.module').then( m => m.AgendaLinksPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
+    loadChildren: () => import('./pages/modulos/agenda-links/agenda-links.module').then( m => m.AgendaLinksPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard,WebguardGuard]
   },
   {
     path: 'ingreso-transferencia',
-    loadChildren: () => import('./pages/modulos/ingreso-transferencia/ingreso-transferencia.module').then( m => m.IngresoTransferenciaPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
+    loadChildren: () => import('./pages/modulos/ingreso-transferencia/ingreso-transferencia.module').then( m => m.IngresoTransferenciaPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard,WebguardGuard]
   },
   {
     path: 'ingreso-efectivo',
-    loadChildren: () => import('./pages/modulos/ingreso-efectivo/ingreso-efectivo.module').then( m => m.IngresoEfectivoPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
+    loadChildren: () => import('./pages/modulos/ingreso-efectivo/ingreso-efectivo.module').then( m => m.IngresoEfectivoPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard,WebguardGuard]
   },
   {
     path: 'mi-cvu',
@@ -112,43 +112,43 @@ const routes: Routes = [
   },
   {
     path: 'ingreso-debito',
-    loadChildren: () => import('./pages/modulos/ingreso-debito/ingreso-debito.module').then( m => m.IngresoDebitoPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
+    loadChildren: () => import('./pages/modulos/ingreso-debito/ingreso-debito.module').then( m => m.IngresoDebitoPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard,WebguardGuard]
   },
   {
     path: 'ingreso-debito2',
-    loadChildren: () => import('./pages/modulos/pagar/pagar.module').then( m => m.PagarPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
+    loadChildren: () => import('./pages/modulos/pagar/pagar.module').then( m => m.PagarPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard,WebguardGuard]
   },
   {
     path: 'pagar',
-    loadChildren: () => import('./pages/modulos/pagar/pagar.module').then( m => m.PagarPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
+    loadChildren: () => import('./pages/modulos/pagar/pagar.module').then( m => m.PagarPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard,WebguardGuard]
   },
   {
     path: 'pedir-amigo-desdelista',
-    loadChildren: () => import('./pages/modulos/pedir-amigo-desdelista/pedir-amigo-desdelista.module').then( m => m.PedirAmigoDesdelistaPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
+    loadChildren: () => import('./pages/modulos/pedir-amigo-desdelista/pedir-amigo-desdelista.module').then( m => m.PedirAmigoDesdelistaPageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard,WebguardGuard]
   },
   {
     path: 'pedir-amigo-desdelista2',
-    loadChildren: () => import('./pages/modulos/pedir-amigo-desdelista2/pedir-amigo-desdelista2.module').then( m => m.PedirAmigoDesdelista2PageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
+    loadChildren: () => import('./pages/modulos/pedir-amigo-desdelista2/pedir-amigo-desdelista2.module').then( m => m.PedirAmigoDesdelista2PageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard,WebguardGuard]
   },
   {
     path: 'pedir-amigo-link3',
-    loadChildren: () => import('./pages/modulos/pedir-amigo-link3/pedir-amigo-link3.module').then( m => m.PedirAmigoLink3PageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard]
+    loadChildren: () => import('./pages/modulos/pedir-amigo-link3/pedir-amigo-link3.module').then( m => m.PedirAmigoLink3PageModule),canActivate: [AuthGuardGuard,ProcesoAltaGuard,WebguardGuard]
   },
   {
     path: 'agregar-amigo',
-    loadChildren: () => import('./pages/modulos/agregar-amigo/agregar-amigo.module').then( m => m.AgregarAmigoPageModule)
+    loadChildren: () => import('./pages/modulos/agregar-amigo/agregar-amigo.module').then( m => m.AgregarAmigoPageModule),canActivate:[WebguardGuard]
   },
   {
     path: 'ingreso-dinero',
-    loadChildren: () => import('./pages/modulos/ingreso-dinero/ingreso-dinero.module').then( m => m.IngresoDineroPageModule)
+    loadChildren: () => import('./pages/modulos/ingreso-dinero/ingreso-dinero.module').then( m => m.IngresoDineroPageModule),canActivate:[WebguardGuard]
   },
   {
     path: 'agregar-amigo2',
-    loadChildren: () => import('./pages/modulos/agregar-amigo2/agregar-amigo2.module').then( m => m.AgregarAmigo2PageModule)
+    loadChildren: () => import('./pages/modulos/agregar-amigo2/agregar-amigo2.module').then( m => m.AgregarAmigo2PageModule),canActivate:[WebguardGuard]
   },
   {
     path: 'ingresar-efectivo-monto',
-    loadChildren: () => import('./pages/modulos/ingresar-efectivo-monto/ingresar-efectivo-monto.module').then( m => m.IngresarEfectivoMontoPageModule)
+    loadChildren: () => import('./pages/modulos/ingresar-efectivo-monto/ingresar-efectivo-monto.module').then( m => m.IngresarEfectivoMontoPageModule),canActivate:[WebguardGuard]
   },
   {
     path: 'changecel',
@@ -160,11 +160,11 @@ const routes: Routes = [
   },
   {
     path: 'lista-destinatarios',
-    loadChildren: () => import('./pages/modulos/lista-destinatarios/lista-destinatarios.module').then( m => m.ListaDestinatariosPageModule)
+    loadChildren: () => import('./pages/modulos/lista-destinatarios/lista-destinatarios.module').then( m => m.ListaDestinatariosPageModule),canActivate:[WebguardGuard]
   },
   {
     path: 'amigos-historial',
-    loadChildren: () => import('./pages/modulos/amigos-historial/amigos-historial.module').then( m => m.AmigosHistorialPageModule)
+    loadChildren: () => import('./pages/modulos/amigos-historial/amigos-historial.module').then( m => m.AmigosHistorialPageModule),canActivate:[WebguardGuard]
   },
   {
     path: 'logout',
@@ -176,23 +176,23 @@ const routes: Routes = [
   },
   {
     path: 'agregar-destinatario',
-    loadChildren: () => import('./pages/modulos/agregar-destinatario/agregar-destinatario.module').then( m => m.AgregarDestinatarioPageModule)
+    loadChildren: () => import('./pages/modulos/agregar-destinatario/agregar-destinatario.module').then( m => m.AgregarDestinatarioPageModule),canActivate:[WebguardGuard]
   },
   {
     path: 'transferencia-monto',
-    loadChildren: () => import('./pages/modulos/transferencia-monto/transferencia-monto.module').then( m => m.TransferenciaMontoPageModule)
+    loadChildren: () => import('./pages/modulos/transferencia-monto/transferencia-monto.module').then( m => m.TransferenciaMontoPageModule),canActivate:[WebguardGuard]
   },
   {
     path: 'selecciona-metodo-pago',
-    loadChildren: () => import('./pages/modulos/selecciona-metodo-pago/selecciona-metodo-pago.module').then( m => m.SeleccionaMetodoPagoPageModule)
+    loadChildren: () => import('./pages/modulos/selecciona-metodo-pago/selecciona-metodo-pago.module').then( m => m.SeleccionaMetodoPagoPageModule),canActivate:[WebguardGuard]
   },
   {
     path: 'transferencia-confirma',
-    loadChildren: () => import('./pages/modulos/transferencia-confirma/transferencia-confirma.module').then( m => m.TransferenciaConfirmaPageModule)
+    loadChildren: () => import('./pages/modulos/transferencia-confirma/transferencia-confirma.module').then( m => m.TransferenciaConfirmaPageModule),canActivate:[WebguardGuard]
   },
   {
     path: 'lista-amigos-env',
-    loadChildren: () => import('./pages/modulos/lista-amigos-env/lista-amigos-env.module').then( m => m.ListaAmigosEnvPageModule)
+    loadChildren: () => import('./pages/modulos/lista-amigos-env/lista-amigos-env.module').then( m => m.ListaAmigosEnvPageModule),canActivate:[WebguardGuard]
   },
   {
     path: 'filter',
@@ -212,15 +212,15 @@ const routes: Routes = [
   },
   {
     path: 'scanner-pagos',
-    loadChildren: () => import('./pages/modulos/scanner-pagos/scanner-pagos.module').then( m => m.ScannerPagosPageModule)
+    loadChildren: () => import('./pages/modulos/scanner-pagos/scanner-pagos.module').then( m => m.ScannerPagosPageModule),canActivate:[WebguardGuard]
   },
   {
     path: 'mis-tc',
-    loadChildren: () => import('./pages/modulos/mis-tc/mis-tc.module').then( m => m.MisTcPageModule)
+    loadChildren: () => import('./pages/modulos/mis-tc/mis-tc.module').then( m => m.MisTcPageModule),canActivate:[WebguardGuard]
   },
   {
     path: 'pago-qr',
-    loadChildren: () => import('./pages/modulos/pago-qr/pago-qr.module').then( m => m.PagoQrPageModule)
+    loadChildren: () => import('./pages/modulos/pago-qr/pago-qr.module').then( m => m.PagoQrPageModule),canActivate:[WebguardGuard]
   },
   {
     path: 'notificaciones',
@@ -238,21 +238,6 @@ const routes: Routes = [
     path: 'usuarios-permiso',
     loadChildren: () => import('./pages/modulos/usuarios-permiso/usuarios-permiso.module').then( m => m.UsuariosPermisoPageModule),canActivate: [AuthGuardGuard]
   },
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   {
     path: 'confirmasms',
     loadChildren: () => import('./pages/seguridad/confirmasms/confirmasms.module').then( m => m.ConfirmasmsPageModule)
@@ -331,15 +316,15 @@ const routes: Routes = [
   },
   {
     path: 'ingresa-pin',
-    loadChildren: () => import('./pages/seguridad/ingresa-pin/ingresa-pin.module').then( m => m.IngresaPinPageModule)
+    loadChildren: () => import('./pages/seguridad/ingresa-pin/ingresa-pin.module').then( m => m.IngresaPinPageModule),canActivate:[WebguardGuard]
   },
   {
     path: 'ingresa-pin-confirma',
-    loadChildren: () => import('./pages/seguridad/ingresa-pin-confirma/ingresa-pin-confirma.module').then( m => m.IngresaPinConfirmaPageModule)
+    loadChildren: () => import('./pages/seguridad/ingresa-pin-confirma/ingresa-pin-confirma.module').then( m => m.IngresaPinConfirmaPageModule),canActivate:[WebguardGuard]
   },
   {
     path: 'retirar-dinero',
-    loadChildren: () => import('./pages/modulos/retirar-dinero/retirar-dinero.module').then( m => m.RetirarDineroPageModule)
+    loadChildren: () => import('./pages/modulos/retirar-dinero/retirar-dinero.module').then( m => m.RetirarDineroPageModule),canActivate:[WebguardGuard]
   },
   {
     path: 'confirma-email',

@@ -70,43 +70,56 @@ export class LoginService extends ServiceService{
 
     });
   }
-  checkToken(url, json) {
-    return new Promise((resolve,rejects)=>{
+   checkToken(url, json) {
+    return new Promise(async (resolve,rejects)=>{
       if(!localStorage.getItem("token")){
+        console.log("No hay token");
         rejects(false);
       }
-
-      this.post<IcheckToken>(url, json, httpOption)
+      console.log(json);
+      await this.post<IcheckToken>(url, json, httpOption)
         .subscribe(async (data) => {
-          if (data != undefined && (data.check == 1 || data.check == 'true')) {
-            if(localStorage.getItem("token")!=data.cuentas[0].token){
-              localStorage.removeItem("token");
+          if (data != undefined && (data.check == 1 || data.check == 'true' || data.check == true)) {
+            // if(localStorage.getItem("token")!=data.cuentas[0].token){
+              if(data.cuentas.find((item)=>{
+                localStorage.getItem("token")==item;
+              })){
+              // localStorage.removeItem("token");
+              // localStorage.setItem("token",json.token);
               localStorage.removeItem("cuentas");
               localStorage.removeItem("nombreEmpresa");
               localStorage.removeItem("inicialesEmpresa");
               this.router.navigate(['/ingreso']);
-              rejects(false);
+              
+              return rejects(data);
             }
             console.log(`token localStorage: ${localStorage.getItem("token")}`);
             console.log(`checkToken: ${JSON.stringify(data)}`);
-
             localStorage.setItem("cuentas", JSON.stringify(data.cuentas));
-            resolve(true);
+            console.log(`sale bien`);
+            return  resolve(data);
           }
           else {
             let resp;
             await this.loginWithToken("api/loginwithtoken", json).then((data) => {
-              // console.log(data);
-              resolve(data);
+              console.log("aca loginWithToken");
+              console.log(data);
+              console.log(`sale bien`);
+              return  resolve(data);
               resp = true;
             }).catch((data) => {
-              rejects(data);
+              console.log("aca loginWithToken false");
+              console.log(data);
+              console.log(`sale bien`);
+              return  rejects(data);
               resp = false;
             });
             if (await resp) {
-              resolve(resp);
+              console.log(`sale bien`);
+              return resolve(resp);
             }
-            rejects(false);
+            console.log(`sale mal`);
+            return  rejects(false);
           }
         }) ;
     });

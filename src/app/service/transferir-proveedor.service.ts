@@ -55,8 +55,41 @@ export class TransferirProveedorService extends ServiceService {
         });
     });
     
+    
   }
-
+  public autorizaciones(offset=0,limit=-1,filtros) {
+    return new Promise((resolve,reject ) => {
+      httpOptions.headers.token = localStorage.getItem('token');
+      let postparams={offset:offset,limit:limit,nombre:filtros.nombre,
+                                    fecha_desde:filtros.fecha_desde,
+                                    fecha_hasta:filtros.fecha_hasta,
+                                    estado:filtros.estado
+                                  };
+      this.post<any>('api/transferencia/autorizaciones',postparams,httpOptions)
+        .subscribe(data => {
+          if (data.resultado != null && data.resultado == false) {
+              reject(data.log);
+          }
+          return resolve(data.extras[0]);
+        });
+    });
+    
+      
+    
+  }
+  public autorizar(item,permiso) {
+    return new Promise((resolve,reject ) => {
+      httpOptions.headers.token = localStorage.getItem('token');
+      let postparams={item,permiso:permiso};
+      this.post<any>('api/transferencia/autorizar',postparams,httpOptions)
+        .subscribe(data => {
+          if (data.resultado != null && data.resultado == false) {
+              reject(data.log);
+          }
+          return resolve(data.extras[0]);
+        });
+    });
+  }
 
 
 }

@@ -46,6 +46,8 @@ export class AuthGuardGuard implements CanActivate {
       AppComponent.login=true;
       return true;
     }).catch(data => {
+      console.log("sale por error");
+      console.log(data);
       console.log("cierro sesion");
       Observable.notify("error_token","");
       resp = false;

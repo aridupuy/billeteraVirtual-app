@@ -68,7 +68,7 @@ export class ServiceService extends HttpClient {
     // console.log("URL POST " + this.URL+url);
     // console.log(this.encrypt(body, CLAVE_ENCRIPTACION));
     // console.log(options);
-    options.headers.timeout=200;
+    options.headers.timeout=3000;
     let post = super.post<T>(this.URL + url, this.encrypt(body, CLAVE_ENCRIPTACION), options).pipe(
       //.pipe<T>(
       map((data) => {

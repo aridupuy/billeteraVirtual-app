@@ -15,8 +15,18 @@ export class WebguardGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if(this.platform.is("desktop") && !this.platform.is("android") && !this.platform.is("ios")){
-        
+      if( navigator.userAgent.match(/Android/i)
+      || navigator.userAgent.match(/webOS/i)
+      || navigator.userAgent.match(/iPhone/i)
+      || navigator.userAgent.match(/iPad/i)
+      || navigator.userAgent.match(/iPod/i)
+      || navigator.userAgent.match(/BlackBerry/i)
+      || navigator.userAgent.match(/Windows Phone/i))
+      {
+        return true;
+      }  
+    // if(this.platform.is("desktop") && !this.platform.is("android") && !this.platform.is("ios")){
+      else{
         return this.route.navigateByUrl("ingreso");
     }
     return true;

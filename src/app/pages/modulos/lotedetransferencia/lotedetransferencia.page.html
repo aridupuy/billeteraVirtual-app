@@ -24,6 +24,12 @@
           <div class="boton" *ngIf="!vistas['transferencias']">
             <span (click)="cambiar('transferencias')">Transferencias</span>
           </div>
+          <div class="boton active" *ngIf="vistas['autorizaciones']">
+            <span (click)="cambiar('autorizaciones')">Autorizaciones</span>
+          </div>
+          <div class="boton" *ngIf="!vistas['autorizaciones']">
+            <span (click)="cambiar('autorizaciones')">Autorizaciones</span>
+          </div>
         </div>
         <div class="oscurecido" *ngIf="vistas['cargar'] && !status.operationInProgress && mensaje==''">
           <h4 class="center">¿Necesitas realizar un lote de transferencias?</h4>
@@ -103,7 +109,6 @@
           <div class="table" *ngIf="transferencias.length>0">
             <div class="thead">
               <div class="tr">
-                <!-- <div><input type="checkbox"></div> -->
                 <div>Fecha</div>
                 <div>CUIT/CUIL</div>
                 <div>Nombre</div>
@@ -116,35 +121,113 @@
             <div class="tbody" *ngFor="let item of transferencias">
               <!--ACA VA EL FOR-->
               <div class="tr">
-                <!-- <div><input type="checkbox"></div> -->
                 <div>{{item.fecha}}</div>
                 <div>{{item.cuit}}</div>
                 <div>{{item.nombre}}</div>
                 <div>{{item.referencia}}</div>
                 <div>{{item.monto}}</div>
-                <div class="aprobado" *ngIf="item.estado==1">Aprobada</div>
-                <div class="rechazada" *ngIf="item.estado==0">Rechazada</div>
+                <div class="aprobado" *ngIf="item.estado==401">Aprobada</div>
+                <div class="aprobado" *ngIf="item.estado==1">Realizada</div>
+                <div class="rechazada" *ngIf="item.estado==0">Fallida</div>
+                <div class="rechazada" *ngIf="item.estado==403">Rechazada</div>
                 <div class="pendiente" *ngIf="item.estado==2">Pendiente</div>
+                <div class="autorizacion" *ngIf="item.estado==402">Autorizacion</div>
               </div>
             </div>
           </div>
-          <div class="flex paginador" *ngIf="transferencias_back.length>0">
+          <div class="flex paginador" *ngIf="transferencias_back!=null && transferencias_back.length>0">
             <div (click)="paginar('atras')"*ngIf="offset!=0"><ion-icon name="chevron-back-circle-outline"></ion-icon>Anterior</div>
             <div *ngIf="offset==0"></div>
             <div (click)="paginar('adel')" *ngIf="!(transferencias_back.length<limit)">Siguiente<ion-icon name="chevron-forward-circle-outline"></ion-icon></div>
             <div *ngIf="(transferencias_back.length<limit)"></div>
           </div>
         </div>
+        <div class="oscurecido" *ngIf="vistas['autorizaciones'] && !status.operationInProgress && mensaje==''">
+          <div class="filtros" >
+            <div class="filtro">
+              <div>
+                <span>Fecha</span>
+              </div>
+              <div>
+                <input type="date" placeholder="desde" class="fecha" [(ngModel)]="filtros.fecha_desde">
+                <input type="date" placeholder="hasta" class="fecha" [(ngModel)]="filtros.fecha_hasta">
+              </div>
+            </div>
+            <div class="filtro">
+              <span>Nombre</span>
+              <input type="text" placeholder="Nombre" [(ngModel)]="filtros.nombre">
+            </div>
+          </div>
+          <div class="row izquierda" >
+            <div>
+              <div type="" class="btn-round outline" (click)="limpiar_filtro()">limpiar</div>
+            </div>
+            <div>
+              <div type="" class="btn-round activo" (click)="filtrar_autorizaciones()">Continuar</div>
+            </div>
+
+          </div>
+          <div class="mensaje-bienvenida" *ngIf="autorizaciones.length==0">
+            <ion-icon name="wallet-outline"></ion-icon>
+            <h1 *ngIf="autorizaciones.length==0">Todavía no hay nada por acá</h1>
+            <h2 *ngIf="autorizaciones.length==0">¡Es hora de comenzar a hacer efectivo tu efectivo! Cuando lo hagas, acá vas a poder ver
+                todas las transferencias que realizaste.</h2>
+          </div>
+          <div class="filtro limit" *ngIf="autorizaciones_back.length>0">
+            <select [(ngModel)]="limit" (ngModelChange)="validar_pagina_auth()">
+              <option value="10">10</option>
+              <option value="100">100</option>
+              <option value="1000">1000</option>
+              <option value="5000">5000</option>
+            </select>
+          </div>
+          <div class="table" *ngIf="autorizaciones.length>0">
+            <div class="thead">
+              <div class="tr">
+                <div>Fecha</div>
+                <div>CUIT/CUIL</div>
+                <div>Nombre</div>
+                <div>Referencia</div>
+                <div>Monto</div>
+                <div>Estado</div>
+              </div>
+              <div></div>
+            </div>
+            <div class="tbody" *ngFor="let item of autorizaciones">
+              <!--ACA VA EL FOR-->
+              <div class="tr">
+                <div>{{item.fecha}}</div>
+                <div>{{item.cuit}}</div>
+                <div>{{item.nombre}}</div>
+                <div>{{item.referencia}}</div>
+                <div>{{item.monto}}</div>
+                
+                <!-- <div class="aprobado" *ngIf="item.estado==401">Aprobada</div> -->
+                <div class="aprobado" *ngIf="item.estado==402" (click)="autorizar(item,'aut')">Autorizar</div>
+                <div class="rechazada" *ngIf="item.estado==402" (click)="autorizar(item,'rech')">Rechazar</div>
+                <!-- <div class="rechazada" *ngIf="item.estado==403">Rechazada</div> -->
+              </div>
+            </div>
+          </div>
+          <div class="flex paginador" *ngIf="autorizaciones_back.length>0">
+            <div (click)="paginar_aut('atras')"*ngIf="offset!=0"><ion-icon name="chevron-back-circle-outline"></ion-icon>Anterior</div>
+            <div *ngIf="offset==0"></div>
+            <div (click)="paginar_aut('adel')" *ngIf="!(autorizaciones_back.length<limit)">Siguiente<ion-icon name="chevron-forward-circle-outline"></ion-icon></div>
+            <div *ngIf="(autorizaciones_back.length<limit)"></div>
+          </div>
+        </div>
+
+
         <div class="oscurecido" *ngIf="mensaje!=''">
           <h4 class="center">{{mensaje}}</h4>
         </div>
-        <div class="oscurecido" *ngIf="status.operationInProgress && mensaje==''">
+        <div class="oscurecido" *ngIf="status.operationInProgress && mensaje=='' && !vistas['transferencias'] && !vistas['autorizaciones']">
           <h4 class="center">Procesando transferencias {{status.porcentaje}}%</h4>
           <ion-progress-bar [value]="status.porcentaje/100"></ion-progress-bar>
         </div>
       
         
-        <div class="oscurecido" *ngIf="!status.operationInProgress && transferencias_erroneas.length>0 && !vistas['transferencias']">
+        <div class="oscurecido" *ngIf="!status.operationInProgress && transferencias_erroneas.length>0 && !vistas['transferencias'] && !vistas['autorizaciones']" >
           <h4 class="center">Transferencias con error {{(transferencias_erroneas.length*100)/fileLength}}%</h4>
           <div class="table">
             <div class="thead">
@@ -173,8 +256,8 @@
 
                 <div class="aprobado" *ngIf="item.status==1">Aprobada</div>
                 <div class="rechazada" *ngIf="item.status==0">Rechazada</div>
+                <div class="rechazada" *ngIf="item.status=='pendiente'">Autorizacion Pendiente</div>
                 <div *ngIf="item.status==0">{{item.error}}</div>
-                <!-- <div class="pendiente" *ngIf="false">Pendiente</div> -->
               </div>
             </div>
           </div>

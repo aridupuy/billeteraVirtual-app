@@ -64,7 +64,7 @@ export class LotedetransferenciaPage implements OnInit {
   };
   private index = 0;
   public transferencias_erroneas = [];
-  public transferencias_realizadas=[];
+  public transferencias_realizadas = [];
   public posiciones = {
     nombre: -1,
     apellido: -1,
@@ -77,11 +77,17 @@ export class LotedetransferenciaPage implements OnInit {
     email: -1,
   }
   public transferencias;
+  public autorizaciones;
+  public autorizaciones_back;
+
+  public offset_aut = 0;
+  public limit_aut = 10;
+  public filtros_aut;
   constructor(public alertController: AlertController, public TrasnferenciasService: TransferirProveedorService,
     public DestinatariosService: DestinatariosService,
     public destinatario: NuevoDestinatarioService) {
-      this.menuPrincipal=AppComponent.menu;
-     }
+    this.menuPrincipal = AppComponent.menu;
+  }
 
   change(event) {
     this.iconexcel.nativeElement.classList.remove("archivo-no-cargado");
@@ -98,28 +104,42 @@ export class LotedetransferenciaPage implements OnInit {
       transferencias: false
     }
     this.vistas[vista] = true;
+    this.status.operationInProgress = false;
+    switch (vista) {
+      case "transferencias":
+        this.filtrar();
+        break;
+      case "autorizaciones":
+        this.filtrar_autorizaciones();
+        break;
+    }
   }
-  offset = 0 ;
+  offset = 0;
   ngOnInit() {
-    this.TrasnferenciasService.transferencias(this.offset,this.limit,this.filtros).then(data => {
+    this.TrasnferenciasService.transferencias(this.offset, this.limit, this.filtros).then(data => {
       this.transferencias = data;
       this.transferencias_back = data;
       console.log(this.transferencias);
+    })
+    this.TrasnferenciasService.autorizaciones(this.offset, this.limit, this.filtros).then(data => {
+      this.autorizaciones = data;
+      console.log(this.autorizaciones);
+      this.autorizaciones_back = data;
     })
 
 
 
   }
   continuar() {
-    this.transferencias_erroneas=[];
-    this.transferencias_realizadas=[];
+    this.transferencias_erroneas = [];
+    this.transferencias_realizadas = [];
     Observable.suscribe("mensaje", async (msj) => {
       this.mensaje = msj;
     });
     this.fileLength = 0;
     this.status.porcentaje = 0;
-    this.status.operationInProgress = false,
-      Observable.notify("mensaje", "Leyendo archivo");
+    this.status.operationInProgress = false;
+    Observable.notify("mensaje", "Leyendo archivo");
     let reader = new FileReader();
     reader.onload = async function (e) {
       let data = new Uint8Array(e.target.result);
@@ -159,8 +179,8 @@ export class LotedetransferenciaPage implements OnInit {
   public fileLength;
   public mensaje = "";
   async process(dataset) {
-    this.index=0;
-    
+    this.index = 0;
+
     this.fileLength = dataset.length;
     Observable.suscribe("porcentaje", async (data) => {
       this.mensaje = "";
@@ -170,11 +190,20 @@ export class LotedetransferenciaPage implements OnInit {
 
         this.status.operationInProgress = false;
         this.status.porcentaje = 0;
+        let mensaje = "";
+        let header = "";
+        if(this.transferencias_erroneas.length==0){
+          header = "Transferencias Procesadas correctamente";
+          mensaje='<p class="align-left">Verifica el estado de tus transferencias en la pestaña de "Transferencias"</p>';
+        }else{  
+          header = "Transferencias con error";
+          mensaje='<p class="align-left">Verifica los errores de tus transferencias y vuelve a intentarlo</p>';
+        }
         const alert = await this.alertController.create({
           cssClass: 'my-custom-class',
-          header: 'Transferencias Completamente procesadas',
-          message: '<p class="align-left">Verifica el estado de tus transferencias en la pestaña de "Transferencias"</p>',
-          buttons: [
+          header: header,
+          message: mensaje,
+            buttons: [
             {
               text: ''
             },
@@ -182,54 +211,44 @@ export class LotedetransferenciaPage implements OnInit {
               text: 'Entendido',
               role: 'cancel',
               cssClass: 'primary'
-            }
-          ]
+          }
+        ]
 
-        });
-
+      });
         await alert.present();
       }
       this.setState(this.status);
     })
-    // console.log(dataset);
     let destinatarios: [];
     await this.DestinatariosService.obtener_destinatarios().then((data: any) => {
       destinatarios = data.data;
     });
-    // console.log(destinatarios);
     let destinatario;
     await dataset.forEach(async (row, index) => {
       destinatario = destinatarios.find((value: any) => {
-        // console.log(value.cuit == row[this.posiciones.cuil]);
-        console.log(value.alias || value.cvu || value.cbu);
-        console.log((value.cbu!=null && value.cbu == row[this.posiciones.cbu]));
-        console.log(( value.cvu!=null && value.cvu == row[this.posiciones.cvu]));
-        console.log((value.alias!=null && value.alias == row[this.posiciones.alias])); 
-        
         return (value.cuit == row[this.posiciones.cuil])
-              && ((value.cbu!=null && value.cbu == row[this.posiciones.cbu])
-                  ||( value.cvu!=null && value.cvu == row[this.posiciones.cvu])
-                  || (value.alias!=null && value.alias == row[this.posiciones.alias])
-                );
+          && ((value.cbu != null && value.cbu == row[this.posiciones.cbu])
+            || (value.cvu != null && value.cvu == row[this.posiciones.cvu])
+            || (value.alias != null && value.alias == row[this.posiciones.alias])
+          );
       });
       console.log(destinatario);
       if (!destinatario || destinatario == undefined) {
-        console.log("Generando nuevo destinatario");
         let referencia = row[this.posiciones.apellido] + " " + row[this.posiciones.nombre];
         let type;
         let dato;
         console.log(this.posiciones);
-        if (this.posiciones.cbu != -1 && row[this.posiciones.cbu]!=null) {
+        if (this.posiciones.cbu != -1 && row[this.posiciones.cbu] != null) {
           type = "cbu";
           dato = row[this.posiciones.cbu];
         }
         else
-          if (this.posiciones.alias != -1 && row[this.posiciones.alias]!=null) {
+          if (this.posiciones.alias != -1 && row[this.posiciones.alias] != null) {
             type = "alias";
             dato = row[this.posiciones.alias];
           }
           else
-            if (this.posiciones.cvu != -1 && row[this.posiciones.cvu]!=null) {
+            if (this.posiciones.cvu != -1 && row[this.posiciones.cvu] != null) {
               type = "cvu";
               dato = row[this.posiciones.cvu];
             }
@@ -270,13 +289,14 @@ export class LotedetransferenciaPage implements OnInit {
           console.log(destinatario);
         }
       }
-      
+
       if (destinatario) {
         await this.TrasnferenciasService.transferir_proveedor(destinatario.id_destinatario, row[this.posiciones.importe], row[this.posiciones.concepto], "VAR", row[this.posiciones.email]).then(data => {
           // console.log(data);
           // console.log(index, dataset.length);
           Observable.notify("porcentaje", [index, dataset.length]);
-          row["status"] = 1;
+          console.log(data);
+          row["status"] = data["data"]["estado"];
           this.transferencias_erroneas.push(row);
         }).catch((err: never) => {
           console.log(err);
@@ -302,31 +322,99 @@ export class LotedetransferenciaPage implements OnInit {
 
   async filtrar() {
     this.transferencias = this.transferencias_back
-    await this.TrasnferenciasService.transferencias(this.offset,this.limit,this.filtros).then(data => {
+    await this.TrasnferenciasService.transferencias(this.offset, this.limit, this.filtros).then(data => {
+      this.transferencias = data;
+      console.log(this.transferencias);
+      this.transferencias_back = data;
+    })
+  }
+
+
+  async filtrar_autorizaciones() {
+    this.autorizaciones = this.autorizaciones_back
+    await this.TrasnferenciasService.autorizaciones(this.offset, this.limit, this.filtros).then(data => {
+      this.autorizaciones = data;
+      console.log(this.autorizaciones);
+      this.autorizaciones_back = data;
+    })
+  }
+  async autorizar(item, permiso) {
+    let mensaje = "";
+    let header = "";
+    await this.TrasnferenciasService.autorizar(item, permiso).then(data => {
+      console.log("autorizado");
+      header = "Autorizado";
+      mensaje = data[0].log;
+      this.filtrar_autorizaciones();
+    }).catch(err => {
+      mensaje = err;
+      header = "No autorizado";
+      this.filtrar_autorizaciones();
+    })
+
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: header,
+      message: '<p class="align-left">' + mensaje + '</p>',
+      buttons: [
+        {
+          text: ''
+        },
+        {
+          text: 'Entendido',
+          role: 'cancel',
+          cssClass: 'primary'
+        }
+      ]
+
+    });
+
+    await alert.present();
+
+  }
+  validar_pagina() {
+    // if(this.transferencias.length<this.limit)
+    return this.filtrar();
+    // if(this.transferencias.length>this.limit)
+
+  }
+  validar_pagina_auth() {
+    // if(this.transferencias.length<this.limit)
+    return this.filtrar_autorizaciones();
+    // if(this.transferencias.length>this.limit)
+
+  }
+  public limit = 10;
+  async paginar(sentido) {
+    switch (sentido) {
+      case "adel":
+        this.offset += this.limit;
+        break
+      case "atras":
+        this.offset -= this.limit;
+        break
+    }
+    this.transferencias = this.transferencias_back
+    await this.TrasnferenciasService.transferencias(this.offset, this.limit, this.filtros).then(data => {
       this.transferencias = data;
       this.transferencias_back = data;
     })
   }
-  validar_pagina(){
-    // if(this.transferencias.length<this.limit)
-      return this.filtrar();
-    // if(this.transferencias.length>this.limit)
-      
-  }
-public limit =10;
-  async paginar(sentido) {
-    switch(sentido){
+
+
+  async paginar_aut(sentido) {
+    switch (sentido) {
       case "adel":
-        this.offset+=this.limit;
+        this.offset_aut += this.limit_aut;
         break
       case "atras":
-        this.offset-=this.limit;
+        this.offset_aut -= this.limit_aut;
         break
     }
-    this.transferencias = this.transferencias_back
-    await this.TrasnferenciasService.transferencias(this.offset,this.limit,this.filtros).then(data => {
-      this.transferencias = data;
-      this.transferencias_back = data;
+    this.autorizaciones = this.autorizaciones_back
+    await this.TrasnferenciasService.autorizaciones(this.offset_aut, this.limit_aut, this.filtros_aut).then(data => {
+      this.autorizaciones = data;
+      this.autorizaciones_back = data;
     })
   }
 

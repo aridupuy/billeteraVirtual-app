@@ -1,4 +1,4 @@
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class CambiarCuentaPage implements OnInit {
 
-  constructor(public modalCtrl:ModalController,public router:Router) { }
+  constructor(public modalCtrl:ModalController,public router:Router,public NavCtrl:NavController) { }
   
   public cuentas:any[];
   async ngOnInit() {
@@ -25,9 +25,8 @@ export class CambiarCuentaPage implements OnInit {
     localStorage.setItem("nombreEmpresa",cuenta.titular[0]);
     localStorage.setItem("inicialesEmpresa",cuenta.iniciales);
     this.modalCtrl.dismiss();
-    // location.href="/#/home";
-    // this.router.navigateByUrl("");
-    window.location.reload();
+    
+    this.NavCtrl.navigateRoot("home");
     
   }
   get_iniciales(cuenta){

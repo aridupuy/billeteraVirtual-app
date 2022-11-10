@@ -28,7 +28,6 @@ export class ProcesoAltaGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Promise<boolean> {
     var resp;
-    console.log(state);
     let val = Cookie.get("validador");
     if (!next.queryParamMap.has("param")) {
       console.log("aca2");
@@ -40,6 +39,7 @@ export class ProcesoAltaGuard implements CanActivate {
       //   return true;
       // }
       await this.proceso.validar().then(async (data: datosProceso) => {
+        console.log("DATA PROCESO ALTA");
         console.log(data);
         localStorage.setItem("proceso_alta",data.id_proceso_alta_usuario.toString());
 
@@ -121,8 +121,11 @@ export class ProcesoAltaGuard implements CanActivate {
       });
     }
     else {
+      console.log("sale por true");
       return true;
     }
+    console.log(resp);
+
     return resp;
   }
 

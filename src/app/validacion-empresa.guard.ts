@@ -19,9 +19,11 @@ export class ValidacionEmpresaGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Promise<boolean> {
       var resp=true;
+      console.log("ValidacionEmpresa Activate");
       if (!next.queryParamMap.has("param")) {
         var validador = parseInt(Cookie.get("validador"));
         await this.proceso.validar().then(async (data: datosProceso) => {
+          console.log(data.estado_cuenta);
           if(data.estado_cuenta==30){
             const navigationExtras: NavigationExtras = {
               queryParams: {
@@ -42,6 +44,7 @@ export class ValidacionEmpresaGuard implements CanActivate {
           return false;
         });
       }
+      console.log("ValidacionEmpresa DEActivate");
       return resp;
     }
 }

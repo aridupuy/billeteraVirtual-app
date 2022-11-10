@@ -172,7 +172,7 @@ export class AppComponent implements OnInit {
       setTimeout(() => {
         this.splashScreen.hide();
         AppComponent.splash = false;
-        document.getElementById("splash").setAttribute("class", "noVisible");
+        // document.getElementById("splash").setAttribute("class", "noVisible");
       }, 10);
 
     })
@@ -334,16 +334,20 @@ export class AppComponent implements OnInit {
     });
     console.log("aca");
     modal3.onDidDismiss().then(async (modalDataResponse) => {
+      
+      await menuController.close()
+      
+      
       console.log("ca RELOAD ");
       localStorage.removeItem("nombre");
       localStorage.removeItem("iniciales");
       this.iniciales = false;
       this.usuario = false;
       await localStorage.setItem("CambioCuenta", "1");
-
+      this.Router.navigateByUrl("");
       //this.ngOnInit();
-      await location.reload();
-
+      
+      
     });
     await modal3.present();
   }

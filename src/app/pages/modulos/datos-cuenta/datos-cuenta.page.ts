@@ -29,17 +29,12 @@ export class DatosCuentaPage implements OnInit {
   public usuario;
   constructor(private navCtrl: NavController, public usuarioService: UsuarioService) { }
 
-  ngOnInit() {
-    this.usuarioService.obtener_mis_datos().then((data: any) => {
-      console.log(data);
+  async ngOnInit() {
+    await this.usuarioService.obtener_mis_datos().then((data: any) => {
       this.username = data.nombre_usuario;
-      this.iniciales = data.nombre
-        .charAt(0)
-        .toUpperCase()
-        + data.apellido
-          .charAt(0)
-          .toUpperCase();
-      //     console.log(data.codArea+ data.celular);
+      this.iniciales = data.nombre?data.nombre.charAt(0).toUpperCase():""
+                    + data.apellido?data.apellido.charAt(0).toUpperCase():"";
+        // alert(this.iniciales);
         this.celular = data.cod_area+data.celular;
         this.email = data.email;
         this.apellido = data.apellido;
@@ -52,6 +47,8 @@ export class DatosCuentaPage implements OnInit {
         this.domicilio = data.direccion;
         this.nacionalidad = data.nacionalidad;
         this.usuario = data;
+    }).catch(err=>{
+      alert(err);
     });
 
   }
