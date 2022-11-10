@@ -65,18 +65,71 @@
               <!-- {{ saldoUsuario }} -->
             </ion-skeleton-text>
           </div>
-          <div class="botonera" *ngIf="validado">
-            <a *ngIf='puede(obtener_menu(),"ingreso-dinero")' (click)="MenuIngresoDinero()"><img
-                src="assets/img/ingresar-dinero.svg" alt="Ingresar Dinero"></a>
-            <a *ngIf='puede(obtener_menu(),"retiro-transferencia")' (click)="MenuTransferirDinero()"><img
-                src="assets/img/transferir-dinero.svg" alt="Transferir Dinero"></a>
-            <a *ngIf='puede(obtener_menu(),"retirar-dinero")' (click)="MenuRetiroDinero()"><img
-                src="assets/img/retirar-dinero.svg" alt="Retirar Dinero"></a>
-            <a *ngIf='puede(obtener_menu(),"Qr-pago")' (click)="MenuCodigoQR()"><img src="assets/img/codigo-qr.svg"
-                alt="Código QR"></a>
-          </div>
+          
 
         </div>
+        
+        <div class="CardButtons mt-10">
+          <div class="botonera" *ngIf="validado">
+            <a *ngIf='puede(obtener_menu(),"ingreso-dinero")' (click)="MenuIngresoDinero()">
+              <div class="contenedor-icon"> <img
+                src="assets/img/ICONOS-BILLETERA2-03.svg" alt="Ingresar Dinero"> </div><span>Ingresar <br> Dinero</span></a>    
+            <a *ngIf='puede(obtener_menu(),"retiro-transferencia")' (click)="MenuTransferirDinero()"><div class="contenedor-icon"> <img
+                src="assets/img/ICONOS-BILLETERA2-04.svg" alt="Transferir Dinero"> </div><span>Transferir  <br> Dinero</span></a>
+            <a *ngIf='puede(obtener_menu(),"retirar-dinero")' (click)="MenuRetiroDinero()"><div class="contenedor-icon"> <img
+                src="assets/img/ICONO-BILLETERA2-02.svg" alt="Retirar Dinero"> </div><span>Retirar  <br> Dinero</span></a>
+            <a *ngIf='puede(obtener_menu(),"Qr-pago")' (click)="MenuCodigoQR()"><img src="assets/img/codigo-qr.svg"
+                alt="Código QR"></a>
+                
+          </div>
+          
+
+        </div>
+        
+
+            <!-- Slider-->
+
+        <div class="contenedor-snap">
+          <section class="section-snap uno">
+            <div class="infoCardPromo">
+              <p>TODOS LOS DIAS</p>
+              <h3>PROMOCION EN TU PRIMERA COMPRA</h3>
+            </div>
+            <div class="imgCardPromo">
+             <img src="assets/img/cardPagos.svg">
+                         
+            </div> 
+            
+          </section>
+          <section class="section-snap dos">
+            <div class="infoCardPromo">
+              <p>JUSTO PARA VOS</p>
+              <h3>ENVIA DINERO FACIL Y RAPIDO</h3>
+            </div>
+            <div class="imgCardPromo">
+             <img src="assets/img/cardPagos2.svg">
+                         
+            </div> 
+            
+          </section>
+
+          <section class="section-snap tres">
+            <div class="infoCardPromo">
+              <p>CUIDANDOTE</p>
+              <h3>PAGOS 100% SEGUROS</h3>
+            </div>
+            <div class="imgCardPromo">
+             <img src="assets/img/cardPagos3.png">
+                         
+            </div> 
+            
+          </section>
+          
+          
+          
+        </div>
+
+
         <!-- Lista Ultimos Movimientos -->
         <div class="lista-ultimos-movimientos mt-10" *ngIf="items && validado">
           <div class="titulo">

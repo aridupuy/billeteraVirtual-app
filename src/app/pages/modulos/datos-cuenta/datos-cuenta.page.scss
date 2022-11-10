@@ -4,3 +4,14 @@
 .nombreUsuario{
     text-transform: capitalize;
 }
+.card-datos{
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            align-content: center;
+            padding: 7px 20px;
+            box-shadow: 0px 1px 5px 1px rgb(0 0 0 / 10%);
+            border-radius: 10px;
+            background: white;
+            width: 100%;
+}
