@@ -81,6 +81,10 @@ export class TransferenciaConfirmaPage implements OnInit {
     this.navCtrl.navigateBack("transferencia-monto",navigationExtras);
   }
   inciales(){
+    if(this.destinatario == null){
+      return this.libs.iniciales(this.p.nombre);
+    }
+    
     return this.libs.iniciales(this.destinatario.nombre+" "+this.destinatario.apellido);
   }
 }

@@ -30,16 +30,19 @@ export class ErrorComponent implements OnInit {
   constructor(public route:ActivatedRoute,private navCtrl: NavController) { }
 
   ngOnInit() {
-    // this.p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
-    // if(this.p.mensaje!=null && this.p.mensaje!='' && this.p.mensaje!=undefined ){
-    //   this.mensaje = this.mensaje;
-    // }
-    // if(this.p.reintentar!=null && this.p.reintentar!='' && this.p.reintentar!=undefined ){
-    //   this.reintent = this.p.reintentar;
-    // }
-    // if(!this.url)
-    //   this.url = this.p.goto;
-    // console.log(this);
+    this.p = JSON.parse(this.route.snapshot.queryParamMap.get("param"));
+    if(this.p.mensaje!=null && this.p.mensaje!='' && this.p.mensaje!=undefined ){
+      this.mensaje = this.mensaje;
+    }
+    if(this.p.reintentar!=null && this.p.reintentar!='' && this.p.reintentar!=undefined ){
+      this.reintent = this.p.reintentar;
+    }
+    if(!this.url)
+      this.url = this.p.goto;
+    if(typeof this.mensaje == 'object'){
+      this.mensaje=this.mensaje!["log"];
+    }
+    console.log(this.mensaje);
   }
   finalizar(){
     this.navCtrl.navigateForward("home");

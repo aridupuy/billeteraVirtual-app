@@ -132,19 +132,21 @@
     }
     
 }
-.uno{background: #56ab2f;  /* fallback for old browsers */
+.uno{
+  background: #56ab2f;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #a8e063, #56ab2f);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #a8e063, #56ab2f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
    }
-.dos{ background: #a8ff78;  /* fallback for old browsers */
+.dos{ 
+  background: #a8ff78;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to left, #78ffd6, #a8ff78);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to left, #78ffd6, #a8ff78); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   
  }
 .tres{
   background: #00F260;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to left, #0575E6, #00F260);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to left, #0575E6, #00F260); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: -webkit-linear-gradient(to left, #0575E6, #00F260);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #0575E6, #00F260); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
   }
   
@@ -166,7 +168,8 @@ background: linear-gradient(to left, #0575E6, #00F260); /* W3C, IE 10+/ Edge, Fi
     margin: 1em 1em 1em 1em;
     max-height: 40em;
   }
-  .botonera{
+
+  .botonera,.CardButtons{
     display: none !important;
   }
 }

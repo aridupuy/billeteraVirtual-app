@@ -3,8 +3,12 @@ import Integer from "@zxing/library/esm/core/util/Integer";
 export class Libs {
 
     public capitalize(txt: String): String {
+        console.log(txt);
         if(!txt)
             return txt;
+        if(typeof txt == 'object'){
+          txt=txt["log"];
+        }
         let text = txt.toLowerCase();
         let firstLetter = txt.charAt(0);
         firstLetter = firstLetter.toUpperCase();

@@ -18,9 +18,10 @@
       <div class="avatar-wrapper">
         <div class="avatar">{{inciales()}}</div>
       </div>
-      <div class="info-resultado">
+      <div class="info-resultado" *ngIf="destinatario">
         <h4 class="nombre">{{libs.capitalize(destinatario.nombre)}} {{libs.capitalize(destinatario.apellido)}}</h4>
-        <span class="banco">{{destinatario.nombre_banco}}</span>
+        <h4 class="nombre">{{libs.capitalize(p.nombre)}}</h4>
+        <span class="banco" >{{destinatario.nombre_banco}}</span>
         <span class="cbu" *ngIf="destinatario.cbu!='' && destinatario.cbu!=null">CBU: {{destinatario.cbu}}</span>
         <span class="cbu" *ngIf="destinatario.cvu!='' && destinatario.cvu!=null  ">CVU: {{destinatario.cvu}}</span>
         <span class="cbu" *ngIf="destinatario.alias!='' && destinatario.alias!=null">ALIAS: {{destinatario.alias}}</span>
@@ -31,7 +32,7 @@
       <img src="../../assets/img/transferencia/edit.svg" alt="Editar" class="edit-icon" (click)="editarCampos()">
       <h4 class="motivo">{{libs.capitalize(motivo)}}</h4>
       <p class="mensaje">{{libs.capitalize(mensaje)}}</p>
-      <span class="email">{{destinatario.email}}</span>
+      <span class="email" *ngIf="destinatario">{{destinatario.email}}</span>
     </div>
   </div>
   <div class="onboarding-btn-group">
